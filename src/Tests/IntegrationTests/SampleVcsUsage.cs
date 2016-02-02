@@ -3,9 +3,9 @@ using System.Net;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using TeamCitySharp.DomainEntities;
+using TeamCitySharper.DomainEntities;
 
-namespace TeamCitySharp.IntegrationTests
+namespace TeamCitySharper.IntegrationTests
 {
     [TestFixture]
     public class when_interacting_to_get_vcs_details

@@ -1,7 +1,7 @@
 ﻿using System.Security.Authentication;
 using NUnit.Framework;
 
-namespace TeamCitySharp.IntegrationTests
+namespace TeamCitySharper.IntegrationTests
 {
     [TestFixture]
     public class when_connecting_to_the_teamcity_server

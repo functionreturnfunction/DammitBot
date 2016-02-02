@@ -1,9 +1,9 @@
-﻿namespace TeamCitySharp.ActionTypes
+﻿namespace TeamCitySharper.ActionTypes
 {
     using FakeItEasy;
     using FluentAssertions;
     using NUnit.Framework;
-    using TeamCitySharp.Connection;
+    using TeamCitySharper.Connection;
 
     [TestFixture]
     public class ServerInformationTest

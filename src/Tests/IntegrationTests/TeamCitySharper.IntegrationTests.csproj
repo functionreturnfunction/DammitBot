@@ -8,8 +8,8 @@
     <ProjectGuid>{BA409A09-CC7B-4A71-A3D4-FE27234A721B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeamCitySharp.IntegrationTests</RootNamespace>
-    <AssemblyName>TeamCitySharp.IntegrationTests</AssemblyName>
+    <RootNamespace>TeamCitySharper.IntegrationTests</RootNamespace>
+    <AssemblyName>TeamCitySharper.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

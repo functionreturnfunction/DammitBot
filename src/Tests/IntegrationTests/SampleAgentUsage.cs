@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using NUnit.Framework;
-using TeamCitySharp.DomainEntities;
+using TeamCitySharper.DomainEntities;
 
-namespace TeamCitySharp.IntegrationTests
+namespace TeamCitySharper.IntegrationTests
 {
     [TestFixture]
     public class when_interacting_to_get_agent_details

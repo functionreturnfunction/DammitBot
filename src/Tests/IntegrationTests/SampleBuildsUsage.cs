@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Net;
 using NUnit.Framework;
-using TeamCitySharp.Locators;
+using TeamCitySharper.Locators;
 
-namespace TeamCitySharp.IntegrationTests
+namespace TeamCitySharper.IntegrationTests
 {
     [TestFixture]
     public class when_interacting_to_get_build_status_info

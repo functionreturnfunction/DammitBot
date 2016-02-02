@@ -7,8 +7,8 @@
     <ProjectGuid>{1DA175C4-2A6F-4B52-A9B4-87D382150AE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeamCitySharp</RootNamespace>
-    <AssemblyName>TeamCitySharp.UnitTests</AssemblyName>
+    <RootNamespace>TeamCitySharper</RootNamespace>
+    <AssemblyName>TeamCitySharper.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -63,13 +63,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TeamCitySharp\TeamCitySharper.csproj">
-      <Project>{87598714-132F-478E-866E-8C1AF3E83057}</Project>
-      <Name>TeamCitySharper</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\TeamCitySharper\TeamCitySharper.csproj">
+      <Project>{87598714-132f-478e-866e-8c1af3e83057}</Project>
+      <Name>TeamCitySharper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

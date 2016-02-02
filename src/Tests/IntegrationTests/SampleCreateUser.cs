@@ -5,7 +5,7 @@ using System.Security.Authentication;
 using System.Text;
 using NUnit.Framework;
 
-namespace TeamCitySharp.IntegrationTests
+namespace TeamCitySharper.IntegrationTests
 {
     [TestFixture]
     [Ignore]
