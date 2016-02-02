@@ -12,9 +12,6 @@ Please find the release notes [here](https://github.com/stack72/TeamCitySharp/re
 http://stack72.mit-license.org/
 
 ##Installation
-There are 2 ways to use TeamCitySharp:
-
-* install-package TeamCitysharp (via Nuget)
 * Download source and compile
 
 ##Build Monitor
@@ -22,30 +19,33 @@ There are 2 ways to use TeamCitySharp:
 
 ##Sample Usage
 To get a list of projects
-
+```csharp
     var client = new TeamCityClient("localhost:81");
     client.Connect("admin", "qwerty");
     var projects = client.Projects.All();
-
+```
 
 To get a list of running builds
-
+```csharp
     var client = new TeamCityClient("localhost:81");
     client.Connect("admin", "qwerty");
     var builds = client.Builds.ByBuildLocator(BuildLocator.RunningBuilds());
+```
 
 ##Connecting to a server
 
 To connect as an authenticated user:
-
+```csharp
     var client = new TeamCityClient("localhost:81");
     client.Connect("username", "password");
+```
 
 To connect as a Guest:
-
+```csharp
     var client = new TeamCityClient("localhost:81");
     client.ConnectAsGuest();
-    
+```
+
 ##API Interaction Groups
 There are many tasks that the TeamCity API can do for us. TeamCitySharp groups these tasks into specialist areas
 
@@ -62,7 +62,8 @@ There are many tasks that the TeamCity API can do for us. TeamCitySharp groups t
 Each area has its own list of methods available
 
 ###Builds
-    List<Build> SuccessfulBuildsByBuildConfigId(string buildConfigId);
+```csharp
+	List<Build> SuccessfulBuildsByBuildConfigId(string buildConfigId);
 	Build LastSuccessfulBuildByBuildConfigId(string buildConfigId);
 	List<Build> FailedBuildsByBuildConfigId(string buildConfigId);
 	Build LastFailedBuildByBuildConfigId(string buildConfigId);
@@ -77,8 +78,10 @@ Each area has its own list of methods available
 	List<Build> AllBuildsOfStatusSinceDate(DateTime date, BuildStatus buildStatus);
 	List<Build> NonSuccessfulBuildsForUser(string userName);
 	Build LastBuildByAgent(string agentName);
+```
 
 ###Projects
+```csharp
 	List<Project> All();
 	Project ByName(string projectLocatorName);
 	Project ById(string projectLocatorId);
@@ -87,8 +90,10 @@ Each area has its own list of methods available
 	void Delete(string projectName);
 	void DeleteProjectParameter(string projectName, string parameterName);
 	void SetProjectParameter(string projectName, string settingName, string settingValue);
+```
 
 ###BuildConfigs
+```csharp
 	List<BuildConfig> All();
 	BuildConfig ByConfigurationName(string buildConfigName);
 	BuildConfig ByConfigurationId(string buildConfigId);
@@ -121,13 +126,17 @@ Each area has its own list of methods available
     void DeleteAllBuildTypeParameters(BuildTypeLocator locator);
     void PutAllBuildTypeParameters(BuildTypeLocator locator, IDictionary<string, string> parameters);
     void DownloadConfiguration(BuildTypeLocator locator, Action<string> downloadHandler);
+```
 
 ###ServerInformation
+```csharp
     Server ServerInfo();
     List<Plugin> AllPlugins();
     string TriggerServerInstanceBackup(BackupOptions backupOptions);
+```
 
 ###Users
+```csharp
     List<User> All();
     User Details(string userName);
     List<Role> AllRolesByUserName(string userName);
@@ -137,25 +146,34 @@ Each area has its own list of methods available
     List<Role> AllUserRolesByUserGroup(string userGroupName);
     bool Create(string username, string name, string email, string password);
     bool AddPassword(string username, string password);
+```
 
 ###Agents
+```csharp
     List<Agent> All();
+```
 
 ###VcsRoots
+```csharp
     List<VcsRoot> All();
     VcsRoot ById(string vcsRootId);
     VcsRoot AttachVcsRoot(BuildTypeLocator locator, VcsRoot vcsRoot);
     void DetachVcsRoot(BuildTypeLocator locator, string vcsRootId);
     void SetVcsRootField(VcsRoot vcsRoot, VcsRootField field, object value);
+```
 
 ###Changes
+```csharp
     List<Change> All();
     Change ByChangeId(string id);
     Change LastChangeDetailByBuildConfigId(string buildConfigId);
     List<Change> ByBuildConfigId(string buildConfigId);
+```
 
 ###BuildArtifacts
+```csharp
     void DownloadArtifactsByBuildId(string buildId, Action<string> downloadHandler);
+```
 
 ##Credits
 
