@@ -11,5 +11,6 @@ output
 *.DotSettings.*
 nuget
 Package
+packages
 *.nupkg
 *.scgdat
