@@ -10,3 +10,5 @@ Thats it.  As of this writing, all the core bot is capable of doing is connectin
 
 ## Plugins
 
+### Commands
+
