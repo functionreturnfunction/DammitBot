@@ -2,33 +2,33 @@
 
 Configurable, modular chatbot written in c#.
 
-## Features
+# Features
 
 - Plugin system
 
 Thats it.  As of this writing, all the core bot is capable of doing is connecting to IRC, setting its nick and joining a channel.
 
-## Plugins
+# Plugins
 
 Plugins are implemented by implementing functionality that overlays/overwrites default functionality in the bot.  There are join points which allow plugins to add
 
-### Commands
+## Commands
 
 Commands are messages sent to the bot beginning with a name it has been configured to respond to.  The default name the bot will respond to is "bot" or "dammit bot".
 
-#### Die
+### Die
 
 Tells the bot to stop running.
 
-### Scheduling
+## Scheduling
 
 Scheduling plugins use Quartz.Scheduler to run code in backround threads at set schedules.
 
-#### Team City
+### Team City
 
 The TeamCity plugin will connect to the web API of a JetBrains TeamCity server to notify a chat room as builds pass or fail.
 
-## Libraries
+# Libraries
 
 DammitBot employs the following 3rd party libraries (mostly through nuget):
 
