@@ -41,4 +41,4 @@ DammitBot employs the following 3rd party libraries (mostly through nuget):
 - [log4net](https://www.nuget.org/packages/log4net/)
 - [Quartz](https://www.nuget.org/packages/Quartz/)
 - [StructureMap](https://www.nuget.org/packages/StructureMap/)
-- [TeamCitySharper](https://www.nuget.org/packages/TeamCitySharper/)
+- [TeamCitySharper](https://github.com/functionreturnfunction/TeamCitySharper)
