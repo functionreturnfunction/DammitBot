@@ -8,7 +8,7 @@ Configurable, modular chatbot written in c#.
 
 Thats it.  As of this writing, all the core bot is capable of doing is connecting to IRC, setting its nick and joining a channel.
 
-# Plugins
+# [Plugins](doc/Plugins.md)
 
 Plugins are implemented by implementing functionality that overlays/overwrites default functionality in the bot.  There are join points which allow plugins to add
 
