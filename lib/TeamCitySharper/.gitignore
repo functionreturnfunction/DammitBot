@@ -1,0 +1,16 @@
+obj
+bin
+deploy
+*.csproj.user
+*.suo
+*ReSharper*
+*.orig
+*.dotCover
+output
+*.TeamCitySharp.sln.metaproj*
+*.DotSettings.*
+nuget
+Package
+packages
+*.nupkg
+*.scgdat

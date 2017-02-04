@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CEB8ACB-F821-4DA4-8EFA-82B5812CC75A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DammitBot</RootNamespace>
+    <AssemblyName>DammitBot.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.4.1.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.4.1\lib\net40\Quartz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.4.2.472, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.2\lib\net45\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="BotTest.cs" />
+    <Compile Include="CommandHandlers\CommandHandlerFactoryTest.cs" />
+    <Compile Include="CommandHandlers\CommandsTest.cs" />
+    <Compile Include="CommandHandlers\CompositeCommandHandlerTest.cs" />
+    <Compile Include="Configuration\BotConfigurationSectionTest.cs" />
+    <Compile Include="Helpers\TeamCityHelperTest.cs" />
+    <Compile Include="Jobs\TeamCityJobTest.cs" />
+    <Compile Include="MessageHandlers\CommandMessageHandlerTest.cs" />
+    <Compile Include="MessageHandlers\CompositeMessageHandlerTest.cs" />
+    <Compile Include="Abstract\CompositeMessageHandlerTestBase.cs" />
+    <Compile Include="Abstract\CrazyMessageHandlerThingyTestBase.cs" />
+    <Compile Include="MessageHandlers\LogMessageHandlerTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlerFactoryTest.cs" />
+    <Compile Include="Abstract\MessageHandlerFactoryTestBase.cs" />
+    <Compile Include="MessageHandlers\MessagesTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLibrary\MyAssert.cs" />
+    <Compile Include="TestLibrary\UnitTestBase.cs" />
+    <Compile Include="Utilities\AssemblyServiceTest.cs" />
+    <Compile Include="Wrappers\InstantiationServiceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\TeamCitySharper\src\TeamCitySharper\TeamCitySharper.csproj">
+      <Project>{87598714-132F-478E-866E-8C1AF3E83057}</Project>
+      <Name>TeamCitySharper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
+      <Project>{609e8730-b010-479e-b5e2-b5bd32ab2fa9}</Project>
+      <Name>DammitBot.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Commands.Die\DammitBot.Plugins.Commands.Die.csproj">
+      <Project>{a6b391c9-dd3e-4ac4-9312-8ff70239a120}</Project>
+      <Name>DammitBot.Plugins.Commands.Die</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Commands.Help\DammitBot.Plugins.Commands.Help.csproj">
+      <Project>{588a0dba-260a-46df-b75a-42151e9d82ad}</Project>
+      <Name>DammitBot.Plugins.Commands.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Commands\DammitBot.Plugins.Commands.csproj">
+      <Project>{97f33830-25cc-43db-a8b8-bb1aedd3e036}</Project>
+      <Name>DammitBot.Plugins.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj">
+      <Project>{BCF61FB5-2425-457F-BBFD-72FE2F9967D0}</Project>
+      <Name>DammitBot.Plugins.MessageLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj">
+      <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
+      <Name>DammitBot.Plugins.Scheduling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj">
+      <Project>{3e6b5481-70f2-4249-a8a5-3f5b34c17c05}</Project>
+      <Name>DammitBot.Plugins.TeamCity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
