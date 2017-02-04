@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Commands.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamCitySharper", "..\lib\TeamCitySharper\src\TeamCitySharper\TeamCitySharper.csproj", "{87598714-132F-478E-866E-8C1AF3E83057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.TeamCity", "DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj", "{3E6B5481-70F2-4249-A8A5-3F5B34C17C05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Scheduling.TeamCity", "DammitBot.Plugins.Scheduling.TeamCity\DammitBot.Plugins.Scheduling.TeamCity.csproj", "{3E6B5481-70F2-4249-A8A5-3F5B34C17C05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Scheduling", "DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj", "{1BAF3352-9C56-468D-9F7D-FFDD40D27A27}"
 EndProject

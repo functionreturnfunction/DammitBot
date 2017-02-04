@@ -17,7 +17,7 @@ namespace DammitBot.Utilities
                 "DammitBot.Plugins.Commands.Help",
                 "DammitBot.Plugins.MessageLogging",
                 "DammitBot.Plugins.Scheduling",
-                "DammitBot.Plugins.TeamCity"
+                "DammitBot.Plugins.Scheduling.TeamCity"
             };
 
             var results = _target.GetAllAssemblies();

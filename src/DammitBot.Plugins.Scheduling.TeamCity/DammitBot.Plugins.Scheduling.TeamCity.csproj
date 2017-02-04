@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DammitBot</RootNamespace>
-    <AssemblyName>DammitBot.Plugins.TeamCity</AssemblyName>
+    <AssemblyName>DammitBot.Plugins.Scheduling.TeamCity</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
