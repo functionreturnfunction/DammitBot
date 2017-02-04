@@ -46,7 +46,7 @@ Base plugin implementing scheduling.
 
 Plugin implementing TeamCity build notifications.
 
-## Dependencies
+### Dependencies
 
 - Common.Logging
 - Common.Logging.Core
