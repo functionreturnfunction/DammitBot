@@ -10,9 +10,9 @@
         <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5.2" />
   </startup>
 
-  <DammitBot server="irc.rizon.net" nick="DammitBot" user="DammitBot" channel="#mmsi" goesBy="(?:new|dammit) bot" />
+  <DammitBot server="irc.rizon.net" nick="DammitBot" user="DammitBot" channel="#channel" goesBy="(?:new|dammit) bot" />
 
-  <TeamCity host="castlebravo:8111" login="jduncan" password="password#1" />
+  <TeamCity host="host:8111" login="login" password="password" />
 
   <log4net>
     <appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
