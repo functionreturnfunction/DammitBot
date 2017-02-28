@@ -71,6 +71,10 @@
       <Project>{97f33830-25cc-43db-a8b8-bb1aedd3e036}</Project>
       <Name>DammitBot.Plugins.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj">
+      <Project>{acb7d34d-0a69-413e-a2c7-316c2f6e7115}</Project>
+      <Name>DammitBot.Plugins.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj">
       <Project>{bcf61fb5-2425-457f-bbfd-72fe2f9967d0}</Project>
       <Name>DammitBot.Plugins.MessageLogging</Name>

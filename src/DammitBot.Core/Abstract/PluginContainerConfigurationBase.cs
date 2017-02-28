@@ -1,5 +1,4 @@
-﻿using DammitBot.Wrappers;
-using StructureMap;
+﻿using StructureMap;
 
 namespace DammitBot.Abstract
 {

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Schedulin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Commands.Help", "DammitBot.Plugins.Commands.Help\DammitBot.Plugins.Commands.Help.csproj", "{588A0DBA-260A-46DF-B75A-42151E9D82AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Data", "DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj", "{ACB7D34D-0A69-413E-A2C7-316C2F6E7115}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{588A0DBA-260A-46DF-B75A-42151E9D82AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588A0DBA-260A-46DF-B75A-42151E9D82AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588A0DBA-260A-46DF-B75A-42151E9D82AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB7D34D-0A69-413E-A2C7-316C2F6E7115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB7D34D-0A69-413E-A2C7-316C2F6E7115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB7D34D-0A69-413E-A2C7-316C2F6E7115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB7D34D-0A69-413E-A2C7-316C2F6E7115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
