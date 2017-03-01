@@ -1,6 +1,7 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 #addin "Cake.Compression"
 #addin nuget:?package=Cake.Git
+#addin "Cake.FluentMigrator"
 
 var target = Argument("target", "Default");
 var solutionFile = "./DammitBot.sln";
@@ -10,6 +11,16 @@ if (!FileExists("./tools/Addins/Cake.Compression/lib/net45/ICSharpCode.SharpZipL
     CopyFile("./tools/Addins/SharpZipLib/lib/20/ICSharpCode.SharpZipLib.dll",
         "./tools/Addins/Cake.Compression/lib/net45/ICSharpCode.SharpZipLib.dll");
 }
+
+Task("Migrate")
+    .IsDependentOn("BuildRelease")
+    .Does(() => {
+    FluentMigrator(new FluentMigratorSettings {
+        Connection = Argument("data_source", "Data Source=localhost;Initial Catalog=DammitBot;Integrated Security=true"),
+        Provider = "sqlserver",
+        Assembly = "./src/DammitBot.Plugins.Data/bin/Release/DammitBot.Plugins.Data.dll"
+	});
+});
 
 Task("Restore-NuGet-Packages")
 //    .IsDependentOn("Clean")
