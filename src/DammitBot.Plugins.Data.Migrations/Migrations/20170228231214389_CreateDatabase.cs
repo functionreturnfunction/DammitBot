@@ -10,12 +10,12 @@ namespace DammitBot.Data.Migrations
         {
             Create.Table("Users")
                 .WithIdentityColumn()
-                .WithColumn("Username").AsString(30).NotNullable()
+                .WithColumn("Username").AsString(30).NotNullable().Unique()
                 .WithTimestamps();
 
             Create.Table("Nicks")
                 .WithIdentityColumn()
-                .WithColumn("Nickname").AsString(255).NotNullable()
+                .WithColumn("Nickname").AsString(255).NotNullable().Unique()
                 .WithColumn("UserId").AsInt32().ForeignKey("FK_Nicks_Users_UserId", "Users", "Id").Nullable()
                 .WithTimestamps();
 

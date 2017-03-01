@@ -13,7 +13,6 @@ namespace DammitBot.Ioc
         {
             e.For(typeof(ISessionFactoryBuilder)).Singleton().Use(typeof(SessionFactoryBuilder));
             e.For(typeof(ISessionFactory)).Use(ctx => ctx.GetInstance<ISessionFactoryBuilder>().Build());
-            e.For(typeof(ISession)).Use(ctx => ctx.GetInstance<ISessionFactory>().OpenSession());
             e.For<IUnitOfWork>().Use<UnitOfWork>();
             e.For<IDataCommandHelper>().Use<DataCommandHelper>();
         }

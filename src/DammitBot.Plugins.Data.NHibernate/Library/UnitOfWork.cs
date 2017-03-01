@@ -17,12 +17,12 @@ namespace DammitBot.Data.NHibernate.Library
 
         #region Constructors
 
-        public UnitOfWork(ISession session, IContainer container)
+        public UnitOfWork(ISessionFactory sessionFactory, IContainer container)
         {
-            _session = session;
+            _session = sessionFactory.OpenSession();
             _container = container.GetNestedContainer();
             _container.Configure(e => {
-                e.For<ISession>().Use(session);
+                e.For<ISession>().Use(_session);
             });
             _session.FlushMode = FlushMode.Commit;
             _transaction = _session.BeginTransaction();
