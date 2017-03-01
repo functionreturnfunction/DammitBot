@@ -40,7 +40,7 @@ Task("Release")
 	.IsDependentOn("Build")
 	.Does(() => {
 
-	ZipCompress("./DammitBot.Console/bin/Release/", "./release.zip");
+	ZipCompress("./src/DammitBot.Console/bin/Release/", "./release.zip");
 });
 
 Task("Default")
