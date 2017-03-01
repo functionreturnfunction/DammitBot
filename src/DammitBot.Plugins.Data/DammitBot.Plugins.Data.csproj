@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Ioc\DataPluginContainerConfiguration.cs" />
     <Compile Include="Library\IDataCommandHelper.cs" />
+    <Compile Include="Library\IPersistenceService.cs" />
     <Compile Include="Library\IRepository.cs" />
     <Compile Include="Library\IUnitOfWork.cs" />
     <Compile Include="Library\IUnitOfWorkFactory.cs" />
+    <Compile Include="Library\PersistenceService.cs" />
     <Compile Include="Library\Repository.cs" />
     <Compile Include="Library\RepositoryBase.cs" />
     <Compile Include="Library\UnitOfWorkFactory.cs" />

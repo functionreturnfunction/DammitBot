@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using DammitBot.Data.Models;
 using DammitBot.MessageHandlers;
 using DammitBot.Wrappers;
 
@@ -10,6 +11,7 @@ namespace DammitBot.Events
         #region Private Members
 
         private readonly MessageEventArgs _innerMessageArgs;
+        private readonly Nick _from;
 
         #endregion
 
@@ -22,6 +24,8 @@ namespace DammitBot.Events
 
         [ExcludeFromCodeCoverage]
         public override IIrcMessage IrcMessage => _innerArgs?.IrcMessage ?? _innerMessageArgs.IrcMessage;
+
+        public virtual Nick From { get; }
 
         #endregion
 
@@ -36,9 +40,10 @@ namespace DammitBot.Events
             }
         }
 
-        public CommandEventArgs(MessageEventArgs args) : this((IPrivateMessageEventArgs)null)
+        public CommandEventArgs(MessageEventArgs args, Nick from) : this((IPrivateMessageEventArgs)null)
         {
             _innerMessageArgs = args;
+            _from = from;
             Command = ReadCommand(args.PrivateMessage.Message);
         }
 

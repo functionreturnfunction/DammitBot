@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq.Expressions;
 using DammitBot.CommandHandlers;
 using DammitBot.Configuration;
+using DammitBot.Data.Library;
+using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
 using DammitBot.Scheduling.Library;
@@ -8,6 +11,7 @@ using DammitBot.TestLibrary;
 using DammitBot.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Linq;
 
 namespace DammitBot.MessageHandlers
 {
@@ -19,6 +23,7 @@ namespace DammitBot.MessageHandlers
         private Mock<IIrcClientFactory> _ircClientFactory;
         private Mock<IIrcClient> _irc;
         private Mock<ICommandHandlerFactory> _commandHandlerFactory;
+        private Mock<IPersistenceService> _persistenceService;
 
         #endregion
 
@@ -59,11 +64,12 @@ namespace DammitBot.MessageHandlers
 
             #region Exposed Methods
 
-            public void TestMessage(string message)
+            public void TestMessage(string message, string nick)
             {
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.IrcMessage.RawMessage).Returns(message);
                 args.SetupGet(x => x.PrivateMessage.Message).Returns(message);
+                args.SetupGet(x => x.PrivateMessage.Nick).Returns(nick);
                 _irc.Raise(x => x.ChannelMessageRecieved += null, null, args.Object);
             }
 
@@ -99,14 +105,39 @@ namespace DammitBot.MessageHandlers
             Inject(out _commandHandlerFactory);
             Inject(new Mock<ISchedulerService>().Object);
             Inject(new Mock<ITeamCityHelper>().Object);
+            Inject(out _persistenceService);
         }
 
         #endregion
 
         [TestMethod]
-        public void TestAnyMethodIsLogged()
+        public void TestAnyMessageIsLogged()
         {
-            Assert.Inconclusive("test/functionality not yet written");
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new[] {new Nick {User = new User()} }.AsQueryable());
+
+            _target.TestMessage("blah blah blah", "foo");
+        }
+
+        [TestMethod]
+        public void TestMessageFromNickWithNoUserIsLogged()
+        {
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new[] {new Nick ()}.AsQueryable());
+
+            _target.TestMessage("blah blah blah", "foo");
+        }
+
+        [TestMethod]
+        public void TestMessageFromUnkownNickIsLogged()
+        {
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new Nick[] {}.AsQueryable());
+
+            _target.TestMessage("blah blah blah", "foo");
         }
 
         [TestMethod]
@@ -114,13 +145,52 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new[] {new Nick {User = new User()} }.AsQueryable());
 
-            _target.TestMessage("bot blah blah blah");
+            _target.TestMessage("bot blah blah blah", "foo");
 
             _commandHandlerFactory.Verify(
                 x =>
                     x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
                         .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")));
+        }
+
+        [TestMethod]
+        public void TestCommandDoesNotRunCommandIfNickDoesNotHaveUser()
+        {
+            _commandHandlerFactory.Setup(
+                x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new[] {new Nick()}.AsQueryable());
+
+            _target.TestMessage("bot blah blah blah", "foo");
+
+            _commandHandlerFactory.Verify(
+                x =>
+                    x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
+                        .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")), Times.Never);
+            
+        }
+
+        [TestMethod]
+        public void TestCommandDoesNotRunCommandIfNickNotRecognized()
+        {
+            _commandHandlerFactory.Setup(
+                x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            _persistenceService.Setup(
+                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+                .Returns(new Nick[] {}.AsQueryable());
+
+            _target.TestMessage("bot blah blah blah", "foo");
+
+            _commandHandlerFactory.Verify(
+                x =>
+                    x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
+                        .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")), Times.Never);
+            
         }
     }
 }

@@ -86,11 +86,9 @@
     <Compile Include="Configuration\BotConfigurationSectionTest.cs" />
     <Compile Include="Helpers\TeamCityHelperTest.cs" />
     <Compile Include="Jobs\TeamCityJobTest.cs" />
-    <Compile Include="MessageHandlers\CommandMessageHandlerTest.cs" />
     <Compile Include="MessageHandlers\CompositeMessageHandlerTest.cs" />
     <Compile Include="Abstract\CompositeMessageHandlerTestBase.cs" />
     <Compile Include="Abstract\CrazyMessageHandlerThingyTestBase.cs" />
-    <Compile Include="MessageHandlers\LogMessageHandlerTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlerFactoryTest.cs" />
     <Compile Include="Abstract\MessageHandlerFactoryTestBase.cs" />
     <Compile Include="MessageHandlers\MessagesTest.cs" />

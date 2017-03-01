@@ -17,15 +17,15 @@ namespace DammitBot.MessageHandlers
 
         #region Private Members
 
-        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IPersistenceService _persistenceService;
 
         #endregion
 
         #region Constructors
 
-        public LogMessageHandler(IUnitOfWorkFactory unitOfWorkFactory)
+        public LogMessageHandler(IPersistenceService persistenceService)
         {
-            _unitOfWorkFactory = unitOfWorkFactory;
+            _persistenceService = persistenceService;
         }
 
         #endregion
@@ -34,22 +34,17 @@ namespace DammitBot.MessageHandlers
 
         public void Handle(MessageEventArgs e)
         {
-            using (var uow = _unitOfWorkFactory.Build())
+            using (_persistenceService)
             {
-                var nickRepo = uow.GetRepository<Nick>();
-                var messageRepo = uow.GetRepository<Message>();
-
-                var nick = nickRepo.Where(n => n.Nickname == e.PrivateMessage.Nick).FirstOrDefault();
+                var nick = _persistenceService.Where<Nick>(n => n.Nickname == e.PrivateMessage.Nick).SingleOrDefault();
 
                 if (nick == null)
                 {
                     nick = new Nick {Nickname = e.PrivateMessage.Nick};
-                    nickRepo.Save(nick);
+                    _persistenceService.Save(nick);
                 }
 
-                messageRepo.Save(new Message {From = nick, Text = e.PrivateMessage.Message});
-
-                uow.Commit();
+                _persistenceService.Save(new Message {From = nick, Text = e.PrivateMessage.Message});
             }
         }
 
