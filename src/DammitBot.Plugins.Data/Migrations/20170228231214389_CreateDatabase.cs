@@ -14,12 +14,12 @@ namespace DammitBot.Data.Migrations
 
             Create.Table("Nicks")
                 .WithIdentityColumn()
-                .WithColumn("Nick").AsString(255).NotNullable()
+                .WithColumn("Nickname").AsString(255).NotNullable()
                 .WithColumn("UserId").AsInt32().ForeignKey("FK_Nicks_Users_UserId", "Users", "Id").Nullable();
 
             Create.Table("Messages")
                 .WithIdentityColumn()
-                .WithColumn("Message").AsString(512).NotNullable()
+                .WithColumn("Text").AsString(512).NotNullable()
                 .WithColumn("FromId").AsInt32().ForeignKey("FK_Messages_Nicks_FromId", "Nicks", "Id").NotNullable();
         }
 

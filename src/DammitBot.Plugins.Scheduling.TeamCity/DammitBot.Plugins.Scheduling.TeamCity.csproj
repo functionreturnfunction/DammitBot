@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Configuration\TeamCityConfigurationManager.cs" />
     <Compile Include="Configuration\ITeamCityConfigurationManager.cs" />
     <Compile Include="Configuration\TeamCityConfigurationSection.cs" />
     <Compile Include="Ioc\TeamCityPluginContainerConfiguration.cs" />
