@@ -42,26 +42,6 @@
       <HintPath>..\..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LeadPipe.Net, Version=2017.1.31.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LeadPipe.Net.2017.1.31.52\lib\net45\LeadPipe.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LeadPipe.Net.Data, Version=2017.1.31.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LeadPipe.Net.Data.2017.1.31.52\lib\net45\LeadPipe.Net.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LeadPipe.Net.Data.NHibernate, Version=2017.1.31.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LeadPipe.Net.Data.NHibernate.2017.1.31.52\lib\net45\LeadPipe.Net.Data.NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LeadPipe.Net.Data.NHibernate.StructureMap, Version=2017.1.31.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LeadPipe.Net.Data.NHibernate.StructureMap.2017.1.31.52\lib\net45\LeadPipe.Net.Data.NHibernate.StructureMap.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LeadPipe.Net.Domain, Version=2017.1.31.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LeadPipe.Net.Domain.2017.1.31.52\lib\net45\LeadPipe.Net.Domain.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -88,6 +68,7 @@
     <Compile Include="Configuration\DataConfigurationManager.cs" />
     <Compile Include="Configuration\IDataConfigurationManager.cs" />
     <Compile Include="Ioc\DataPluginContainerConfiguration.cs" />
+    <Compile Include="Library\ISessionFactoryBuilder.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Migrations\20170228231214389_CreateDatabase.cs" />
     <Compile Include="Library\FluentMigratorExtensions.cs" />

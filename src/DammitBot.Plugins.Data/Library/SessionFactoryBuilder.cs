@@ -2,7 +2,6 @@
 using DammitBot.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using LeadPipe.Net.Data.NHibernate;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 

@@ -15,6 +15,7 @@ namespace DammitBot.Utilities
                 "DammitBot.Plugins.Commands",
                 "DammitBot.Plugins.Commands.Die",
                 "DammitBot.Plugins.Commands.Help",
+                "DammitBot.Plugins.Data",
                 "DammitBot.Plugins.MessageLogging",
                 "DammitBot.Plugins.Scheduling",
                 "DammitBot.Plugins.Scheduling.TeamCity"
