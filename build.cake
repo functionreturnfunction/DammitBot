@@ -1,5 +1,6 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 #addin "Cake.Compression"
+#addin nuget:?package=Cake.Git
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -36,11 +37,18 @@ Task("Build")
     }
 });
 
+Task("CleanRelease")
+	.Does(() => {
+	DeleteFiles("release*.zip");
+});
+
 Task("Release")
 	.IsDependentOn("Build")
+	.IsDependentOn("CleanRelease")
 	.Does(() => {
 
-	ZipCompress("./src/DammitBot.Console/bin/Release/", "./release.zip");
+	var lastCommit = GitLogTip(".");
+	ZipCompress("./src/DammitBot.Console/bin/Release/", string.Format("./release-{0}-{1:yyyy-MM-dd-HHmmss}.zip", lastCommit.Sha.Substring(0, 8), lastCommit.Author.When, ".zip"));
 });
 
 Task("Default")
