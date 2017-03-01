@@ -247,3 +247,4 @@ ModelManifest.xml
 tools/
 
 src/DammitBot.Console/app.config
+release*.zip
