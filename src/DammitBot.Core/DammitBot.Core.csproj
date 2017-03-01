@@ -66,12 +66,15 @@
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerAttributeService.cs" />
     <Compile Include="MessageHandlers\MessageHandlerAttributeService.cs" />
+    <Compile Include="Utilities\DateTimeProvider.cs" />
+    <Compile Include="Utilities\IDateTimeProvider.cs" />
     <Compile Include="Utilities\IPluginService.cs" />
     <Compile Include="Utilities\AssemblyEnumerableExtensions.cs" />
     <Compile Include="Utilities\AssemblyExtensions.cs" />
     <Compile Include="Utilities\AssemblyService.cs" />
     <Compile Include="Utilities\IAssemblyService.cs" />
     <Compile Include="Utilities\PluginService.cs" />
+    <Compile Include="Utilities\TypeExtensions.cs" />
     <Compile Include="Wrappers\CreatePluginFamilyExpressionWrapper.cs" />
     <Compile Include="Wrappers\ICreatePluginFamilyExpression.cs" />
     <Compile Include="Wrappers\IInstantiationService.cs" />

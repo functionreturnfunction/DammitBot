@@ -15,6 +15,7 @@ namespace DammitBot.Wrappers
         #region Properties
 
         public string Message => _innerMessage.Message;
+        public string Nick => _innerMessage.User.Nick;
 
         #endregion
 

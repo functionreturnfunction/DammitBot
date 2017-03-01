@@ -13,18 +13,11 @@ namespace DammitBot.Ioc
 {
     public class DependencyRegistrar
     {
-        private readonly Container _container;
-
         #region Constructors
 
         static DependencyRegistrar()
         {
             XmlConfigurator.Configure();
-        }
-
-        public DependencyRegistrar(Container container)
-        {
-            _container = container;
         }
 
         #endregion
@@ -51,7 +44,7 @@ namespace DammitBot.Ioc
             var assemblyService = InitializePluginConfigurations(e);
 
             e.For<IAssemblyService>()
-                .Use<AssemblyService>().Singleton();
+                .Use(assemblyService).Singleton();
         }
 
         private static IAssemblyService InitializePluginConfigurations(ConfigurationExpression e)
@@ -76,10 +69,8 @@ namespace DammitBot.Ioc
 
         public static IInstantiationService GetContainer()
         {
-            var container = new Container();
-            var registrar = new DependencyRegistrar(container);
-
-            container.Configure(e => registrar.ConfigureContainer(e));
+            var registrar = new DependencyRegistrar();
+            var container = new Container(e => registrar.ConfigureContainer(e));
 
             return new InstantiationService(container);
         }

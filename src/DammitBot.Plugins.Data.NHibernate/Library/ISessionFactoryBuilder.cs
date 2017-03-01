@@ -1,6 +1,6 @@
 using NHibernate;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Data.NHibernate.Library
 {
     public interface ISessionFactoryBuilder
     {

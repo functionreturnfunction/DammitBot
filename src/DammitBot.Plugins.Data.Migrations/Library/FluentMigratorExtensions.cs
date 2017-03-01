@@ -6,7 +6,14 @@ namespace DammitBot.Data.Library
     {
         public static ICreateTableWithColumnOrSchemaOrDescriptionSyntax WithIdentityColumn(this ICreateTableWithColumnOrSchemaOrDescriptionSyntax that)
         {
-            return that.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable();
+            return that.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable().Unique();
+        }
+
+        public static ICreateTableWithColumnOrSchemaOrDescriptionSyntax WithTimestamps(this ICreateTableWithColumnOrSchemaOrDescriptionSyntax that)
+        {
+            return that
+                .WithColumn("CreatedAt").AsDateTime().NotNullable()
+                .WithColumn("UpdatedAt").AsDateTime().Nullable();
         }
     }
 }

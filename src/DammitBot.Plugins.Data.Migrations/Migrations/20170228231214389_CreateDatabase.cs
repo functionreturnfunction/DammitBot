@@ -10,17 +10,20 @@ namespace DammitBot.Data.Migrations
         {
             Create.Table("Users")
                 .WithIdentityColumn()
-                .WithColumn("Username").AsString(30).NotNullable();
+                .WithColumn("Username").AsString(30).NotNullable()
+                .WithTimestamps();
 
             Create.Table("Nicks")
                 .WithIdentityColumn()
                 .WithColumn("Nickname").AsString(255).NotNullable()
-                .WithColumn("UserId").AsInt32().ForeignKey("FK_Nicks_Users_UserId", "Users", "Id").Nullable();
+                .WithColumn("UserId").AsInt32().ForeignKey("FK_Nicks_Users_UserId", "Users", "Id").Nullable()
+                .WithTimestamps();
 
             Create.Table("Messages")
                 .WithIdentityColumn()
                 .WithColumn("Text").AsString(512).NotNullable()
-                .WithColumn("FromId").AsInt32().ForeignKey("FK_Messages_Nicks_FromId", "Nicks", "Id").NotNullable();
+                .WithColumn("FromId").AsInt32().ForeignKey("FK_Messages_Nicks_FromId", "Nicks", "Id").NotNullable()
+                .WithTimestamps();
         }
 
         public override void Down()

@@ -2,14 +2,14 @@
 using DammitBot.Data.Library;
 using StructureMap;
 
-// ReSharper disable once CheckNamespace
-namespace DammitBot.Ioc
+namespace DammitBot.Data.Ioc
 {
     public class DataPluginContainerConfiguration : PluginContainerConfigurationBase
     {
         public override void Configure(ConfigurationExpression e)
         {
-            e.For(typeof(ISessionFactoryBuilder)).Singleton().Use(typeof(SessionFactoryBuilder));
+            e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
+            e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
         }
     }
 }

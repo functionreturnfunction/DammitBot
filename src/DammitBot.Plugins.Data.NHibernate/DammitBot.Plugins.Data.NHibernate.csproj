@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44290BEB-4028-49C7-8D82-A80E5C0F51B8}</ProjectGuid>
+    <ProjectGuid>{1AF7215D-1D9B-4447-8F23-A36A8267BE7D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DammitBot.Data</RootNamespace>
-    <AssemblyName>DammitBot.Plugins.Data</AssemblyName>
+    <RootNamespace>DammitBot.Data.NHibernate</RootNamespace>
+    <AssemblyName>DammitBot.Plugins.Data.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Inflector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Inflector.1.0.0.0\lib\net45\Inflector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StructureMap, Version=4.4.3.564, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StructureMap.4.4.3\lib\net45\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -45,30 +61,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ioc\DataPluginContainerConfiguration.cs" />
-    <Compile Include="Library\IDataCommandHelper.cs" />
-    <Compile Include="Library\IRepository.cs" />
-    <Compile Include="Library\IUnitOfWork.cs" />
-    <Compile Include="Library\IUnitOfWorkFactory.cs" />
-    <Compile Include="Library\Repository.cs" />
-    <Compile Include="Library\RepositoryBase.cs" />
-    <Compile Include="Library\UnitOfWorkFactory.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Nick.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Configuration\DataConfigurationManager.cs" />
+    <Compile Include="Configuration\IDataConfigurationManager.cs" />
+    <Compile Include="Ioc\NHibernatePluginContainerConfiguration.cs" />
+    <Compile Include="Library\DataCommandHelper.cs" />
+    <Compile Include="Library\ISessionFactoryBuilder.cs" />
+    <Compile Include="Library\PreSaveEventListener.cs" />
+    <Compile Include="Library\SessionFactoryBuilder.cs" />
+    <Compile Include="Library\UnitOfWork.cs" />
+    <Compile Include="Mappings\MessageMap.cs" />
+    <Compile Include="Mappings\NickMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
       <Project>{609E8730-B010-479E-B5E2-B5BD32AB2FA9}</Project>
       <Name>DammitBot.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj">
+      <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>
+      <Name>DammitBot.Plugins.Data</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
