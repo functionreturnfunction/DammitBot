@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
@@ -25,7 +24,12 @@ namespace DammitBot
         private readonly IPluginService _pluginService;
         private IIrcClient _irc;
         private readonly ILog _log;
-        private bool _die, _running;
+
+        #endregion
+
+        #region Properties
+
+        public bool Running { get; private set; }
 
         #endregion
 
@@ -43,16 +47,6 @@ namespace DammitBot
         #endregion
 
         #region Private Methods
-
-        [ExcludeFromCodeCoverage]
-        private void Loop()
-        {
-            _running = true;
-            while (!_die)
-            {
-                
-            }
-        }
 
         private void Connect()
         {
@@ -85,7 +79,7 @@ namespace DammitBot
 
         public void Run()
         {
-            if (_running)
+            if (Running)
             {
                 throw new InvalidOperationException("Bot is already running.");
             }
@@ -93,7 +87,7 @@ namespace DammitBot
             _pluginService.Initialize();
 
             Connect();
-            Loop();
+            Running = true;
         }
 
         public void SayInChannel(string message)
@@ -103,7 +97,7 @@ namespace DammitBot
 
         public void Die()
         {
-            _die = true;
+            Running = false;
         }
 
         public void Dispose()

@@ -4,6 +4,12 @@ namespace DammitBot
 {
     public interface IBot : IDisposable
     {
+        #region Abstract Properties
+
+        bool Running { get; }
+
+        #endregion
+
         #region Abstract Methods
 
         void Run();
