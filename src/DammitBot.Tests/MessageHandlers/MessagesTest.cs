@@ -9,14 +9,15 @@ using DammitBot.Helpers;
 using DammitBot.Scheduling.Library;
 using DammitBot.TestLibrary;
 using DammitBot.Wrappers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
 using System.Linq;
 using DammitBot.Utilities;
+using Xunit;
 
 namespace DammitBot.MessageHandlers
 {
-    [TestClass]
+
     public class MessagesTest : UnitTestBase<MessagesTest.MessageTester>
     {
         #region Private Members
@@ -29,10 +30,9 @@ namespace DammitBot.MessageHandlers
 
         #region Setup/Teardown
 
-        [TestCleanup]
-        public override void TestCleanup()
+        public override void Dispose()
         {
-            base.TestCleanup();
+            base.Dispose();
             _target.Dispose();
         }
 
@@ -107,7 +107,7 @@ namespace DammitBot.MessageHandlers
 
         #endregion
 
-        [TestMethod]
+        [Fact]
         public void TestAnyMessageIsLogged()
         {
             _persistenceService.Setup(
@@ -117,7 +117,7 @@ namespace DammitBot.MessageHandlers
             _target.TestMessage("blah blah blah", "foo");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMessageFromNickWithNoUserIsLogged()
         {
             _persistenceService.Setup(
@@ -127,7 +127,7 @@ namespace DammitBot.MessageHandlers
             _target.TestMessage("blah blah blah", "foo");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMessageFromUnkownNickIsLogged()
         {
             _persistenceService.Setup(
@@ -137,7 +137,7 @@ namespace DammitBot.MessageHandlers
             _target.TestMessage("blah blah blah", "foo");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCommandRunsCommand()
         {
             _commandHandlerFactory.Setup(
@@ -154,7 +154,7 @@ namespace DammitBot.MessageHandlers
                         .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCommandDoesNotRunCommandIfNickDoesNotHaveUser()
         {
             _commandHandlerFactory.Setup(
@@ -172,7 +172,7 @@ namespace DammitBot.MessageHandlers
             
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCommandDoesNotRunCommandIfNickNotRecognized()
         {
             _commandHandlerFactory.Setup(

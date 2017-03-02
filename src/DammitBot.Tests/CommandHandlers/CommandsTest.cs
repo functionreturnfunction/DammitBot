@@ -6,12 +6,13 @@ using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
 using DammitBot.TestLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
+using Xunit;
 
 namespace DammitBot.CommandHandlers
 {
-    [TestClass]
+
     public class CommandsTest : UnitTestBase<CommandsTest.CommandTester>
     {
         #region Private Members
@@ -79,7 +80,7 @@ namespace DammitBot.CommandHandlers
             Inject(_persistenceService);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestBotDieCausesBotToDie()
         {
             _target.TestCommand("die");
@@ -87,7 +88,7 @@ namespace DammitBot.CommandHandlers
             _bot.Verify(x => x.Die());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetMatchingHandlersReturnsOnlyUnkownCommandHandlerForUnkownCommand()
         {
             _target.TestCommand("asdfasdfasdfasdf");

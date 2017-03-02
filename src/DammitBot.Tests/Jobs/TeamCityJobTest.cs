@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DammitBot.Helpers;
 using DammitBot.TestLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
 using TeamCitySharper.DomainEntities;
+using Xunit;
 
 namespace DammitBot.Jobs
 {
-    [TestClass]
+
     public class TeamCityJobTest : UnitTestBase<TeamCityJob>
     {
         private Mock<ITeamCityHelper> _helper;
@@ -24,7 +25,7 @@ namespace DammitBot.Jobs
             Inject(out _bot);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestExecuteInitializesHelperIfNotAlreadyInitialized()
         {
             _target.Execute(null);
@@ -32,7 +33,7 @@ namespace DammitBot.Jobs
             _helper.Verify(x => x.Initialize());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestExecuteDoesNotInitializeHelperIfAlreadyInitialized()
         {
             _helper.SetupGet(x => x.Initialized).Returns(true);
@@ -42,7 +43,7 @@ namespace DammitBot.Jobs
             _helper.Verify(x => x.Initialize(), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestExecuteDescribesAllLatestBuildsToChannel()
         {
             var builds = new[] {

@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using DammitBot.TestLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DammitBot.Utilities
 {
-    [TestClass]
+
     public class AssemblyServiceTest : UnitTestBase<AssemblyService>
     {
-        [TestMethod]
+        [Fact]
         public void TestAllAssembliesReturnsCoreDllAndPluginDlls()
         {
             var expected = new[] {
@@ -27,10 +27,10 @@ namespace DammitBot.Utilities
 
             foreach (var assembly in results)
             {
-                MyAssert.Contains(expected, assembly.GetName().Name);
+                Assert.Contains(assembly.GetName().Name, expected);
             }
 
-            Assert.AreEqual(expected.Length, results.Count(), "Did not find the correct number of assemblies.");
+            Assert.Equal(expected.Length, results.Count());
         }
     }
 }
