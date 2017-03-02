@@ -37,6 +37,8 @@ DammitBot employs the following 3rd party libraries (mostly through nuget):
 - [Common.Logging](https://www.nuget.org/packages/Common.Logging/)
 - [Common.Logging.Core](https://www.nuget.org/packages/Common.Logging.Core/)
 - [EasyHttp](https://www.nuget.org/packages/EasyHttp/)
+- [FluentMigrator](https://www.nuget.org/packages/FluentMigrator/)
+- [FluentNHibernate](https://www.nuget.org/packages/FluentNHibernate/)
 - [JsonFX](https://www.nuget.org/packages/JsonFx/)
 - [log4net](https://www.nuget.org/packages/log4net/)
 - [Quartz](https://www.nuget.org/packages/Quartz/)
