@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ChatSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ChatSharp.1.0.1\lib\net451\ChatSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -58,10 +54,12 @@
     <Compile Include="Abstract\IMessageHandlerAttributeService.cs" />
     <Compile Include="Abstract\IMessageHandlerRepository.cs" />
     <Compile Include="Abstract\IPlugin.cs" />
+    <Compile Include="Abstract\IPluginThingy.cs" />
+    <Compile Include="Abstract\IProtocol.cs" />
     <Compile Include="Abstract\MessageHandlerAttributeServiceBase.cs" />
     <Compile Include="Abstract\PluginContainerConfigurationBase.cs" />
     <Compile Include="Bot.cs" />
-    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\ConfigurationManagerBase.cs" />
     <Compile Include="Configuration\IConfigurationManager.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerAttributeService.cs" />
@@ -73,15 +71,15 @@
     <Compile Include="Utilities\AssemblyExtensions.cs" />
     <Compile Include="Utilities\AssemblyService.cs" />
     <Compile Include="Utilities\IAssemblyService.cs" />
+    <Compile Include="Abstract\PluginAssemblyServiceThingyBase.cs" />
+    <Compile Include="Utilities\IProtocolService.cs" />
     <Compile Include="Utilities\PluginService.cs" />
+    <Compile Include="Utilities\ProtocolService.cs" />
     <Compile Include="Utilities\TypeExtensions.cs" />
     <Compile Include="Wrappers\CreatePluginFamilyExpressionWrapper.cs" />
     <Compile Include="Wrappers\ICreatePluginFamilyExpression.cs" />
     <Compile Include="Wrappers\IInstantiationService.cs" />
-    <Compile Include="Wrappers\IIrcClientFactory.cs" />
     <Compile Include="Wrappers\InstantiationService.cs" />
-    <Compile Include="Wrappers\IPrivateMessageEventArgs.cs" />
-    <Compile Include="Wrappers\IrcClientFactory.cs" />
     <Compile Include="MessageHandlers\CompositeMessageHandler.cs" />
     <Compile Include="Configuration\BotConfigurationSection.cs" />
     <Compile Include="Ioc\DependencyRegistrar.cs" />
@@ -99,14 +97,7 @@
     <Compile Include="Metadata\IHandlesCommandAttribute.cs" />
     <Compile Include="Metadata\IHandlesMessageAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wrappers\IIrcClient.cs" />
-    <Compile Include="Wrappers\IIrcMessage.cs" />
-    <Compile Include="Wrappers\IPrivateMessage.cs" />
-    <Compile Include="Wrappers\IrcClientWrapper.cs" />
-    <Compile Include="Wrappers\IrcMessageWrapper.cs" />
     <Compile Include="Wrappers\ISmartInstance.cs" />
-    <Compile Include="Wrappers\PrivateMessageEventArgsWrapper.cs" />
-    <Compile Include="Wrappers\PrivateMessageWrapper.cs" />
     <Compile Include="Wrappers\SmartInstanceWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

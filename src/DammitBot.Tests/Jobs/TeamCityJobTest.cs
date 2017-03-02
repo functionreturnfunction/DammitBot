@@ -53,8 +53,8 @@ namespace DammitBot.Jobs
 
             _target.Execute(null);
 
-            _bot.Verify(x => x.SayInChannel($"Build foo 1 was successful: http://fooblah"));
-            _bot.Verify(x => x.SayInChannel($"Build bar 2 failed: http://barblah"));
+            _bot.Verify(x => x.SayToAll($"Build foo 1 was successful: http://fooblah"));
+            _bot.Verify(x => x.SayToAll($"Build bar 2 failed: http://barblah"));
         }
     }
 }

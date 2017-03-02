@@ -18,12 +18,9 @@ namespace DammitBot
 
         #region Private Members
 
-        private readonly BotConfigurationSection _config;
         private readonly IMessageHandlerFactory _handlerFactory;
-        private readonly IIrcClientFactory _ircClientFactory;
         private readonly IPluginService _pluginService;
-        private IIrcClient _irc;
-        private readonly ILog _log;
+        private readonly IProtocolService _protocolService;
 
         #endregion
 
@@ -35,26 +32,11 @@ namespace DammitBot
 
         #region Constructors
 
-        public Bot(IConfigurationManager configurationManager, IMessageHandlerFactory handlerFactory, IIrcClientFactory ircClientFactory, IPluginService pluginService, ILog log)
+        public Bot(IMessageHandlerFactory handlerFactory, IProtocolService protocolService, IPluginService pluginService)
         {
-            _config = configurationManager.BotConfig;
             _handlerFactory = handlerFactory;
-            _ircClientFactory = ircClientFactory;
+            _protocolService = protocolService;
             _pluginService = pluginService;
-            _log = log;
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Connect()
-        {
-            _log.Info($"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
-            _irc = _ircClientFactory.Build(_config);
-            _irc.ConnectionComplete += Irc_ConnectionComplete;
-            _irc.ChannelMessageRecieved += Irc_ChannelMessageReceived;
-            _irc.ConnectAsync();
         }
 
         #endregion
@@ -63,14 +45,7 @@ namespace DammitBot
 
         private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
         {
-            _log.Debug($"Message received: {e.IrcMessage.RawMessage}");
             _handlerFactory.BuildHandler(e).Handle(e);
-        }
-
-        private void Irc_ConnectionComplete(object sender, EventArgs e)
-        {
-            _log.Info($"Initial connection complete, joining channel '{_config.Channel}'");
-            _irc.JoinChannel(_config.Channel);
         }
 
         #endregion
@@ -84,15 +59,17 @@ namespace DammitBot
                 throw new InvalidOperationException("Bot is already running.");
             }
 
-            _pluginService.Initialize();
+            _protocolService.RegisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
 
-            Connect();
+            _pluginService.Initialize();
+            _protocolService.Initialize();
+
             Running = true;
         }
 
-        public void SayInChannel(string message)
+        public void SayToAll(string message)
         {
-            _irc.SendMessage(message, _config.Channel);
+            _protocolService.SayToAll(message);
         }
 
         public void Die()
@@ -103,8 +80,7 @@ namespace DammitBot
         public void Dispose()
         {
             _pluginService.Cleanup();
-            _irc.ConnectionComplete -= Irc_ConnectionComplete;
-            _irc.ChannelMessageRecieved -= Irc_ChannelMessageReceived;
+            _protocolService.UnregisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
         }
 
         #endregion

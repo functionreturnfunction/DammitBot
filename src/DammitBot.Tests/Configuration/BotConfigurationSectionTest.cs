@@ -24,10 +24,7 @@ namespace DammitBot.Configuration
         [TestMethod]
         public void TestValuesAreSetProperlyByConfigFile()
         {
-            Assert.AreEqual(_target.Channel, "channel");
-            Assert.AreEqual(_target.Nick, "nick");
-            Assert.AreEqual(_target.Server, "server");
-            Assert.AreEqual(_target.User, "user");
+            Assert.AreEqual(_target.GoesBy, "bot");
         }
     }
 }

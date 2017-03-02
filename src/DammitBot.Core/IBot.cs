@@ -13,7 +13,7 @@ namespace DammitBot
         #region Abstract Methods
 
         void Run();
-        void SayInChannel(string message);
+        void SayToAll(string message);
         void Die();
 
         #endregion

@@ -1,8 +1,8 @@
-﻿namespace DammitBot.Utilities
+﻿using DammitBot.Abstract;
+
+namespace DammitBot.Utilities
 {
-    public interface IPluginService
+    public interface IPluginService : IPluginThingy
     {
-        void Initialize();
-        void Cleanup();
     }
 }

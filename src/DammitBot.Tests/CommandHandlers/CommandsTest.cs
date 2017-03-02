@@ -52,8 +52,8 @@ namespace DammitBot.CommandHandlers
                                 It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
                     .Returns(new[] {new Nick {User = new User()}}.AsQueryable());
                 var args = new Mock<MessageEventArgs>();
-                args.SetupGet(x => x.PrivateMessage.Message).Returns("bot " + command);
-                args.SetupGet(x => x.PrivateMessage.Nick).Returns("foo");
+                args.SetupGet(x => x.Message).Returns("bot " + command);
+                args.SetupGet(x => x.User).Returns("foo");
                 _handler.Handle(args.Object);
             }
 
@@ -92,7 +92,7 @@ namespace DammitBot.CommandHandlers
         {
             _target.TestCommand("asdfasdfasdfasdf");
 
-            _bot.Verify(x => x.SayInChannel(string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
+            _bot.Verify(x => x.SayToAll(string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
         }
     }
 }

@@ -119,6 +119,10 @@
       <Project>{97f33830-25cc-43db-a8b8-bb1aedd3e036}</Project>
       <Name>DammitBot.Plugins.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data.NHibernate\DammitBot.Plugins.Data.NHibernate.csproj">
+      <Project>{1af7215d-1d9b-4447-8f23-a36a8267be7d}</Project>
+      <Name>DammitBot.Plugins.Data.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj">
       <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>
       <Name>DammitBot.Plugins.Data</Name>
@@ -126,6 +130,10 @@
     <ProjectReference Include="..\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj">
       <Project>{BCF61FB5-2425-457F-BBFD-72FE2F9967D0}</Project>
       <Name>DammitBot.Plugins.MessageLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj">
+      <Project>{1eead73e-9e85-4e5f-ab4f-d97340f72921}</Project>
+      <Name>DammitBot.Plugins.Protocols.Irc</Name>
     </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj">
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>

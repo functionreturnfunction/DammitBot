@@ -22,7 +22,7 @@ namespace DammitBot.CommandHandlers
 
         public override void Handle(CommandEventArgs e)
         {
-            _bot.SayInChannel(MESSAGE);
+            _bot.SayToAll(MESSAGE);
             _bot.Die();
         }
 

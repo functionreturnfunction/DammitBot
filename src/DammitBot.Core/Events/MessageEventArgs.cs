@@ -1,37 +1,26 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using DammitBot.Wrappers;
-
-namespace DammitBot.Events
+﻿namespace DammitBot.Events
 {
     public class MessageEventArgs
     {
-        #region Private Members
-
-        protected readonly IPrivateMessageEventArgs _innerArgs;
-
-        #endregion
-
-        #region Properties
-
-        [ExcludeFromCodeCoverage]
-        public virtual IIrcMessage IrcMessage => _innerArgs.IrcMessage;
-
-        [ExcludeFromCodeCoverage]
-        public virtual IPrivateMessage PrivateMessage => _innerArgs.PrivateMessage;
-
-        #endregion
-
-        #region Constructors
-
-        public MessageEventArgs(IPrivateMessageEventArgs args)
+        protected MessageEventArgs(string message, string channel, string protocol, string user)
         {
-            _innerArgs = args;
+            Message = message;
+            Channel = channel;
+            Protocol = protocol;
+            User = user;
         }
 
         /// <summary>
-        /// Only used for testing purposes!!!
+        /// for testing purposes only!!!
         /// </summary>
-        public MessageEventArgs() : this(null) {}
+        public MessageEventArgs() {}
+
+        #region Properties
+
+        public virtual string Message { get; }
+        public virtual string Channel { get; }
+        public virtual string Protocol { get; }
+        public virtual string User { get; }
 
         #endregion
     }

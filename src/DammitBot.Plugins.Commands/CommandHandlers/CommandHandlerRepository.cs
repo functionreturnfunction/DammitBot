@@ -19,7 +19,7 @@ namespace DammitBot.CommandHandlers
 
         protected override string GetMessage(CommandEventArgs message)
         {
-            return Regex.Match(message.PrivateMessage.Message, CommandMessageHandler.REGEX).Groups[1].Value;
+            return Regex.Match(message.Message, CommandMessageHandler.REGEX).Groups[1].Value;
         }
 
         #endregion

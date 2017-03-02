@@ -12,6 +12,8 @@ using DammitBot.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
+using DammitBot.Protocols.Irc.Configuration;
+using DammitBot.Protocols.Irc.Wrappers;
 
 namespace DammitBot.MessageHandlers
 {
@@ -67,9 +69,8 @@ namespace DammitBot.MessageHandlers
             public void TestMessage(string message, string nick)
             {
                 var args = new Mock<MessageEventArgs>();
-                args.SetupGet(x => x.IrcMessage.RawMessage).Returns(message);
-                args.SetupGet(x => x.PrivateMessage.Message).Returns(message);
-                args.SetupGet(x => x.PrivateMessage.Nick).Returns(nick);
+                args.SetupGet(x => x.Message).Returns(message);
+                args.SetupGet(x => x.User).Returns(nick);
                 _irc.Raise(x => x.ChannelMessageRecieved += null, null, args.Object);
             }
 
@@ -101,7 +102,7 @@ namespace DammitBot.MessageHandlers
             Inject(out _ircClientFactory);
             Inject(out _irc);
             _container.Inject(_irc);
-            _ircClientFactory.Setup(x => x.Build(It.IsAny<BotConfigurationSection>())).Returns(_irc.Object);
+            _ircClientFactory.Setup(x => x.Build(It.IsAny<IrcConfigurationSection>())).Returns(_irc.Object);
             Inject(out _commandHandlerFactory);
             Inject(new Mock<ISchedulerService>().Object);
             Inject(new Mock<ITeamCityHelper>().Object);

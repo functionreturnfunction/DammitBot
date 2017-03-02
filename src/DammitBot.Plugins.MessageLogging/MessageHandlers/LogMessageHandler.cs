@@ -36,15 +36,15 @@ namespace DammitBot.MessageHandlers
         {
             using (_persistenceService)
             {
-                var nick = _persistenceService.Where<Nick>(n => n.Nickname == e.PrivateMessage.Nick).SingleOrDefault();
+                var nick = _persistenceService.Where<Nick>(n => n.Nickname == e.User).SingleOrDefault();
 
                 if (nick == null)
                 {
-                    nick = new Nick {Nickname = e.PrivateMessage.Nick};
+                    nick = new Nick {Nickname = e.User};
                     _persistenceService.Save(nick);
                 }
 
-                _persistenceService.Save(new Message {From = nick, Text = e.PrivateMessage.Message});
+                _persistenceService.Save(new Message {From = nick, Text = e.Message});
             }
         }
 

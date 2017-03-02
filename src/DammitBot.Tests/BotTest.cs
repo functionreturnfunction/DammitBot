@@ -2,6 +2,7 @@
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
+using DammitBot.Protocols.Irc.Wrappers;
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
@@ -17,9 +18,8 @@ namespace DammitBot
 
         private Mock<BotConfigurationSection> _config;
         private Mock<IMessageHandlerFactory> _handlerFactory;
-        private Mock<IIrcClientFactory> _clientFactory;
-        private Mock<IIrcClient> _irc;
         private Mock<IPluginService> _pluginService;
+        private Mock<IProtocolService> _protocolService;
 
         #endregion
 
@@ -30,11 +30,9 @@ namespace DammitBot
             Mock<IConfigurationManager> manager;
             Inject(out manager);
             manager.SetupGet(x => x.BotConfig).Returns(_config.Object);
-            _config.SetupGet(x => x.Channel).Returns("#foo");
-            Inject(out _clientFactory);
             Inject(out _handlerFactory);
             Inject(out _pluginService);
-            _clientFactory.Setup(f => f.Build(_config.Object)).Returns((_irc = new Mock<IIrcClient>()).Object);
+            Inject(out _protocolService);
         }
 
         private void SafelyRunTarget()
@@ -44,13 +42,6 @@ namespace DammitBot
             _target.Run();
         }
 
-        [TestMethod]
-        public void TestRunGetsClientFromFactory()
-        {
-            SafelyRunTarget();
-
-            _clientFactory.Verify(f => f.Build(_config.Object));
-        }
 
         [TestMethod]
         public void TestRunThrowsExceptionIfAlreadyRunning()
@@ -60,43 +51,26 @@ namespace DammitBot
             MyAssert.Throws<InvalidOperationException>(() => _target.Run());
         }
 
-        [TestMethod]
-        public void TestConnectionCompleteJoinsTheConfiguredChannel()
-        {
-            var args = new Mock<EventArgs>();
-            SafelyRunTarget();
-            _irc.Raise(c => c.ConnectionComplete += null, null, args.Object);
+        // TODO:
+        //[TestMethod]
+        //public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
+        //{
+        //    var args = new Mock<MessageEventArgs>();
+        //    args.Setup(a => a.Message).Returns("foo");
+        //    _handlerFactory.Setup(f => f.BuildHandler(args.Object).Handle(args.Object));
+        //    SafelyRunTarget();
+        //    _protocolService.Raise(c => c.ChannelMessageRecieved += null, null, args.Object);
 
-            _irc.Verify(i => i.JoinChannel("#foo"));
-        }
-
-        [TestMethod]
-        public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
-        {
-            var args = new Mock<MessageEventArgs>();
-            args.Setup(a => a.IrcMessage.RawMessage).Returns("foo");
-            _handlerFactory.Setup(f => f.BuildHandler(args.Object).Handle(args.Object));
-            SafelyRunTarget();
-            _irc.Raise(c => c.ChannelMessageRecieved += null, null, args.Object);
-
-            _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
-        }
+        //    _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
+        //}
 
         [TestMethod]
-        public void TestRunConnectsClient()
+        public void TestSayToAllSaysToAll()
         {
             SafelyRunTarget();
+            _target.SayToAll("foo");
 
-            _irc.Verify(c => c.ConnectAsync());
-        }
-
-        [TestMethod]
-        public void TestSayInChannelSendsMessageToConfiguredChannel()
-        {
-            SafelyRunTarget();
-            _target.SayInChannel("foo");
-
-            _irc.Verify(c => c.SendMessage("foo", "#foo"));
+            _protocolService.Verify(c => c.SayToAll("foo"));
         }
 
         [TestMethod]

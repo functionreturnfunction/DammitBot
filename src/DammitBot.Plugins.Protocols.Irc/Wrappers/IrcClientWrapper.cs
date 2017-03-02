@@ -3,8 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using ChatSharp;
 using ChatSharp.Events;
 using DammitBot.Events;
+using DammitBot.Protocols.Irc.Events;
+using DammitBot.Wrappers;
 
-namespace DammitBot.Wrappers
+namespace DammitBot.Protocols.Irc.Wrappers
 {
     [ExcludeFromCodeCoverage]
     public class IrcClientWrapper : IIrcClient
@@ -30,7 +32,7 @@ namespace DammitBot.Wrappers
 
         private void InnerClient_ChannelMessageReceived(object sender, PrivateMessageEventArgs e)
         {
-            ChannelMessageRecieved?.Invoke(sender, new MessageEventArgs(new PrivateMessageEventArgsWrapper(e)));
+            ChannelMessageRecieved?.Invoke(sender, new IrcMessageEventArgs(new PrivateMessageEventArgsWrapper(e)));
         }
 
         private void InnerClient_ConnectionComplete(object sender, EventArgs e)

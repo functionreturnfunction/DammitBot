@@ -15,7 +15,7 @@ namespace DammitBot.MessageHandlers
 
         #region Private Methods
 
-        protected override string GetMessage(MessageEventArgs message) => message.PrivateMessage.Message;
+        protected override string GetMessage(MessageEventArgs message) => message.Message;
 
         #endregion
     }

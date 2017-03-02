@@ -52,7 +52,7 @@ namespace DammitBot.Jobs
 
             foreach (var build in _helper.GetLatestBuilds().ToList())
             {
-                _bot.SayInChannel(DescribeBuild(build));
+                _bot.SayToAll(DescribeBuild(build));
             }
         }
 

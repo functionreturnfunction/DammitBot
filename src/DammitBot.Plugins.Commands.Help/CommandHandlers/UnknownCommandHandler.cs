@@ -30,7 +30,7 @@ namespace DammitBot.CommandHandlers
 
         public override void Handle(CommandEventArgs e)
         {
-            _bot.SayInChannel(string.Format(MESSAGE, _botConfig.GoesBy));
+            _bot.SayToAll(string.Format(MESSAGE, _botConfig.GoesBy));
         }
 
         #endregion

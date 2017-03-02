@@ -8,22 +8,9 @@ namespace DammitBot.Events
 {
     public class CommandEventArgs : MessageEventArgs
     {
-        #region Private Members
-
-        private readonly MessageEventArgs _innerMessageArgs;
-        private readonly Nick _from;
-
-        #endregion
-
         #region Properties
 
         public virtual string Command { get; }
-
-        [ExcludeFromCodeCoverage]
-        public override IPrivateMessage PrivateMessage => _innerArgs?.PrivateMessage ?? _innerMessageArgs.PrivateMessage;
-
-        [ExcludeFromCodeCoverage]
-        public override IIrcMessage IrcMessage => _innerArgs?.IrcMessage ?? _innerMessageArgs.IrcMessage;
 
         public virtual Nick From { get; }
 
@@ -31,26 +18,16 @@ namespace DammitBot.Events
 
         #region Constructors
 
-        [ExcludeFromCodeCoverage]
-        public CommandEventArgs(IPrivateMessageEventArgs args) : base(args)
+        public CommandEventArgs(MessageEventArgs args, Nick from) : base(args?.Message, args?.Channel, args?.Protocol, args?.User)
         {
-            if (args != null)
-            {
-                Command = ReadCommand(args.PrivateMessage.Message);
-            }
-        }
-
-        public CommandEventArgs(MessageEventArgs args, Nick from) : this((IPrivateMessageEventArgs)null)
-        {
-            _innerMessageArgs = args;
-            _from = from;
-            Command = ReadCommand(args.PrivateMessage.Message);
+            From = from;
+            Command = ReadCommand(Message);
         }
 
         /// <summary>
-        /// Only used for testing purposes!!
+        /// for testing purposes only!!!
         /// </summary>
-        public CommandEventArgs() { }
+        public CommandEventArgs() : this(null, null) {}
 
         #endregion
 
