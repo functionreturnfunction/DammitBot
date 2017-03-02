@@ -35,7 +35,7 @@ namespace DammitBot.Protocols.Irc
         private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
         {
             _log.Debug($"Message received: {e.Message}");
-            ChannelMessageReceived.Invoke(sender, e);
+            ChannelMessageReceived?.Invoke(sender, e);
         }
 
         private void Irc_ConnectionComplete(object sender, EventArgs e)

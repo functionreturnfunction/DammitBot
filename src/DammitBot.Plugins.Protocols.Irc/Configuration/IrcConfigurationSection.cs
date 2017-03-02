@@ -12,7 +12,7 @@ namespace DammitBot.Protocols.Irc.Configuration
         {
             #region Constants
 
-            public const string SERVER = "server", NICK = "nick", USER = "user", CHANNELS = "channel";
+            public const string SERVER = "server", NICK = "nick", USER = "user", CHANNELS = "channels";
 
             #endregion
         }

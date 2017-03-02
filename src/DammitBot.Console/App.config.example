@@ -2,7 +2,7 @@
 <configuration>
   <configSections>
     <section name="DammitBot" type="DammitBot.Configuration.BotConfigurationSection, DammitBot.Core"/>
-    <section name="Irc" type="DammitBot.Protocols.Irc.Configuration.IrcConfigurationSection, DammitBot.Protocols.Irc"/>
+    <section name="Irc" type="DammitBot.Protocols.Irc.Configuration.IrcConfigurationSection, DammitBot.Plugins.Protocols.Irc"/>
     <section name="TeamCity" type="DammitBot.Configuration.TeamCityConfigurationSection, DammitBot.Plugins.Scheduling.TeamCity"/>
     <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
   </configSections>

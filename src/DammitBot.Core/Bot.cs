@@ -1,10 +1,7 @@
 ﻿using System;
-using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
-using DammitBot.Wrappers;
-using log4net;
 
 namespace DammitBot
 {
@@ -41,7 +38,7 @@ namespace DammitBot
 
         #endregion
 
-        #region Event Handlers
+        #region Private Methods
 
         private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
         {
@@ -59,10 +56,9 @@ namespace DammitBot
                 throw new InvalidOperationException("Bot is already running.");
             }
 
-            _protocolService.RegisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
-
             _pluginService.Initialize();
             _protocolService.Initialize();
+            _protocolService.RegisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
 
             Running = true;
         }
