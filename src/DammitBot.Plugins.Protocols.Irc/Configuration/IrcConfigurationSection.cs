@@ -38,7 +38,9 @@ namespace DammitBot.Protocols.Irc.Configuration
         public virtual string User => (string) this[Keys.USER];
 
         [ConfigurationProperty(Keys.CHANNELS, IsRequired = true)]
-        public virtual string[] Channels => this[Keys.CHANNELS].ToString().Split(',');
+        public virtual string ChannelsStr => this[Keys.CHANNELS].ToString();
+
+        public virtual string[] Channels => ChannelsStr.Split(',');
 
         #endregion
     }

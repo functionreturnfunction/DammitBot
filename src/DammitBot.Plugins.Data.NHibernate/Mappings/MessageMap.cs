@@ -9,6 +9,8 @@ namespace DammitBot.Data.NHibernate.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Text);
+            Map(x => x.Protocol);
+            Map(x => x.Channel);
             Map(x => x.CreatedAt).Not.Nullable();
             Map(x => x.UpdatedAt).Nullable();
             References(x => x.From);

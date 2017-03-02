@@ -44,7 +44,12 @@ namespace DammitBot.MessageHandlers
                     _persistenceService.Save(nick);
                 }
 
-                _persistenceService.Save(new Message {From = nick, Text = e.Message});
+                _persistenceService.Save(new Message {
+                    From = nick,
+                    Text = e.Message,
+                    Protocol = e.Protocol,
+                    Channel = e.Channel
+                });
             }
         }
 

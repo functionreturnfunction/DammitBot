@@ -22,6 +22,8 @@ namespace DammitBot.Data.Migrations
             Create.Table("Messages")
                 .WithIdentityColumn()
                 .WithColumn("Text").AsString(512).NotNullable()
+                .WithColumn("Protocol").AsString(15).Nullable()
+                .WithColumn("Channel").AsString(32).Nullable()
                 .WithColumn("FromId").AsInt32().ForeignKey("FK_Messages_Nicks_FromId", "Nicks", "Id").NotNullable()
                 .WithTimestamps();
         }
