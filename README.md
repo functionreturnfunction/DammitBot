@@ -39,6 +39,7 @@ DammitBot employs the following 3rd party libraries (mostly through nuget):
 - [EasyHttp](https://www.nuget.org/packages/EasyHttp/)
 - [FluentMigrator](https://www.nuget.org/packages/FluentMigrator/)
 - [FluentNHibernate](https://www.nuget.org/packages/FluentNHibernate/)
+- [Iesi.Collections](https://www.nuget.org/packages/Iesi.Collections/)
 - [JsonFX](https://www.nuget.org/packages/JsonFx/)
 - [log4net](https://www.nuget.org/packages/log4net/)
 - [Quartz](https://www.nuget.org/packages/Quartz/)
