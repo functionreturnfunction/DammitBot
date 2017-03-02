@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Abstract;
+using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
@@ -12,7 +13,7 @@ namespace DammitBot.CommandHandlers
     {
         #region Constructors
 
-        public UnknownCommandHandlerAwareCommandHandlerRepository(IAssemblyService assemblyService, MessageHandlerAttributeServiceBase<HandlesCommandAttribute> attributeService) : base(assemblyService, attributeService) {}
+        public UnknownCommandHandlerAwareCommandHandlerRepository(IAssemblyService assemblyService, MessageHandlerAttributeServiceBase<HandlesCommandAttribute> attributeService, IConfigurationManager configurationManager) : base(assemblyService, attributeService, configurationManager) {}
 
         #endregion
 
