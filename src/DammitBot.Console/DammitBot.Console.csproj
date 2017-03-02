@@ -87,6 +87,10 @@
       <Project>{bcf61fb5-2425-457f-bbfd-72fe2f9967d0}</Project>
       <Name>DammitBot.Plugins.MessageLogging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj">
+      <Project>{1eead73e-9e85-4e5f-ab4f-d97340f72921}</Project>
+      <Name>DammitBot.Plugins.Protocols.Irc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj">
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
       <Name>DammitBot.Plugins.Scheduling</Name>
