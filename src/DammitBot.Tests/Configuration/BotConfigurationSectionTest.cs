@@ -24,7 +24,7 @@ namespace DammitBot.Configuration
         [TestMethod]
         public void TestValuesAreSetProperlyByConfigFile()
         {
-            Assert.AreEqual(_target.GoesBy, "bot");
+            Assert.AreEqual("(?:dammit )?bot", _target.GoesBy);
         }
     }
 }

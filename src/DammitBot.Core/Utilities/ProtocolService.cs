@@ -20,19 +20,21 @@ namespace DammitBot.Utilities
             }
         }
 
-        public void RegisterChannelMessageReceivedHandler(EventHandler<MessageEventArgs> fn)
+        public event EventHandler<MessageEventArgs> ChannelMessageReceived
         {
-            foreach (var protocol in _thingies)
+            add
             {
-                protocol.ChannelMessageReceived += fn;
+                foreach (var protocol in _thingies)
+                {
+                    protocol.ChannelMessageReceived += value;
+                }
             }
-        }
-
-        public void UnregisterChannelMessageReceivedHandler(EventHandler<MessageEventArgs> fn)
-        {
-            foreach (var protocol in _thingies)
+            remove
             {
-                protocol.ChannelMessageReceived -= fn;
+                foreach (var protocol in _thingies)
+                {
+                    protocol.ChannelMessageReceived -= value;
+                }
             }
         }
     }

@@ -41,7 +41,7 @@ namespace DammitBot.Protocols.Irc
         private void Irc_ConnectionComplete(object sender, EventArgs e)
         {
             _log.Info($"Initial connection complete, joining channels '{_config.Channels}'");
-            foreach (var channel in _config.Channels.Split(','))
+            foreach (var channel in _config.Channels)
             {
                 _irc.JoinChannel(channel);
             }
@@ -54,7 +54,7 @@ namespace DammitBot.Protocols.Irc
 
         public void SayToAll(string message)
         {
-            throw new NotImplementedException();
+            _irc.SendMessage(message, _config.Channels);
         }
 
         public event EventHandler<MessageEventArgs> ChannelMessageReceived;

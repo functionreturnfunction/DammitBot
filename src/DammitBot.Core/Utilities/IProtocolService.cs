@@ -7,7 +7,6 @@ namespace DammitBot.Utilities
     public interface IProtocolService : IPluginThingy
     {
         void SayToAll(string message);
-        void RegisterChannelMessageReceivedHandler(EventHandler<MessageEventArgs> fn);
-        void UnregisterChannelMessageReceivedHandler(EventHandler<MessageEventArgs> fn);
+        event EventHandler<MessageEventArgs> ChannelMessageReceived;
     }
 }

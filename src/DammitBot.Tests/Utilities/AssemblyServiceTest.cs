@@ -12,10 +12,12 @@ namespace DammitBot.Utilities
         {
             var expected = new[] {
                 "DammitBot.Core",
+                "DammitBot.Plugins.Protocols.Irc",
                 "DammitBot.Plugins.Commands",
                 "DammitBot.Plugins.Commands.Die",
                 "DammitBot.Plugins.Commands.Help",
                 "DammitBot.Plugins.Data",
+                "DammitBot.Plugins.Data.NHibernate",
                 "DammitBot.Plugins.MessageLogging",
                 "DammitBot.Plugins.Scheduling",
                 "DammitBot.Plugins.Scheduling.TeamCity"

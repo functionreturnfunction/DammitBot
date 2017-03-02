@@ -58,7 +58,7 @@ namespace DammitBot
 
             _pluginService.Initialize();
             _protocolService.Initialize();
-            _protocolService.RegisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
+            _protocolService.ChannelMessageReceived += Irc_ChannelMessageReceived;
 
             Running = true;
         }
@@ -76,7 +76,7 @@ namespace DammitBot
         public void Dispose()
         {
             _pluginService.Cleanup();
-            _protocolService.UnregisterChannelMessageReceivedHandler(Irc_ChannelMessageReceived);
+            _protocolService.ChannelMessageReceived -= Irc_ChannelMessageReceived;
         }
 
         #endregion

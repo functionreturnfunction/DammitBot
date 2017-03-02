@@ -12,8 +12,7 @@ using DammitBot.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
-using DammitBot.Protocols.Irc.Configuration;
-using DammitBot.Protocols.Irc.Wrappers;
+using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers
 {
@@ -22,10 +21,9 @@ namespace DammitBot.MessageHandlers
     {
         #region Private Members
 
-        private Mock<IIrcClientFactory> _ircClientFactory;
-        private Mock<IIrcClient> _irc;
         private Mock<ICommandHandlerFactory> _commandHandlerFactory;
         private Mock<IPersistenceService> _persistenceService;
+        private Mock<IProtocolService> _protocolService;
 
         #endregion
 
@@ -47,19 +45,19 @@ namespace DammitBot.MessageHandlers
             #region Private Members
 
             private readonly IInstantiationService _instantiationService;
-            private readonly Mock<IIrcClient> _irc;
+            private readonly Mock<IProtocolService> _protocolService;
 
             #endregion
 
             #region Constructors
 
-            public MessageTester(Mock<IIrcClient> client, IInstantiationService instantiationService)
+            public MessageTester(IInstantiationService instantiationService, Mock<IProtocolService> svc)
             {
+                _protocolService = svc;
                 _instantiationService = instantiationService;
                 var bot = instantiationService.GetInstance<IBot>();
                 bot.Die();
                 bot.Run();
-                _irc = client;
             }
 
             #endregion
@@ -71,7 +69,7 @@ namespace DammitBot.MessageHandlers
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.Message).Returns(message);
                 args.SetupGet(x => x.User).Returns(nick);
-                _irc.Raise(x => x.ChannelMessageRecieved += null, null, args.Object);
+                _protocolService.Raise(x => x.ChannelMessageReceived += null, null, args.Object);
             }
 
             public void Dispose()
@@ -99,14 +97,12 @@ namespace DammitBot.MessageHandlers
                 i.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
             });
 
-            Inject(out _ircClientFactory);
-            Inject(out _irc);
-            _container.Inject(_irc);
-            _ircClientFactory.Setup(x => x.Build(It.IsAny<IrcConfigurationSection>())).Returns(_irc.Object);
             Inject(out _commandHandlerFactory);
             Inject(new Mock<ISchedulerService>().Object);
             Inject(new Mock<ITeamCityHelper>().Object);
             Inject(out _persistenceService);
+            Inject(out _protocolService);
+            Inject(_protocolService);
         }
 
         #endregion
