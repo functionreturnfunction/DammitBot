@@ -18,7 +18,7 @@ Plugin implementing the "die" command, which allows chat users to shut down the 
 
 - DammitBot.Plugins.Commands.dll
 
-## DammitBot.Plugins.Commands.Help
+## DammitBot.Plugins.Commands.Help.dll
 
 Plugin implmenting the "help" command, giving users a list of available commands and their usage, as well as an "unknown" command to refer users to usage instructions.
 
@@ -27,9 +27,11 @@ Plugin implmenting the "help" command, giving users a list of available commands
 - StructureMap
 - DammitBot.Plugins.Commands.dll
 
-## DammitBot.Plugins.MessageLogging
+## DammitBot.Plugins.MessageLogging.dll
 
-Not yet implemented.
+Plugin implementing message logging.
+
+- DammitBot.Plugins.Data.dll
 
 ## DammitBot.Plugins.Scheduling.dll
 
