@@ -5,8 +5,8 @@ Configurable, modular chatbot written in c#.
 # Features
 
 - Plugin system
-
-Thats it.  As of this writing, all the core bot is capable of doing is connecting to IRC, setting its nick and joining a channel.
+- TeamCity build notifications
+- Message logging
 
 # [Plugins](doc/Plugins.md)
 
@@ -27,6 +27,14 @@ Scheduling plugins use Quartz.Scheduler to run code in backround threads at set 
 ### Team City
 
 The TeamCity plugin will connect to the web API of a JetBrains TeamCity server to notify a chat room as builds pass or fail.
+
+## Protocols
+
+The core bot has no functionality to connect to any chat protocols, rather this functionality is provided by plugins.
+
+### Irc
+
+Irc is one of the protocols for which there is a plugin.  It is currently the only such protocol.
 
 # Libraries
 
