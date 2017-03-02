@@ -2,15 +2,22 @@
 <configuration>
   <configSections>
     <section name="DammitBot" type="DammitBot.Configuration.BotConfigurationSection, DammitBot.Core"/>
-    <section name="TeamCity" type="DammitBot.Configuration.TeamCityConfigurationSection, DammitBot.Plugins.Scheduling.TeamCity"/>
+    <section name="Irc" type="DammitBot.Protocols.Irc.Configuration.IrcConfigurationSection, DammitBot.Protocols.Irc"/>
+    <section name="TeamCity" type="DammitBot.Configuration.TeamCityConfigurationSection, DammitBot.Plugins.TeamCity"/>
     <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
   </configSections>
+
+  <connectionStrings>
+    <add name="MAIN" connectionString="connection string" />
+  </connectionStrings>
 
   <startup> 
         <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5.2" />
   </startup>
 
-  <DammitBot server="irc.rizon.net" nick="DammitBot" user="DammitBot" channel="#channel" goesBy="(?:new|dammit) bot" />
+  <DammitBot goesBy="(?:new|dammit) bot" />
+
+  <Irc server="irc.rizon.net" nick="DammitBot" user="DammitBot" channel="#channel" />
 
   <TeamCity host="host:8111" login="login" password="password" />
 
