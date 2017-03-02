@@ -64,7 +64,8 @@ Task("Release")
 	.IsDependentOn("CleanRelease")
 	.Does(() => {
 	var lastCommit = GitLogTip(".");
-	ZipCompress("./src/DammitBot.Console/bin/Release/", string.Format("./release-{0}-{1:yyyy-MM-dd-HHmmss}.zip", lastCommit.Sha.Substring(0, 8), lastCommit.Author.When, ".zip"));
+    CopyFile("./src/DammitBot.Console/App.config.example", "./src/DammitBot.Console/bin/Release/DammitBot.exe.config");
+	ZipCompress("./src/DammitBot.Console/bin/Release/", string.Format("./release-{0}-{1:yyyy-MM-dd-HHmmss}.zip", lastCommit.Sha.Substring(0, 8), lastCommit.Author.When));
 });
 
 Task("Default")

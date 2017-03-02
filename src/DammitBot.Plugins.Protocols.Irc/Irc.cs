@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DammitBot.Abstract;
+using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Protocols.Irc.Configuration;
 using DammitBot.Protocols.Irc.Wrappers;

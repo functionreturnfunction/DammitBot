@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
+using DammitBot.Protocols.Irc;
 
-namespace DammitBot.Protocols.Irc.Configuration
+// ReSharper disable once CheckNamespace
+namespace DammitBot.Configuration
 {
     public class IrcConfigurationSection : ConfigurationSection
     {

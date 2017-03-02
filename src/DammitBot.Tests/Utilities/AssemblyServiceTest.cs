@@ -20,7 +20,7 @@ namespace DammitBot.Utilities
                 "DammitBot.Plugins.Data.NHibernate",
                 "DammitBot.Plugins.MessageLogging",
                 "DammitBot.Plugins.Scheduling",
-                "DammitBot.Plugins.Scheduling.TeamCity"
+                "DammitBot.Plugins.TeamCity"
             };
 
             var results = _target.GetAllAssemblies();

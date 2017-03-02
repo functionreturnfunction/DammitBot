@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App.config.example" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +96,9 @@
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
       <Name>DammitBot.Plugins.Scheduling</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DammitBot.Plugins.Scheduling.TeamCity\DammitBot.Plugins.Scheduling.TeamCity.csproj">
+    <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj">
       <Project>{3e6b5481-70f2-4249-a8a5-3f5b34c17c05}</Project>
-      <Name>DammitBot.Plugins.Scheduling.TeamCity</Name>
+      <Name>DammitBot.Plugins.TeamCity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

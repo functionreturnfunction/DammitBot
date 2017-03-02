@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -139,9 +139,9 @@
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
       <Name>DammitBot.Plugins.Scheduling</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DammitBot.Plugins.Scheduling.TeamCity\DammitBot.Plugins.Scheduling.TeamCity.csproj">
+    <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj">
       <Project>{3e6b5481-70f2-4249-a8a5-3f5b34c17c05}</Project>
-      <Name>DammitBot.Plugins.Scheduling.TeamCity</Name>
+      <Name>DammitBot.Plugins.TeamCity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
