@@ -44,7 +44,7 @@ Base plugin implementing scheduling.
 - Quartz
 - StructureMap
 
-## DammitBot.Plugins.Scheduling.TeamCity.dll
+## DammitBot.Plugins.TeamCity.dll
 
 Plugin implementing TeamCity build notifications.
 
