@@ -1,5 +1,4 @@
 ﻿using System;
-using DammitBot.Abstract;
 using DammitBot.Events;
 using DammitBot.Protocols.Irc;
 using DammitBot.TestLibrary;
@@ -11,7 +10,13 @@ namespace DammitBot.Utilities
 {
     public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     {
+        #region Private Members
+
         private Mock<Irc> _irc;
+
+        #endregion
+
+        #region Private Methods
 
         protected override void ConfigureContainer()
         {
@@ -20,6 +25,10 @@ namespace DammitBot.Utilities
             Inject<IInstantiationService>(_container.GetInstance<InstantiationService>());
             Inject<IAssemblyService>(_container.GetInstance<AssemblyService>());
         }
+
+        #endregion
+
+        #region Exposed Methods
 
         [Fact]
         public void TestAttachingToChannelMessageReceivedAttachesToEachProtocol()
@@ -72,5 +81,7 @@ namespace DammitBot.Utilities
 
             _irc.Verify(x => x.SayToAll("foo"));
         }
+
+        #endregion
     }
 }
