@@ -7,18 +7,16 @@ namespace DammitBot.Utilities
 {
     public class ProtocolService : PluginAssemblyServiceThingyBase<IProtocol>, IProtocolService
     {
+        #region Constructors
+
         public ProtocolService(IAssemblyService assemblyService, IInstantiationService instantiationService)
             : base(assemblyService, instantiationService)
         {
         }
 
-        public void SayToAll(string message)
-        {
-            foreach (var protocol in _thingies)
-            {
-                protocol.SayToAll(message);
-            }
-        }
+        #endregion
+
+        #region Events/Delegates
 
         public event EventHandler<MessageEventArgs> ChannelMessageReceived
         {
@@ -37,5 +35,19 @@ namespace DammitBot.Utilities
                 }
             }
         }
+
+        #endregion
+
+        #region Exposed Methods
+
+        public void SayToAll(string message)
+        {
+            foreach (var protocol in _thingies)
+            {
+                protocol.SayToAll(message);
+            }
+        }
+
+        #endregion
     }
 }

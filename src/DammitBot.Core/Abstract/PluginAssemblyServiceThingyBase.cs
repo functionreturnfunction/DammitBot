@@ -9,9 +9,15 @@ namespace DammitBot.Abstract
     public abstract class PluginAssemblyServiceThingyBase<TThingy>
         where TThingy : IPluginThingy
     {
+        #region Private Members
+
         protected IAssemblyService _assemblyService;
         protected IInstantiationService _instantiationService;
         protected IList<TThingy> _thingies;
+
+        #endregion
+
+        #region Constructors
 
         public PluginAssemblyServiceThingyBase(IAssemblyService assemblyService, IInstantiationService instantiationService)
         {
@@ -19,6 +25,10 @@ namespace DammitBot.Abstract
             _instantiationService = instantiationService;
             _thingies = new List<TThingy>();
         }
+
+        #endregion
+
+        #region Exposed Methods
 
         public void Initialize()
         {
@@ -41,5 +51,7 @@ namespace DammitBot.Abstract
                 plugin.Cleanup();
             }
         }
+
+        #endregion
     }
 }

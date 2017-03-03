@@ -26,6 +26,11 @@ namespace DammitBot.Protocols.Irc
 
         #region Constructors
 
+        /// <summary>
+        /// For testing purposes only!!
+        /// </summary>
+        public Irc() { }
+
         public Irc(IIrcClientFactory ircClientFactory, IIrcConfigurationManager configurationManager, ILog log)
         {
             _ircClientFactory = ircClientFactory;
@@ -56,13 +61,13 @@ namespace DammitBot.Protocols.Irc
 
         #region Events/Delegates
 
-        public event EventHandler<MessageEventArgs> ChannelMessageReceived;
+        public virtual event EventHandler<MessageEventArgs> ChannelMessageReceived;
 
         #endregion
 
         #region Exposed Methods
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             _log.Info($"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
             _irc = _ircClientFactory.Build(_config);
@@ -71,9 +76,9 @@ namespace DammitBot.Protocols.Irc
             _irc.ConnectAsync();
         }
 
-        public void Cleanup() {}
+        public virtual void Cleanup() {}
 
-        public void SayToAll(string message)
+        public virtual void SayToAll(string message)
         {
             _irc.SendMessage(message, _config.Channels);
         }
