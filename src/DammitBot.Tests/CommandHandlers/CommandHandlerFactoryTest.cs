@@ -1,10 +1,16 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.Events;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DammitBot.CommandHandlers
 {
-    [TestClass]
+
     public class CommandHandlerFactoryTest : MessageHandlerFactoryTestBase<CommandHandlerFactory, ICommandHandlerRepository, ICommandHandler, CommandEventArgs>
-    {}
+    {
+        [Fact]
+        public override void TestHandleCallsHandleOnEachInnerHandler()
+        {
+            base.TestHandleCallsHandleOnEachInnerHandler();
+        }
+    }
 }

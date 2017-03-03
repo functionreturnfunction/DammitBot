@@ -1,11 +1,11 @@
-﻿using log4net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using log4net;
 using Moq;
 using StructureMap;
 
 namespace DammitBot.TestLibrary
 {
-    public abstract class UnitTestBase<TTarget>
+    public abstract class UnitTestBase<TTarget> : IDisposable
     {
         #region Private Members
 
@@ -52,8 +52,7 @@ namespace DammitBot.TestLibrary
 
         #region Setup/Teardown
 
-        [TestInitialize]
-        public virtual void TestInitialize()
+        public UnitTestBase()
         {
             _container = CreateContainer();
             Inject(out _log);
@@ -63,8 +62,7 @@ namespace DammitBot.TestLibrary
             _target = ConstructTarget();
         }
 
-        [TestCleanup]
-        public virtual void TestCleanup() {}
+        public virtual void Dispose() {}
 
         #endregion
     }

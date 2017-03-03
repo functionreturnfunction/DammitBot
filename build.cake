@@ -1,4 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+#tool nuget:?package=NUnit.ConsoleRunner
+#tool nuget:?package=xunit.runner.console
 #addin "Cake.Compression"
 #addin nuget:?package=Cake.Git
 #addin "Cake.FluentMigrator"
@@ -53,6 +54,12 @@ Task("BuildRelease")
 	}
 });
 
+Task("Test")
+    .IsDependentOn("BuildRelease")
+    .Does(() => {
+    XUnit2(GetFiles("./src/**/bin/Release/*.Tests.dll"));
+});
+
 
 Task("CleanRelease")
 	.Does(() => {
@@ -60,7 +67,7 @@ Task("CleanRelease")
 });
 
 Task("Release")
-	.IsDependentOn("BuildRelease")
+	.IsDependentOn("Test")
 	.IsDependentOn("CleanRelease")
 	.Does(() => {
 	var lastCommit = GitLogTip(".");

@@ -1,8 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
+
+using Xunit;
 
 namespace DammitBot.Configuration
 {
-    [TestClass]
+
     public class BotConfigurationSectionTest
     {
         #region Private Members
@@ -13,18 +15,17 @@ namespace DammitBot.Configuration
 
         #region Setup/Teardown
 
-        [TestInitialize]
-        public void TestInitialize()
+        public BotConfigurationSectionTest()
         {
             _target = (BotConfigurationSection)System.Configuration.ConfigurationManager.GetSection(BotConfigurationSection.SECTION_NAME);
         }
 
         #endregion
 
-        [TestMethod]
+        [Fact]
         public void TestValuesAreSetProperlyByConfigFile()
         {
-            Assert.AreEqual("(?:dammit )?bot", _target.GoesBy);
+            Assert.Equal("(?:dammit )?bot", _target.GoesBy);
         }
     }
 }

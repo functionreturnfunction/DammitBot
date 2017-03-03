@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using DammitBot.Events;
 using DammitBot.TestLibrary;
 using DammitBot.Wrappers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
+using Xunit;
 
 namespace DammitBot.Abstract
 {
@@ -50,8 +51,7 @@ namespace DammitBot.Abstract
 
         #region Test Methods
 
-        [TestMethod]
-        public void TestHandleCallsHandleOnEachInnerHandler()
+        public virtual void TestHandleCallsHandleOnEachInnerHandler()
         {
             var args = new TEventArgs();
             var instances = new List<Mock<TMessageHandler>>();

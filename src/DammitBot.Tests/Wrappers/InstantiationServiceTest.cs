@@ -1,12 +1,13 @@
 ﻿using System;
 using DammitBot.TestLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
 using StructureMap;
+using Xunit;
 
 namespace DammitBot.Wrappers
 {
-    [TestClass]
+
     public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     {
         #region Private Members
@@ -26,7 +27,7 @@ namespace DammitBot.Wrappers
             return new InstantiationService(_mockContainer.Object);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestDisposeDisposesContainer()
         {
             _target.Dispose();
@@ -34,22 +35,22 @@ namespace DammitBot.Wrappers
             _mockContainer.Verify(x => x.Dispose());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
         {
             var now = DateTime.Now;
             _mockContainer.Setup(x => x.GetInstance<DateTime>()).Returns(now);
 
-            Assert.AreEqual(now, _target.GetInstance<DateTime>());
+            Assert.Equal(now, _target.GetInstance<DateTime>());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetInstanceGetsInstanceFromContainer()
         {
             var now = DateTime.Now;
             _mockContainer.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);
 
-            Assert.AreEqual(now, _target.GetInstance(typeof(DateTime)));
+            Assert.Equal(now, _target.GetInstance(typeof(DateTime)));
         }
     }
 }

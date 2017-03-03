@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using DammitBot.Utilities.AssemblyExtensions;
-using log4net;
 
 namespace DammitBot.Utilities
 {

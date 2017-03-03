@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using DammitBot.Events;
+﻿using DammitBot.Events;
 using Moq;
 
 namespace DammitBot.Abstract
@@ -11,7 +10,13 @@ namespace DammitBot.Abstract
         where TMessageHandler : class, IMessageHandler<TEventArgs>
         where TEventArgs : MessageEventArgs, new()
     {
+        #region Private Members
+
         protected Mock<TMessageHandlerRepository> _repository;
+
+        #endregion
+
+        #region Private Methods
 
         protected override void ConfigureContainer()
         {
@@ -19,8 +24,6 @@ namespace DammitBot.Abstract
 
             Inject(out _repository);
         }
-
-        #region Private Methods
 
         protected override void TestMethod(TEventArgs args)
         {

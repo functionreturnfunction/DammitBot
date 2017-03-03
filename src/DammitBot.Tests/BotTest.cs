@@ -6,12 +6,13 @@ using DammitBot.Protocols.Irc.Wrappers;
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
+using Xunit;
 
 namespace DammitBot
 {
-    [TestClass]
+
     public class BotTest : UnitTestBase<Bot>
     {
         #region Private Members
@@ -43,16 +44,16 @@ namespace DammitBot
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestRunThrowsExceptionIfAlreadyRunning()
         {
             SafelyRunTarget();
 
-            MyAssert.Throws<InvalidOperationException>(() => _target.Run());
+            Assert.Throws<InvalidOperationException>(() => _target.Run());
         }
 
         // TODO:
-        //[TestMethod]
+        //[Fact]
         //public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
         //{
         //    var args = new Mock<MessageEventArgs>();
@@ -64,7 +65,7 @@ namespace DammitBot
         //    _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
         //}
 
-        [TestMethod]
+        [Fact]
         public void TestSayToAllSaysToAll()
         {
             SafelyRunTarget();
@@ -73,7 +74,7 @@ namespace DammitBot
             _protocolService.Verify(c => c.SayToAll("foo"));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestDisposingBotCleansUpPluginService()
         {
             SafelyRunTarget();

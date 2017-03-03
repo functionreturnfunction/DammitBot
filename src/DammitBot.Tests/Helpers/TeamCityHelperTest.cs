@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Castle.Components.DictionaryAdapter;
 using DammitBot.Configuration;
 using DammitBot.TestLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
 using TeamCitySharper;
 using TeamCitySharper.DomainEntities;
 using TeamCitySharper.Locators;
+using Xunit;
 
 namespace DammitBot.Helpers
 {
-    [TestClass]
+
     public class TeamCityHelperTest : UnitTestBase<TeamCityHelper>
     {
         private Mock<ITeamCityClient> _client;
@@ -29,10 +30,10 @@ namespace DammitBot.Helpers
             _config.SetupGet(x => x.Password).Returns("bar");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestInitializeConnectsAndGetsLastBuildFromClient()
         {
-            Assert.Inconclusive("funcitonality is written but test is being difficult to write");
+            // TODO: "funcitonality is written but test is being difficult to write"
             //_client.Setup(x => x.Connect("foo", "bar"));
             //_client.Setup(
             //    x => x.Builds.ByBuildLocator(BuildLocator.WithDimensions(null, null, null, null, null, null, null,
