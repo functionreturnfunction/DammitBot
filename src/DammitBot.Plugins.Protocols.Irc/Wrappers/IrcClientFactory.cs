@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ChatSharp;
 using DammitBot.Configuration;
-using DammitBot.Protocols.Irc.Configuration;
-using DammitBot.Wrappers;
 
 namespace DammitBot.Protocols.Irc.Wrappers
 {

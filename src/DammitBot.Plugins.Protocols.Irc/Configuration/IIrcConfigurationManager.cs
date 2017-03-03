@@ -1,10 +1,12 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using DammitBot.Configuration;
-
-namespace DammitBot.Protocols.Irc.Configuration
+﻿// ReSharper disable once CheckNamespace
+namespace DammitBot.Configuration
 {
     public interface IIrcConfigurationManager : IConfigurationManager
     {
+        #region Abstract Properties
+
         IrcConfigurationSection IrcConfigurationSection { get; }
+
+        #endregion
     }
 }

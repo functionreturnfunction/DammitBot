@@ -1,5 +1,4 @@
 ﻿using DammitBot.Configuration;
-using DammitBot.Protocols.Irc.Configuration;
 
 namespace DammitBot.Protocols.Irc.Wrappers
 {

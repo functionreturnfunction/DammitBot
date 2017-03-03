@@ -90,6 +90,8 @@
     <Compile Include="CommandHandlers\CommandsTest.cs" />
     <Compile Include="CommandHandlers\CompositeCommandHandlerTest.cs" />
     <Compile Include="Configuration\BotConfigurationSectionTest.cs" />
+    <Compile Include="Configuration\IrcConfigurationSectionTest.cs" />
+    <Compile Include="Configuration\TeamCityConfigurationSectionTest.cs" />
     <Compile Include="Helpers\TeamCityHelperTest.cs" />
     <Compile Include="Jobs\TeamCityJobTest.cs" />
     <Compile Include="MessageHandlers\CompositeMessageHandlerTest.cs" />
