@@ -8,5 +8,6 @@ namespace DammitBot.Utilities
     {
         void SayToAll(string message);
         event EventHandler<MessageEventArgs> ChannelMessageReceived;
+        void SayToChannel(string protocol, string channel, string message);
     }
 }

@@ -82,6 +82,17 @@ namespace DammitBot.Utilities
             _irc.Verify(x => x.SayToAll("foo"));
         }
 
+        [Fact]
+        public void TestSayToChannelSaysToSpecificChannelOfSpecificProtocol()
+        {
+            _irc.SetupGet(x => x.Name).Returns(Irc.PROTOCOL_NAME);
+            _target.Initialize();
+
+            _target.SayToChannel(Irc.PROTOCOL_NAME, "foo", "bar");
+
+            _irc.Verify(x => x.SayToChannel("foo", "bar"));
+        }
+
         #endregion
     }
 }

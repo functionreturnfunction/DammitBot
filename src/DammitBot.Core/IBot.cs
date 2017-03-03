@@ -1,4 +1,5 @@
 ﻿using System;
+using DammitBot.Events;
 
 namespace DammitBot
 {
@@ -15,6 +16,8 @@ namespace DammitBot
         void Run();
         void SayToAll(string message);
         void Die();
+
+        void ReplyToMessage(MessageEventArgs args, string response);
 
         #endregion
     }

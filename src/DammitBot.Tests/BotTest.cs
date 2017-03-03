@@ -2,11 +2,8 @@
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
-using DammitBot.Protocols.Irc.Wrappers;
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
-using DammitBot.Wrappers;
-
 using Moq;
 using Xunit;
 
@@ -23,6 +20,8 @@ namespace DammitBot
         private Mock<IProtocolService> _protocolService;
 
         #endregion
+
+        #region Private Methods
 
         protected override void ConfigureContainer()
         {
@@ -43,6 +42,9 @@ namespace DammitBot
             _target.Run();
         }
 
+        #endregion
+
+        #region Exposed Methods
 
         [Fact]
         public void TestRunThrowsExceptionIfAlreadyRunning()
@@ -52,18 +54,17 @@ namespace DammitBot
             Assert.Throws<InvalidOperationException>(() => _target.Run());
         }
 
-        // TODO:
-        //[Fact]
-        //public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
-        //{
-        //    var args = new Mock<MessageEventArgs>();
-        //    args.Setup(a => a.Message).Returns("foo");
-        //    _handlerFactory.Setup(f => f.BuildHandler(args.Object).Handle(args.Object));
-        //    SafelyRunTarget();
-        //    _protocolService.Raise(c => c.ChannelMessageRecieved += null, null, args.Object);
+        [Fact]
+        public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
+        {
+            var args = new Mock<MessageEventArgs>();
+            args.Setup(a => a.Message).Returns("foo");
+            _handlerFactory.Setup(f => f.BuildHandler(args.Object).Handle(args.Object));
+            SafelyRunTarget();
+            _protocolService.Raise(c => c.ChannelMessageReceived += null, null, args.Object);
 
-        //    _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
-        //}
+            _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
+        }
 
         [Fact]
         public void TestSayToAllSaysToAll()
@@ -75,6 +76,19 @@ namespace DammitBot
         }
 
         [Fact]
+        public void TestReplyToMessageRepliesToMessage()
+        {
+            var args = new Mock<MessageEventArgs>();
+            args.SetupGet(x => x.Protocol).Returns("foo");
+            args.SetupGet(x => x.Channel).Returns("bar");
+            SafelyRunTarget();
+
+            _target.ReplyToMessage(args.Object, "baz");
+
+            _protocolService.Verify(x => x.SayToChannel("foo", "bar", "baz"));
+        }
+
+        [Fact]
         public void TestDisposingBotCleansUpPluginService()
         {
             SafelyRunTarget();
@@ -83,5 +97,7 @@ namespace DammitBot
 
             _pluginService.Verify(x => x.Cleanup());
         }
+
+        #endregion
     }
 }

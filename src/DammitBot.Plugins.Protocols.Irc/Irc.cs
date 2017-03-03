@@ -17,10 +17,10 @@ namespace DammitBot.Protocols.Irc
 
         #region Private Members
 
-        private readonly IIrcClientFactory _ircClientFactory;
-        private readonly ILog _log;
-        private readonly IrcConfigurationSection _config;
-        private IIrcClient _irc;
+        protected readonly IIrcClientFactory _ircClientFactory;
+        protected readonly ILog _log;
+        protected readonly IrcConfigurationSection _config;
+        protected IIrcClient _irc;
 
         #endregion
 
@@ -62,6 +62,13 @@ namespace DammitBot.Protocols.Irc
         #region Events/Delegates
 
         public virtual event EventHandler<MessageEventArgs> ChannelMessageReceived;
+
+        public virtual string Name => PROTOCOL_NAME;
+
+        public virtual void SayToChannel(string channel, string message)
+        {
+            _irc.SendMessage(message, channel);
+        }
 
         #endregion
 

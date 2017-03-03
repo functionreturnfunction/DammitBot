@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Events;
 using DammitBot.Wrappers;
@@ -49,5 +50,10 @@ namespace DammitBot.Utilities
         }
 
         #endregion
+
+        public void SayToChannel(string protocol, string channel, string message)
+        {
+            _thingies.Single(x => x.Name == protocol).SayToChannel(channel, message);
+        }
     }
 }

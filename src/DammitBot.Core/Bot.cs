@@ -73,6 +73,11 @@ namespace DammitBot
             Running = false;
         }
 
+        public void ReplyToMessage(MessageEventArgs args, string response)
+        {
+            _protocolService.SayToChannel(args.Protocol, args.Channel, response);
+        }
+
         public void Dispose()
         {
             _pluginService.Cleanup();

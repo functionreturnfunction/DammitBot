@@ -45,7 +45,7 @@ namespace DammitBot.CommandHandlers
 
             #region Exposed Methods
 
-            public void TestCommand(string command)
+            public Mock<MessageEventArgs> TestCommand(string command)
             {
                 _persistenceService.Setup(
                         x =>
@@ -56,6 +56,7 @@ namespace DammitBot.CommandHandlers
                 args.SetupGet(x => x.Message).Returns("bot " + command);
                 args.SetupGet(x => x.User).Returns("foo");
                 _handler.Handle(args.Object);
+                return args;
             }
 
             #endregion
@@ -86,6 +87,14 @@ namespace DammitBot.CommandHandlers
             _target.TestCommand("die");
 
             _bot.Verify(x => x.Die());
+        }
+
+        [Fact]
+        public void TestBotRemindMeCausesReminderyThingsToHappen()
+        {
+            var args = _target.TestCommand("remind me to do things in a minute");
+
+            _bot.Verify(x => x.ReplyToMessage(args.Object, "Reminder set for ..."));
         }
 
         [Fact]
