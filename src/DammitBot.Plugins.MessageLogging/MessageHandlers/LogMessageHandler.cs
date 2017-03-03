@@ -36,7 +36,7 @@ namespace DammitBot.MessageHandlers
         {
             using (_persistenceService)
             {
-                var nick = _persistenceService.Where<Nick>(n => n.Nickname == e.User).SingleOrDefault();
+                var nick = _persistenceService.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
 
                 if (nick == null)
                 {

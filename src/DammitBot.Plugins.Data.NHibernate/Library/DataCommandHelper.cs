@@ -36,9 +36,9 @@ namespace DammitBot.Data.NHibernate.Library
             return _session.Load<T>(id);
         }
 
-        public IQueryable<T> Where<T>(Expression<Func<T, bool>> fn)
+        public IQueryable<T> GetQueryable<T>()
         {
-            return _session.Query<T>().Where(fn);
+            return _session.Query<T>();
         }
 
         #endregion

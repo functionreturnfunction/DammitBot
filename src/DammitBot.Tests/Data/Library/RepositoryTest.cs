@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DammitBot.Data.Models;
@@ -41,8 +42,7 @@ namespace DammitBot.Data.Library
         public void TestWhereRunsSearch()
         {
             var entity = new Nick {Id = 1};
-            _dataCommandHelper.Setup(x => x.Where(It.Is<Expression<Func<Nick, bool>>>(e => e.Compile()(entity))))
-                .Returns(new[] {entity}.AsQueryable());
+            _dataCommandHelper.Setup(x => x.GetQueryable<Nick>()).Returns(new List<Nick> {entity}.AsQueryable());
 
             var result = _target.Where(n => n.Id == 1);
 

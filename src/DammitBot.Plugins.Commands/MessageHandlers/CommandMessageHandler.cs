@@ -53,7 +53,7 @@ namespace DammitBot.MessageHandlers
 
         private Nick LoadNick(MessageEventArgs e)
         {
-            return _persistenceService.Where<Nick>(n => n.Nickname == e.User).SingleOrDefault();
+            return _persistenceService.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
         }
 
         #endregion

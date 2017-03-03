@@ -39,9 +39,9 @@ namespace DammitBot.Data.Library
             return _unitOfWork.GetRepository<T>().Find(id);
         }
 
-        public IQueryable<T> Where<T>(Expression<Func<T, bool>> fn)
+        public IQueryable<T> Query<T>()
         {
-            return _unitOfWork.GetRepository<T>().Where(fn);
+            return _unitOfWork.GetRepository<T>();
         }
 
         #endregion

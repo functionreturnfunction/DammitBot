@@ -63,31 +63,32 @@ namespace DammitBot.MessageHandlers
 
         #endregion
 
+        public MessagesTest()
+        {
+            var nicks = new[] {
+                new Nick {Nickname = "foo", User = new User()},
+                new Nick {Nickname = "bar"}
+            };
+            _persistenceService.Setup(x => x.Query<Nick>())
+                .Returns(nicks.AsQueryable());
+        }
+
         [Fact]
         public void TestAnyMessageIsLogged()
         {
-            _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
-                .Returns(new[] {new Nick {User = new User()} }.AsQueryable());
-
             _target.TestMessage("blah blah blah", "foo");
         }
 
         [Fact]
         public void TestMessageFromNickWithNoUserIsLogged()
         {
-            _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
-                .Returns(new[] {new Nick ()}.AsQueryable());
-
-            _target.TestMessage("blah blah blah", "foo");
+            _target.TestMessage("blah blah blah", "bar");
         }
 
         [Fact]
         public void TestMessageFromUnkownNickIsLogged()
         {
-            _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+            _persistenceService.Setup(x => x.Query<Nick>())
                 .Returns(new Nick[] {}.AsQueryable());
 
             _target.TestMessage("blah blah blah", "foo");
@@ -98,9 +99,6 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
-            _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
-                .Returns(new[] {new Nick {User = new User()} }.AsQueryable());
 
             _target.TestMessage("bot blah blah blah", "foo");
 
@@ -115,11 +113,8 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
-            _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
-                .Returns(new[] {new Nick()}.AsQueryable());
 
-            _target.TestMessage("bot blah blah blah", "foo");
+            _target.TestMessage("bot blah blah blah", "bar");
 
             _commandHandlerFactory.Verify(
                 x =>
@@ -134,7 +129,7 @@ namespace DammitBot.MessageHandlers
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
             _persistenceService.Setup(
-                    x => x.Where(It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
+x => x.Query<Nick>())
                 .Returns(new Nick[] {}.AsQueryable());
 
             _target.TestMessage("bot blah blah blah", "foo");

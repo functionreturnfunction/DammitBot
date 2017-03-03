@@ -1,13 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 namespace DammitBot.Data.Library
 {
     public interface IDataCommandHelper
     {
+        #region Abstract Methods
+
         void Save(object entity);
         T Load<T>(object id);
-        IQueryable<T> Where<T>(Expression<Func<T, bool>> fn);
+        IQueryable<T> GetQueryable<T>();
+
+        #endregion
     }
 }

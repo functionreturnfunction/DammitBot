@@ -47,11 +47,8 @@ namespace DammitBot.CommandHandlers
 
             public Mock<MessageEventArgs> TestCommand(string command)
             {
-                _persistenceService.Setup(
-                        x =>
-                            x.Where(
-                                It.Is<Expression<Func<Nick, bool>>>(fn => fn.Compile()(new Nick {Nickname = "foo"}))))
-                    .Returns(new[] {new Nick {User = new User()}}.AsQueryable());
+                _persistenceService.Setup(x => x.Query<Nick>())
+                    .Returns(new[] {new Nick {Nickname = "foo", User = new User()}}.AsQueryable());
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.Message).Returns("bot " + command);
                 args.SetupGet(x => x.User).Returns("foo");

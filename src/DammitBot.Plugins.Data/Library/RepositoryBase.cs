@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,11 +14,35 @@ namespace DammitBot.Data.Library
 
         #endregion
 
+        #region Properties
+
+        public Expression Expression => GetQueryable().Expression;
+
+        public Type ElementType => typeof(TEntity);
+
+        public IQueryProvider Provider => GetQueryable().Provider;
+
+        #endregion
+
         #region Constructors
 
         protected RepositoryBase(IDataCommandHelper helper)
         {
             _helper = helper;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private IQueryable<TEntity> GetQueryable()
+        {
+            return _helper.GetQueryable<TEntity>();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         #endregion
@@ -34,9 +60,9 @@ namespace DammitBot.Data.Library
             return _helper.Load<TEntity>(id);
         }
 
-        public virtual IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> fn)
+        public IEnumerator<TEntity> GetEnumerator()
         {
-            return _helper.Where(fn);
+            return GetQueryable().GetEnumerator();
         }
 
         #endregion
