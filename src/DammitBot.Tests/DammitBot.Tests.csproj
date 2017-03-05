@@ -113,6 +113,11 @@
     <Compile Include="Configuration\IrcConfigurationSectionTest.cs" />
     <Compile Include="Configuration\TeamCityConfigurationSectionTest.cs" />
     <Compile Include="Data\Library\RepositoryTest.cs" />
+    <Compile Include="Data\NHibernate\MessageTest.cs" />
+    <Compile Include="Data\NHibernate\UserTest.cs" />
+    <Compile Include="TestLibrary\ModelTest.cs" />
+    <Compile Include="TestLibrary\ModelWithRequiredFieldsTest.cs" />
+    <Compile Include="Data\NHibernate\NickTest.cs" />
     <Compile Include="Data\NHibernate\PersistenceServiceTest.cs" />
     <Compile Include="Helpers\TeamCityHelperTest.cs" />
     <Compile Include="Jobs\TeamCityJobTest.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="MessageHandlers\MessagesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLibrary\InMemoryDatabaseUnitTestBase.cs" />
+    <Compile Include="TestLibrary\ModelWithTimestampsTestExtensions.cs" />
     <Compile Include="TestLibrary\TestSessionFactoryBuilder.cs" />
     <Compile Include="TestLibrary\UnitTestBase.cs" />
     <Compile Include="Utilities\AssemblyServiceTest.cs" />

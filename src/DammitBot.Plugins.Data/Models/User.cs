@@ -1,8 +1,9 @@
 ﻿using System;
+using DammitBot.Data.Library;
 
 namespace DammitBot.Data.Models
 {
-    public class User
+    public class User : IThingWithTimestamps
     {
         #region Properties
 
