@@ -86,6 +86,14 @@
       <Project>{1eead73e-9e85-4e5f-ab4f-d97340f72921}</Project>
       <Name>DammitBot.Plugins.Protocols.Irc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj">
+      <Project>{8ce4bf8c-c6fb-4390-89cf-68649270d431}</Project>
+      <Name>DammitBot.Plugins.Reminders.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj">
+      <Project>{51031b67-08c4-48be-80c3-18d2784c7a40}</Project>
+      <Name>DammitBot.Plugins.Reminders</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj">
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
       <Name>DammitBot.Plugins.Scheduling</Name>

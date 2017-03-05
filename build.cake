@@ -20,6 +20,11 @@ Task("Migrate")
         Connection = Argument("data_source", "Data Source=localhost;Initial Catalog=DammitBot;Integrated Security=true"),
         Provider = "sqlserver",
         Assembly = "./src/DammitBot.Plugins.Data.Migrations/bin/Release/DammitBot.Plugins.Data.Migrations.dll"
+        });
+    FluentMigrator(new FluentMigratorSettings {
+        Connection = Argument("data_source", "Data Source=localhost;Initial Catalog=DammitBot;Integrated Security=true"),
+        Provider = "sqlserver",
+        Assembly = "./src/DammitBot.Plugins.Reminders.Migrations/bin/Release/DammitBot.Plugins.Reminders.Migrations.dll"
 	});
 });
 
