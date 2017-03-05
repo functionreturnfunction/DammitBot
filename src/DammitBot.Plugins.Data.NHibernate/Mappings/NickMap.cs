@@ -8,7 +8,7 @@ namespace DammitBot.Data.NHibernate.Mappings
         public NickMap()
         {
             Id(x => x.Id);
-            Map(x => x.Nickname);
+            Map(x => x.Nickname).Not.Nullable();
             Map(x => x.CreatedAt).Not.Nullable();
             Map(x => x.UpdatedAt).Nullable();
             References(x => x.User);

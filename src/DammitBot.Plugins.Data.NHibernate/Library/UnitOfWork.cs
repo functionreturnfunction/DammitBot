@@ -17,9 +17,9 @@ namespace DammitBot.Data.NHibernate.Library
 
         #region Constructors
 
-        public UnitOfWork(ISessionFactory sessionFactory, IContainer container)
+        public UnitOfWork(ISession session, IContainer container)
         {
-            _session = sessionFactory.OpenSession();
+            _session = session;
             _container = container.GetNestedContainer();
             _container.Configure(e => {
                 e.For<ISession>().Use(_session);

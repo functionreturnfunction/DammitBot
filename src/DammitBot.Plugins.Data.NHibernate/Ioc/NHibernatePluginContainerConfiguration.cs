@@ -11,8 +11,9 @@ namespace DammitBot.Ioc
     {
         public override void Configure(ConfigurationExpression e)
         {
-            e.For(typeof(ISessionFactoryBuilder)).Singleton().Use(typeof(SessionFactoryBuilder));
-            e.For(typeof(ISessionFactory)).Use(ctx => ctx.GetInstance<ISessionFactoryBuilder>().Build());
+            e.For(typeof(ISessionFactoryBuilder)).Use(typeof(SessionFactoryBuilder));
+            e.For(typeof(ISessionFactory)).Use(ctx => ctx.GetInstance<ISessionFactoryBuilder>().Build()).Singleton();
+            e.For<ISession>().Use(ctx => ctx.GetInstance<ISessionFactory>().OpenSession());
             e.For<IUnitOfWork>().Use<UnitOfWork>();
             e.For<IDataCommandHelper>().Use<DataCommandHelper>();
         }

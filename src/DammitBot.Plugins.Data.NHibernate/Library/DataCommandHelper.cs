@@ -28,7 +28,7 @@ namespace DammitBot.Data.NHibernate.Library
 
         public void Save(object entity)
         {
-            _session.Save(entity);
+            _session.SaveOrUpdate(entity);
         }
 
         public T Load<T>(object id)

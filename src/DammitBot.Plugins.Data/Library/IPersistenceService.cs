@@ -9,7 +9,7 @@ namespace DammitBot.Data.Library
     /// </summary>
     public interface IPersistenceService : IDisposable
     {
-        void Save<T>(T obj);
+        T Save<T>(T obj);
         T Find<T>(object id);
         IQueryable<T> Query<T>();
     }

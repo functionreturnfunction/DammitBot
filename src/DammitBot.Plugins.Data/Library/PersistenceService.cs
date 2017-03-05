@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 namespace DammitBot.Data.Library
 {
@@ -29,9 +27,9 @@ namespace DammitBot.Data.Library
             _unitOfWork.Dispose();
         }
 
-        public void Save<T>(T obj)
+        public T Save<T>(T obj)
         {
-            _unitOfWork.GetRepository<T>().Save(obj);
+            return _unitOfWork.GetRepository<T>().Save(obj);
         }
 
         public T Find<T>(object id)

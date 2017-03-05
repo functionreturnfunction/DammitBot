@@ -4,9 +4,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Event;
-using NHibernate.Tool.hbm2ddl;
 using StructureMap;
 
 namespace DammitBot.Data.NHibernate.Library
@@ -37,10 +35,11 @@ namespace DammitBot.Data.NHibernate.Library
             try
             {
                 return Fluently.Configure()
-                    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(_config.ConnectionString))
+                    .Database(ConfigureDatabase())
                     .Mappings(ConfigureMappings)
                     .ExposeConfiguration(ConfigureConfiguration)
-                    .Diagnostics(d => d.Enable()).BuildSessionFactory();
+                    .Diagnostics(d => d.Enable())
+                    .BuildSessionFactory();
             }
             catch (Exception ex)
             {
@@ -48,7 +47,12 @@ namespace DammitBot.Data.NHibernate.Library
             }
         }
 
-        private void ConfigureConfiguration(global::NHibernate.Cfg.Configuration cfg)
+        protected virtual IPersistenceConfigurer ConfigureDatabase()
+        {
+            return MsSqlConfiguration.MsSql2008.ConnectionString(_config.ConnectionString);
+        }
+
+        protected virtual void ConfigureConfiguration(global::NHibernate.Cfg.Configuration cfg)
         {
             var listener = _container.GetInstance<PreSaveEventListener>();
             cfg.AppendListeners(ListenerType.PreInsert, new IPreInsertEventListener[] {listener});

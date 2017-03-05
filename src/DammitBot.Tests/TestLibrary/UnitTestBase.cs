@@ -1,4 +1,5 @@
 ﻿using System;
+using DammitBot.Utilities;
 using log4net;
 using Moq;
 using StructureMap;
@@ -9,9 +10,11 @@ namespace DammitBot.TestLibrary
     {
         #region Private Members
 
-        protected IContainer _container;
-        protected Mock<ILog> _log;
+        protected readonly IContainer _container;
+        protected readonly Mock<ILog> _log;
         protected TTarget _target;
+        protected readonly Mock<IDateTimeProvider> _dateTimeProvider;
+        protected readonly DateTime _now;
 
         #endregion
 
@@ -56,6 +59,8 @@ namespace DammitBot.TestLibrary
         {
             _container = CreateContainer();
             Inject(out _log);
+            Inject(out _dateTimeProvider);
+            _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(_now = DateTime.Now);
 
             ConfigureContainer();
 
