@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DateTimeRoutines, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DateTimeRoutines.1.0.16\lib\net40\DateTimeRoutines.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
@@ -52,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\RemindMeCommandHandler.cs" />
     <Compile Include="Data\Models\Reminder.cs" />
     <Compile Include="Data\NHibernate\Mappings\RemindersMappingConfiguration.cs" />
     <Compile Include="Data\NHibernate\Mappings\ReminderMap.cs" />
@@ -61,6 +66,10 @@
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
       <Project>{609e8730-b010-479e-b5e2-b5bd32ab2fa9}</Project>
       <Name>DammitBot.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Commands\DammitBot.Plugins.Commands.csproj">
+      <Project>{97F33830-25CC-43DB-A8B8-BB1AEDD3E036}</Project>
+      <Name>DammitBot.Plugins.Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data.NHibernate\DammitBot.Plugins.Data.NHibernate.csproj">
       <Project>{1AF7215D-1D9B-4447-8F23-A36A8267BE7D}</Project>

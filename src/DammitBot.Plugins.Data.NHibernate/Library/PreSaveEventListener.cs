@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using DammitBot.Utilities;
 using DammitBot.Utilities.TypeExtensions;
+using DateTimeStringParser;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
 

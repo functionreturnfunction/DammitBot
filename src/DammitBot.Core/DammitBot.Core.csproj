@@ -58,8 +58,6 @@
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerAttributeService.cs" />
     <Compile Include="MessageHandlers\MessageHandlerAttributeService.cs" />
-    <Compile Include="Utilities\DateTimeProvider.cs" />
-    <Compile Include="Utilities\IDateTimeProvider.cs" />
     <Compile Include="Utilities\IPluginService.cs" />
     <Compile Include="Utilities\AssemblyEnumerableExtensions.cs" />
     <Compile Include="Utilities\AssemblyExtensions.cs" />

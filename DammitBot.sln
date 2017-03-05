@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Reminders
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Reminders.Migrations", "src\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj", "{8CE4BF8C-C6FB-4390-89CF-68649270D431}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeStringParser", "src\DateTimeStringParser\DateTimeStringParser.csproj", "{C7935176-9A14-4529-AFDE-C1D0146573CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{8CE4BF8C-C6FB-4390-89CF-68649270D431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE4BF8C-C6FB-4390-89CF-68649270D431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE4BF8C-C6FB-4390-89CF-68649270D431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7935176-9A14-4529-AFDE-C1D0146573CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7935176-9A14-4529-AFDE-C1D0146573CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7935176-9A14-4529-AFDE-C1D0146573CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7935176-9A14-4529-AFDE-C1D0146573CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

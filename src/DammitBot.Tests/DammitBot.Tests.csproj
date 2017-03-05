@@ -135,6 +135,7 @@
     <Compile Include="TestLibrary\UnitTestBase.cs" />
     <Compile Include="Utilities\AssemblyServiceTest.cs" />
     <Compile Include="Utilities\DateTimeProviderTest.cs" />
+    <Compile Include="DateTimeStringParser\DateTimeStringParserTest.cs" />
     <Compile Include="Utilities\ProtocolServiceTest.cs" />
     <Compile Include="Utilities\TypeExtensionsTest.cs" />
     <Compile Include="Wrappers\InstantiationServiceTest.cs" />
@@ -187,6 +188,10 @@
     <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj">
       <Project>{3e6b5481-70f2-4249-a8a5-3f5b34c17c05}</Project>
       <Name>DammitBot.Plugins.TeamCity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DateTimeStringParser\DateTimeStringParser.csproj">
+      <Project>{c7935176-9a14-4529-afde-c1d0146573cb}</Project>
+      <Name>DateTimeStringParser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
