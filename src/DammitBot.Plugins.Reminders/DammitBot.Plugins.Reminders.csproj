@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Models\Reminder.cs" />
+    <Compile Include="Data\NHibernate\Mappings\RemindersMappingConfiguration.cs" />
     <Compile Include="Data\NHibernate\Mappings\ReminderMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +61,10 @@
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
       <Project>{609e8730-b010-479e-b5e2-b5bd32ab2fa9}</Project>
       <Name>DammitBot.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data.NHibernate\DammitBot.Plugins.Data.NHibernate.csproj">
+      <Project>{1AF7215D-1D9B-4447-8F23-A36A8267BE7D}</Project>
+      <Name>DammitBot.Plugins.Data.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj">
       <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>

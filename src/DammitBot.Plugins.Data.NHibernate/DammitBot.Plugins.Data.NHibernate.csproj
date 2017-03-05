@@ -59,11 +59,16 @@
     <Compile Include="Configuration\IDataConfigurationManager.cs" />
     <Compile Include="Ioc\NHibernatePluginContainerConfiguration.cs" />
     <Compile Include="Library\DataCommandHelper.cs" />
+    <Compile Include="Library\IMappingConfiguration.cs" />
+    <Compile Include="Library\IMappingConfigurationService.cs" />
     <Compile Include="Library\ISessionFactoryBuilder.cs" />
+    <Compile Include="Library\MappingConfigurationService.cs" />
     <Compile Include="Library\PreSaveEventListener.cs" />
     <Compile Include="Library\SessionFactoryBuilder.cs" />
     <Compile Include="Library\UnitOfWork.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
+    <Compile Include="Mappings\NHibernateMappingConfiguration.cs" />
+    <Compile Include="Mappings\NHibernateMappingConfigurationBase.cs" />
     <Compile Include="Mappings\NickMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

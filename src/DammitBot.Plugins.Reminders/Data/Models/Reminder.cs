@@ -1,8 +1,9 @@
 ﻿using System;
+using DammitBot.Data.Library;
 
 namespace DammitBot.Data.Models
 {
-    public class Reminder
+    public class Reminder : IThingWithTimestamps
     {
         #region Properties
 

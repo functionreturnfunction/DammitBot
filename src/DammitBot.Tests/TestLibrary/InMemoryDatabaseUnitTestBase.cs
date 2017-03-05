@@ -1,6 +1,8 @@
 ﻿using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.NHibernate.Library;
+using DammitBot.Utilities;
+using DammitBot.Wrappers;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 
@@ -14,6 +16,9 @@ namespace DammitBot.TestLibrary
         {
             base.ConfigureContainer();
             _container.Configure(e => {
+                e.For<IInstantiationService>().Use<InstantiationService>();
+                e.For<IMappingConfigurationService>().Use<MappingConfigurationService>();
+                e.For<IAssemblyService>().Use<AssemblyService>();
                 e.For<IDataConfigurationManager>().Use<DataConfigurationManager>();
                 e.For<ISessionFactoryBuilder>().Use<TestSessionFactoryBuilder>().Singleton();
                 e.For<IDataCommandHelper>().Use<DataCommandHelper>();

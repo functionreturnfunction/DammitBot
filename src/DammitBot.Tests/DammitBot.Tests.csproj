@@ -114,6 +114,7 @@
     <Compile Include="Configuration\TeamCityConfigurationSectionTest.cs" />
     <Compile Include="Data\Library\RepositoryTest.cs" />
     <Compile Include="Data\NHibernate\MessageTest.cs" />
+    <Compile Include="Data\NHibernate\ReminderTest.cs" />
     <Compile Include="Data\NHibernate\UserTest.cs" />
     <Compile Include="TestLibrary\ModelTest.cs" />
     <Compile Include="TestLibrary\ModelWithRequiredFieldsTest.cs" />
