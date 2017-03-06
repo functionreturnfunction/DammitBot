@@ -61,6 +61,16 @@ namespace DammitBot.TestLibrary
             RunPostCreationAssertions(validObject);
         }
 
+        public TModel SaveUpdatedObject(TModel model)
+        {
+            using (_target)
+            {
+                model = _target.Save(model);
+            }
+
+            return model;
+        }
+
         #endregion
     }
 }

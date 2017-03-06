@@ -54,6 +54,12 @@ namespace DammitBot.Data.NHibernate
         }
 
         [Fact]
+        public void TestUpdateTimestamp()
+        {
+            this.TestUpdateWithValidFieldsSetsUpdatedAt(n => n.Nickname = "new nickname");
+        }
+
+        [Fact]
         public void TestUpdatingWithUserWorks()
         {
             var validObject = CreateValidObject();

@@ -57,6 +57,12 @@ namespace DammitBot.Data.NHibernate
             this.TestSaveWithValidFieldsSetsCreatedAt();
         }
 
+        [Fact]
+        public void TestUpdateTimestamp()
+        {
+            this.TestUpdateWithValidFieldsSetsUpdatedAt(u => u.Username = "new username");
+        }
+
         #endregion
     }
 }

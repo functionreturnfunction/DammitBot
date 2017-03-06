@@ -63,6 +63,12 @@ namespace DammitBot.Data.NHibernate
             this.TestSaveWithValidFieldsSetsCreatedAt();
         }
 
+        [Fact]
+        public void TestUpdateTimestamp()
+        {
+            this.TestUpdateWithValidFieldsSetsUpdatedAt(u => u.Text = "new reminder");
+        }
+
         #endregion
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using DammitBot.Data.Library;
 using Xunit;
 
@@ -12,6 +13,17 @@ namespace DammitBot.TestLibrary
 
             Assert.Equal(that.Now, model.CreatedAt);
             Assert.Null(model.UpdatedAt);
+        }
+
+        public static void TestUpdateWithValidFieldsSetsUpdatedAt<TModel>(this ModelTest<TModel> that, Action<TModel> updateModel)
+            where TModel : IThingWithTimestamps, new()
+        {
+            var model = that.CreateValidObject();
+
+            updateModel(model);
+            model = that.SaveUpdatedObject(model);
+
+            Assert.Equal(that.Now, model.UpdatedAt);
         }
     }
 }
