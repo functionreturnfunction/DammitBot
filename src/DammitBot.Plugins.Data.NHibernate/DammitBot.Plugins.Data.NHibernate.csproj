@@ -53,12 +53,12 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\DataConfigurationManager.cs" />
-    <Compile Include="Configuration\IDataConfigurationManager.cs" />
     <Compile Include="Ioc\NHibernatePluginContainerConfiguration.cs" />
     <Compile Include="Library\DataCommandHelper.cs" />
+    <Compile Include="Library\DisposableUnitOfWork.cs" />
     <Compile Include="Library\IMappingConfiguration.cs" />
     <Compile Include="Library\IMappingConfigurationService.cs" />
     <Compile Include="Library\ISessionFactoryBuilder.cs" />
@@ -77,10 +77,6 @@
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
       <Project>{609E8730-B010-479E-B5E2-B5BD32AB2FA9}</Project>
       <Name>DammitBot.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DammitBot.Plugins.Data.Migrations\DammitBot.Plugins.Data.Migrations.csproj">
-      <Project>{ba846097-dbcc-45cd-85fd-e2a1c08a90a3}</Project>
-      <Name>DammitBot.Plugins.Data.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj">
       <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>

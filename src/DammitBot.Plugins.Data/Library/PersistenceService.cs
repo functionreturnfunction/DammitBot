@@ -6,7 +6,15 @@ namespace DammitBot.Data.Library
     {
         #region Private Members
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWorkFactory _factory;
+        private IDisposableUnitOfWork _unitOfWork;
+
+        #endregion
+
+        #region Properties
+
+        public virtual IUnitOfWork UnitOfWork => DisposableUnitOfWork;
+        protected virtual IDisposableUnitOfWork DisposableUnitOfWork => _unitOfWork ?? (_unitOfWork = _factory.Build().Start());
 
         #endregion
 
@@ -14,7 +22,7 @@ namespace DammitBot.Data.Library
 
         public PersistenceService(IUnitOfWorkFactory factory)
         {
-            _unitOfWork = factory.Build();
+            _factory = factory;
         }
 
         #endregion
@@ -23,23 +31,28 @@ namespace DammitBot.Data.Library
 
         public void Dispose()
         {
+            if (_unitOfWork == null)
+            {
+                return;
+            }
+
             _unitOfWork.Commit();
             _unitOfWork.Dispose();
         }
 
         public T Save<T>(T obj)
         {
-            return _unitOfWork.GetRepository<T>().Save(obj);
+            return DisposableUnitOfWork.GetRepository<T>().Save(obj);
         }
 
         public T Find<T>(object id)
         {
-            return _unitOfWork.GetRepository<T>().Find(id);
+            return DisposableUnitOfWork.GetRepository<T>().Find(id);
         }
 
         public IQueryable<T> Query<T>()
         {
-            return _unitOfWork.GetRepository<T>();
+            return DisposableUnitOfWork.GetRepository<T>();
         }
 
         #endregion

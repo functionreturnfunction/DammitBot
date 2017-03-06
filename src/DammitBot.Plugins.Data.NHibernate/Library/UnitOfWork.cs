@@ -1,4 +1,5 @@
-﻿using DammitBot.Data.Library;
+﻿using System.Data;
+using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using NHibernate;
 using StructureMap;
@@ -9,43 +10,28 @@ namespace DammitBot.Data.NHibernate.Library
     {
         #region Private Members
 
-        private readonly ISession _session;
+        private readonly ISessionFactory _sessionFactory;
+        private readonly IDbConnection _connection;
         private readonly IContainer _container;
-        private readonly ITransaction _transaction;
 
         #endregion
 
         #region Constructors
 
-        public UnitOfWork(ISession session, IContainer container)
+        public UnitOfWork(ISessionFactory sessionFactory, IDbConnection connection, IContainer container)
         {
-            _session = session;
-            _container = container.GetNestedContainer();
-            _container.Configure(e => {
-                e.For<ISession>().Use(_session);
-            });
-            _session.FlushMode = FlushMode.Commit;
-            _transaction = _session.BeginTransaction();
+            _sessionFactory = sessionFactory;
+            _connection = connection;
+            _container = container;
         }
 
         #endregion
 
         #region Exposed Methods
 
-        public IRepository<TEntity> GetRepository<TEntity>()
+        public IDisposableUnitOfWork Start()
         {
-            return _container.GetInstance<IRepository<TEntity>>();
-        }
-
-        public void Commit()
-        {
-            _transaction.Commit();
-        }
-
-        public void Dispose()
-        {
-            _session.Dispose();
-            _container.Dispose();
+            return new DisposableUnitOfWork(_sessionFactory.OpenSession(_connection), _container);
         }
 
         #endregion

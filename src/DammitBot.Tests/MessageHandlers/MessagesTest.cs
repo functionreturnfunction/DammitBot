@@ -42,8 +42,9 @@ namespace DammitBot.MessageHandlers
             });
 
             Inject(out _commandHandlerFactory);
-            Inject(new Mock<ISchedulerService>().Object);
-            Inject(new Mock<ITeamCityHelper>().Object);
+            Inject<ISchedulerService>();
+            Inject<ITeamCityHelper>();
+            Inject<IMigrationService>();
             Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);

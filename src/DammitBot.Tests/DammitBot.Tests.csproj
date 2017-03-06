@@ -161,6 +161,10 @@
       <Project>{97f33830-25cc-43db-a8b8-bb1aedd3e036}</Project>
       <Name>DammitBot.Plugins.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj">
+      <Project>{3c788f90-fe2c-4ae2-bb88-7f48df4cc6d5}</Project>
+      <Name>DammitBot.Plugins.Data.AutoMigrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data.NHibernate\DammitBot.Plugins.Data.NHibernate.csproj">
       <Project>{1af7215d-1d9b-4447-8f23-a36a8267be7d}</Project>
       <Name>DammitBot.Plugins.Data.NHibernate</Name>

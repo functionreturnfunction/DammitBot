@@ -35,11 +35,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\DataConfigurationManager.cs" />
+    <Compile Include="Configuration\IDataConfigurationManager.cs" />
     <Compile Include="Ioc\DataPluginContainerConfiguration.cs" />
     <Compile Include="Library\IDataCommandHelper.cs" />
+    <Compile Include="Library\IDisposableUnitOfWork.cs" />
     <Compile Include="Library\IPersistenceService.cs" />
     <Compile Include="Library\IRepository.cs" />
     <Compile Include="Library\IThingWithTimestamps.cs" />
