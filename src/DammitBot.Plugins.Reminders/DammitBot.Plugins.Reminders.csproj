@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DateTimeRoutines, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DateTimeRoutines.1.0.16\lib\net40\DateTimeRoutines.dll</HintPath>
       <Private>True</Private>
@@ -42,8 +50,16 @@
       <HintPath>..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -60,7 +76,10 @@
     <Compile Include="Data\Models\Reminder.cs" />
     <Compile Include="Data\NHibernate\Mappings\RemindersMappingConfiguration.cs" />
     <Compile Include="Data\NHibernate\Mappings\ReminderMap.cs" />
+    <Compile Include="Jobs\ReminderJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\IReminderTextGenerator.cs" />
+    <Compile Include="Utilities\ReminderTextGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj">
@@ -79,6 +98,10 @@
       <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>
       <Name>DammitBot.Plugins.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj">
+      <Project>{1BAF3352-9C56-468D-9F7D-FFDD40D27A27}</Project>
+      <Name>DammitBot.Plugins.Scheduling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DateTimeStringParser\DateTimeStringParser.csproj">
       <Project>{C7935176-9A14-4529-AFDE-C1D0146573CB}</Project>
       <Name>DateTimeStringParser</Name>
@@ -86,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

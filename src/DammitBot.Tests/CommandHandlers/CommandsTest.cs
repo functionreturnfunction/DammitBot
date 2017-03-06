@@ -9,7 +9,6 @@ using Xunit;
 
 namespace DammitBot.CommandHandlers
 {
-
     public class CommandsTest : UnitTestBase<CommandsTest.CommandTester>
     {
         #region Private Members

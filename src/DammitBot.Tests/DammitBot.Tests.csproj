@@ -137,6 +137,7 @@
     <Compile Include="Utilities\DateTimeProviderTest.cs" />
     <Compile Include="DateTimeStringParser\DateTimeStringParserTest.cs" />
     <Compile Include="Utilities\ProtocolServiceTest.cs" />
+    <Compile Include="Utilities\RemindMeReplyGeneratorTest.cs" />
     <Compile Include="Utilities\TypeExtensionsTest.cs" />
     <Compile Include="Wrappers\InstantiationServiceTest.cs" />
   </ItemGroup>

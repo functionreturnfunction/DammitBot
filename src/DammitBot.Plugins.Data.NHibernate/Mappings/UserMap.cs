@@ -8,6 +8,7 @@ namespace DammitBot.Data.NHibernate.Mappings
         public UserMap()
         {
             Id(x => x.Id);
+
             Map(x => x.CreatedAt).Not.Nullable();
             Map(x => x.UpdatedAt).Nullable();
             Map(x => x.Username).Not.Nullable();

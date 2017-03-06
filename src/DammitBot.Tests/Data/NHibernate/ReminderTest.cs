@@ -32,7 +32,7 @@ namespace DammitBot.Data.NHibernate
         {
             Assert.InRange(createdObject.Id, 1, int.MaxValue);
             Assert.Equal(_now, createdObject.RemindAt.Value);
-            Assert.False(createdObject.Sent);
+            Assert.Null(createdObject.RemindedAt);
         }
 
         #endregion

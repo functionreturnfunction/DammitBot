@@ -4,6 +4,7 @@ using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Metadata;
+using DammitBot.Utilities;
 using DateTimeStringParser;
 
 namespace DammitBot.CommandHandlers
@@ -13,7 +14,7 @@ namespace DammitBot.CommandHandlers
     {
         #region Constants
 
-        public const string REGEX = "^remind me (?:to|that) (.+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
+        public const string REGEX = "^remind me ((?:to|that) .+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
 
         #endregion
 
@@ -21,15 +22,17 @@ namespace DammitBot.CommandHandlers
 
         private readonly IPersistenceService _persistenceService;
         private readonly IDateTimeStringParser _dateTimeStringParser;
+        private readonly IReminderTextGenerator _reminderTextGenerator;
 
         #endregion
 
         #region Constructors
 
-        public RemindMeCommandHandler(IBot bot, IPersistenceService persistenceService, IDateTimeStringParser dateTimeStringParser) : base(bot)
+        public RemindMeCommandHandler(IBot bot, IPersistenceService persistenceService, IDateTimeStringParser dateTimeStringParser, IReminderTextGenerator reminderTextGenerator) : base(bot)
         {
             _persistenceService = persistenceService;
             _dateTimeStringParser = dateTimeStringParser;
+            _reminderTextGenerator = reminderTextGenerator;
         }
 
         #endregion
@@ -38,14 +41,15 @@ namespace DammitBot.CommandHandlers
 
         private Reminder CreateReminder(string reminder, User from, User to, DateTime when)
         {
+            var obj = _reminderTextGenerator.Generate(new Reminder {
+                Text = reminder,
+                From = from,
+                To = to,
+                RemindAt = when
+            });
             using (_persistenceService)
             {
-                return _persistenceService.Save(new Reminder {
-                    Text = reminder,
-                    From = from,
-                    To = to,
-                    RemindAt = when
-                });
+                return _persistenceService.Save(obj);
             }
         }
 
