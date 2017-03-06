@@ -1,4 +1,5 @@
-﻿using DammitBot.Data.Models;
+﻿using System;
+using DammitBot.Data.Models;
 using DammitBot.TestLibrary;
 using Xunit;
 
@@ -30,6 +31,13 @@ namespace DammitBot.Data.NHibernate
         protected override User GetValidObject()
         {
             return ConstructValidObject();
+        }
+
+        protected override Action<User>[] GetWaysToInvalidate()
+        {
+            return new Action<User>[] {
+                u => u.Username = null
+            };
         }
 
         #endregion

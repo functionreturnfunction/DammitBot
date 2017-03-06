@@ -1,4 +1,5 @@
-﻿using DammitBot.Data.Models;
+﻿using System;
+using DammitBot.Data.Models;
 using DammitBot.TestLibrary;
 using Xunit;
 
@@ -24,6 +25,14 @@ namespace DammitBot.Data.NHibernate
         protected override Message GetValidObject()
         {
             return ConstructValidObject(_target.Save(NickTest.ConstructValidObject()));
+        }
+
+        protected override Action<Message>[] GetWaysToInvalidate()
+        {
+            return new Action<Message>[] {
+                m => m.Text = null,
+                m => m.From = null
+            };
         }
 
         protected override void RunPostCreationAssertions(Message createdObject)

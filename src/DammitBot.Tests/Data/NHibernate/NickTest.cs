@@ -1,4 +1,5 @@
-﻿using DammitBot.Data.Models;
+﻿using System;
+using DammitBot.Data.Models;
 using DammitBot.TestLibrary;
 using Xunit;
 
@@ -20,6 +21,13 @@ namespace DammitBot.Data.NHibernate
         protected override Nick GetValidObject()
         {
             return ConstructValidObject();
+        }
+
+        protected override Action<Nick>[] GetWaysToInvalidate()
+        {
+            return new Action<Nick>[] {
+                n => n.Nickname = null
+            };
         }
 
         protected override void RunPostCreationAssertions(Nick createdObject)

@@ -28,6 +28,14 @@ namespace DammitBot.Data.NHibernate
             return ConstructValidObject(user, user, _now);
         }
 
+        protected override Action<Reminder>[] GetWaysToInvalidate()
+        {
+            return new Action<Reminder>[] {
+                r => r.RemindAt = null,
+                r => r.From = null
+            };
+        }
+
         protected override void RunPostCreationAssertions(Reminder createdObject)
         {
             Assert.InRange(createdObject.Id, 1, int.MaxValue);

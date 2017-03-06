@@ -119,7 +119,6 @@
     <Compile Include="TestLibrary\ModelTest.cs" />
     <Compile Include="TestLibrary\ModelWithRequiredFieldsTest.cs" />
     <Compile Include="Data\NHibernate\NickTest.cs" />
-    <Compile Include="Data\NHibernate\PersistenceServiceTest.cs" />
     <Compile Include="Helpers\TeamCityHelperTest.cs" />
     <Compile Include="Jobs\TeamCityJobTest.cs" />
     <Compile Include="MessageHandlers\CompositeMessageHandlerTest.cs" />

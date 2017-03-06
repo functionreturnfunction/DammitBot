@@ -17,12 +17,46 @@ namespace DammitBot.TestLibrary
 
         #endregion
 
+        #region Abstract Methods
+
+        protected abstract Action<TModel>[] GetWaysToInvalidate();
+
+        #endregion
+
         #region Exposed Methods
 
         [Fact]
         public void TestCreatingWithMissingRequiredFieldsThrowsException()
         {
-            Assert.Throws<PropertyValueException>(() => _target.Save(new TModel()));
+            foreach (var fn in GetWaysToInvalidate())
+            {
+                _target = ConstructTarget();
+                var obj = GetValidObject();
+
+                fn(obj);
+
+                Assert.Throws<PropertyValueException>(() => {
+                    _target.Save(obj);
+                    _target.Dispose();
+                });
+            }
+        }
+
+        [Fact]
+        public void TestUpdatingWithMissingRequiredFieldsThrowsException()
+        {
+            foreach (var fn in GetWaysToInvalidate())
+            {
+               _target = ConstructTarget();
+                var obj = CreateValidObject();
+
+                fn(obj);
+
+                Assert.Throws<PropertyValueException>(() => {
+                    _target.Save(obj);
+                    _target.Dispose();
+                });
+            }
         }
 
         #endregion
