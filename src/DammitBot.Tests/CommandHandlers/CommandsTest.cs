@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
 using DammitBot.TestLibrary;
-
 using Moq;
 using Xunit;
 
@@ -19,6 +16,55 @@ namespace DammitBot.CommandHandlers
 
         private Mock<IBot> _bot;
         private Mock<IPersistenceService> _persistenceService;
+
+        #endregion
+
+        #region Private Methods
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            _container.Configure(i => {
+                i.Scan(s => {
+                    s.AssembliesFromApplicationBaseDirectory();
+                    s.WithDefaultConventions();
+                });
+                i.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
+            });
+
+            Inject(out _bot);
+            Inject(out _persistenceService);
+            Inject(_persistenceService);
+        }
+
+        #endregion
+
+        #region Exposed Methods
+
+        [Fact]
+        public void TestBotDieCausesBotToDie()
+        {
+            _target.TestCommand("die");
+
+            _bot.Verify(x => x.Die());
+        }
+
+        [Fact]
+        public void TestBotRemindMeCausesReminderyThingsToHappen()
+        {
+            var args = _target.TestCommand("remind me to do things in 1 minute");
+
+            _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
+        }
+
+        [Fact]
+        public void TestGetMatchingHandlersReturnsOnlyUnkownCommandHandlerForUnkownCommand()
+        {
+            _target.TestCommand("asdfasdfasdfasdf");
+
+            _bot.Verify(x => x.SayToAll(string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
+        }
 
         #endregion
 
@@ -60,46 +106,5 @@ namespace DammitBot.CommandHandlers
         }
 
         #endregion
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-
-            _container.Configure(i => {
-                i.Scan(s => {
-                    s.AssembliesFromApplicationBaseDirectory();
-                    s.WithDefaultConventions();
-                });
-                i.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
-            });
-
-            Inject(out _bot);
-            Inject(out _persistenceService);
-            Inject(_persistenceService);
-        }
-
-        [Fact]
-        public void TestBotDieCausesBotToDie()
-        {
-            _target.TestCommand("die");
-
-            _bot.Verify(x => x.Die());
-        }
-
-        [Fact]
-        public void TestBotRemindMeCausesReminderyThingsToHappen()
-        {
-            var args = _target.TestCommand("remind me to do things in a minute");
-
-            _bot.Verify(x => x.ReplyToMessage(args.Object, "Reminder set for ..."));
-        }
-
-        [Fact]
-        public void TestGetMatchingHandlersReturnsOnlyUnkownCommandHandlerForUnkownCommand()
-        {
-            _target.TestCommand("asdfasdfasdfasdf");
-
-            _bot.Verify(x => x.SayToAll(string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
-        }
     }
 }

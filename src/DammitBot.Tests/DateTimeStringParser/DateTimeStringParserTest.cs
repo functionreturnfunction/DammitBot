@@ -21,8 +21,7 @@ namespace DateTimeStringParser
         #region Exposed Methods
 
         [Theory]
-        [InlineData("in one minute", 1)]
-        [InlineData("in two minutes", 2)]
+        [InlineData("in 1 minute", 1)]
         [InlineData("in 2 minutes", 2)]
         public void TestInXMinutesDoesThatThing(string input, int expected)
         {
@@ -30,18 +29,16 @@ namespace DateTimeStringParser
         }
 
         [Theory]
-        [InlineData("in one hour", 1)]
-        [InlineData("in three hours", 3)]
-        [InlineData("in 7 hours", 7)]
+        [InlineData("in 1 hour", 1)]
+        [InlineData("in 3 hours", 3)]
         public void TestInXHoursDoesThatThing(string input, int expected)
         {
             TestTryParse(input, _now.AddHours(expected));
         }
 
         [Theory]
-        [InlineData("in one day", 1)]
-        [InlineData("in three days", 3)]
-        [InlineData("in 7 days", 7)]
+        [InlineData("in 1 day", 1)]
+        [InlineData("in 3 days", 3)]
         public void TestInXDaysDoesThatThing(string input, int expected)
         {
             TestTryParse(input, _now.AddDays(expected));
@@ -52,6 +49,15 @@ namespace DateTimeStringParser
         {
             TestTryParse("tomorrow", _now.AddDays(1));
         }
+
+        [Theory]
+        [InlineData("at 10:30", 10, 30)]
+        [InlineData("at 12", 12, 00)]
+        public void TestAtXDoesThatThing(string input, int hour, int minute)
+        {
+            TestTryParse(input, _now.GetNext(hour, minute));
+        }
+        
 
         #endregion
     }

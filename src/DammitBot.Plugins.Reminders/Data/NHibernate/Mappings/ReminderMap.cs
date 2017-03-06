@@ -15,7 +15,7 @@ namespace DammitBot.Data.NHibernate.Mappings
             Map(x => x.CreatedAt).Not.Nullable();
             Map(x => x.UpdatedAt).Nullable();
 
-            Map(x => x.Sent).Formula("(SELECT CASE RemindedAt WHEN NULL 0 ELSE 1 END)");
+            Map(x => x.Sent).Formula("(SELECT CASE RemindedAt WHEN NULL THEN 0 ELSE 1 END)");
 
             References(x => x.From).Not.Nullable();
             References(x => x.To).Not.Nullable();

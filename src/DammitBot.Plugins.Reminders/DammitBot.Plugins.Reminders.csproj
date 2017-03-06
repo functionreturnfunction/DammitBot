@@ -79,6 +79,10 @@
       <Project>{44290beb-4028-49c7-8d82-a80e5c0f51b8}</Project>
       <Name>DammitBot.Plugins.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DateTimeStringParser\DateTimeStringParser.csproj">
+      <Project>{C7935176-9A14-4529-AFDE-C1D0146573CB}</Project>
+      <Name>DateTimeStringParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
