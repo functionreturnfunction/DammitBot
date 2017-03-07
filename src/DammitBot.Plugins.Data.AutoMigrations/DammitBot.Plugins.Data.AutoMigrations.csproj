@@ -42,6 +42,10 @@
       <HintPath>..\..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StructureMap, Version=4.4.3.564, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.4.3\lib\net45\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,8 +57,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMigrationsPlugin.cs" />
+    <Compile Include="Ioc\AutoMigrationsPluginContainerConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\AssemblyCollection.cs" />
+    <Compile Include="Utilities\FlushableLogAnnouncer.cs" />
+    <Compile Include="Utilities\IFlushableLogAnnouncer.cs" />
+    <Compile Include="Utilities\IMigrationProcessorOptions.cs" />
+    <Compile Include="Utilities\IMigrationProcessorService.cs" />
+    <Compile Include="Utilities\IMigrationRunnerFactory.cs" />
     <Compile Include="Utilities\IMigrationService.cs" />
+    <Compile Include="Utilities\MigrationProcessorOptions.cs" />
+    <Compile Include="Utilities\MigrationProcessorService.cs" />
+    <Compile Include="Utilities\MigrationRunnerFactory.cs" />
     <Compile Include="Utilities\MigrationService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
         #region Abstract Methods
 
         void EnsureUpToDate();
+        long? LatestVersionNumber { get; }
 
         #endregion
     }
