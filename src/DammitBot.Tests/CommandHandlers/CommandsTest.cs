@@ -25,10 +25,6 @@ namespace DammitBot.CommandHandlers
             base.ConfigureContainer();
 
             _container.Configure(i => {
-                i.Scan(s => {
-                    s.AssembliesFromApplicationBaseDirectory();
-                    s.WithDefaultConventions();
-                });
                 i.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
             });
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using FluentMigrator;
-using FluentMigrator.Infrastructure;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
-using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 
 namespace DammitBot.Utilities
@@ -56,10 +53,5 @@ namespace DammitBot.Utilities
         }
 
         #endregion
-    }
-
-    public class MigrationRunner : FluentMigrator.Runner.MigrationRunner
-    {
-        public MigrationRunner(IAssemblyCollection assemblies, IRunnerContext runnerContext, IMigrationProcessor processor) : base(assemblies, runnerContext, processor) {}
     }
 }

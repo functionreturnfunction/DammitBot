@@ -26,7 +26,15 @@ namespace DammitBot.TestLibrary
             return new Container();
         }
 
-        protected virtual void ConfigureContainer() {}
+        protected virtual void ConfigureContainer()
+        {
+            _container.Configure(e => {
+                e.Scan(a => {
+                    a.AssembliesFromApplicationBaseDirectory();
+                    a.WithDefaultConventions();
+                });
+            });
+        }
 
         protected virtual void Inject<TMock>(out Mock<TMock> obj, MockBehavior behavior = MockBehavior.Default)
             where TMock : class

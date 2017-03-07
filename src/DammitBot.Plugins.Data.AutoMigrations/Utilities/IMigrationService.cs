@@ -4,7 +4,7 @@
     {
         #region Abstract Methods
 
-        void EnsureUpToDate();
+        void EnsureUpToDate(IMigrationProcessorOptions options);
         long? LatestVersionNumber { get; }
 
         #endregion

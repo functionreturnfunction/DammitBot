@@ -68,6 +68,7 @@
     <Compile Include="Utilities\IMigrationService.cs" />
     <Compile Include="Utilities\MigrationProcessorOptions.cs" />
     <Compile Include="Utilities\MigrationProcessorService.cs" />
+    <Compile Include="Utilities\MigrationRunner.cs" />
     <Compile Include="Utilities\MigrationRunnerFactory.cs" />
     <Compile Include="Utilities\MigrationService.cs" />
   </ItemGroup>

@@ -43,6 +43,14 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentMigrator, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.1.6.2\lib\40\FluentMigrator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.1.6.2\lib\40\FluentMigrator.Runner.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
@@ -135,6 +143,7 @@
     <Compile Include="Utilities\AssemblyServiceTest.cs" />
     <Compile Include="Utilities\DateTimeProviderTest.cs" />
     <Compile Include="DateTimeStringParser\DateTimeStringParserTest.cs" />
+    <Compile Include="Utilities\MigrationServiceTest.cs" />
     <Compile Include="Utilities\ProtocolServiceTest.cs" />
     <Compile Include="Utilities\RemindMeReplyGeneratorTest.cs" />
     <Compile Include="Utilities\TypeExtensionsTest.cs" />
@@ -165,6 +174,10 @@
       <Project>{3c788f90-fe2c-4ae2-bb88-7f48df4cc6d5}</Project>
       <Name>DammitBot.Plugins.Data.AutoMigrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Data.Migrations\DammitBot.Plugins.Data.Migrations.csproj">
+      <Project>{ba846097-dbcc-45cd-85fd-e2a1c08a90a3}</Project>
+      <Name>DammitBot.Plugins.Data.Migrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Data.NHibernate\DammitBot.Plugins.Data.NHibernate.csproj">
       <Project>{1af7215d-1d9b-4447-8f23-a36a8267be7d}</Project>
       <Name>DammitBot.Plugins.Data.NHibernate</Name>
@@ -180,6 +193,10 @@
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj">
       <Project>{1eead73e-9e85-4e5f-ab4f-d97340f72921}</Project>
       <Name>DammitBot.Plugins.Protocols.Irc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj">
+      <Project>{8ce4bf8c-c6fb-4390-89cf-68649270d431}</Project>
+      <Name>DammitBot.Plugins.Reminders.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj">
       <Project>{51031b67-08c4-48be-80c3-18d2784c7a40}</Project>

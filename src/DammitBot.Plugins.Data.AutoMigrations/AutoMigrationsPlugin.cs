@@ -24,7 +24,7 @@ namespace DammitBot
 
         public void Initialize()
         {
-            _migrationService.EnsureUpToDate();
+            _migrationService.EnsureUpToDate(null);
         }
 
         public void Cleanup() {}

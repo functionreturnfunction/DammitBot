@@ -64,10 +64,10 @@ namespace DammitBot.Utilities
                        GetMigrationAssemblies().Assemblies.SelectMany(a => a.GetTypes().Where(TypeIsMigration)));
         }
 
-        private IMigrationRunner GetMigrator()
+        private IMigrationRunner GetMigrator(IMigrationProcessorOptions options)
         {
             return _runnerFactory.Build(GetMigrationAssemblies(),
-                new MigrationProcessorOptions<IFlushableLogAnnouncer, SqlServer2000ProcessorFactory>());
+                options ?? new MigrationProcessorOptions<IFlushableLogAnnouncer, SqlServer2008ProcessorFactory>());
         }
 
         private IAssemblyCollection GetMigrationAssemblies()
@@ -84,9 +84,9 @@ namespace DammitBot.Utilities
                    type.HasAttribute<MigrationAttribute>();
         }
 
-        private void Run(Action<IMigrationRunner> fn)
+        private void Run(IMigrationProcessorOptions options, Action<IMigrationRunner> fn)
         {
-            fn(GetMigrator());
+            fn(GetMigrator(options));
             _flushableLogAnnouncer.Flush();
         }
 
@@ -94,11 +94,11 @@ namespace DammitBot.Utilities
 
         #region Exposed Methods
 
-        public void EnsureUpToDate()
+        public void EnsureUpToDate(IMigrationProcessorOptions options = null)
         {
             if (LatestVersionNumber.HasValue)
             {
-                Run(runner => runner.MigrateUp(LatestVersionNumber.Value));
+                Run(options, runner => runner.MigrateUp(LatestVersionNumber.Value));
             }
             else
             {
