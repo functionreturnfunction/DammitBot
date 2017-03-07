@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using DammitBot.Data.Library;
-using DammitBot.Data.Models;
 using NHibernate;
 using StructureMap;
 
