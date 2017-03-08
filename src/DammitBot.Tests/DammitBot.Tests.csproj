@@ -145,7 +145,7 @@
     <Compile Include="DateTimeStringParser\DateTimeStringParserTest.cs" />
     <Compile Include="Utilities\MigrationServiceTest.cs" />
     <Compile Include="Utilities\ProtocolServiceTest.cs" />
-    <Compile Include="Utilities\RemindMeReplyGeneratorTest.cs" />
+    <Compile Include="Utilities\ReminderTextGeneratorTest.cs" />
     <Compile Include="Utilities\TypeExtensionsTest.cs" />
     <Compile Include="Wrappers\InstantiationServiceTest.cs" />
   </ItemGroup>
@@ -222,7 +222,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

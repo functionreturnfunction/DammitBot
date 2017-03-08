@@ -62,7 +62,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandlers\RemindMeCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ReminderCommandHandler.cs" />
     <Compile Include="Data\Models\Reminder.cs" />
     <Compile Include="Data\NHibernate\Mappings\RemindersMappingConfiguration.cs" />
     <Compile Include="Data\NHibernate\Mappings\ReminderMap.cs" />

@@ -19,6 +19,20 @@ namespace DammitBot.Utilities
                 _target.Generate(new Reminder {Text = "to do stuff and junk", From = user, To = user}).Text);
         }
 
+        [Fact]
+        public void TestGenerateGeneratesTextForDifferentUser()
+        {
+            var user = new User {
+                Username = "foo"
+            };
+            var differentUser = new User {
+                Username = "bar"
+            };
+
+            Assert.Equal($"@{differentUser.Username} {user.Username} wanted me to remind you to do stuff and junk",
+                _target.Generate(new Reminder {Text = "to do stuff and junk", From = user, To = differentUser}).Text);
+        }
+
         #endregion
     }
 }

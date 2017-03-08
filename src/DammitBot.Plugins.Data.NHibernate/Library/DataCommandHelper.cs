@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using DammitBot.Data.Library;
 using NHibernate;
 using NHibernate.Linq;

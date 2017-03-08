@@ -15,6 +15,7 @@ namespace DammitBot.CommandHandlers
 
         private Mock<IBot> _bot;
         private Mock<IPersistenceService> _persistenceService;
+        private Nick[] _users;
 
         #endregion
 
@@ -31,6 +32,11 @@ namespace DammitBot.CommandHandlers
             Inject(out _bot);
             Inject(out _persistenceService);
             Inject(_persistenceService);
+            _persistenceService.Setup(x => x.Query<Nick>())
+                .Returns((_users = new[] {
+                    new Nick {Nickname = "foo", User = new User()},
+                    new Nick {Nickname = "bar", User = new User()}
+                }).AsQueryable());
         }
 
         #endregion
@@ -49,6 +55,14 @@ namespace DammitBot.CommandHandlers
         public void TestBotRemindMeCausesReminderyThingsToHappen()
         {
             var args = _target.TestCommand("remind me to do things in 1 minute");
+
+            _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
+        }
+
+        [Fact]
+        public void TestBotRemindOtherUserAlsoCausesReminderyThingsToHappen()
+        {
+            var args = _target.TestCommand("remind bar to do things in 1 minute");
 
             _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
         }
@@ -88,8 +102,6 @@ namespace DammitBot.CommandHandlers
 
             public Mock<MessageEventArgs> TestCommand(string command)
             {
-                _persistenceService.Setup(x => x.Query<Nick>())
-                    .Returns(new[] {new Nick {Nickname = "foo", User = new User()}}.AsQueryable());
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.Message).Returns("bot " + command);
                 args.SetupGet(x => x.User).Returns("foo");

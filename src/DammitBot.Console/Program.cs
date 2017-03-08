@@ -25,6 +25,7 @@ namespace DammitBot
             catch (Exception e)
             {
                 log.Error("Runtime error encountered.", e);
+                throw;
             }
             finally
             {
