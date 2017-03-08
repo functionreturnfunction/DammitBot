@@ -15,7 +15,7 @@ namespace DammitBot.CommandHandlers
 
         private Mock<IBot> _bot;
         private Mock<IPersistenceService> _persistenceService;
-        private Nick[] _users;
+        private Nick[] _nicks;
 
         #endregion
 
@@ -33,10 +33,12 @@ namespace DammitBot.CommandHandlers
             Inject(out _persistenceService);
             Inject(_persistenceService);
             _persistenceService.Setup(x => x.Query<Nick>())
-                .Returns((_users = new[] {
+                .Returns((_nicks = new[] {
                     new Nick {Nickname = "foo", User = new User()},
-                    new Nick {Nickname = "bar", User = new User()}
+                    new Nick {Nickname = "bar", User = new User {Username = "baz"}}
                 }).AsQueryable());
+            _persistenceService.Setup(x => x.Query<User>())
+                .Returns(new[] {_nicks[0].User, _nicks[1].User}.AsQueryable());
         }
 
         #endregion
@@ -62,7 +64,7 @@ namespace DammitBot.CommandHandlers
         [Fact]
         public void TestBotRemindOtherUserAlsoCausesReminderyThingsToHappen()
         {
-            var args = _target.TestCommand("remind bar to do things in 1 minute");
+            var args = _target.TestCommand("remind baz to do things in 1 minute");
 
             _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
         }
