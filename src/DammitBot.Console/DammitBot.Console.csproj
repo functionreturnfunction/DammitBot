@@ -102,6 +102,10 @@
       <Project>{1baf3352-9c56-468d-9f7d-ffdd40d27a27}</Project>
       <Name>DammitBot.Plugins.Scheduling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj">
+      <Project>{3e6b5481-70f2-4249-a8a5-3f5b34c17c05}</Project>
+      <Name>DammitBot.Plugins.TeamCity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
