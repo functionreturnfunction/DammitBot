@@ -46,6 +46,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Data.AutoMigrations", "src\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj", "{3C788F90-FE2C-4AE2-BB88-7F48DF4CC6D5}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

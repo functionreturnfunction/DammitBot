@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using DammitBot.Data.Models;
 
 namespace DammitBot.Utilities
@@ -8,14 +7,14 @@ namespace DammitBot.Utilities
     {
         #region Private Methods
 
-        private string FromStrings(string to, string from, string text)
+        private string FromStrings(string to, string from, string text, DateTime when)
         {
-            return $"@{to} {from} wanted me to remind you {FixNouns(text)}";
+            return $"@{to} {from} wanted me to remind you {FixNouns(text)} on {when:d} at {when:t}";
         }
 
         private Reminder DifferentUser(Reminder reminder)
         {
-            reminder.Text = FromStrings(reminder.To.Username, reminder.From.Username, FixNouns(reminder.Text));
+            reminder.Text = FromStrings(reminder.To.Username, reminder.From.Username, FixNouns(reminder.Text), reminder.RemindAt.Value);
             return reminder;
         }
 
@@ -26,7 +25,7 @@ namespace DammitBot.Utilities
 
         private Reminder SameUser(Reminder reminder)
         {
-            reminder.Text = FromStrings(reminder.To.Username, "you", FixNouns(reminder.Text));
+            reminder.Text = FromStrings(reminder.To.Username, "you", FixNouns(reminder.Text), reminder.RemindAt.Value);
             return reminder;
         }
 
