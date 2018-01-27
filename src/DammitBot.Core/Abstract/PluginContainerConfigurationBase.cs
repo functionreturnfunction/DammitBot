@@ -1,15 +1,15 @@
-﻿using StructureMap;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DammitBot.Abstract
 {
     /// <summary>
-    /// Base class for configuring StructureMap from within plugins.
+    /// Base class for configuring IOC from within plugins.
     /// </summary>
     public abstract class PluginContainerConfigurationBase
     {
         #region Abstract Methods
 
-        public abstract void Configure(ConfigurationExpression configurationExpression);
+        public abstract void Configure(IServiceCollection serviceCollection);
 
         #endregion
     }

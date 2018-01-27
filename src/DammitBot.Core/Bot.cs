@@ -81,7 +81,7 @@ namespace DammitBot
         public void Dispose()
         {
             _pluginService.Cleanup();
-            _protocolService.ChannelMessageReceived -= Irc_ChannelMessageReceived;
+            _protocolService.ChannelMessageReceived -= Protocols_ChannelMessageReceived;
         }
 
         #endregion
