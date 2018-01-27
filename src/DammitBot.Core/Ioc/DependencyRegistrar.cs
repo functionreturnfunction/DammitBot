@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Configuration;
@@ -6,6 +7,7 @@ using DammitBot.Utilities;
 using DammitBot.Utilities.AssemblyEnumerableExtensions;
 using DammitBot.Wrappers;
 using log4net;
+using log4net.Repository;
 using log4net.Config;
 using StructureMap;
 
@@ -17,7 +19,6 @@ namespace DammitBot.Ioc
 
         static DependencyRegistrar()
         {
-            XmlConfigurator.Configure();
         }
 
         #endregion
@@ -31,13 +32,6 @@ namespace DammitBot.Ioc
                 s.WithDefaultConventions();
             });
 
-            e.For<ILog>()
-                .AlwaysUnique()
-                .Use(
-                    ctx =>
-                        ctx.ParentType == null
-                            ? LogManager.GetLogger("DammitBot Global")
-                            : LogManager.GetLogger(ctx.ParentType));
             e.For<IBot>()
                 .Use<Bot>().Singleton();
 
@@ -45,6 +39,18 @@ namespace DammitBot.Ioc
 
             e.For<IAssemblyService>()
                 .Use(assemblyService).Singleton();
+
+            e.For<ILoggerRepository>()
+                .Use(ctx => LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy)))
+                .Singleton();
+
+            e.For<ILog>()
+                .AlwaysUnique()
+                .Use(
+                     ctx =>
+                     ctx.ParentType == null
+                     ? LogManager.GetLogger(ctx.GetInstance<ILoggerRepository>().Name, "DammitBot Global")
+                     : LogManager.GetLogger(ctx.ParentType));
         }
 
         private static IAssemblyService InitializePluginConfigurations(ConfigurationExpression e)
@@ -71,6 +77,7 @@ namespace DammitBot.Ioc
         {
             var registrar = new DependencyRegistrar();
             var container = new Container(e => registrar.ConfigureContainer(e));
+            XmlConfigurator.Configure(container.GetInstance<ILoggerRepository>());
 
             return new InstantiationService(container);
         }

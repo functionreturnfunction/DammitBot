@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+using StructureMap;
 
 namespace DammitBot.Wrappers
 {
@@ -7,13 +7,13 @@ namespace DammitBot.Wrappers
     {
         #region Private Members
 
-        private readonly IServiceCollection _container;
+        private readonly IContainer _container;
 
         #endregion
 
         #region Constructors
 
-        public InstantiationService(IServiceCollection container)
+        public InstantiationService(IContainer container)
         {
             _container = container;
             _container.DisposalLock = DisposalLock.Ignore;
@@ -25,12 +25,12 @@ namespace DammitBot.Wrappers
 
         public object GetInstance(Type type)
         {
-            return _container.GetService(type);
+            return _container.GetInstance(type);
         }
 
         public T GetInstance<T>()
         {
-            return _container.GetService<T>();
+            return _container.GetInstance<T>();
         }
 
         public void Dispose()

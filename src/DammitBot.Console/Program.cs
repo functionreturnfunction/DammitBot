@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
+using DammitBot.Ioc;
 using log4net;
 
 namespace DammitBot.Console
@@ -9,12 +9,9 @@ namespace DammitBot.Console
     {
         static void Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
-            new Startup().ConfigureServices(serviceCollection);
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-
-            var bot = serviceProvider.GetService<IBot>();
-            var log = serviceProvider.GetService<ILog>();
+            var container = DependencyRegistrar.GetContainer();
+            var bot = container.GetInstance<IBot>();
+            var log = container.GetInstance<ILog>();
 
             try
             {
@@ -33,6 +30,7 @@ namespace DammitBot.Console
             finally
             {
                 bot.Dispose();
+                container.Dispose();
             }
         }
     }
