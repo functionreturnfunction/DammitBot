@@ -15,6 +15,7 @@
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Commands\DammitBot.Plugins.Commands.csproj" />
+    <ProjectReference Include="..\DammitBot.Plugins.Data.Dapper\DammitBot.Plugins.Data.Dapper.csproj" />
   </ItemGroup>
 
 </Project>
