@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj" />
+    <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
   </ItemGroup>
 
 </Project>

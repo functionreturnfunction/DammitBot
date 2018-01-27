@@ -1,5 +1,4 @@
 ﻿using DammitBot.Events;
-using DammitBot.MessageHandlers;
 
 namespace DammitBot.Abstract
 {
