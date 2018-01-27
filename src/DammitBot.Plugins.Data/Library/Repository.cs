@@ -1,6 +1,7 @@
 ﻿namespace DammitBot.Data.Library
 {
     public class Repository<TEntity> : RepositoryBase<TEntity>
+        where TEntity : class
     {
         #region Constructors
 

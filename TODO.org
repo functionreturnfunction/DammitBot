@@ -1,1 +1,5 @@
 * TODO Eliminate ChatSharp build warning
+* TODO Move the dependency for Microsoft.Data.Sqlite.Core
+  It doesn't belong in DammitBot.Plugins.Data.Dapper... really DB should be full-configurable.
+* TODO Get IDbConnection from a factory
+  Could be related to above

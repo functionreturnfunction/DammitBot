@@ -40,17 +40,26 @@ namespace DammitBot.Data.Library
             _unitOfWork.Dispose();
         }
 
-        public T Save<T>(T obj)
+        public object Insert<T>(T obj)
+            where T : class
         {
-            return DisposableUnitOfWork.GetRepository<T>().Save(obj);
+            return DisposableUnitOfWork.GetRepository<T>().Insert(obj);
         }
 
-        public T Find<T>(object id)
+        public void Update<T>(T obj)
+            where T : class
+        {
+            DisposableUnitOfWork.GetRepository<T>().Update(obj);
+        }
+
+        public T Find<T>(int id)
+            where T : class
         {
             return DisposableUnitOfWork.GetRepository<T>().Find(id);
         }
 
         public IQueryable<T> Query<T>()
+            where T : class
         {
             return DisposableUnitOfWork.GetRepository<T>();
         }

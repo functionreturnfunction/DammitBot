@@ -7,7 +7,7 @@ namespace DammitBot.Data.Library
         #region Abstract Methods
 
         void Commit();
-        IRepository<T> GetRepository<T>();
+        IRepository<T> GetRepository<T>() where T : class;
 
         #endregion
     }

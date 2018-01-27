@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 namespace DammitBot.Data.Library
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         #region Private Members
 
@@ -49,13 +50,17 @@ namespace DammitBot.Data.Library
 
         #region Exposed Methods
 
-        public virtual TEntity Save(TEntity entity)
+        public virtual object Insert(TEntity entity)
         {
-            _helper.Save(entity);
-            return entity;
+            return _helper.Insert(entity);
         }
 
-        public virtual TEntity Find(object id)
+        public virtual void Update(TEntity entity)
+        {
+            _helper.Update(entity);
+        }
+
+        public virtual TEntity Find(int id)
         {
             return _helper.Load<TEntity>(id);
         }

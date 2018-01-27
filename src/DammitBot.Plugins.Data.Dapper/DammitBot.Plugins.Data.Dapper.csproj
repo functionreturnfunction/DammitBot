@@ -9,6 +9,8 @@
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Dapper.FluentMap" Version="1.6.0" />
     <PackageReference Include="Dapper.FluentMap.Dommel" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.0.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.9" />
     <PackageReference Include="StructureMap" Version="4.6.1" />
   </ItemGroup>
 

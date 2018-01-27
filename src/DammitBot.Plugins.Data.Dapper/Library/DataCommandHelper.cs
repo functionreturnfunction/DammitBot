@@ -1,26 +1,50 @@
 using System;
+using System.Data;
 using System.Linq;
 using DammitBot.Data.Library;
+using Dommel;
 
 namespace DammitBot.Data.Dapper.Library
 {
     public class DataCommandHelper : IDataCommandHelper
     {
-        #region Exposed Methods
+        #region Private Members
 
-        public void Save(object entity)
+        private readonly IDbConnection _connection;
+
+        #endregion
+
+        #region Constructors
+
+        public DataCommandHelper(IDbConnection connection)
         {
-            throw new NotImplementedException();
+            _connection = connection;
         }
 
-        public T Load<T>(object id)
+        #endregion
+
+        #region Exposed Methods
+
+        public object Insert(object entity)
         {
-            throw new NotImplementedException();
+            return _connection.Insert(entity);
+        }
+
+        public void Update(object entity)
+        {
+            _connection.Update(entity);
+        }
+
+        public T Load<T>(int id)
+            where T : class
+        {
+            return _connection.Get<T>(id);
         }
 
         public IQueryable<T> GetQueryable<T>()
+            where T : class
         {
-            throw new NotImplementedException();
+            return _connection.GetAll<T>().ToList().AsQueryable();
         }
 
         #endregion

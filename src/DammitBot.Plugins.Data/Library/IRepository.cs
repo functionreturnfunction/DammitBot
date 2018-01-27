@@ -7,8 +7,10 @@ namespace DammitBot.Data.Library
     /// </summary>
     /// <typeparam name="T">Type of entity the repository deals with.</typeparam>
     public interface IRepository<T> : IQueryable<T>
+        where T : class
     {
-        T Save(T entity);
-        T Find(object id);
+        object Insert(T entity);
+        void Update(T entity);
+        T Find(int id);
     }
 }
