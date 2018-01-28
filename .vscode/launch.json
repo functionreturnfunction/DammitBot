@@ -12,7 +12,7 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/src/DammitBot.Console/bin/Debug/netcoreapp2.0/DammitBot.Console.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/DammitBot.Console",
+            "cwd": "${workspaceFolder}",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "internalConsole",
             "stopAtEntry": false,
