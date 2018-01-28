@@ -51,6 +51,20 @@ namespace DammitBot.Data.Dapper.Library
             _transaction.Dispose();
         }
 
+        public int ExecuteNonQuery(string sql)
+        {
+            var cmd = _connection.CreateCommand();
+            cmd.CommandText = sql;
+            return cmd.ExecuteNonQuery();
+        }
+
+        public object ExecuteScalar(string sql)
+        {
+            var cmd = _connection.CreateCommand();
+            cmd.CommandText = sql;
+            return cmd.ExecuteScalar();
+        }
+
         public IDisposableUnitOfWork Start()
         {
             throw new InvalidOperationException("Already started!");

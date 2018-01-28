@@ -16,6 +16,8 @@ on u.Id = this.UserId";
 
         protected override string BaseQuery => BASE_QUERY;
 
+        public NickRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
+
         protected override IEnumerable<Nick> DoQuery(string sql)
         {
             return _connection.Query<Nick, User, Nick>(sql, (nick, user) => {
@@ -24,6 +26,10 @@ on u.Id = this.UserId";
             });
         }
 
-        public NickRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
+        public override object Insert(Nick entity)
+        {
+            entity.UserId = entity.User == null ? entity.UserId : entity.User.Id;
+            return base.Insert(entity);
+        }
     }
 }

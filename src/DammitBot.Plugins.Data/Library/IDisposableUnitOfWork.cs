@@ -8,6 +8,8 @@ namespace DammitBot.Data.Library
 
         void Commit();
         IRepository<T> GetRepository<T>() where T : class;
+        int ExecuteNonQuery(string sql);
+        object ExecuteScalar(string sql);
 
         #endregion
     }
