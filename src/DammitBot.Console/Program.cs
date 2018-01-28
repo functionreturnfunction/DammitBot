@@ -7,6 +7,12 @@ namespace DammitBot.Console
 {
     class Program
     {
+        private static bool LogAndRethrow(ILog log, Exception e)
+        {
+            log.Error("Runtime error occurred.", e);
+            return false;
+        }
+
         static void Main(string[] args)
         {
             var container = DependencyRegistrar.GetContainer();
@@ -22,9 +28,8 @@ namespace DammitBot.Console
                     Thread.Sleep(100);
                 } while (bot.Running);
             }
-            catch (Exception e)
+            catch (Exception e) when (LogAndRethrow(log, e))
             {
-                log.Error("Runtime error encountered.", e);
                 throw;
             }
             finally

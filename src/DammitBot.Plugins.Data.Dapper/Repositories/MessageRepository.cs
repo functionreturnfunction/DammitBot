@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using DammitBot.Data.Library;
@@ -7,32 +6,37 @@ using Dapper;
 
 namespace DammitBot.Data.Repositories
 {
-    public class MessageRepository : DapperRepositoryBase<Message>
+    public class MessageRepository : RepositoryBase<Message>
     {
         public const string BASE_QUERY = @"
-select * from Messages this
+select * from Messages m
 left join Nicks n
-on n.Id = this.FromId
+on n.Id = m.FromId
 left join Users u
 on u.Id = n.UserId";
 
-        protected override string BaseQuery => BASE_QUERY;
+        private readonly IDbConnection _connection;
 
-        public MessageRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
-
-        protected override IEnumerable<Message> DoQuery(string sql)
+        public MessageRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper)
         {
-            return _connection.Query<Message, Nick, User, Message>(sql, (msg, nick, user) => {
-                msg.From = nick;
-                nick.User = user;
-                return msg;
-            });
+            _connection = connection;
         }
 
         public override object Insert(Message message)
         {
             message.FromId = message.From == null ? message.FromId : message.From.Id;
             return base.Insert(message);
+        }
+
+        public override Message Find(int id)
+        {
+            var sql = BASE_QUERY + $" where m.Id = {id}";
+
+            return _connection.Query<Message, Nick, User, Message>(sql, (msg, nick, user) => {
+                msg.From = nick;
+                nick.User = user;
+                return msg;
+            }).SingleOrDefault();
         }
     }
 }

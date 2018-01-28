@@ -20,6 +20,7 @@
     <ProjectReference Include="..\DammitBot.Plugins.Commands.Die\DammitBot.Plugins.Commands.Die.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Commands.Help\DammitBot.Plugins.Commands.Help.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj" />
+    <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />
   </ItemGroup>
 
 </Project>
