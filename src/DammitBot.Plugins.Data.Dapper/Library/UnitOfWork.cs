@@ -8,8 +8,8 @@ namespace DammitBot.Data.Dapper.Library
     {
         #region Private Members
 
-        private readonly IDbConnection _connection;
-        private readonly IContainer _container;
+        protected readonly IDbConnection _connection;
+        protected readonly IContainer _container;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace DammitBot.Data.Dapper.Library
 
         #region Exposed Methods
 
-        public IDisposableUnitOfWork Start()
+        public virtual IDisposableUnitOfWork Start()
         {
             return new DisposableUnitOfWork(_connection, _container);
         }

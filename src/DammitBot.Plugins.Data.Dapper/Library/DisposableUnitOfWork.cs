@@ -9,9 +9,9 @@ namespace DammitBot.Data.Dapper.Library
     {
         #region Private Members
 
-        private readonly IContainer _container;
-        private readonly IDbConnection _connection;
-        private readonly IDbTransaction _transaction;
+        protected readonly IContainer _container;
+        protected readonly IDbConnection _connection;
+        protected readonly IDbTransaction _transaction;
 
         #endregion
 
@@ -20,7 +20,10 @@ namespace DammitBot.Data.Dapper.Library
         public DisposableUnitOfWork(IDbConnection connection, IContainer container)
         {
             _connection = connection;
-            _connection.Open();
+            if (_connection.State != ConnectionState.Open)
+            {
+                _connection.Open();
+            }
             _container = container.GetNestedContainer();
             _container.Configure(e => {
                 e.For<IDbConnection>().Use(_connection);
@@ -43,7 +46,7 @@ namespace DammitBot.Data.Dapper.Library
             _transaction.Commit();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _connection.Close();
             _connection.Dispose();
