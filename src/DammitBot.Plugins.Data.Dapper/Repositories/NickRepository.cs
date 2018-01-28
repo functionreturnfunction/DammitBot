@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using DammitBot.Data.Library;
@@ -6,32 +7,23 @@ using Dapper;
 
 namespace DammitBot.Data.Repositories
 {
-    public class NickRepository : RepositoryBase<Nick>
+    public class NickRepository : DapperRepositoryBase<Nick>
     {
         public const string BASE_QUERY = @"
-select * from Nicks n
+select * from Nicks this
 left join Users u
-on u.Id = n.UserId";
+on u.Id = this.UserId";
 
-        private readonly IDbConnection _connection;
+        protected override string BaseQuery => BASE_QUERY;
 
-        public NickRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper)
+        protected override IEnumerable<Nick> DoQuery(string sql)
         {
-            _connection = connection;
+            return _connection.Query<Nick, User, Nick>(sql, (nick, user) => {
+                nick.User = user;
+                return nick;
+            });
         }
 
-        public override Nick Find(int id)
-        {
-            var sql = BASE_QUERY + $" where n.Id = {id}";
-
-            return _connection.Query<Nick, User, Nick>(sql, (nick, user) => { nick.User = user; return nick; }).SingleOrDefault();
-        }
-
-        protected override IQueryable<Nick> GetQueryable()
-        {
-            var sql = BASE_QUERY + " order by n.Id";
-
-            return _connection.Query<Nick, User, Nick>(sql, (nick, user) => { nick.User = user; return nick; }).AsQueryable();
-        }
+        public NickRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
     }
 }

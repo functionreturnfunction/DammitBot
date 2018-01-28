@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Data.Dapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.Data.AutoMigrations", "src\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj", "{3E14915E-3307-4B56-866C-8EDF72F2B507}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DammitBot.Plugins.MessageLogging", "src\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj", "{C01B5235-0B27-465D-9CAB-DEB04AF697CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,18 @@ Global
 		{3E14915E-3307-4B56-866C-8EDF72F2B507}.Release|x64.Build.0 = Release|x64
 		{3E14915E-3307-4B56-866C-8EDF72F2B507}.Release|x86.ActiveCfg = Release|x86
 		{3E14915E-3307-4B56-866C-8EDF72F2B507}.Release|x86.Build.0 = Release|x86
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|x64.ActiveCfg = Debug|x64
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|x64.Build.0 = Debug|x64
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|x86.ActiveCfg = Debug|x86
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Debug|x86.Build.0 = Debug|x86
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|x64.ActiveCfg = Release|x64
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|x64.Build.0 = Release|x64
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|x86.ActiveCfg = Release|x86
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7EE6790F-3080-4F06-BD98-F6554F05AD36} = {00A09AEA-44B0-4993-BD02-EC95A1F25D79}
@@ -125,5 +139,6 @@ Global
 		{CBA83740-4BB0-46FD-BDE8-04169F2CD593} = {00A09AEA-44B0-4993-BD02-EC95A1F25D79}
 		{A2C997D7-38FA-4127-A06F-DCE03DC4B0BF} = {00A09AEA-44B0-4993-BD02-EC95A1F25D79}
 		{3E14915E-3307-4B56-866C-8EDF72F2B507} = {00A09AEA-44B0-4993-BD02-EC95A1F25D79}
+		{C01B5235-0B27-465D-9CAB-DEB04AF697CE} = {00A09AEA-44B0-4993-BD02-EC95A1F25D79}
 	EndGlobalSection
 EndGlobal

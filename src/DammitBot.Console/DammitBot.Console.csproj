@@ -19,6 +19,7 @@
     <ProjectReference Include="..\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Commands.Die\DammitBot.Plugins.Commands.Die.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Commands.Help\DammitBot.Plugins.Commands.Help.csproj" />
+    <ProjectReference Include="..\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,8 +6,8 @@ namespace DammitBot.Data.Library
     {
         #region Abstract Methods
 
-        object Insert(object entity);
-        void Update(object entity);
+        object Insert<TEntity>(TEntity entity) where TEntity : class;
+        void Update<TEntity>(TEntity entity) where TEntity : class;
         T Load<T>(int id) where T : class;
         IQueryable<T> GetQueryable<T>() where T : class;
 

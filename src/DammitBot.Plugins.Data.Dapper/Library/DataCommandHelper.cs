@@ -25,12 +25,14 @@ namespace DammitBot.Data.Dapper.Library
 
         #region Exposed Methods
 
-        public object Insert(object entity)
+        public object Insert<TEntity>(TEntity entity)
+            where TEntity : class
         {
             return _connection.Insert(entity);
         }
 
-        public void Update(object entity)
+        public void Update<TEntity>(TEntity entity)
+            where TEntity : class
         {
             _connection.Update(entity);
         }
