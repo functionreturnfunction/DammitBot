@@ -15,7 +15,7 @@ namespace DammitBot.Data.Dapper.Mappings
             Map(x => x.CreatedAt);
             Map(x => x.UpdatedAt);
 
-            Map(x => x.From);
+            Map(x => x.From.Id);
         }
     }
 }

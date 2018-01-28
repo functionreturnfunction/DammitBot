@@ -1,7 +1,9 @@
 using System.Data;
 using DammitBot.Abstract;
 using DammitBot.Data.Library;
+using DammitBot.Data.Models;
 using DammitBot.Data.Dapper.Library;
+using DammitBot.Data.Repositories;
 using StructureMap;
 using Microsoft.Data.Sqlite;
 
@@ -15,6 +17,9 @@ namespace DammitBot.Ioc
             e.For<IUnitOfWork>().Use<UnitOfWork>();
             e.For<IDataCommandHelper>().Use<DataCommandHelper>();
             e.For<IDbConnection>().Use(_ => new SqliteConnection(new SqliteConnectionStringBuilder {DataSource = "db/dev.db"}.ToString()));
+
+            e.For<IRepository<Nick>>().Use<NickRepository>();
+            e.For<IRepository<Message>>().Use<MessageRepository>();
         }
     }
 }

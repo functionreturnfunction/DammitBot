@@ -36,7 +36,7 @@ namespace DammitBot.Data.Library
 
         #region Private Methods
 
-        private IQueryable<TEntity> GetQueryable()
+        protected virtual IQueryable<TEntity> GetQueryable()
         {
             return _helper.GetQueryable<TEntity>();
         }

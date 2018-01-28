@@ -13,7 +13,7 @@ namespace DammitBot.Data.Dapper.Mappings
             Map(x => x.CreatedAt);
             Map(x => x.UpdatedAt);
 
-            Map(x => x.User);
+            Map(x => x.User.Id);
         }
     }
 }
