@@ -62,7 +62,10 @@ IF NOT EXISTS Messages (
 
         public override void Down(IDisposableUnitOfWork uow)
         {
-            throw new System.NotImplementedException();
+            uow.ExecuteNonQuery(@"
+DROP TABLE Messages;
+DROP TABLE Nicks;
+DROP TABLE Users;");
         }
     }
 }

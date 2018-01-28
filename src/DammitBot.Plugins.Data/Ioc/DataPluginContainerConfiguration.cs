@@ -2,7 +2,7 @@ using DammitBot.Abstract;
 using DammitBot.Data.Library;
 using StructureMap;
 
-namespace DammitBot.Data.Ioc
+namespace DammitBot.Ioc
 {
     public class DataPluginContainerConfiguration : PluginContainerConfigurationBase
     {
