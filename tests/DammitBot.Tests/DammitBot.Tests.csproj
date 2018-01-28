@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Moq" Version="4.8.1" />
+    <PackageReference Include="StructureMap" Version="4.6.1" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\TeamCitySharper\TeamCitySharper.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Core\DammitBot.Core.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Commands.Die\DammitBot.Plugins.Commands.Die.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Commands.Help\DammitBot.Plugins.Commands.Help.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Commands\DammitBot.Plugins.Commands.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.Migrations\DammitBot.Plugins.Data.Migrations.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.Dapper\DammitBot.Plugins.Data.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj" />
+    <ProjectReference Include="..\..\src\DateTimeStringParser\DateTimeStringParser.csproj" />
+  </ItemGroup>
+
+</Project>
