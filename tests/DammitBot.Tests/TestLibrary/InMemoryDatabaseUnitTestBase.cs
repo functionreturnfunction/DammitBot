@@ -1,4 +1,5 @@
-﻿using DammitBot.Configuration;
+﻿using System.Data;
+using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Dapper.Library;
@@ -20,6 +21,7 @@ namespace DammitBot.TestLibrary
             }.ToString());
 
             _container.Configure(e => {
+                e.For<IDbConnection>().Use(_ => connection);
                 e.For<IInstantiationService>().Use<InstantiationService>();
                 e.For<IAssemblyService>().Use<AssemblyService>();
                 e.For<IDataCommandHelper>().Use<DataCommandHelper>();
