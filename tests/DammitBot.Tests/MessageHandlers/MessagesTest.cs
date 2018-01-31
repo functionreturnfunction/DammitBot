@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Library;
+using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
@@ -39,6 +41,7 @@ namespace DammitBot.MessageHandlers
                 });
                 i.For<IBot>().Use<Bot>().Singleton();
                 i.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
+                i.For<IUnitOfWork>().Use<TestUnitOfWork>();
             });
 
             Inject(out _commandHandlerFactory);
@@ -47,6 +50,9 @@ namespace DammitBot.MessageHandlers
             Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);
+            var migrationService = new Mock<MigrationService>();
+            migrationService.SetupGet(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
+            Inject<MigrationService>(migrationService.Object);
         }
 
         #endregion

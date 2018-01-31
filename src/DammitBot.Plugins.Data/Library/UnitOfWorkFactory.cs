@@ -6,7 +6,7 @@ namespace DammitBot.Data.Library
     {
         #region Private Members
 
-        private readonly IContainer _container;
+        protected readonly IContainer _container;
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace DammitBot.Data.Library
 
         #region Exposed Methods
 
-        public IUnitOfWork Build() => _container.GetInstance<IUnitOfWork>();
+        public virtual IUnitOfWork Build() => _container.GetInstance<IUnitOfWork>();
 
         #endregion
     }

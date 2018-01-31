@@ -17,7 +17,7 @@ namespace DammitBot.Abstract
 
         #endregion
 
-        public IEnumerable<TThingy> Thingies => _thingies ?? (_thingies = GetThingies());
+        public virtual IEnumerable<TThingy> Thingies => _thingies ?? (_thingies = GetThingies());
 
         #region Constructors
 

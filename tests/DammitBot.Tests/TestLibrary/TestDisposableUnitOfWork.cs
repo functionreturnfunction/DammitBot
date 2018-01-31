@@ -11,7 +11,10 @@ namespace DammitBot.TestLibrary
         public override void Dispose()
         {
             _container.Dispose();
-            _transaction.Dispose();
+            if (_transaction != null)
+            {
+                _transaction.Dispose();
+            }
         }
     }
 }

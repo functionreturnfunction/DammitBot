@@ -3,6 +3,7 @@ using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Dapper.Library;
+using DammitBot.Ioc;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Microsoft.Data.Sqlite;
@@ -21,13 +22,18 @@ namespace DammitBot.TestLibrary
             }.ToString());
 
             _container.Configure(e => {
-                e.For<IDbConnection>().Use(_ => connection);
                 e.For<IInstantiationService>().Use<InstantiationService>();
                 e.For<IAssemblyService>().Use<AssemblyService>();
                 e.For<IDataCommandHelper>().Use<DataCommandHelper>();
                 e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
                 e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
                 e.For<IUnitOfWork>().Use<TestUnitOfWork>();
+                e.For<IDisposableUnitOfWork>().Use<TestDisposableUnitOfWork>();
+
+                new DapperPluginContainerConfiguration().Configure(e);
+                new ReminderPluginContainerConfiguration().Configure(e);
+
+                e.For<IDbConnection>().Use(_ => connection).Singleton();
             });
 
             // var builder = (TestSessionFactoryBuilder)_container.GetInstance<ISessionFactoryBuilder>();
@@ -35,6 +41,13 @@ namespace DammitBot.TestLibrary
 
             // _container.Inject(session.Connection);
             // new SchemaExport(builder.Configuration).Execute(true, true, false, session.Connection, null);
+        }
+
+        public InMemoryDatabaseUnitTestBase()
+        {
+            var migrationRunner = _container.GetInstance<MigrationRunner>();
+
+            migrationRunner.Up();
         }
 
         #endregion
