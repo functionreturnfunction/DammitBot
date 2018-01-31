@@ -5,6 +5,8 @@ namespace DammitBot.TestLibrary
 {
     public abstract partial class InMemoryDatabaseUnitTestBase<TTarget>
     {
+        // Dommel guesses the connection type based on type name,
+        // so our wrapper class needs to have the same name.
         public abstract class DbConnectionWrapper<TConnection> : IDbConnection
             where TConnection : IDbConnection
         {
@@ -69,7 +71,9 @@ namespace DammitBot.TestLibrary
             }
         }
 
-        public class SqliteConnection : DbConnectionWrapper<Microsoft.Data.Sqlite.SqliteConnection>
+       // Dommel guesses the connection type based on type name,
+       // so our wrapper class needs to have the same name.
+       public class SqliteConnection : DbConnectionWrapper<Microsoft.Data.Sqlite.SqliteConnection>
         {
             public SqliteConnection(Microsoft.Data.Sqlite.SqliteConnection connection) : base(connection) {}
         }

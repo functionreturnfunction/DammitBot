@@ -31,14 +31,14 @@ namespace DammitBot.TestLibrary
 
             protected T TryExecuteThing<T>(string executionType, Func<T> fn)
             {
-                try
-                {
+                // try
+                // {
                     return fn();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception($"Error executing {executionType} query '{_command.CommandText}'.", e);
-                }
+                // }
+                // catch (Exception e)
+                // {
+                //     throw new Exception($"Error executing {executionType} query '{_command.CommandText}'.", e);
+                // }
             }
 
             public void Cancel()
