@@ -19,7 +19,7 @@ namespace DammitBot.Protocols.Irc
 
         protected readonly IIrcClientFactory _ircClientFactory;
         protected readonly ILog _log;
-        protected readonly IrcConfigurationSection _config;
+        protected readonly IIrcConfigurationSection _config;
         protected IIrcClient _irc;
 
         #endregion

@@ -28,7 +28,7 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             return uow.ExecuteScalar($"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
         }
 
-        protected void RunAll(Action<IDisposableUnitOfWork, MigrationBase> doRun, Action<IDisposableUnitOfWork, MigrationBase> secondPass = null, bool reverse = false)
+        protected void RunAll(Action<IDisposableUnitOfWork, MigrationBase> doRun, Action<IDisposableUnitOfWork, MigrationBase> secondPass = null, bool reverse = false, int? upToId = null)
         {
             var migrations = _service.Thingies.ToList();
 
@@ -38,6 +38,19 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             }
 
             migrations = migrations.OrderBy(m => m.Id).ToList();
+
+            if (upToId.HasValue)
+            {
+                if (!migrations.Any(m => m.Id == upToId.Value))
+                {
+                    throw new ArgumentException($"Could not find migration with id {upToId}.", nameof(upToId));
+                }
+
+                migrations = (reverse ?
+                    migrations.Where(m => m.Id > upToId.Value) :
+                    migrations.Where(m => m.Id <= upToId.Value)).ToList();
+            }
+
             if (reverse)
             {
                 migrations.Reverse();
@@ -69,21 +82,31 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             }
         }
 
-        public void Up(bool seed = true)
+        public void Up(int? id = null, bool seed = true)
         {
             if (seed)
             {
-                RunAll((u, m) => m.Up(u), (u, m) => m.Seed(u));
+                RunAll((u, m) => m.Up(u), (u, m) => m.Seed(u), upToId: id);
             }
             else
             {
-                RunAll((u, m) => m.Up(u));
+                RunAll((u, m) => m.Up(u), upToId: id);
             }
         }
 
-        public void Down()
+        public void Down(int? id = null)
         {
-            RunAll((u, m) => m.Down(u), reverse: true);
+            RunAll((u, m) => m.Down(u), reverse: true, upToId: id);
+        }
+
+        public int? GetLatestVersionNumber()
+        {
+            using (var uow = _uowFactory.Build().Start())
+            {
+                uow.ExecuteNonQuery(CREATE_VERSION_INFO);
+                var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
+                return num is DBNull ? (int?)null : Convert.ToInt32(num);
+            }
         }
     }
 }

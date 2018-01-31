@@ -37,9 +37,11 @@ namespace DammitBot.Data.Dapper.Library
 
         private T WithCommand<T>(Func<IDbCommand, T> fn)
         {
-            var cmd = _connection.CreateCommand();
-            cmd.Transaction = _transaction;
-            return fn(cmd);
+            using (var cmd = _connection.CreateCommand())
+            {
+                cmd.Transaction = _transaction;
+                return fn(cmd);
+            }
         }
 
         private T WithTextCommand<T>(string sql, Func<IDbCommand, T> fn)

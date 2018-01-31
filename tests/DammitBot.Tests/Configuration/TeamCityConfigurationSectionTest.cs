@@ -1,16 +1,15 @@
-﻿using Xunit;
+﻿using Microsoft.Extensions.Configuration;
+using Xunit;
 
 namespace DammitBot.Configuration
 {
     public class TeamCityConfigurationSectionTest
     {
-        private TeamCityConfigurationSection _target;
+        private ITeamCityConfigurationSection _target;
 
         public TeamCityConfigurationSectionTest()
         {
-            _target =
-                (TeamCityConfigurationSection)
-                System.Configuration.ConfigurationManager.GetSection(TeamCityConfigurationSection.SECTION_NAME);
+            _target = new TeamCityConfigurationManager(new ConfigurationBuilder()).TeamCityConfigurationSection;
         }
 
         [Fact]

@@ -20,11 +20,13 @@ namespace DammitBot.Data.Library
         }
 
         [Fact]
-        public void TestInsertSavesAndReturnsEntity()
+        public void TestInsertSavesAndReturnsIdentifier()
         {
             var entity = new Nick();
+
+            _dataCommandHelper.Setup(x => x.Insert(entity)).Returns(666);
             
-            Assert.Same(entity, _target.Insert(entity));
+            Assert.Equal(666, _target.Insert(entity));
 
             _dataCommandHelper.Verify(x => x.Insert(entity));
         }

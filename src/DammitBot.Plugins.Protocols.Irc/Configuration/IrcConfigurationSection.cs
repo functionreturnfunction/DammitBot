@@ -1,14 +1,22 @@
-﻿using System.Configuration;
+﻿using System;
 using DammitBot.Protocols.Irc;
+using Microsoft.Extensions.Configuration;
 
 // ReSharper disable once CheckNamespace
 namespace DammitBot.Configuration
 {
-    public class IrcConfigurationSection : ConfigurationSection
+    public class IrcConfigurationSection : IIrcConfigurationSection
     {
         #region Constants
 
-        public const string SECTION_NAME = Irc.PROTOCOL_NAME;
+        public const string KEY = Irc.PROTOCOL_NAME;
+        private IConfigurationSection _config;
+
+        public IrcConfigurationSection(IConfigurationSection config)
+        {
+            _config = config;
+        }
+
 
         public struct Keys
         {
@@ -23,26 +31,20 @@ namespace DammitBot.Configuration
 
         #region Properties
 
-        [ConfigurationProperty(Keys.SERVER, IsRequired = true)]
-        public virtual string Server => (string) this[Keys.SERVER];
+        public virtual string Server => _config[Keys.SERVER];
 
-        [ConfigurationProperty(Keys.NICK)]
         public virtual string Nick
         {
             get
             {
-                var nick = (string) this[Keys.NICK];
+                var nick = _config[Keys.NICK];
                 return string.IsNullOrWhiteSpace(nick) ? User : nick;
             }
         }
 
-        [ConfigurationProperty(Keys.USER, IsRequired = true)]
-        public virtual string User => (string) this[Keys.USER];
+        public virtual string User => _config[Keys.USER];
 
-        [ConfigurationProperty(Keys.CHANNELS, IsRequired = true)]
-        public virtual string ChannelsStr => this[Keys.CHANNELS].ToString();
-
-        public virtual string[] Channels => ChannelsStr.Split(',');
+        public virtual string[] Channels => _config[Keys.CHANNELS].Split(',');
 
         #endregion
     }

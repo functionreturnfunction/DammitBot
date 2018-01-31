@@ -1,5 +1,4 @@
-﻿
-
+﻿using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace DammitBot.Configuration
@@ -9,7 +8,7 @@ namespace DammitBot.Configuration
     {
         #region Private Members
 
-        private BotConfigurationSection _target;
+        private IBotConfigurationSection _target;
 
         #endregion
 
@@ -17,7 +16,7 @@ namespace DammitBot.Configuration
 
         public BotConfigurationSectionTest()
         {
-            _target = (BotConfigurationSection)System.Configuration.ConfigurationManager.GetSection(BotConfigurationSection.SECTION_NAME);
+            _target = new ConfigurationManager(new ConfigurationBuilder()).BotConfig;
         }
 
         #endregion

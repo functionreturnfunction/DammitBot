@@ -2,6 +2,6 @@
 {
     public interface IConfigurationManager
     {
-        BotConfigurationSection BotConfig { get; }
+        IBotConfigurationSection BotConfig { get; }
     }
 }

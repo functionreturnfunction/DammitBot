@@ -1,29 +1,18 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration
 {
-    public class BotConfigurationSection : ConfigurationSection
+    public class BotConfigurationSection : IBotConfigurationSection
     {
-        #region Constants
+        public const string KEY = "DammitBot";
 
-        public const string SECTION_NAME = "DammitBot";
+        private readonly IConfigurationSection _config;
 
-        public struct Keys
+        public string GoesBy => _config["goesBy"];
+
+        public BotConfigurationSection(IConfigurationSection config)
         {
-            #region Constants
-
-            public const string GOES_BY = "goesBy";
-
-            #endregion
+            _config = config;
         }
-
-        #endregion
-
-        #region Properties
-
-        [ConfigurationProperty(Keys.GOES_BY, DefaultValue = Bot.DEFAULT_GOES_BY)]
-        public virtual string GoesBy => (string)this[Keys.GOES_BY];
-
-        #endregion
     }
 }

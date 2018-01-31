@@ -11,7 +11,7 @@ namespace DammitBot.CommandHandlers
     {
         #region Private Members
 
-        private readonly BotConfigurationSection _config;
+        private readonly IBotConfigurationSection _config;
 
         #endregion
 

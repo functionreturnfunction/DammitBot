@@ -14,7 +14,7 @@ namespace DammitBot
     {
         #region Private Members
 
-        private Mock<BotConfigurationSection> _config;
+        private Mock<IBotConfigurationSection> _config;
         private Mock<IMessageHandlerFactory> _handlerFactory;
         private Mock<IPluginService> _pluginService;
         private Mock<IProtocolService> _protocolService;
@@ -26,7 +26,7 @@ namespace DammitBot
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            _config = new Mock<BotConfigurationSection>();
+            _config = new Mock<IBotConfigurationSection>();
             Mock<IConfigurationManager> manager;
             Inject(out manager);
             manager.SetupGet(x => x.BotConfig).Returns(_config.Object);

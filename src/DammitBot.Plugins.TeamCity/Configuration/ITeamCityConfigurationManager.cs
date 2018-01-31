@@ -2,6 +2,6 @@
 {
     public interface ITeamCityConfigurationManager : IConfigurationManager
     {
-        TeamCityConfigurationSection TeamCityConfigurationSection {get;}
+        ITeamCityConfigurationSection TeamCityConfigurationSection { get; }
     }
 }

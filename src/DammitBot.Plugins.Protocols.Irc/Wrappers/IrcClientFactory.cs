@@ -9,7 +9,7 @@ namespace DammitBot.Protocols.Irc.Wrappers
     {
         #region Exposed Methods
 
-        public IIrcClient Build(IrcConfigurationSection config)
+        public IIrcClient Build(IIrcConfigurationSection config)
         {
             return new IrcClientWrapper(new IrcClient(config.Server, new IrcUser(config.Nick, config.User)));
         }

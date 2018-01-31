@@ -14,7 +14,7 @@ namespace DammitBot.Helpers
         #region Private Members
 
         private readonly ITeamCityClient _client;
-        private readonly TeamCityConfigurationSection _config;
+        private readonly ITeamCityConfigurationSection _config;
         private readonly ILog _log;
         private Build _lastBuild;
 
@@ -28,7 +28,7 @@ namespace DammitBot.Helpers
 
         #region Constructors
 
-        public TeamCityHelper(ITeamCityClient client, TeamCityConfigurationSection config, ILog log)
+        public TeamCityHelper(ITeamCityClient client, ITeamCityConfigurationSection config, ILog log)
         {
             _client = client;
             _config = config;

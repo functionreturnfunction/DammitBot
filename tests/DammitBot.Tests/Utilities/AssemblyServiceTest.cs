@@ -17,11 +17,12 @@ namespace DammitBot.Utilities
                 "DammitBot.Plugins.Commands.Help",
                 "DammitBot.Plugins.Data",
                 "DammitBot.Plugins.Data.AutoMigrations",
+                "DammitBot.Plugins.Data.Dapper",
                 "DammitBot.Plugins.Data.Migrations",
-                "DammitBot.Plugins.Data.NHibernate",
                 "DammitBot.Plugins.MessageLogging",
                 "DammitBot.Plugins.Protocols.Irc",
                 "DammitBot.Plugins.Reminders",
+                "DammitBot.Plugins.Reminders.Dapper",
                 "DammitBot.Plugins.Reminders.Migrations",
                 "DammitBot.Plugins.Scheduling",
                 "DammitBot.Plugins.TeamCity"

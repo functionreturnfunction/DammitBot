@@ -14,7 +14,7 @@ namespace DammitBot.Ioc
         {
             e.For<ITeamCityHelper>().Use<TeamCityHelper>().Singleton();
             e.For<ITeamCityClient>().Use(ctx => InitTeamCityClient(ctx));
-            e.For<TeamCityConfigurationSection>()
+            e.For<ITeamCityConfigurationSection>()
                 .Use(ctx => ctx.GetInstance<ITeamCityConfigurationManager>().TeamCityConfigurationSection);
         }
 

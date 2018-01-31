@@ -8,9 +8,14 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.TestLibrary
 {
-    public abstract partial class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarget>
+    public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarget>
     {
         protected SqliteConnection _connection;
+
+        public InMemoryDatabaseUnitTestBase()
+        {
+            RunMigrations();
+        }
 
         #region Private Methods
 
@@ -20,7 +25,8 @@ namespace DammitBot.TestLibrary
             _connection = new SqliteConnection(new Microsoft.Data.Sqlite.SqliteConnection(new SqliteInMemoryConnectionStringService().GetMainAppConnectionString()));
             _connection.Name = "InMemoryDatabaseTest";
 
-            _container.Configure(e => {
+            _container.Configure(e =>
+            {
                 e.For<IInstantiationService>().Use<InstantiationService>();
                 e.For<IAssemblyService>().Use<AssemblyService>();
 
@@ -35,16 +41,11 @@ namespace DammitBot.TestLibrary
             });
         }
 
-        public InMemoryDatabaseUnitTestBase()
+        protected virtual void RunMigrations()
         {
             var migrationRunner = _container.GetInstance<MigrationRunner>();
 
-            migrationRunner.Up(false);
-
-            using (var uow = _container.GetInstance<IUnitOfWork>().Start())
-            {
-                var whatevs = uow.ExecuteReader("SELECT name FROM sqlite_master");
-            }
+            migrationRunner.Up(seed: false);
         }
 
         #endregion

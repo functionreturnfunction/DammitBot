@@ -9,7 +9,7 @@ namespace DammitBot.MessageHandlers
     {
         #region Private Members
 
-        private readonly BotConfigurationSection _botConfig;
+        private readonly IBotConfigurationSection _botConfig;
 
         #endregion
 

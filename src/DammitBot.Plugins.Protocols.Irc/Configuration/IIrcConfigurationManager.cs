@@ -5,7 +5,7 @@ namespace DammitBot.Configuration
     {
         #region Abstract Properties
 
-        IrcConfigurationSection IrcConfigurationSection { get; }
+        IIrcConfigurationSection IrcConfigurationSection { get; }
 
         #endregion
     }

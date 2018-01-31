@@ -6,7 +6,7 @@ namespace DammitBot.Protocols.Irc.Wrappers
     {
         #region Abstract Methods
 
-        IIrcClient Build(IrcConfigurationSection config);
+        IIrcClient Build(IIrcConfigurationSection config);
 
         #endregion
     }

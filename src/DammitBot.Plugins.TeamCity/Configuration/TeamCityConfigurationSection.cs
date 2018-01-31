@@ -1,12 +1,19 @@
-﻿using System.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration
 {
-    public class TeamCityConfigurationSection : ConfigurationSection
+    public class TeamCityConfigurationSection : ITeamCityConfigurationSection
     {
         #region Constants
 
-        public const string SECTION_NAME = "TeamCity";
+        public const string KEY = "TeamCity";
+        private IConfigurationSection _config;
+
+        public TeamCityConfigurationSection(IConfigurationSection config)
+        {
+            _config = config;
+        }
 
         public struct Keys
         {
@@ -21,14 +28,11 @@ namespace DammitBot.Configuration
 
         #region Properties
 
-        [ConfigurationProperty(Keys.HOST, IsRequired = true)]
-        public virtual string Host => (string)this[Keys.HOST];
+        public virtual string Host => _config[Keys.HOST];
 
-        [ConfigurationProperty(Keys.LOGIN, IsRequired = true)]
-        public virtual string Login => (string)this[Keys.LOGIN];
+        public virtual string Login => _config[Keys.LOGIN];
 
-        [ConfigurationProperty(Keys.PASSWORD, IsRequired = true)]
-        public virtual string Password => (string)this[Keys.PASSWORD];
+        public virtual string Password => _config[Keys.PASSWORD];
 
         #endregion
     }

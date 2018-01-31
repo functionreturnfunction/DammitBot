@@ -1,11 +1,15 @@
-﻿namespace DammitBot.Configuration
+﻿using Microsoft.Extensions.Configuration;
+
+namespace DammitBot.Configuration
 {
     public class TeamCityConfigurationManager : ConfigurationManager, ITeamCityConfigurationManager
     {
+        public TeamCityConfigurationManager(IConfigurationBuilder builder) : base(builder) {}
+
         #region Properties
 
-        public TeamCityConfigurationSection TeamCityConfigurationSection
-            => GetSection<TeamCityConfigurationSection>(TeamCityConfigurationSection.SECTION_NAME);
+        public virtual ITeamCityConfigurationSection TeamCityConfigurationSection
+            => new TeamCityConfigurationSection(Configuration.GetSection(DammitBot.Configuration.TeamCityConfigurationSection.KEY));
 
         #endregion
     }

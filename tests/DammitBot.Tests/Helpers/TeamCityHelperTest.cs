@@ -19,7 +19,7 @@ namespace DammitBot.Helpers
     public class TeamCityHelperTest : UnitTestBase<TeamCityHelper>
     {
         private Mock<ITeamCityClient> _client;
-        private Mock<TeamCityConfigurationSection> _config;
+        private Mock<ITeamCityConfigurationSection> _config;
 
         protected override void ConfigureContainer()
         {
