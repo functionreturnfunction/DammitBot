@@ -44,9 +44,13 @@ namespace DammitBot.MessageHandlers
                 i.For<IUnitOfWork>().Use<TestUnitOfWork>();
             });
 
+            var migrationService = new Mock<IMigrationService>();
+            migrationService.Setup(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
+
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
             Inject<ITeamCityHelper>();
+            Inject(migrationService.Object);
             Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);
