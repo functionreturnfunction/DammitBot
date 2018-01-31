@@ -9,7 +9,7 @@ namespace DammitBot.TestLibrary
         {
             return new SqliteConnectionStringBuilder {
                 DataSource = ":memory:",
-                Mode = SqliteOpenMode.Memory
+                // Mode = SqliteOpenMode.Memory
             }.ToString();
         }
     }
