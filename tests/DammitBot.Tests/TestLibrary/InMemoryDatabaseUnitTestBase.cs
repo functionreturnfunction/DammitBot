@@ -39,7 +39,7 @@ namespace DammitBot.TestLibrary
         {
             var migrationRunner = _container.GetInstance<MigrationRunner>();
 
-            migrationRunner.Up();
+            migrationRunner.Up(false);
 
             using (var uow = _container.GetInstance<IUnitOfWork>().Start())
             {

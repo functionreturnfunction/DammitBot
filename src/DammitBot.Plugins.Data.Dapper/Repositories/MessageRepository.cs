@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
+using DateTimeStringParser;
 using Dapper;
 
 namespace DammitBot.Data.Repositories
@@ -18,7 +19,12 @@ on u.Id = n.UserId";
 
         protected override string BaseQuery => BASE_QUERY;
 
-        public MessageRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
+        public MessageRepository(IDataCommandHelper helper, IDbConnection connection, IDateTimeProvider dateTimeProvider) : base(helper, connection, dateTimeProvider) {}
+
+        protected override void FixReferences(Message message)
+        {
+            message.FromId = message.From == null ? message.FromId : message.From.Id;
+        }
 
         protected override IEnumerable<Message> DoQuery(string sql)
         {
@@ -27,12 +33,6 @@ on u.Id = n.UserId";
                 nick.User = user;
                 return msg;
             });
-        }
-
-        public override object Insert(Message message)
-        {
-            message.FromId = message.From == null ? message.FromId : message.From.Id;
-            return base.Insert(message);
         }
     }
 }

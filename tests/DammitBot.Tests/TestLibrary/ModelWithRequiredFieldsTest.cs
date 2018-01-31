@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using Microsoft.Data.Sqlite;
 
 namespace DammitBot.TestLibrary
 {
@@ -34,7 +35,7 @@ namespace DammitBot.TestLibrary
 
                 fn(obj);
 
-                Assert.Throws<InvalidOperationException>(() => {
+                Assert.Throws<SqliteException>(() => {
                     _target.Insert(obj);
                     _target.Dispose();
                 });
@@ -51,7 +52,7 @@ namespace DammitBot.TestLibrary
 
                 fn(obj);
 
-                Assert.Throws<InvalidOperationException>(() => {
+                Assert.Throws<SqliteException>(() => {
                     _target.Update(obj);
                     _target.Dispose();
                 });

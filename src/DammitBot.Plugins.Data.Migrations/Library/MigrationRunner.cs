@@ -62,9 +62,16 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             }
         }
 
-        public void Up()
+        public void Up(bool seed = true)
         {
-            RunAll((u, m) => m.Up(u), (u, m) => m.Seed(u));
+            if (seed)
+            {
+                RunAll((u, m) => m.Up(u), (u, m) => m.Seed(u));
+            }
+            else
+            {
+                RunAll((u, m) => m.Up(u));
+            }
         }
 
         public void Down()

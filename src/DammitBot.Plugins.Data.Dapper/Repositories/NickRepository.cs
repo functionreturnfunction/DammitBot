@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
+using DateTimeStringParser;
 using Dapper;
 
 namespace DammitBot.Data.Repositories
@@ -16,7 +17,7 @@ on u.Id = this.UserId";
 
         protected override string BaseQuery => BASE_QUERY;
 
-        public NickRepository(IDataCommandHelper helper, IDbConnection connection) : base(helper, connection) {}
+        public NickRepository(IDataCommandHelper helper, IDbConnection connection, IDateTimeProvider dateTimeProvider) : base(helper, connection, dateTimeProvider) {}
 
         protected override IEnumerable<Nick> DoQuery(string sql)
         {
@@ -26,10 +27,9 @@ on u.Id = this.UserId";
             });
         }
 
-        public override object Insert(Nick entity)
+        protected override void FixReferences(Nick entity)
         {
             entity.UserId = entity.User == null ? entity.UserId : entity.User.Id;
-            return base.Insert(entity);
         }
     }
 }
