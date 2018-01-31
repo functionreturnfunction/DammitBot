@@ -8,16 +8,18 @@ namespace DammitBot.Data.Dapper.Library
     {
         #region Private Members
 
-        protected readonly IDbConnection _connection;
+        protected readonly IDbConnectionFactory _connectionFactory;
+        protected readonly IConnectionStringService _connectionStringService;
         protected readonly IContainer _container;
 
         #endregion
 
         #region Constructors
 
-        public UnitOfWork(IDbConnection connection, IContainer container)
+        public UnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container)
         {
-            _connection = connection;
+            _connectionFactory = connectionFactory;
+            _connectionStringService = connectionStringService;
             _container = container;
         }
 
@@ -27,7 +29,7 @@ namespace DammitBot.Data.Dapper.Library
 
         public virtual IDisposableUnitOfWork Start()
         {
-            return new DisposableUnitOfWork(_connection, _container);
+            return new DisposableUnitOfWork(_connectionFactory.Build(_connectionStringService.GetMainAppConnectionString()), _container);
         }
 
         #endregion

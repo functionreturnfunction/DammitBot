@@ -50,6 +50,21 @@ namespace DammitBot.Data.Dapper
         [Fact]
         public void TestCreateTimestamp()
         {
+            // var whatevs = uow.ExecuteReader("SELECT * FROM Nicks;");
+            // var sb = new StringBuilder();
+
+            // while (whatevs.Read())
+            // {
+            //     sb.AppendLine("{");
+            //     for (var i = 0; i < whatevs.FieldCount; ++i)
+            //     {
+            //         sb.AppendLine($"'{whatevs.GetName(i)}': {whatevs.GetValue(i)}");
+            //     }
+            //     sb.AppendLine("},");
+            // }
+
+            // var json = sb.ToString();
+
             this.TestSaveWithValidFieldsSetsCreatedAt();
         }
 

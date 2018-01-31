@@ -16,7 +16,8 @@ namespace DammitBot.Ioc
         {
             e.For<IUnitOfWork>().Use<UnitOfWork>();
             e.For<IDataCommandHelper>().Use<DataCommandHelper>();
-            e.For<IDbConnection>().Use(_ => new SqliteConnection(new SqliteConnectionStringBuilder {DataSource = "db/dev.db"}.ToString()));
+            e.For<IDbConnectionFactory>().Use<SqliteDbConnectionFactory>();
+            e.For<IConnectionStringService>().Use<SqliteConnectionStringService>();
 
             e.For<IRepository<Nick>>().Use<NickRepository>();
             e.For<IRepository<Message>>().Use<MessageRepository>();

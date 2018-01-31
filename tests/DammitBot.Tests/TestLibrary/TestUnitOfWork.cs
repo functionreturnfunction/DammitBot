@@ -7,11 +7,13 @@ namespace DammitBot.TestLibrary
 {
     public class TestUnitOfWork : UnitOfWork
     {
-        public TestUnitOfWork(IDbConnection connection, IContainer container) : base(connection, container) {}
+        public TestUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container) : base(connectionFactory, connectionStringService, container) {}
 
         public override IDisposableUnitOfWork Start()
         {
-            return new TestDisposableUnitOfWork(_connection, _container);
+            return new TestDisposableUnitOfWork(
+                _connectionFactory.Build(
+                    _connectionStringService.GetMainAppConnectionString()), _container);
         }
     }
 }

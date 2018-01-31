@@ -28,7 +28,26 @@ namespace DammitBot.Data.Dapper.Library
             _container.Configure(e => {
                 e.For<IDbConnection>().Use(_connection);
             });
-            _transaction = _connection.BeginTransaction();
+            // _transaction = _connection.BeginTransaction();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private T WithCommand<T>(Func<IDbCommand, T> fn)
+        {
+            var cmd = _connection.CreateCommand();
+            cmd.Transaction = _transaction;
+            return fn(cmd);
+        }
+
+        private T WithTextCommand<T>(string sql, Func<IDbCommand, T> fn)
+        {
+            return WithCommand(cmd => {
+                cmd.CommandText = sql;
+                return fn(cmd);
+            });
         }
 
         #endregion
@@ -43,7 +62,7 @@ namespace DammitBot.Data.Dapper.Library
 
         public virtual void Commit()
         {
-            _transaction.Commit();
+            // _transaction.Commit();
         }
 
         public virtual void Dispose()
@@ -56,16 +75,20 @@ namespace DammitBot.Data.Dapper.Library
 
         public int ExecuteNonQuery(string sql)
         {
-            var cmd = _connection.CreateCommand();
-            cmd.CommandText = sql;
-            return cmd.ExecuteNonQuery();
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteNonQuery());
         }
 
         public object ExecuteScalar(string sql)
         {
-            var cmd = _connection.CreateCommand();
-            cmd.CommandText = sql;
-            return cmd.ExecuteScalar();
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteScalar());
+        }
+
+        public IDataReader ExecuteReader(string sql)        
+        {
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteReader());
         }
 
         public IDisposableUnitOfWork Start()
