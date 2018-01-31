@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Library;
+using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
@@ -41,9 +42,13 @@ namespace DammitBot.MessageHandlers
                 i.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
             });
 
+            var migrationService = new Mock<IMigrationService>();
+            migrationService.Setup(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
+
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
             Inject<ITeamCityHelper>();
+            Inject(migrationService.Object);
             Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);
