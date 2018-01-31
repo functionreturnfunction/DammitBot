@@ -31,7 +31,7 @@ namespace DammitBot.TestLibrary
         #region Exposed Methods
 
         [Fact]
-        public void TestThereAreNoneByDefault()
+        public virtual void TestThereAreNoneByDefault()
         {
             using (_target)
             {

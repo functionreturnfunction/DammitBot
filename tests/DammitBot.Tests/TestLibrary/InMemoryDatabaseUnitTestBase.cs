@@ -25,7 +25,7 @@ namespace DammitBot.TestLibrary
                 e.For<IAssemblyService>().Use<AssemblyService>();
 
                 new DapperPluginContainerConfiguration().Configure(e);
-                new ReminderPluginContainerConfiguration().Configure(e);
+                new RemindersDapperPluginContainerConfiguration().Configure(e);
 
                 e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
                 e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();

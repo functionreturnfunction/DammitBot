@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using DammitBot.CommandHandlers;
+using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Models;
@@ -44,8 +45,8 @@ namespace DammitBot.MessageHandlers
                 i.For<IUnitOfWork>().Use<TestUnitOfWork>();
             });
 
-            var migrationService = new Mock<MigrationService>();
-            migrationService.SetupGet(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
+            Mock<IMigrationService> migrationService;
+            Mock<IConfigurationManager> configurationManager;
 
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
@@ -53,8 +54,11 @@ namespace DammitBot.MessageHandlers
             Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);
+            Inject(out migrationService);
+            Inject(out configurationManager);
 
-            Inject<MigrationService>(migrationService.Object);
+            migrationService.SetupGet(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
+            configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
         }
 
         #endregion

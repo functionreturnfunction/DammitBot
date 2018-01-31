@@ -33,6 +33,7 @@
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj" />
     <ProjectReference Include="..\..\src\DateTimeStringParser\DateTimeStringParser.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Dapper\DammitBot.Plugins.Reminders.Dapper.csproj" />
   </ItemGroup>
 
 </Project>

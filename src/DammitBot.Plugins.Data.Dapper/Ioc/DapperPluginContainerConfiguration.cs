@@ -3,7 +3,7 @@ using DammitBot.Abstract;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Data.Dapper.Library;
-using DammitBot.Data.Repositories;
+using DammitBot.Data.Dapper.Repositories;
 using StructureMap;
 using Microsoft.Data.Sqlite;
 
@@ -21,6 +21,7 @@ namespace DammitBot.Ioc
 
             e.For<IRepository<Nick>>().Use<NickRepository>();
             e.For<IRepository<Message>>().Use<MessageRepository>();
+            e.For<IRepository<User>>().Use<UserRepository>();
         }
     }
 }

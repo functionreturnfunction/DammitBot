@@ -33,7 +33,14 @@ namespace DammitBot.Data.Dapper
         {
             return new Action<Reminder>[] {
                 r => r.RemindAt = null,
-                r => r.From = null
+                r => {
+                    r.From = null;
+                    r.FromId = null;
+                },
+                r => {
+                    r.To = null;
+                    r.ToId = null;
+                }
             };
         }
 
@@ -56,6 +63,12 @@ namespace DammitBot.Data.Dapper
                 To = to,
                 RemindAt = remindAt
             };
+        }
+
+        [Fact]
+        public override void TestThereAreNoneByDefault()
+        {
+            base.TestThereAreNoneByDefault();
         }
 
         [Fact]

@@ -34,22 +34,5 @@ IF NOT EXISTS Reminders (
         {
             uow.ExecuteNonQuery("DROP TABLE Reminders;");
         }
-
-        // public override void Up(IDisposabl)
-        // {
-        //     Create.Table("Reminders")
-        //         .WithIdentityColumn()
-        //         .WithColumn("Text").AsString(StringLengths.TEXT).NotNullable()
-        //         .WithForeignKeyColumn("FromId", "Users").NotNullable()
-        //         .WithForeignKeyColumn("ToId", "Users").NotNullable()
-        //         .WithColumn("RemindAt").AsDateTime().NotNullable()
-        //         .WithColumn("RemindedAt").AsDateTime().Nullable()
-        //         .WithTimestamps();
-        // }
-
-        // public override void Down()
-        // {
-        //     Delete.Table("Reminders");
-        // }
     }
 }

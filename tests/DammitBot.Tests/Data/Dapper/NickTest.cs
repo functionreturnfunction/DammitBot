@@ -83,10 +83,13 @@ namespace DammitBot.Data.Dapper
             {
                 validObject.User = UserTest.ConstructValidObject();
                 validObject.User.Id = Convert.ToInt32(_target.Insert(validObject.User));
+                var id = validObject.User.Id;
 
-                _target.Insert(validObject);
+                _target.Update(validObject);
 
-                Assert.InRange(_target.Find<Nick>(validObject.Id).User.Id, 1, int.MaxValue);
+                validObject = _target.Find<Nick>(validObject.Id);
+
+                Assert.Equal(id, validObject.UserId);
             }
         }
 

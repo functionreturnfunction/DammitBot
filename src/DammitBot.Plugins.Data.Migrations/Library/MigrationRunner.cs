@@ -15,9 +15,9 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 );";
 
         protected readonly IUnitOfWorkFactory _uowFactory;
-        protected readonly MigrationService _service;
+        protected readonly IMigrationService _service;
 
-        public MigrationRunner(IUnitOfWorkFactory uowFactory, MigrationService service)
+        public MigrationRunner(IUnitOfWorkFactory uowFactory, IMigrationService service)
         {
             _uowFactory = uowFactory;
             _service = service;
@@ -30,7 +30,14 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         protected void RunAll(Action<IDisposableUnitOfWork, MigrationBase> doRun, Action<IDisposableUnitOfWork, MigrationBase> secondPass = null, bool reverse = false)
         {
-            var migrations = _service.Thingies.OrderBy(m => m.Id).ToList();
+            var migrations = _service.Thingies.ToList();
+
+            if (!migrations.Any())
+            {
+                return;
+            }
+
+            migrations = migrations.OrderBy(m => m.Id).ToList();
             if (reverse)
             {
                 migrations.Reverse();

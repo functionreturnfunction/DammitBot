@@ -14,9 +14,9 @@ namespace DammitBot.Data.Models
         public virtual DateTime CreatedAt { get; set; }
         public virtual DateTime? UpdatedAt { get; set; }
         public virtual User From { get; set; }
-        public virtual int FromId { get; set; }
+        public virtual int? FromId { get; set; }
         public virtual User To { get; set; }
-        public virtual int ToId { get; set; }
+        public virtual int? ToId { get; set; }
 
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
@@ -15,6 +16,7 @@ namespace DammitBot.CommandHandlers
 
         private Mock<IBot> _bot;
         private Mock<IPersistenceService> _persistenceService;
+        private Mock<IConfigurationManager> _configurationManager;
         private Nick[] _nicks;
 
         #endregion
@@ -31,6 +33,7 @@ namespace DammitBot.CommandHandlers
 
             Inject(out _bot);
             Inject(out _persistenceService);
+            Inject(out _configurationManager);
             Inject(_persistenceService);
             _persistenceService.Setup(x => x.Query<Nick>())
                 .Returns((_nicks = new[] {
@@ -39,6 +42,7 @@ namespace DammitBot.CommandHandlers
                 }).AsQueryable());
             _persistenceService.Setup(x => x.Query<User>())
                 .Returns(new[] {_nicks[0].User, _nicks[1].User}.AsQueryable());
+            _configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
         }
 
         #endregion

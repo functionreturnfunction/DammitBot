@@ -13,7 +13,9 @@ namespace DammitBot.Data.Dapper
         {
             #region Constants
 
-            public const string TEXT = "text";
+            public const string TEXT = "text",
+                PROTOCOL = "bleh",
+                CHANNEL = "#hmpf";
 
             #endregion
         }
@@ -33,7 +35,10 @@ namespace DammitBot.Data.Dapper
         {
             return new Action<Message>[] {
                 m => m.Text = null,
-                m => m.From = null
+                m => {
+                    m.From = null;
+                    m.FromId = null;
+                }
             };
         }
 
@@ -51,6 +56,8 @@ namespace DammitBot.Data.Dapper
         {
             return new Message {
                 Text = Defaults.TEXT,
+                Protocol = Defaults.PROTOCOL,
+                Channel = Defaults.CHANNEL,
                 From = nick
             };
         }

@@ -6,7 +6,7 @@ using DammitBot.Data.Models;
 using DateTimeStringParser;
 using Dapper;
 
-namespace DammitBot.Data.Repositories
+namespace DammitBot.Data.Dapper.Repositories
 {
     public class NickRepository : DapperRepositoryBase<Nick>
     {
