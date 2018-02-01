@@ -27,7 +27,10 @@ namespace DammitBot.Data.Dapper
         protected override Message ConstructTarget()
         {
             var nick = NickTest.ConstructValidObject();
-            WithUnitOfWork(uow => nick.Id = Convert.ToInt32(uow.GetRepository<Nick>().Insert(nick)));
+            WithUnitOfWork(uow => {
+                nick.Id = Convert.ToInt32(uow.GetRepository<Nick>().Insert(nick));
+                uow.Commit();
+            });
             return ConstructValidObject(nick);
         }
 
@@ -72,6 +75,12 @@ namespace DammitBot.Data.Dapper
         public void TestUpdateTimestamp()
         {
             this.TestUpdateWithValidFieldsSetsUpdatedAt(m => m.Text = "new text");
+        }
+
+        [Fact]
+        public override void TestUpdatingWithMissingRequiredFieldsThrowsException()
+        {
+            base.TestUpdatingWithMissingRequiredFieldsThrowsException();
         }
 
         #endregion
