@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
@@ -41,7 +42,7 @@ namespace DammitBot.MessageHandlers
                 if (nick == null)
                 {
                     nick = new Nick {Nickname = e.User};
-                    uow.Insert(nick);
+                    nick.Id = Convert.ToInt32(uow.Insert(nick));
                 }
 
                 uow.Insert(new Message {
@@ -50,6 +51,8 @@ namespace DammitBot.MessageHandlers
                     Protocol = e.Protocol,
                     Channel = e.Channel
                 });
+
+                uow.Commit();
             }
         }
 

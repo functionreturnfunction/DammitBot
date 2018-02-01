@@ -19,7 +19,7 @@ using Xunit;
 namespace DammitBot.MessageHandlers
 {
 
-    public class MessagesTest : UnitTestBase<MessagesTest.MessageTester>
+    public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTester>
     {
         #region Private Members
 
@@ -44,19 +44,11 @@ namespace DammitBot.MessageHandlers
                 i.For<IUnitOfWork>().Use<TestUnitOfWork>();
             });
 
-            Mock<IMigrationService> migrationService;
-            Mock<IConfigurationManager> configurationManager;
-
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
             Inject<ITeamCityHelper>();
             Inject(out _protocolService);
             Inject(_protocolService);
-            Inject(out migrationService);
-            Inject(out configurationManager);
-
-            migrationService.SetupGet(x => x.Thingies).Returns(Enumerable.Empty<MigrationBase>());
-            configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
         }
 
         #endregion
@@ -75,33 +67,28 @@ namespace DammitBot.MessageHandlers
 
         public MessagesTest()
         {
-            var nicks = new[] {
-                new Nick {Nickname = "foo", User = new User()},
-                new Nick {Nickname = "bar"}
-            };
-            // _persistenceService.Setup(x => x.Query<Nick>())
-            //     .Returns(nicks.AsQueryable());
+            WithUnitOfWork(uow => {
+                uow.Insert<Nick>(new Nick {Nickname = "foo"});
+                uow.Commit();
+            });
         }
 
         [Fact]
         public void TestAnyMessageIsLogged()
         {
-            _target.TestMessage("blah blah blah", "foo");
+            _target.TestMessage("blah blah blah", "gentooflux");
         }
 
         [Fact]
         public void TestMessageFromNickWithNoUserIsLogged()
         {
-            _target.TestMessage("blah blah blah", "bar");
+            _target.TestMessage("blah blah blah", "foo");
         }
 
         [Fact]
         public void TestMessageFromUnkownNickIsLogged()
         {
-            // _persistenceService.Setup(x => x.Query<Nick>())
-            //     .Returns(new Nick[] {}.AsQueryable());
-
-            _target.TestMessage("blah blah blah", "foo");
+            _target.TestMessage("blah blah blah", "not a known nick");
         }
 
         [Fact]
@@ -110,7 +97,7 @@ namespace DammitBot.MessageHandlers
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
 
-            _target.TestMessage("bot blah blah blah", "foo");
+            _target.TestMessage("bot blah blah blah", "gentooflux");
 
             _commandHandlerFactory.Verify(
                 x =>
@@ -124,7 +111,7 @@ namespace DammitBot.MessageHandlers
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
 
-            _target.TestMessage("bot blah blah blah", "bar");
+            _target.TestMessage("bot blah blah blah", "foo");
 
             _commandHandlerFactory.Verify(
                 x =>
@@ -138,10 +125,8 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
-            // _persistenceService.Setup(x => x.Query<Nick>())
-            //     .Returns(new Nick[] {}.AsQueryable());
 
-            _target.TestMessage("bot blah blah blah", "foo");
+            _target.TestMessage("bot blah blah blah", "who is this guy");
 
             _commandHandlerFactory.Verify(
                 x =>
@@ -178,11 +163,13 @@ namespace DammitBot.MessageHandlers
 
             #region Exposed Methods
 
-            public void TestMessage(string message, string nick)
+            public void TestMessage(string message, string nick, string protocol = null, string channel = null)
             {
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.Message).Returns(message);
                 args.SetupGet(x => x.User).Returns(nick);
+                args.SetupGet(x => x.Protocol).Returns(protocol ?? "foo");
+                args.SetupGet(x => x.Channel).Returns(channel?? "#bar");
                 _protocolService.Raise(x => x.ChannelMessageReceived += null, null, args.Object);
             }
 
