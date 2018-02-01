@@ -50,12 +50,12 @@ IF NOT EXISTS Messages (
             var jason = new User {
                 Username = "jason"
             };
-            jason.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(jason));
-            uow.GetRepository<Nick>().Insert(new Nick {
+            jason.Id = Convert.ToInt32(uow.Insert<User>(jason));
+            uow.Insert<Nick>(new Nick {
                 Nickname = "gentooflux",
                 User = jason
             });
-            uow.GetRepository<Nick>().Insert(new Nick {
+            uow.Insert<Nick>(new Nick {
                 Nickname = "gentooflux1",
                 User = jason
             });

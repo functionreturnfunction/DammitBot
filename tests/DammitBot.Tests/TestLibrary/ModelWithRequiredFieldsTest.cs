@@ -1,4 +1,5 @@
 ﻿using System;
+using DammitBot.Data.Library;
 using Xunit;
 using Microsoft.Data.Sqlite;
 
@@ -25,7 +26,7 @@ namespace DammitBot.TestLibrary
                 fn(_target);
 
                 Assert.Throws<SqliteException>(() => {
-                    WithUnitOfWork(uow => uow.GetRepository<TModel>().Insert(_target));
+                    WithUnitOfWork(uow => uow.Insert<TModel>(_target));
                 });
             }
         }
@@ -41,7 +42,7 @@ namespace DammitBot.TestLibrary
 
                 Assert.Throws<SqliteException>(() => {
                     WithUnitOfWork(uow => {
-                        uow.GetRepository<TModel>().Update(_target);
+                        uow.Update<TModel>(_target);
                         uow.Commit();
                     });
                 });

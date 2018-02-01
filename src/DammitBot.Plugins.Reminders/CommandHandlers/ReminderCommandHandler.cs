@@ -21,7 +21,7 @@ namespace DammitBot.CommandHandlers
 
         #region Private Members
 
-        private readonly IPersistenceService _persistenceService;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IDateTimeStringParser _dateTimeStringParser;
         private readonly IReminderTextGenerator _reminderTextGenerator;
 
@@ -29,9 +29,9 @@ namespace DammitBot.CommandHandlers
 
         #region Constructors
 
-        public ReminderCommandHandler(IBot bot, IPersistenceService persistenceService, IDateTimeStringParser dateTimeStringParser, IReminderTextGenerator reminderTextGenerator) : base(bot)
+        public ReminderCommandHandler(IBot bot, IUnitOfWorkFactory unitOfWorkFactory, IDateTimeStringParser dateTimeStringParser, IReminderTextGenerator reminderTextGenerator) : base(bot)
         {
-            _persistenceService = persistenceService;
+            _unitOfWorkFactory = unitOfWorkFactory;
             _dateTimeStringParser = dateTimeStringParser;
             _reminderTextGenerator = reminderTextGenerator;
         }
@@ -48,7 +48,10 @@ namespace DammitBot.CommandHandlers
                 To = to,
                 RemindAt = when
             });
-            obj.Id = Convert.ToInt32(_persistenceService.Insert(obj));
+            using (var uow = _unitOfWorkFactory.Build().Start())
+            {
+                obj.Id = Convert.ToInt32(uow.Insert(obj));
+            }
             return obj;
         }
 
@@ -61,7 +64,7 @@ namespace DammitBot.CommandHandlers
             DateTime? when;
             var match = new Regex(REGEX).Match(e.Command);
 
-            using (_persistenceService)
+            using (var uow = _unitOfWorkFactory.Build().Start())
             {
                 var targetStr = match.Groups[1].Value;
                 var target = LoadTarget(e, targetStr);
@@ -86,9 +89,15 @@ namespace DammitBot.CommandHandlers
 
         private User LoadTarget(CommandEventArgs commandEventArgs, string value)
         {
-            return value == "me"
-                ? commandEventArgs.From.User
-                : _persistenceService.Query<User>().SingleOrDefault(u => u.Username == value);
+            if (value == "me")
+            {
+                return commandEventArgs.From.User;
+            }
+
+            using (var uow = _unitOfWorkFactory.Build().Start())
+            {
+                return uow.Query<User>().SingleOrDefault(u => u.Username == value);
+            }
         }
 
         #endregion

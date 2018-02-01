@@ -20,16 +20,16 @@ namespace DammitBot.MessageHandlers
         #region Private Members
 
         private readonly ICommandHandlerFactory _handlerFactory;
-        private readonly IPersistenceService _persistenceService;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         #endregion
 
         #region Constructors
 
-        public CommandMessageHandler(ICommandHandlerFactory handlerFactory, IPersistenceService persistenceService)
+        public CommandMessageHandler(ICommandHandlerFactory handlerFactory, IUnitOfWorkFactory unitOfWorkFactory)
         {
             _handlerFactory = handlerFactory;
-            _persistenceService = persistenceService;
+            _unitOfWorkFactory = unitOfWorkFactory;
         }
 
         #endregion
@@ -38,9 +38,9 @@ namespace DammitBot.MessageHandlers
 
         public override void Handle(MessageEventArgs e)
         {
-            using (_persistenceService)
+            using (var uow = _unitOfWorkFactory.Build().Start())
             {
-                var nick = LoadNick(e);
+                var nick = LoadNick(uow, e);
                 if (nick?.User == null)
                 {
                     return;
@@ -51,9 +51,9 @@ namespace DammitBot.MessageHandlers
             }
         }
 
-        private Nick LoadNick(MessageEventArgs e)
+        private Nick LoadNick(IDisposableUnitOfWork uow, MessageEventArgs e)
         {
-            return _persistenceService.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
+            return uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
         }
 
         #endregion

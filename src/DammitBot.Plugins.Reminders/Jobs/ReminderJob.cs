@@ -16,7 +16,7 @@ namespace DammitBot.Jobs
         #region Private Members
 
         private readonly IBot _bot;
-        private readonly IPersistenceService _persistenceService;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILog _log;
 
@@ -24,10 +24,10 @@ namespace DammitBot.Jobs
 
         #region Constructors
 
-        public ReminderJob(IBot bot, IPersistenceService persistenceService, IDateTimeProvider dateTimeProvider, ILog log)
+        public ReminderJob(IBot bot, IUnitOfWorkFactory unitOfWorkFactory, IDateTimeProvider dateTimeProvider, ILog log)
         {
             _bot = bot;
-            _persistenceService = persistenceService;
+            _unitOfWorkFactory = unitOfWorkFactory;
             _dateTimeProvider = dateTimeProvider;
             _log = log;
         }
@@ -38,7 +38,7 @@ namespace DammitBot.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            using (_persistenceService)
+            using (var uow = _unitOfWorkFactory.Build().Start())
             {
                 var now = _dateTimeProvider.GetCurrentTime();
                 var reminders = GetReminders(now);
@@ -47,8 +47,10 @@ namespace DammitBot.Jobs
                 {
                     _bot.SayToAll(reminder.Text);
                     reminder.RemindedAt = _dateTimeProvider.GetCurrentTime();
-                    _persistenceService.Insert(reminder);
+                    uow.Insert(reminder);
                 }
+
+                uow.Commit();
             }
         }
 
@@ -59,7 +61,10 @@ namespace DammitBot.Jobs
 
         private IQueryable<Reminder> GetReminders(DateTime since)
         {
-            return _persistenceService.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
+            using (var uow = _unitOfWorkFactory.Build().Start())
+            {
+                return uow.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
+            }
         }
 
         #endregion

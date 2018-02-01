@@ -1,4 +1,5 @@
 ﻿using System;
+using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.TestLibrary;
 using Xunit;
@@ -83,17 +84,17 @@ namespace DammitBot.Data.Dapper
 
             WithUnitOfWork(uow => {
                 _target.User = UserTest.ConstructValidObject();
-                _target.User.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(_target.User));
+                _target.User.Id = Convert.ToInt32(uow.Insert<User>(_target.User));
                 userId = _target.User.Id;
                 targetId = _target.Id;
 
-                uow.GetRepository<Nick>().Insert(_target);
+                uow.Insert<Nick>(_target);
 
                 uow.Commit();
             });
 
             WithUnitOfWork(uow => {
-                _target = uow.GetRepository<Nick>().Find(targetId);
+                _target = uow.Find<Nick>(targetId);
                 Assert.Equal(userId, _target.User.Id);
             });
         }

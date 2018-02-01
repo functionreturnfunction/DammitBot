@@ -41,7 +41,10 @@ namespace DammitBot.TestLibrary
             dynamic valid;
             valid = ConstructTarget();
 
-            WithUnitOfWork(uow => valid.Id = Convert.ToInt32(uow.GetRepository<TModel>().Insert(valid)));
+            WithUnitOfWork(uow => {
+                valid.Id = Convert.ToInt32(uow.Insert<TModel>((TModel)valid));
+                uow.Commit();
+            });
 
             return valid;
         }
@@ -57,7 +60,10 @@ namespace DammitBot.TestLibrary
 
         public TModel SaveUpdatedObject(TModel model)
         {
-            WithUnitOfWork(uow => uow.GetRepository<TModel>().Update(model));
+            WithUnitOfWork(uow => {
+                uow.Update<TModel>(model);
+                uow.Commit();
+            });
 
             return model;
         }

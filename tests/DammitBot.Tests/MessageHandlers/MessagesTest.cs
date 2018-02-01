@@ -24,7 +24,6 @@ namespace DammitBot.MessageHandlers
         #region Private Members
 
         private Mock<ICommandHandlerFactory> _commandHandlerFactory;
-        private Mock<IPersistenceService> _persistenceService;
         private Mock<IProtocolService> _protocolService;
 
         #endregion
@@ -51,7 +50,6 @@ namespace DammitBot.MessageHandlers
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
             Inject<ITeamCityHelper>();
-            Inject(out _persistenceService);
             Inject(out _protocolService);
             Inject(_protocolService);
             Inject(out migrationService);
@@ -81,8 +79,8 @@ namespace DammitBot.MessageHandlers
                 new Nick {Nickname = "foo", User = new User()},
                 new Nick {Nickname = "bar"}
             };
-            _persistenceService.Setup(x => x.Query<Nick>())
-                .Returns(nicks.AsQueryable());
+            // _persistenceService.Setup(x => x.Query<Nick>())
+            //     .Returns(nicks.AsQueryable());
         }
 
         [Fact]
@@ -100,8 +98,8 @@ namespace DammitBot.MessageHandlers
         [Fact]
         public void TestMessageFromUnkownNickIsLogged()
         {
-            _persistenceService.Setup(x => x.Query<Nick>())
-                .Returns(new Nick[] {}.AsQueryable());
+            // _persistenceService.Setup(x => x.Query<Nick>())
+            //     .Returns(new Nick[] {}.AsQueryable());
 
             _target.TestMessage("blah blah blah", "foo");
         }
@@ -140,8 +138,8 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
-            _persistenceService.Setup(x => x.Query<Nick>())
-                .Returns(new Nick[] {}.AsQueryable());
+            // _persistenceService.Setup(x => x.Query<Nick>())
+            //     .Returns(new Nick[] {}.AsQueryable());
 
             _target.TestMessage("bot blah blah blah", "foo");
 

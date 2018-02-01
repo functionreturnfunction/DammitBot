@@ -1,5 +1,6 @@
 ﻿using System;
 using DammitBot.Data.Models;
+using DammitBot.Data.Library;
 using DammitBot.TestLibrary;
 using Xunit;
 
@@ -28,7 +29,7 @@ namespace DammitBot.Data.Dapper
         {
             var nick = NickTest.ConstructValidObject();
             WithUnitOfWork(uow => {
-                nick.Id = Convert.ToInt32(uow.GetRepository<Nick>().Insert(nick));
+                nick.Id = Convert.ToInt32(uow.Insert<Nick>(nick));
                 uow.Commit();
             });
             return ConstructValidObject(nick);

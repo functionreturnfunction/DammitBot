@@ -15,7 +15,6 @@ namespace DammitBot.CommandHandlers
         #region Private Members
 
         private Mock<IBot> _bot;
-        private Mock<IPersistenceService> _persistenceService;
         private Mock<IConfigurationManager> _configurationManager;
         private Nick[] _nicks;
 
@@ -32,16 +31,14 @@ namespace DammitBot.CommandHandlers
             });
 
             Inject(out _bot);
-            Inject(out _persistenceService);
             Inject(out _configurationManager);
-            Inject(_persistenceService);
-            _persistenceService.Setup(x => x.Query<Nick>())
-                .Returns((_nicks = new[] {
-                    new Nick {Nickname = "foo", User = new User()},
-                    new Nick {Nickname = "bar", User = new User {Username = "baz"}}
-                }).AsQueryable());
-            _persistenceService.Setup(x => x.Query<User>())
-                .Returns(new[] {_nicks[0].User, _nicks[1].User}.AsQueryable());
+            // _persistenceService.Setup(x => x.Query<Nick>())
+            //     .Returns((_nicks = new[] {
+            //         new Nick {Nickname = "foo", User = new User()},
+            //         new Nick {Nickname = "bar", User = new User {Username = "baz"}}
+            //     }).AsQueryable());
+            // _persistenceService.Setup(x => x.Query<User>())
+            //     .Returns(new[] {_nicks[0].User, _nicks[1].User}.AsQueryable());
             _configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
         }
 
@@ -90,16 +87,14 @@ namespace DammitBot.CommandHandlers
             #region Private Members
 
             private readonly CommandMessageHandler _handler;
-            private readonly Mock<IPersistenceService> _persistenceService;
 
             #endregion
 
             #region Constructors
 
-            public CommandTester(CommandMessageHandler handler, Mock<IPersistenceService> svc)
+            public CommandTester(CommandMessageHandler handler)
             {
                 _handler = handler;
-                _persistenceService = svc;
             }
 
             #endregion
