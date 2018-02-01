@@ -1,7 +1,9 @@
 ﻿using System;
+using DammitBot.Configuration;
 using DammitBot.Utilities;
 using DateTimeStringParser;
 using log4net;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using StructureMap;
 
@@ -33,6 +35,8 @@ namespace DammitBot.TestLibrary
                     a.AssembliesFromApplicationBaseDirectory();
                     a.WithDefaultConventions();
                 });
+                e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
+                e.For<ISettingsPathHelper>().Use<TestSettingsPathHelper>();
             });
         }
 

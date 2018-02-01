@@ -28,7 +28,7 @@ namespace DammitBot.Data.Dapper.Library
             _container.Configure(e => {
                 e.For<IDbConnection>().Use(_connection);
             });
-            // _transaction = _connection.BeginTransaction();
+            _transaction = _connection.BeginTransaction();
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace DammitBot.Data.Dapper.Library
 
         public virtual void Commit()
         {
-            // _transaction.Commit();
+            _transaction.Commit();
         }
 
         public virtual void Dispose()

@@ -7,16 +7,6 @@ namespace DammitBot.TestLibrary
     public abstract class ModelWithRequiredFieldsTest<TModel> : ModelTest<TModel>
         where TModel : class, new()
     {
-        #region Private Methods
-
-        protected override TModel GetValidObject()
-        {
-            throw new InvalidOperationException(
-                "This method must be overridden in inheriting classes to provide a constructed model with valid fields for saving");
-        }
-
-        #endregion
-
         #region Abstract Methods
 
         protected abstract Action<TModel>[] GetWaysToInvalidate();
@@ -30,14 +20,12 @@ namespace DammitBot.TestLibrary
         {
             foreach (var fn in GetWaysToInvalidate())
             {
-                _target = ConstructTarget();
-                var obj = GetValidObject();
+                _target = CreateValidObject();
 
-                fn(obj);
+                fn(_target);
 
                 Assert.Throws<SqliteException>(() => {
-                    _target.Insert(obj);
-                    _target.Dispose();
+                    WithUnitOfWork(uow => uow.GetRepository<TModel>().Insert(_target));
                 });
             }
         }
@@ -47,14 +35,12 @@ namespace DammitBot.TestLibrary
         {
             foreach (var fn in GetWaysToInvalidate())
             {
-               _target = ConstructTarget();
-                var obj = CreateValidObject();
+               _target = CreateValidObject();
 
-                fn(obj);
+                fn(_target);
 
                 Assert.Throws<SqliteException>(() => {
-                    _target.Update(obj);
-                    _target.Dispose();
+                    WithUnitOfWork(uow => uow.GetRepository<TModel>().Update(_target));
                 });
             }
         }

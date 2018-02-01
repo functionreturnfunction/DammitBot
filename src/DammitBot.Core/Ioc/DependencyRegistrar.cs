@@ -9,6 +9,7 @@ using DammitBot.Wrappers;
 using log4net;
 using log4net.Repository;
 using log4net.Config;
+using Microsoft.Extensions.Configuration;
 using StructureMap;
 
 namespace DammitBot.Ioc
@@ -43,6 +44,8 @@ namespace DammitBot.Ioc
             e.For<ILoggerRepository>()
                 .Use(ctx => LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy)))
                 .Singleton();
+
+            e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
 
             e.For<ILog>()
                 .AlwaysUnique()

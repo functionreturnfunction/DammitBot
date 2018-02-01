@@ -4,7 +4,7 @@ using Xunit;
 
 namespace DammitBot.TestLibrary
 {
-    public abstract class ModelTest<TModel> : InMemoryDatabaseUnitTestBase<PersistenceService>
+    public abstract class ModelTest<TModel> : InMemoryDatabaseUnitTestBase<TModel>
         where TModel : class, new()
     {
         #region Properties
@@ -15,7 +15,7 @@ namespace DammitBot.TestLibrary
 
         #region Private Methods
 
-        protected virtual TModel GetValidObject()
+        protected override TModel ConstructTarget()
         {
             return new TModel();
         }
@@ -33,20 +33,15 @@ namespace DammitBot.TestLibrary
         [Fact]
         public virtual void TestThereAreNoneByDefault()
         {
-            using (_target)
-            {
-                Assert.Empty(_target.Query<TModel>());
-            }
+            WithUnitOfWork(uow => Assert.Empty(uow.GetRepository<TModel>()));
         }
 
         public TModel CreateValidObject()
         {
             dynamic valid;
-            using (_target)
-            {
-                valid = GetValidObject();
-                valid.Id = Convert.ToInt32(_target.Insert(valid));
-            }
+            valid = ConstructTarget();
+
+            WithUnitOfWork(uow => valid.Id = Convert.ToInt32(uow.GetRepository<TModel>().Insert(valid)));
 
             _target = ConstructTarget();
 
@@ -64,10 +59,7 @@ namespace DammitBot.TestLibrary
 
         public TModel SaveUpdatedObject(TModel model)
         {
-            using (_target)
-            {
-                _target.Update(model);
-            }
+            WithUnitOfWork(uow => uow.GetRepository<TModel>().Update(model));
 
             return model;
         }

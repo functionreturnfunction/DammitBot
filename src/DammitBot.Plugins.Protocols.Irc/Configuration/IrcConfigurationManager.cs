@@ -5,7 +5,7 @@ namespace DammitBot.Configuration
 {
     public class IrcConfigurationManager : ConfigurationManager, IIrcConfigurationManager
     {
-        public IrcConfigurationManager(IConfigurationBuilder builder) : base(builder) {}
+        public IrcConfigurationManager(IConfigurationBuilder builder, ISettingsPathHelper settingsPathHelper) : base(builder, settingsPathHelper) {}
 
         #region Properties
 

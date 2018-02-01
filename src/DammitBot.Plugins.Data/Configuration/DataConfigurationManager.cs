@@ -4,7 +4,7 @@ namespace DammitBot.Configuration
 {
     public class DataConfigurationManager : ConfigurationManager, IDataConfigurationManager
     {
-        public DataConfigurationManager(IConfigurationBuilder builder) : base(builder) {}
+        public DataConfigurationManager(IConfigurationBuilder builder, ISettingsPathHelper settingsPathHelper) : base(builder, settingsPathHelper) {}
 
         #region Properties
 

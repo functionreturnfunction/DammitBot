@@ -24,10 +24,10 @@ namespace DammitBot.Data.Dapper
 
         #region Private Methods
 
-        protected override Message GetValidObject()
+        protected override Message ConstructTarget()
         {
             var nick = NickTest.ConstructValidObject();
-            nick.Id = Convert.ToInt32(_target.Insert(nick));
+            WithUnitOfWork(uow => nick.Id = Convert.ToInt32(uow.GetRepository<Nick>().Insert(nick)));
             return ConstructValidObject(nick);
         }
 

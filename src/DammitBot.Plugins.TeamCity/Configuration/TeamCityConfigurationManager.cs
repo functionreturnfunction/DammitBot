@@ -4,7 +4,7 @@ namespace DammitBot.Configuration
 {
     public class TeamCityConfigurationManager : ConfigurationManager, ITeamCityConfigurationManager
     {
-        public TeamCityConfigurationManager(IConfigurationBuilder builder) : base(builder) {}
+        public TeamCityConfigurationManager(IConfigurationBuilder builder, ISettingsPathHelper settingsPathHelper) : base(builder, settingsPathHelper) {}
 
         #region Properties
 

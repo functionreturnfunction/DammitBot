@@ -22,10 +22,10 @@ namespace DammitBot.Data.Dapper
 
         #region Private Methods
 
-        protected override Reminder GetValidObject()
+        protected override Reminder ConstructTarget()
         {
             var user = UserTest.ConstructValidObject();
-            user.Id = Convert.ToInt32(_target.Insert(user));
+            WithUnitOfWork(uow => user.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(user)));
             return ConstructValidObject(user, user, _now);
         }
 

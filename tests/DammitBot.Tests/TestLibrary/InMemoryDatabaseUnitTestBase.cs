@@ -1,4 +1,5 @@
-﻿using DammitBot.Configuration;
+﻿using System;
+using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Dapper.Library;
@@ -46,6 +47,14 @@ namespace DammitBot.TestLibrary
             var migrationRunner = _container.GetInstance<MigrationRunner>();
 
             migrationRunner.Up(seed: false);
+        }
+
+        protected virtual void WithUnitOfWork(Action<IDisposableUnitOfWork> fn)
+        {
+            using (var uow = _container.GetInstance<IUnitOfWorkFactory>().Build().Start())
+            {
+                fn(uow);
+            }
         }
 
         #endregion

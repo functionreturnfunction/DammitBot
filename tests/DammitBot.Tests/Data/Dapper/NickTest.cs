@@ -18,7 +18,7 @@ namespace DammitBot.Data.Dapper
 
         #region Private Methods
 
-        protected override Nick GetValidObject()
+        protected override Nick ConstructTarget()
         {
             return ConstructValidObject();
         }
@@ -79,18 +79,17 @@ namespace DammitBot.Data.Dapper
         {
             var validObject = CreateValidObject();
 
-            using (_target)
-            {
+            WithUnitOfWork(uow => {
                 validObject.User = UserTest.ConstructValidObject();
-                validObject.User.Id = Convert.ToInt32(_target.Insert(validObject.User));
+                validObject.User.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(validObject.User));
                 var id = validObject.User.Id;
 
-                _target.Update(validObject);
+                uow.GetRepository<Nick>().Update(validObject);
 
-                validObject = _target.Find<Nick>(validObject.Id);
+                validObject = uow.GetRepository<Nick>().Find(validObject.Id);
 
                 Assert.Equal(id, validObject.UserId);
-            }
+            });
         }
 
         #endregion

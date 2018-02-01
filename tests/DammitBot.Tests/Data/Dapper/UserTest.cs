@@ -28,7 +28,7 @@ namespace DammitBot.Data.Dapper
             Assert.Equal(Defaults.USERNAME, createdObject.Username);
         }
 
-        protected override User GetValidObject()
+        protected override User ConstructTarget()
         {
             return ConstructValidObject();
         }
