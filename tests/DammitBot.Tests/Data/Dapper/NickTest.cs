@@ -77,18 +77,24 @@ namespace DammitBot.Data.Dapper
         [Fact]
         public void TestUpdatingWithUserWorks()
         {
-            var validObject = CreateValidObject();
+            var userId = -1;
+            _target = CreateValidObject();
+            var targetId = _target.Id;
 
             WithUnitOfWork(uow => {
-                validObject.User = UserTest.ConstructValidObject();
-                validObject.User.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(validObject.User));
-                var id = validObject.User.Id;
+                _target.User = UserTest.ConstructValidObject();
+                _target.User.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(_target.User));
+                userId = _target.User.Id;
+                targetId = _target.Id;
 
-                uow.GetRepository<Nick>().Update(validObject);
+                uow.GetRepository<Nick>().Insert(_target);
 
-                validObject = uow.GetRepository<Nick>().Find(validObject.Id);
+                uow.Commit();
+            });
 
-                Assert.Equal(id, validObject.UserId);
+            WithUnitOfWork(uow => {
+                _target = uow.GetRepository<Nick>().Find(targetId);
+                Assert.Equal(userId, _target.User.Id);
             });
         }
 

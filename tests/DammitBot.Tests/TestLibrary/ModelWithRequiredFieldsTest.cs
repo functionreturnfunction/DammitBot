@@ -16,11 +16,11 @@ namespace DammitBot.TestLibrary
         #region Exposed Methods
 
         [Fact]
-        public void TestCreatingWithMissingRequiredFieldsThrowsException()
+        public virtual void TestCreatingWithMissingRequiredFieldsThrowsException()
         {
             foreach (var fn in GetWaysToInvalidate())
             {
-                _target = CreateValidObject();
+                _target = ConstructTarget();
 
                 fn(_target);
 
@@ -31,16 +31,19 @@ namespace DammitBot.TestLibrary
         }
 
         [Fact]
-        public void TestUpdatingWithMissingRequiredFieldsThrowsException()
+        public virtual void TestUpdatingWithMissingRequiredFieldsThrowsException()
         {
             foreach (var fn in GetWaysToInvalidate())
             {
-               _target = CreateValidObject();
+                _target = CreateValidObject();
 
                 fn(_target);
 
                 Assert.Throws<SqliteException>(() => {
-                    WithUnitOfWork(uow => uow.GetRepository<TModel>().Update(_target));
+                    WithUnitOfWork(uow => {
+                        uow.GetRepository<TModel>().Update(_target);
+                        uow.Commit();
+                    });
                 });
             }
         }

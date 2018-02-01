@@ -46,9 +46,16 @@ namespace DammitBot.Data.Dapper
 
         public static User ConstructValidObject()
         {
-            return new User {
+            return new User
+            {
                 Username = Defaults.USERNAME
             };
+        }
+
+        [Fact]
+        public override void TestUpdatingWithMissingRequiredFieldsThrowsException()
+        {
+            base.TestUpdatingWithMissingRequiredFieldsThrowsException();
         }
 
         [Fact]

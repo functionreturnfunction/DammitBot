@@ -40,6 +40,8 @@ namespace DammitBot.TestLibrary
             });
         }
 
+        protected virtual void ExtraSetup() {}
+
         protected virtual void Inject<TMock>(out Mock<TMock> obj, MockBehavior behavior = MockBehavior.Default)
             where TMock : class
         {
@@ -76,6 +78,7 @@ namespace DammitBot.TestLibrary
             Inject<IDateTimeProvider>(_dateTimeProvider);
 
             ConfigureContainer();
+            ExtraSetup();
 
             _target = ConstructTarget();
         }

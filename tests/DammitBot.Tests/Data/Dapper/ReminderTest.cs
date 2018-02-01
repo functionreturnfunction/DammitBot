@@ -25,7 +25,10 @@ namespace DammitBot.Data.Dapper
         protected override Reminder ConstructTarget()
         {
             var user = UserTest.ConstructValidObject();
-            WithUnitOfWork(uow => user.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(user)));
+            WithUnitOfWork(uow => {
+                user.Id = Convert.ToInt32(uow.GetRepository<User>().Insert(user));
+                uow.Commit();
+            });
             return ConstructValidObject(user, user, _now);
         }
 
@@ -81,6 +84,12 @@ namespace DammitBot.Data.Dapper
         public void TestUpdateTimestamp()
         {
             this.TestUpdateWithValidFieldsSetsUpdatedAt(u => u.Text = "new reminder");
+        }
+
+        [Fact]
+        public override void TestUpdatingWithMissingRequiredFieldsThrowsException()
+        {
+            base.TestUpdatingWithMissingRequiredFieldsThrowsException();
         }
 
         #endregion

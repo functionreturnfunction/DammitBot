@@ -140,8 +140,7 @@ namespace DammitBot.MessageHandlers
         {
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
-            _persistenceService.Setup(
-x => x.Query<Nick>())
+            _persistenceService.Setup(x => x.Query<Nick>())
                 .Returns(new Nick[] {}.AsQueryable());
 
             _target.TestMessage("bot blah blah blah", "foo");

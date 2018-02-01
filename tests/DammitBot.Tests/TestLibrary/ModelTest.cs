@@ -43,8 +43,6 @@ namespace DammitBot.TestLibrary
 
             WithUnitOfWork(uow => valid.Id = Convert.ToInt32(uow.GetRepository<TModel>().Insert(valid)));
 
-            _target = ConstructTarget();
-
             return valid;
         }
 
