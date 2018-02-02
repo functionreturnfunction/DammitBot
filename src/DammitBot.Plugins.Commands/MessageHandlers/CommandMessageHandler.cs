@@ -38,6 +38,7 @@ namespace DammitBot.MessageHandlers
 
         public override void Handle(MessageEventArgs e)
         {
+            CommandEventArgs args = null;
             using (var uow = _unitOfWorkFactory.Build().Start())
             {
                 var nick = LoadNick(uow, e);
@@ -46,9 +47,10 @@ namespace DammitBot.MessageHandlers
                     return;
                 }
 
-                var args = new CommandEventArgs(e, nick);
-                _handlerFactory.BuildHandler(args).Handle(args);
+                args = new CommandEventArgs(e, nick);
             }
+
+            _handlerFactory.BuildHandler(args).Handle(args);
         }
 
         private Nick LoadNick(IDisposableUnitOfWork uow, MessageEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -25,7 +26,7 @@ namespace DateTimeStringParser
                 {new Regex(@"^in (.+) days?"), ParseXDays},
                 {new Regex(@"^at ([01]?[0-9]|2[0-3])(?::([0-5]?[0-9]))?$"), ParseTime}
             };
-            
+
         }
 
         private DateTime? ParseTime(Match arg)
@@ -76,21 +77,22 @@ namespace DateTimeStringParser
 
         public bool TryParse(string input, out DateTime? result)
         {
-            foreach (var rgx in _parseDictionary.Keys)
+            var matching = _parseDictionary.Keys.Where(k => k.IsMatch(input));
+
+            if (!matching.Any())
             {
-                Match match;
-                if ((match = rgx.Match(input)).Success)
-                {
-                    result = _parseDictionary[rgx](match);
-                    return true;
-                }
+                result = null;
+                return false;
             }
-            result = null;
-            return false;
+
+            var rgx = matching.First();
+            var match = rgx.Match(input);
+            result = _parseDictionary[rgx](match);
+            return true;
         }
 
         #endregion
     }
 
-    
+
 }

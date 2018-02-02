@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DammitBot.Configuration;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
@@ -10,7 +11,7 @@ using Xunit;
 
 namespace DammitBot.CommandHandlers
 {
-    public class CommandsTest : UnitTestBase<CommandsTest.CommandTester>
+    public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTester>
     {
         #region Private Members
 
@@ -19,6 +20,18 @@ namespace DammitBot.CommandHandlers
         private Nick[] _nicks;
 
         #endregion
+
+        public CommandsTest()
+        {
+            WithUnitOfWork(uow => {
+                var foo = new User {Username = "foo"};
+                foo.Id = Convert.ToInt32(uow.Insert<User>(foo));
+                uow.Insert<User>(new User {Username = "bar"});
+                uow.Insert<Nick>(new Nick {Nickname = "foo", User = foo});
+
+                uow.Commit();
+            });
+        }
 
         #region Private Methods
 
@@ -32,13 +45,6 @@ namespace DammitBot.CommandHandlers
 
             Inject(out _bot);
             Inject(out _configurationManager);
-            // _persistenceService.Setup(x => x.Query<Nick>())
-            //     .Returns((_nicks = new[] {
-            //         new Nick {Nickname = "foo", User = new User()},
-            //         new Nick {Nickname = "bar", User = new User {Username = "baz"}}
-            //     }).AsQueryable());
-            // _persistenceService.Setup(x => x.Query<User>())
-            //     .Returns(new[] {_nicks[0].User, _nicks[1].User}.AsQueryable());
             _configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
         }
 
@@ -65,7 +71,7 @@ namespace DammitBot.CommandHandlers
         [Fact]
         public void TestBotRemindOtherUserAlsoCausesReminderyThingsToHappen()
         {
-            var args = _target.TestCommand("remind baz to do things in 1 minute");
+            var args = _target.TestCommand("remind bar to do things in 1 minute");
 
             _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
         }

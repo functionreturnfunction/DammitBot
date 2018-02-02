@@ -40,18 +40,18 @@ namespace DammitBot.CommandHandlers
 
         #region Private Methods
 
-        private Reminder CreateReminder(string reminder, User from, User to, DateTime when)
+        private Reminder CreateReminder(string reminder, User from, User to, DateTime when, IDisposableUnitOfWork uow)
         {
-            var obj = _reminderTextGenerator.Generate(new Reminder {
+            var obj = _reminderTextGenerator.Generate(new Reminder
+            {
                 Text = reminder,
                 From = from,
                 To = to,
                 RemindAt = when
             });
-            using (var uow = _unitOfWorkFactory.Build().Start())
-            {
-                obj.Id = Convert.ToInt32(uow.Insert(obj));
-            }
+
+            obj.Id = Convert.ToInt32(uow.Insert(obj));
+
             return obj;
         }
 
@@ -63,41 +63,41 @@ namespace DammitBot.CommandHandlers
         {
             DateTime? when;
             var match = new Regex(REGEX).Match(e.Command);
+            User target;
+            var targetStr = match.Groups[1].Value;
+            var reminder = match.Groups[2].Value;
+            var timeStr = match.Groups[3].Value;
+
+            if (!_dateTimeStringParser.TryParse(timeStr, out when))
+            {
+                _bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
+                return;
+            }
 
             using (var uow = _unitOfWorkFactory.Build().Start())
             {
-                var targetStr = match.Groups[1].Value;
-                var target = LoadTarget(e, targetStr);
-                var reminder = match.Groups[2].Value;
-                var timeStr = match.Groups[3].Value;
+                target = LoadTarget(e, uow, targetStr);
 
                 if (target == null)
                 {
                     _bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
                     return;
                 }
-                if (!_dateTimeStringParser.TryParse(timeStr, out when))
-                {
-                    _bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
-                    return;
-                }
 
-                var entity = CreateReminder(reminder, e.From.User, target, when.Value);
-                _bot.ReplyToMessage(e, $"Reminder set for {when}");
+                CreateReminder(reminder, e.From.User, target, when.Value, uow);
             }
+
+            _bot.ReplyToMessage(e, $"Reminder set for {when}");
         }
 
-        private User LoadTarget(CommandEventArgs commandEventArgs, string value)
+        private User LoadTarget(CommandEventArgs commandEventArgs, IDisposableUnitOfWork uow, string value)
         {
             if (value == "me")
             {
                 return commandEventArgs.From.User;
             }
 
-            using (var uow = _unitOfWorkFactory.Build().Start())
-            {
-                return uow.Query<User>().SingleOrDefault(u => u.Username == value);
-            }
+            return value == "me" ? commandEventArgs.From.User : uow.Query<User>().SingleOrDefault(u => u.Username == value);
         }
 
         #endregion
