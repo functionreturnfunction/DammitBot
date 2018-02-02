@@ -68,7 +68,9 @@ namespace DammitBot.MessageHandlers
         public MessagesTest()
         {
             WithUnitOfWork(uow => {
-                uow.Insert<Nick>(new Nick {Nickname = "foo"});
+                var userId = Convert.ToInt32(uow.Insert<User>(new User {Username = "foo"}));
+                uow.Insert<Nick>(new Nick {Nickname = "foo", UserId = userId});
+                uow.Insert<Nick>(new Nick {Nickname = "bar"});
                 uow.Commit();
             });
         }
@@ -76,13 +78,13 @@ namespace DammitBot.MessageHandlers
         [Fact]
         public void TestAnyMessageIsLogged()
         {
-            _target.TestMessage("blah blah blah", "gentooflux");
+            _target.TestMessage("blah blah blah", "foo");
         }
 
         [Fact]
         public void TestMessageFromNickWithNoUserIsLogged()
         {
-            _target.TestMessage("blah blah blah", "foo");
+            _target.TestMessage("blah blah blah", "bar");
         }
 
         [Fact]
@@ -97,7 +99,7 @@ namespace DammitBot.MessageHandlers
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
 
-            _target.TestMessage("bot blah blah blah", "gentooflux");
+            _target.TestMessage("bot blah blah blah", "foo");
 
             _commandHandlerFactory.Verify(
                 x =>
@@ -111,7 +113,7 @@ namespace DammitBot.MessageHandlers
             _commandHandlerFactory.Setup(
                 x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
 
-            _target.TestMessage("bot blah blah blah", "foo");
+            _target.TestMessage("bot blah blah blah", "bar");
 
             _commandHandlerFactory.Verify(
                 x =>
