@@ -16,14 +16,6 @@ namespace DammitBot.Ioc
 {
     public class DependencyRegistrar
     {
-        #region Constructors
-
-        static DependencyRegistrar()
-        {
-        }
-
-        #endregion
-
         #region Private Methods
 
         public void ConfigureContainer(ConfigurationExpression e)
