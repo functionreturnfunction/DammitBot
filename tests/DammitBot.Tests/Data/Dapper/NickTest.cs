@@ -88,12 +88,8 @@ namespace DammitBot.Data.Dapper
                 userId = _target.User.Id;
                 targetId = _target.Id;
 
-                uow.Insert<Nick>(_target);
+                uow.Update<Nick>(_target);
 
-                uow.Commit();
-            });
-
-            WithUnitOfWork(uow => {
                 _target = uow.Find<Nick>(targetId);
                 Assert.Equal(userId, _target.User.Id);
             });
