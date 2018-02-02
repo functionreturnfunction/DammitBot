@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using DammitBot.Data.Library;
 using StructureMap;
@@ -6,11 +7,11 @@ namespace DammitBot.Data.Dapper.Library
 {
     public class UnitOfWork : IUnitOfWork
     {
-        #region Private Members
+        #region Exposed Properties
 
-        protected readonly IDbConnectionFactory _connectionFactory;
-        protected readonly IConnectionStringService _connectionStringService;
-        protected readonly IContainer _container;
+        public IDbConnection Connection { get; }
+        public IDbTransaction Transaction { get; }
+        public IContainer Container { get; }
 
         #endregion
 
@@ -18,19 +19,86 @@ namespace DammitBot.Data.Dapper.Library
 
         public UnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container)
         {
-            _connectionFactory = connectionFactory;
-            _connectionStringService = connectionStringService;
-            _container = container;
+            Connection = connectionFactory
+                .Build(connectionStringService.GetMainAppConnectionString());
+            if (Connection.State != ConnectionState.Open)
+            {
+                Connection.Open();
+            }
+            Transaction = Connection.BeginTransaction();
+            Container = container.GetNestedContainer();
+            Container.Configure(e => {
+                e.For<IDbConnection>().Use(Connection);
+            });
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private T WithCommand<T>(Func<IDbCommand, T> fn)
+        {
+            using (var cmd = Connection.CreateCommand())
+            {
+                cmd.Transaction = Transaction;
+                return fn(cmd);
+            }
+        }
+
+        private T WithTextCommand<T>(string sql, Func<IDbCommand, T> fn)
+        {
+            return WithCommand(cmd => {
+                cmd.CommandText = sql;
+                return fn(cmd);
+            });
         }
 
         #endregion
 
         #region Exposed Methods
 
-        public virtual IDisposableUnitOfWork Start()
+        public IRepository<TEntity> GetRepository<TEntity>()
+            where TEntity : class
         {
-            return new DisposableUnitOfWork(_connectionFactory.Build(_connectionStringService.GetMainAppConnectionString()), _container);
+            return Container.GetInstance<IRepository<TEntity>>();
         }
+
+        public virtual void Commit()
+        {
+            Transaction.Commit();
+        }
+
+        public virtual void Dispose()
+        {
+            Connection.Close();
+            Connection.Dispose();
+            Container.Dispose();
+            Transaction.Dispose();
+        }
+
+        public int ExecuteNonQuery(string sql)
+        {
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteNonQuery());
+        }
+
+        public object ExecuteScalar(string sql)
+        {
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteScalar());
+        }
+
+        public IDataReader ExecuteReader(string sql)
+        {
+            return WithTextCommand(sql,
+                cmd => cmd.ExecuteReader());
+        }
+
+        public IUnitOfWork Start()
+        {
+            throw new InvalidOperationException("Already started!");
+        }
+
 
         #endregion
     }

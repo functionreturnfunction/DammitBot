@@ -23,12 +23,12 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             _service = service;
         }
 
-        protected bool MigrationAlreadyRun(IDisposableUnitOfWork uow, MigrationBase migration)
+        protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
         {
             return uow.ExecuteScalar($"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
         }
 
-        protected void RunAll(Action<IDisposableUnitOfWork, MigrationBase> doRun, Action<IDisposableUnitOfWork, MigrationBase> secondPass = null, bool reverse = false, int? upToId = null)
+        protected void RunAll(Action<IUnitOfWork, MigrationBase> doRun, Action<IUnitOfWork, MigrationBase> secondPass = null, bool reverse = false, int? upToId = null)
         {
             var migrations = _service.Thingies.ToList();
 
@@ -56,7 +56,7 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
                 migrations.Reverse();
             }
 
-            using (var uow = _uowFactory.Build().Start())
+            using (var uow = _uowFactory.Build())
             {
                 uow.ExecuteNonQuery(CREATE_VERSION_INFO);
                 migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse).ToList();
@@ -101,7 +101,7 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         public int? GetLatestVersionNumber()
         {
-            using (var uow = _uowFactory.Build().Start())
+            using (var uow = _uowFactory.Build())
             {
                 uow.ExecuteNonQuery(CREATE_VERSION_INFO);
                 var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");

@@ -40,7 +40,7 @@ namespace DammitBot.CommandHandlers
 
         #region Private Methods
 
-        private Reminder CreateReminder(string reminder, User from, User to, DateTime when, IDisposableUnitOfWork uow)
+        private Reminder CreateReminder(string reminder, User from, User to, DateTime when, IUnitOfWork uow)
         {
             var obj = _reminderTextGenerator.Generate(new Reminder
             {
@@ -74,7 +74,7 @@ namespace DammitBot.CommandHandlers
                 return;
             }
 
-            using (var uow = _unitOfWorkFactory.Build().Start())
+            using (var uow = _unitOfWorkFactory.Build())
             {
                 target = LoadTarget(e, uow, targetStr);
 
@@ -90,7 +90,7 @@ namespace DammitBot.CommandHandlers
             _bot.ReplyToMessage(e, $"Reminder set for {when}");
         }
 
-        private User LoadTarget(CommandEventArgs commandEventArgs, IDisposableUnitOfWork uow, string value)
+        private User LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
         {
             if (value == "me")
             {

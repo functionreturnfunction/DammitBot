@@ -7,10 +7,10 @@ namespace DammitBot.Data.Migrations.Library
     {
         public abstract int Id { get; }
 
-        public abstract void Up(IDisposableUnitOfWork uow);
+        public abstract void Up(IUnitOfWork uow);
 
-        public abstract void Down(IDisposableUnitOfWork uow);
+        public abstract void Down(IUnitOfWork uow);
 
-        public virtual void Seed(IDisposableUnitOfWork uow) {}
+        public virtual void Seed(IUnitOfWork uow) {}
     }
 }

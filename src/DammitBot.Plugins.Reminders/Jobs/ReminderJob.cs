@@ -38,7 +38,7 @@ namespace DammitBot.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            using (var uow = _unitOfWorkFactory.Build().Start())
+            using (var uow = _unitOfWorkFactory.Build())
             {
                 var now = _dateTimeProvider.GetCurrentTime();
                 var reminders = GetReminders(now);
@@ -61,7 +61,7 @@ namespace DammitBot.Jobs
 
         private IQueryable<Reminder> GetReminders(DateTime since)
         {
-            using (var uow = _unitOfWorkFactory.Build().Start())
+            using (var uow = _unitOfWorkFactory.Build())
             {
                 return uow.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
             }

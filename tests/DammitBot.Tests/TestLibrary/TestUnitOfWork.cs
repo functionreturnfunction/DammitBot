@@ -9,11 +9,13 @@ namespace DammitBot.TestLibrary
     {
         public TestUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container) : base(connectionFactory, connectionStringService, container) {}
 
-        public override IDisposableUnitOfWork Start()
+        public override void Dispose()
         {
-            return new TestDisposableUnitOfWork(
-                _connectionFactory.Build(
-                    _connectionStringService.GetMainAppConnectionString()), _container);
+            Container.Dispose();
+            if (Transaction != null)
+            {
+                Transaction.Dispose();
+            }
         }
     }
 }

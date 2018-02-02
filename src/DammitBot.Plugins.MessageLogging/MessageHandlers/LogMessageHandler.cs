@@ -35,7 +35,7 @@ namespace DammitBot.MessageHandlers
 
         public void Handle(MessageEventArgs e)
         {
-            using (var uow = _unitOfWorkFactory.Build().Start())
+            using (var uow = _unitOfWorkFactory.Build())
             {
                 var nick = uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
 

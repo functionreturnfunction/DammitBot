@@ -3,3 +3,7 @@
   It doesn't belong in DammitBot.Plugins.Data.Dapper... really DB should be fully-configurable.
 * DONE Get IDbConnection from a factory
   Could be related to above (it wasn't)
+* DONE Fix UnitOfWork
+  CLOSED: [2018-02-01 Thu 23:17]
+
+** 

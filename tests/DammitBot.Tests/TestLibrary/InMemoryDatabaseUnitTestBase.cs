@@ -39,7 +39,6 @@ namespace DammitBot.TestLibrary
                 e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
                 e.For<IDbConnectionFactory>().Use(_ => new TestDbConnectionFactory(_connection));
                 e.For<IUnitOfWork>().Use<TestUnitOfWork>();
-                e.For<IDisposableUnitOfWork>().Use<TestDisposableUnitOfWork>();
             });
         }
 
@@ -50,9 +49,9 @@ namespace DammitBot.TestLibrary
             migrationRunner.Up(seed: false);
         }
 
-        protected virtual void WithUnitOfWork(Action<IDisposableUnitOfWork> fn)
+        protected virtual void WithUnitOfWork(Action<IUnitOfWork> fn)
         {
-            using (var uow = _container.GetInstance<IUnitOfWorkFactory>().Build().Start())
+            using (var uow = _container.GetInstance<IUnitOfWorkFactory>().Build())
             {
                 fn(uow);
             }

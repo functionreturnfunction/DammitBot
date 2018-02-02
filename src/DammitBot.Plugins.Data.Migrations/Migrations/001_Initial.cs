@@ -10,7 +10,7 @@ namespace DammitBot.Data.Migrations
     {
         public override int Id => 1;
 
-        public override void Up(IDisposableUnitOfWork uow)
+        public override void Up(IUnitOfWork uow)
         {
             uow.ExecuteNonQuery(@"
 CREATE TABLE
@@ -45,7 +45,7 @@ IF NOT EXISTS Messages (
 ");
         }
 
-        public override void Seed(IDisposableUnitOfWork uow)
+        public override void Seed(IUnitOfWork uow)
         {
             var jason = new User {
                 Username = "jason"
@@ -61,7 +61,7 @@ IF NOT EXISTS Messages (
             });
         }
 
-        public override void Down(IDisposableUnitOfWork uow)
+        public override void Down(IUnitOfWork uow)
         {
             uow.ExecuteNonQuery(@"
 DROP TABLE Messages;
