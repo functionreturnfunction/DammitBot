@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using DammitBot.Helpers;
 using DammitBot.TestLibrary;
-
 using Moq;
 using TeamCitySharper.DomainEntities;
 using Xunit;
 
 namespace DammitBot.Jobs
 {
-
     public class TeamCityJobTest : UnitTestBase<TeamCityJob>
     {
         private Mock<ITeamCityHelper> _helper;
