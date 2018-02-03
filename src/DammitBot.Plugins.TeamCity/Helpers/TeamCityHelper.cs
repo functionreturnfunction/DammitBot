@@ -28,10 +28,10 @@ namespace DammitBot.Helpers
 
         #region Constructors
 
-        public TeamCityHelper(ITeamCityClient client, ITeamCityConfigurationSection config, ILog log)
+        public TeamCityHelper(ITeamCityClient client, ITeamCityConfigurationManager manager, ILog log)
         {
             _client = client;
-            _config = config;
+            _config = manager.TeamCityConfigurationSection;
             _log = log;
         }
 
