@@ -268,3 +268,5 @@ __pycache__/
 # tools/
 
 db/
+
+src/DammitBot.Console/appsettings.json
