@@ -24,7 +24,7 @@ namespace DammitBot.Ioc
 
         private static ITeamCityClient InitTeamCityClient(IContext ctx)
         {
-            var config = ctx.GetInstance<TeamCityConfigurationSection>();
+            var config = ctx.GetInstance<TeamCityConfigurationManager>().TeamCityConfigurationSection;
             return new TeamCityClient(config.Host, false);
         }
 

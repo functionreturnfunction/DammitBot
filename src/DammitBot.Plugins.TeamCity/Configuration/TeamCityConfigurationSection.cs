@@ -5,26 +5,19 @@ namespace DammitBot.Configuration
 {
     public class TeamCityConfigurationSection : ITeamCityConfigurationSection
     {
-        #region Constants
-
         public const string KEY = "TeamCity";
+
+        public struct Keys
+        {
+            public const string HOST = "host", LOGIN = "login", PASSWORD = "password";
+        }
+
         private IConfigurationSection _config;
 
         public TeamCityConfigurationSection(IConfigurationSection config)
         {
             _config = config;
         }
-
-        public struct Keys
-        {
-            #region Constants
-
-            public const string HOST = "host", LOGIN = "login", PASSWORD = "password";
-
-            #endregion
-        }
-
-        #endregion
 
         #region Properties
 

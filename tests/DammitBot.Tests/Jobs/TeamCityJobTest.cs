@@ -26,25 +26,25 @@ namespace DammitBot.Jobs
         }
 
         [Fact]
-        public void TestExecuteInitializesHelperIfNotAlreadyInitialized()
+        public async void TestExecuteInitializesHelperIfNotAlreadyInitialized()
         {
-            _target.Execute(null);
+            await _target.Execute(null);
 
             _helper.Verify(x => x.Initialize());
         }
 
         [Fact]
-        public void TestExecuteDoesNotInitializeHelperIfAlreadyInitialized()
+        public async void TestExecuteDoesNotInitializeHelperIfAlreadyInitialized()
         {
             _helper.SetupGet(x => x.Initialized).Returns(true);
 
-            _target.Execute(null);
+            await _target.Execute(null);
 
             _helper.Verify(x => x.Initialize(), Times.Never);
         }
 
         [Fact]
-        public void TestExecuteDescribesAllLatestBuildsToChannel()
+        public async void TestExecuteDescribesAllLatestBuildsToChannel()
         {
             var builds = new[] {
                 new Build {BuildTypeId = "foo", Number = "1", Status = "SUCCESS", WebUrl = "http://fooblah"},
@@ -52,7 +52,7 @@ namespace DammitBot.Jobs
             };
             _helper.Setup(x => x.GetLatestBuilds()).Returns(builds);
 
-            _target.Execute(null);
+            await _target.Execute(null);
 
             _bot.Verify(x => x.SayToAll($"Build foo 1 was successful: http://fooblah"));
             _bot.Verify(x => x.SayToAll($"Build bar 2 failed: http://barblah"));

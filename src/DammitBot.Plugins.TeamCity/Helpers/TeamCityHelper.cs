@@ -37,12 +37,17 @@ namespace DammitBot.Helpers
 
         #endregion
 
+        protected Build GetLatestBuild()
+        {
+            return _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(maxResults: 1)).SingleOrDefault();
+        }
+
         #region Exposed Methods
 
         public void Initialize()
         {
             _client.Connect(_config.Login, _config.Password);
-            _lastBuild = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(maxResults: 1)).Single();
+            _lastBuild = GetLatestBuild();
             Initialized = true;
         }
 
@@ -53,9 +58,15 @@ namespace DammitBot.Helpers
                 throw new InvalidOperationException("Helper not yet initialized.");
             }
 
+            if ((_lastBuild ?? (_lastBuild = GetLatestBuild())) == null)
+            {
+                _log.Debug($"No builds found");
+                return Enumerable.Empty<Build>();
+            }
+
             var ret =
                 _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(sinceBuild: BuildLocator.WithId(Convert.ToInt32(_lastBuild.Id))));
-            _log.Debug($"Found {ret.Count} builds since {_lastBuild.Id}");
+            _log.Debug($"Found {ret.Count} builds since {_lastBuild.Id ?? "never"}");
             _lastBuild = ret.Any() ? ret.Last() : _lastBuild;
             return ret;
         }
