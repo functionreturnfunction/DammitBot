@@ -1,5 +1,7 @@
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
+using log4net.Repository;
+using Microsoft.Extensions.Configuration;
 using StructureMap;
 using Xunit;
 
@@ -31,6 +33,18 @@ namespace DammitBot.Ioc
         public void TestConfigureSetsUpAssemblyServiceAsSingleton()
         {
             AssertSingleton<IAssemblyService, AssemblyService>();
+        }
+
+        [Fact]
+        public void TestConfigureSetsUpLoggerRepositoryAsSingleton()
+        {
+            AssertSingleton<ILoggerRepository, ILoggerRepository>();
+        }
+
+        [Fact]
+        public void TestConfigureSetsUpConfigurationBuilder()
+        {
+            Assert.IsType<ConfigurationBuilder>(_target.GetInstance<IConfigurationBuilder>());
         }
     }
 }
