@@ -14,11 +14,11 @@ using StructureMap;
 
 namespace DammitBot.Ioc
 {
-    public class DependencyRegistrar
+    public class DammitBotContainerConfiguration : ContainerConfigurationBase
     {
         #region Private Methods
 
-        public void ConfigureContainer(ConfigurationExpression e)
+        public override void Configure(ConfigurationExpression e)
         {
             e.Scan(s => {
                 s.AssembliesFromApplicationBaseDirectory();
@@ -56,9 +56,9 @@ namespace DammitBot.Ioc
                 var type in
                 assemblyService.GetPluginAssemblies()
                     .GetTypes()
-                    .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(PluginContainerConfigurationBase))))
+                    .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(ContainerConfigurationBase))))
             {
-                ((PluginContainerConfigurationBase)Activator.CreateInstance(type)).Configure(e);
+                ((ContainerConfigurationBase)Activator.CreateInstance(type)).Configure(e);
             }
 
             return assemblyService;
@@ -70,8 +70,8 @@ namespace DammitBot.Ioc
 
         public static IInstantiationService GetContainer()
         {
-            var registrar = new DependencyRegistrar();
-            var container = new Container(e => registrar.ConfigureContainer(e));
+            var registrar = new DammitBotContainerConfiguration();
+            var container = new Container(e => registrar.Configure(e));
             XmlConfigurator.Configure(container.GetInstance<ILoggerRepository>());
 
             return new InstantiationService(container);

@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace DammitBot.Ioc
 {
-    public class HelpCommandContainerConfiguration : PluginContainerConfigurationBase
+    public class HelpCommandContainerConfiguration : ContainerConfigurationBase
     {
         #region Exposed Methods
 

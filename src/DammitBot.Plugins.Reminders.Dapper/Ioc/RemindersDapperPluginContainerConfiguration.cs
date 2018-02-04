@@ -6,7 +6,7 @@ using StructureMap;
 
 namespace DammitBot.Ioc
 {
-    public class RemindersDapperPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class RemindersDapperPluginContainerConfiguration : ContainerConfigurationBase
     {
         public override void Configure(ConfigurationExpression e)
         {

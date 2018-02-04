@@ -6,7 +6,7 @@ using TeamCitySharper;
 
 namespace DammitBot.Ioc
 {
-    public class TeamCityPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class TeamCityPluginContainerConfiguration : ContainerConfigurationBase
     {
         #region Exposed Methods
 

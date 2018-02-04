@@ -10,7 +10,7 @@ using Microsoft.Data.Sqlite;
 // ReSharper disable once CheckNamespace
 namespace DammitBot.Ioc
 {
-    public class DapperPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class DapperPluginContainerConfiguration : ContainerConfigurationBase
     {
         public override void Configure(ConfigurationExpression e)
         {

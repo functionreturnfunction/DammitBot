@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace DammitBot.Ioc
 {
-    public class DataPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class DataPluginContainerConfiguration : ContainerConfigurationBase
     {
         public override void Configure(ConfigurationExpression e)
         {

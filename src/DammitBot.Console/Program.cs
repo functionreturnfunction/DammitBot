@@ -15,7 +15,7 @@ namespace DammitBot.Console
 
         static void Main(string[] args)
         {
-            var container = DependencyRegistrar.GetContainer();
+            var container = DammitBotContainerConfiguration.GetContainer();
             var bot = container.GetInstance<IBot>();
             var log = container.GetInstance<ILog>();
 

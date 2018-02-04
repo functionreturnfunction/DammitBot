@@ -8,7 +8,7 @@ using StructureMap;
 
 namespace DammitBot.Scheduling.Ioc
 {
-    public class SchedulingPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class SchedulingPluginContainerConfiguration : ContainerConfigurationBase
     {
         #region Exposed Methods
 

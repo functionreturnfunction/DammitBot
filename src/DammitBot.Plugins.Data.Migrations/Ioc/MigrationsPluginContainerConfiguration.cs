@@ -7,7 +7,7 @@ using StructureMap;
 // ReSharper disable once CheckNamespace
 namespace DammitBot.Ioc
 {
-    public class MigrationsPluginContainerConfiguration : PluginContainerConfigurationBase
+    public class MigrationsPluginContainerConfiguration : ContainerConfigurationBase
     {
         public override void Configure(ConfigurationExpression e)
         {

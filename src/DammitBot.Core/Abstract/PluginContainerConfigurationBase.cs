@@ -5,7 +5,7 @@ namespace DammitBot.Abstract
     /// <summary>
     /// Base class for configuring StructureMap from within plugins.
     /// </summary>
-    public abstract class PluginContainerConfigurationBase
+    public abstract class ContainerConfigurationBase
     {
         #region Abstract Methods
 
