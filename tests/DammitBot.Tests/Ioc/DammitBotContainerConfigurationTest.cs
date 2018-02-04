@@ -1,4 +1,5 @@
 using DammitBot.TestLibrary;
+using DammitBot.Utilities;
 using StructureMap;
 using Xunit;
 
@@ -12,12 +13,24 @@ namespace DammitBot.Ioc
                 new DammitBotContainerConfiguration().Configure(e));
         }
 
+        private void AssertSingleton<TIType, TType>()
+            where TType : TIType
+        {
+            var thing = _target.GetInstance<TIType>();
+            Assert.IsType<TType>(thing);
+            Assert.Same(thing, _target.GetInstance<TIType>());
+        }
+
         [Fact]
         public void TestConfigureSetsUpBotAsSingleton()
         {
-            var bot = _target.GetInstance<IBot>();
-            Assert.IsType<Bot>(bot);
-            Assert.Same(bot, _target.GetInstance<IBot>());
+            AssertSingleton<IBot, Bot>();
+        }
+
+        [Fact]
+        public void TestConfigureSetsUpAssemblyServiceAsSingleton()
+        {
+            AssertSingleton<IAssemblyService, AssemblyService>();
         }
     }
 }
