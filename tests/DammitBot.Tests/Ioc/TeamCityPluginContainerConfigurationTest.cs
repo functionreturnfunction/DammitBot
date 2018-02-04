@@ -12,7 +12,7 @@ namespace DammitBot.Ioc
         public TeamCityPluginContainerConfigurationTest()
         {
             _container.Configure (e =>
-                new TeamCityPluginContainerConfiguration ().Configure (e));
+                new TeamCityPluginContainerConfiguration().Configure(e));
         }
 
         [Fact]
