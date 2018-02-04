@@ -13,9 +13,9 @@ namespace DammitBot.Ioc
         public override void Configure(ConfigurationExpression e)
         {
             e.For<ITeamCityHelper>().Use<TeamCityHelper>().Singleton();
-            e.For<ITeamCityClient>().Use(ctx => InitTeamCityClient(ctx));
             e.For<ITeamCityConfigurationSection>()
                 .Use(ctx => ctx.GetInstance<ITeamCityConfigurationManager>().TeamCityConfigurationSection);
+            e.For<ITeamCityClient>().Use(ctx => InitTeamCityClient(ctx));
         }
 
         #endregion

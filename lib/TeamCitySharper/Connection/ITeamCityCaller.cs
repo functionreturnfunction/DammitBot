@@ -3,7 +3,7 @@
     using System;
     using EasyHttp.Http;
 
-    internal interface ITeamCityCaller
+    public interface ITeamCityCaller
     {
         void Connect(string userName, string password, bool actAsGuest);
 
