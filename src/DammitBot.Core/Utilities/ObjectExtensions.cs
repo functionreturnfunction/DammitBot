@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace DammitBot.Utilities.ObjectExtensions
+namespace DammitBot.Utilities
 {
     public static class ObjectExtensions
     {
