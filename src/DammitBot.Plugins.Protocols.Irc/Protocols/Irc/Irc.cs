@@ -20,16 +20,11 @@ namespace DammitBot.Protocols.Irc
         protected readonly IIrcClientFactory _ircClientFactory;
         protected readonly ILog _log;
         protected readonly IIrcConfigurationSection _config;
-        protected IIrcClient _irc;
+        protected IIrcClient? _irc;
 
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// For testing purposes only!!
-        /// </summary>
-        public Irc() { }
 
         public Irc(IIrcClientFactory ircClientFactory, IIrcConfigurationManager configurationManager, ILog log)
         {
@@ -53,7 +48,9 @@ namespace DammitBot.Protocols.Irc
             _log.Info($"Initial connection complete, joining channels '{string.Join(",", _config.Channels)}'");
             foreach (var channel in _config.Channels)
             {
-                _irc.JoinChannel(channel);
+                // in theory this cannot be null here, because this is an event handler assigned to the
+                // ConnectionComplete event of _irc 
+                _irc!.JoinChannel(channel);
             }
         }
 
@@ -61,14 +58,9 @@ namespace DammitBot.Protocols.Irc
 
         #region Events/Delegates
 
-        public virtual event EventHandler<MessageEventArgs> ChannelMessageReceived;
+        public virtual event EventHandler<MessageEventArgs>? ChannelMessageReceived;
 
         public virtual string Name => PROTOCOL_NAME;
-
-        public virtual void SayToChannel(string channel, string message)
-        {
-            _irc.SendMessage(message, channel);
-        }
 
         #endregion
 
@@ -85,8 +77,27 @@ namespace DammitBot.Protocols.Irc
 
         public virtual void Cleanup() {}
 
+        public virtual void SayToChannel(string channel, string message)
+        {
+            if (_irc == null)
+            {
+                throw new InvalidOperationException(
+                    $"An {nameof(Irc)} instance cannot be used before {nameof(Initialize)} has " +
+                    "been called on it");
+            }
+            
+            _irc.SendMessage(message, channel);
+        }
+
         public virtual void SayToAll(string message)
         {
+            if (_irc == null)
+            {
+                throw new InvalidOperationException(
+                    $"An {nameof(Irc)} instance cannot be used before {nameof(Initialize)} has " +
+                    "been called on it");
+            }
+            
             _irc.SendMessage(message, _config.Channels);
         }
 
