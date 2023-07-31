@@ -10,6 +10,8 @@
     <OutputType>Library</OutputType>
 
     <Nullable>enable</Nullable>
+
+    <RootNamespace>DammitBot</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
