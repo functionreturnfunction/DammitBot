@@ -13,7 +13,12 @@
         /// <summary>
         /// for testing purposes only!!!
         /// </summary>
-        public MessageEventArgs() {}
+        public MessageEventArgs()
+            : this(
+                $"Test{nameof(Message)}",
+                $"Test{nameof(Channel)}",
+                $"Test{nameof(Protocol)}",
+                $"Test{nameof(User)}") {}
 
         #region Properties
 

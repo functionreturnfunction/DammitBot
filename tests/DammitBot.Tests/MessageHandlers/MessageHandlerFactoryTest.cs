@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using DammitBot.Abstract;
+﻿using DammitBot.Abstract;
 using DammitBot.Events;
 using Xunit;
 
 namespace DammitBot.MessageHandlers
 {
-
     public class MessageHandlerFactoryTest : MessageHandlerFactoryTestBase<MessageHandlerFactory, IMessageHandlerRepository, IMessageHandler, MessageEventArgs>
     {
         [Fact]

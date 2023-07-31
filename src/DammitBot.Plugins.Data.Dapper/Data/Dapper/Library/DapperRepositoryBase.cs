@@ -4,9 +4,8 @@ using System.Linq;
 using DammitBot.Data.Library;
 using DammitBot.Utilities;
 using DateTimeStringParser;
-using Dapper;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Data.Dapper.Library
 {
     public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
         where TEntity : class

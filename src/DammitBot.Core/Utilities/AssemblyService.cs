@@ -10,14 +10,14 @@ namespace DammitBot.Utilities
     {
         #region Private Members
 
-        private Assembly _mainAssembly;
-        private IEnumerable<Assembly> _pluginAssemblies;
+        private Assembly? _mainAssembly;
+        private IEnumerable<Assembly>? _pluginAssemblies;
 
         #endregion
 
         #region Properties
 
-        public Assembly MainAssembly => _mainAssembly ?? (_mainAssembly = typeof(IBot).Assembly);
+        public Assembly MainAssembly => _mainAssembly ??= typeof(IBot).Assembly;
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace DammitBot.Utilities
 
         public IEnumerable<Assembly> GetPluginAssemblies()
         {
-            return _pluginAssemblies ?? (_pluginAssemblies = InnerGetPluginAssemblies().ToList());
+            return _pluginAssemblies ??= InnerGetPluginAssemblies().ToList();
         }
 
         #endregion

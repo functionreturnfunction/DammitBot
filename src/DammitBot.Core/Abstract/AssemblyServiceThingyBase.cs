@@ -11,13 +11,13 @@ namespace DammitBot.Abstract
     {
         #region Private Members
 
-        private IAssemblyService _assemblyService;
-        private IInstantiationService _instantiationService;
-        private IEnumerable<TThingy> _thingies;
+        private readonly IAssemblyService _assemblyService;
+        private readonly IInstantiationService _instantiationService;
+        private IEnumerable<TThingy>? _thingies;
 
         #endregion
 
-        public virtual IEnumerable<TThingy> Thingies => _thingies ?? (_thingies = GetThingies());
+        public virtual IEnumerable<TThingy> Thingies => _thingies ??= GetThingies();
 
         #region Constructors
 

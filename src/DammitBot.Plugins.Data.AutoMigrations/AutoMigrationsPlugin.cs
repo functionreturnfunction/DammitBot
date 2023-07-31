@@ -1,12 +1,7 @@
-﻿using System;
-using System.Data;
-using System.IO;
-using System.Linq;
-using DammitBot.Abstract;
-using DammitBot.Data.Models;
+﻿using DammitBot.Abstract;
 using DammitBot.Data.Migrations.Library;
-using Dommel;
 
+// ReSharper disable once CheckNamespace
 namespace DammitBot
 {
     public class AutoMigrationsPlugin : IPlugin

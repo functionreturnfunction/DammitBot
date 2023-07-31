@@ -7,7 +7,6 @@ using DammitBot.Data.Dapper.Repositories;
 using StructureMap;
 using Microsoft.Data.Sqlite;
 
-// ReSharper disable once CheckNamespace
 namespace DammitBot.Ioc
 {
     public class DapperPluginContainerConfiguration : ContainerConfigurationBase
