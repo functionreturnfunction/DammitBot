@@ -1,10 +1,9 @@
 ﻿using System;
 using DammitBot.CommandHandlers;
-using DammitBot.Data.Library;
-using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
 using DammitBot.Library;
+using DammitBot.Models;
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;

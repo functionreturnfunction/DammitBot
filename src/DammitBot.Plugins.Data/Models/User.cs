@@ -1,7 +1,7 @@
 ﻿using System;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 
-namespace DammitBot.Data.Models
+namespace DammitBot.Models
 {
     public class User : IThingWithTimestamps
     {

@@ -1,5 +1,5 @@
 using System;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using Xunit;
 
 namespace DammitBot.TestLibrary

@@ -1,4 +1,4 @@
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using Microsoft.Data.Sqlite;
 
 namespace DammitBot.TestLibrary

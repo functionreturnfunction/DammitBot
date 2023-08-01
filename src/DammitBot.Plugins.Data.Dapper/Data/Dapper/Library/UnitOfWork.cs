@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using StructureMap;
 
 namespace DammitBot.Data.Dapper.Library

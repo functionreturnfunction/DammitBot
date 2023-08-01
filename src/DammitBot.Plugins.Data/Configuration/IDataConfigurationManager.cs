@@ -1,5 +1,4 @@
-﻿ // ReSharper disable once CheckNamespace
-namespace DammitBot.Configuration
+﻿namespace DammitBot.Configuration
 {
     public interface IDataConfigurationManager
     {

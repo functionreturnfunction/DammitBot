@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using DammitBot.Utilities;
 using DateTimeStringParser;
 

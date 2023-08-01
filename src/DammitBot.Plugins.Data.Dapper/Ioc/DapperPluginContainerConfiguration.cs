@@ -1,11 +1,9 @@
-using System.Data;
 using DammitBot.Abstract;
-using DammitBot.Data.Library;
-using DammitBot.Data.Models;
 using DammitBot.Data.Dapper.Library;
 using DammitBot.Data.Dapper.Repositories;
+using DammitBot.Library;
+using DammitBot.Models;
 using StructureMap;
-using Microsoft.Data.Sqlite;
 
 namespace DammitBot.Ioc
 {

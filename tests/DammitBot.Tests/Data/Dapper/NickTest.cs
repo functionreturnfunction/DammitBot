@@ -1,6 +1,6 @@
 ﻿using System;
-using DammitBot.Data.Library;
-using DammitBot.Data.Models;
+using DammitBot.Library;
+using DammitBot.Models;
 using DammitBot.TestLibrary;
 using Xunit;
 

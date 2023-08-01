@@ -1,5 +1,5 @@
-﻿using DammitBot.Data.Library;
-using DammitBot.Data.Migrations.Library;
+﻿using DammitBot.Data.Migrations.Library;
+using DammitBot.Library;
 
 namespace DammitBot.Migrations
 {

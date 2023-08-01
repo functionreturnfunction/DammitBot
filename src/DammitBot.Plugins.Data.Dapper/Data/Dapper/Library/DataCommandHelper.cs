@@ -1,6 +1,6 @@
 using System.Data;
 using System.Linq;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using Dommel;
 
 namespace DammitBot.Data.Dapper.Library

@@ -1,6 +1,6 @@
 ﻿using StructureMap;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {

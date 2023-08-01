@@ -1,9 +1,8 @@
 ﻿using System;
-using DammitBot.Configuration;
-using DammitBot.Data.Library;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Dapper.Library;
 using DammitBot.Ioc;
+using DammitBot.Library;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 

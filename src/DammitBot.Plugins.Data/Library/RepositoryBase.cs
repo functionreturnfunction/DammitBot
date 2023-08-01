@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
         where TEntity : class

@@ -1,8 +1,7 @@
 using DammitBot.Abstract;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 using StructureMap;
 
-// ReSharper disable once CheckNamespace
 namespace DammitBot.Ioc
 {
     public class DataPluginContainerConfiguration : ContainerConfigurationBase

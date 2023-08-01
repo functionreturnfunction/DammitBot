@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     /// <summary>
     /// Main interface for database access.  Shoud be used in conjunction with an IUnitOfWork.

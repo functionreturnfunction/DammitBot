@@ -1,8 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
-using DammitBot.Data.Models;
+﻿using System.Text.RegularExpressions;
 using DammitBot.MessageHandlers;
-using DammitBot.Wrappers;
+using DammitBot.Models;
 
 namespace DammitBot.Events
 {

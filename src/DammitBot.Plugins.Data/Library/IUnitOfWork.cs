@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     /// <summary>
     /// Class which handles database session and transaction details.  If you're working with a repository you need one

@@ -1,4 +1,4 @@
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     public interface IConnectionStringService
     {

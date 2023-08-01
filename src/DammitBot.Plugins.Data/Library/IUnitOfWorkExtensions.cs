@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace DammitBot.Data.Library
+namespace DammitBot.Library
 {
     public static class IUnitOfWorkExtensions
     {

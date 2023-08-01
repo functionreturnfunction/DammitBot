@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DammitBot.Data.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
+using DammitBot.Library;
 using DammitBot.Metadata;
+using DammitBot.Models;
 using DammitBot.Utilities;
 using DateTimeStringParser;
 

@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using DammitBot.Data.Library;
+using DammitBot.Library;
 
 namespace DammitBot.Data.Migrations.Library
 {

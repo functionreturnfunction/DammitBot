@@ -1,5 +1,5 @@
-using DammitBot.Data.Library;
 using DammitBot.Ioc;
+using DammitBot.Library;
 using DammitBot.TestLibrary;
 using StructureMap;
 using Xunit;
