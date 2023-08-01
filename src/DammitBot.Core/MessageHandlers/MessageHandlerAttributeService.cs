@@ -3,5 +3,6 @@ using DammitBot.Metadata;
 
 namespace DammitBot.MessageHandlers
 {
-    public class MessageHandlerAttributeService : MessageHandlerAttributeServiceBase<HandlesMessageAttribute>, IMessageHandlerAttributeService {}
+    public class MessageHandlerAttributeService
+        : MessageHandlerAttributeServiceBase<HandlesMessageAttribute>, IMessageHandlerAttributeService {}
 }

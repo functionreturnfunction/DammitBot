@@ -24,10 +24,15 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
         {
-            return uow.ExecuteScalar($"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
+            return uow.ExecuteScalar(
+                $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
         }
 
-        protected void RunAll(Action<IUnitOfWork, MigrationBase> doRun, Action<IUnitOfWork, MigrationBase> secondPass = null, bool reverse = false, int? upToId = null)
+        protected void RunAll(
+            Action<IUnitOfWork, MigrationBase> doRun,
+            Action<IUnitOfWork, MigrationBase>? secondPass = null,
+            bool reverse = false,
+            int? upToId = null)
         {
             var migrations = _service.Thingies.ToList();
 
@@ -42,7 +47,9 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             {
                 if (!migrations.Any(m => m.Id == upToId.Value))
                 {
-                    throw new ArgumentException($"Could not find migration with id {upToId}.", nameof(upToId));
+                    throw new ArgumentException(
+                        $"Could not find migration with id {upToId}.",
+                        nameof(upToId));
                 }
 
                 migrations = (reverse ?
@@ -58,7 +65,8 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             using (var uow = _uowFactory.Build())
             {
                 uow.ExecuteNonQuery(CREATE_VERSION_INFO);
-                migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse).ToList();
+                migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse)
+                    .ToList();
 
                 foreach (var migration in migrations)
                 {
@@ -85,7 +93,10 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
         {
             if (seed)
             {
-                RunAll((u, m) => m.Up(u), (u, m) => m.Seed(u), upToId: id);
+                RunAll(
+                    (u, m) => m.Up(u),
+                    (u, m) => m.Seed(u),
+                    upToId: id);
             }
             else
             {

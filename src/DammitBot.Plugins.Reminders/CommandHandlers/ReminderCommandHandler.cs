@@ -15,7 +15,8 @@ namespace DammitBot.CommandHandlers
     {
         #region Constants
 
-        public const string REGEX = @"^remind ([^\s]+) ((?:to|that) .+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
+        public const string REGEX =
+            @"^remind ([^\s]+) ((?:to|that) .+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
 
         #endregion
 
@@ -29,7 +30,11 @@ namespace DammitBot.CommandHandlers
 
         #region Constructors
 
-        public ReminderCommandHandler(IBot bot, IUnitOfWorkFactory unitOfWorkFactory, IDateTimeStringParser dateTimeStringParser, IReminderTextGenerator reminderTextGenerator) : base(bot)
+        public ReminderCommandHandler(
+            IBot bot,
+            IUnitOfWorkFactory unitOfWorkFactory,
+            IDateTimeStringParser dateTimeStringParser,
+            IReminderTextGenerator reminderTextGenerator) : base(bot)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             _dateTimeStringParser = dateTimeStringParser;
@@ -40,7 +45,12 @@ namespace DammitBot.CommandHandlers
 
         #region Private Methods
 
-        private Reminder CreateReminder(string reminder, User from, User to, DateTime when, IUnitOfWork uow)
+        private Reminder CreateReminder(
+            string reminder,
+            User from,
+            User to,
+            DateTime when,
+            IUnitOfWork uow)
         {
             var obj = _reminderTextGenerator.Generate(new Reminder
             {
@@ -97,7 +107,9 @@ namespace DammitBot.CommandHandlers
                 return commandEventArgs.From.User;
             }
 
-            return value == "me" ? commandEventArgs.From.User : uow.Query<User>().SingleOrDefault(u => u.Username == value);
+            return value == "me"
+                ? commandEventArgs.From.User
+                : uow.Query<User>().SingleOrDefault(u => u.Username == value);
         }
 
         #endregion

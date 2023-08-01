@@ -10,7 +10,12 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract
 {
-    public abstract class MessageHandlerRepositoryBase<TMessageAttribute, TAttributeService, TEventArgs, TMessageHandler> : IMessageHandlerRepository<TMessageHandler, TEventArgs>
+    public abstract class MessageHandlerRepositoryBase<
+        TMessageAttribute,
+        TAttributeService,
+        TEventArgs,
+        TMessageHandler>
+        : IMessageHandlerRepository<TMessageHandler, TEventArgs>
         where TMessageAttribute : Attribute, IHandlesMessageAttribute
         where TAttributeService : IMessageHandlerAttributeService<TMessageAttribute>
         where TEventArgs : MessageEventArgs
@@ -25,7 +30,9 @@ namespace DammitBot.Abstract
 
         #region Constructors
 
-        protected MessageHandlerRepositoryBase(IAssemblyService assemblyService, TAttributeService attributeService)
+        protected MessageHandlerRepositoryBase(
+            IAssemblyService assemblyService,
+            TAttributeService attributeService)
         {
             _assemblyService = assemblyService;
             _attributeService = attributeService;

@@ -16,7 +16,10 @@ namespace DammitBot.Library
 
         #region Constructors
 
-        public DapperUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container)
+        public DapperUnitOfWork(
+            IDbConnectionFactory connectionFactory,
+            IConnectionStringService connectionStringService,
+            IContainer container)
         {
             Connection = connectionFactory
                 .Build(connectionStringService.GetMainAppConnectionString());

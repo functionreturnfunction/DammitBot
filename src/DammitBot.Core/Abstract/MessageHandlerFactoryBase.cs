@@ -7,7 +7,8 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract
 {
-    public abstract class MessageHandlerFactoryBase<TRepository, TEventArgs, THandler, TComposite> : IHandlerFactory<THandler, TEventArgs>
+    public abstract class MessageHandlerFactoryBase<TRepository, TEventArgs, THandler, TComposite>
+        : IHandlerFactory<THandler, TEventArgs>
         where TRepository : IMessageHandlerRepository<THandler, TEventArgs>
         where TEventArgs : MessageEventArgs
         where THandler : IMessageHandler<TEventArgs>
@@ -22,7 +23,9 @@ namespace DammitBot.Abstract
 
         #region Constructors
 
-        protected MessageHandlerFactoryBase(TRepository repository, IInstantiationService instantiationService)
+        protected MessageHandlerFactoryBase(
+            TRepository repository,
+            IInstantiationService instantiationService)
         {
             _repository = repository;
             _instantiationService = instantiationService;
@@ -50,7 +53,8 @@ namespace DammitBot.Abstract
 
         public THandler BuildHandler(TEventArgs message)
         {
-            return CreateCompositeHandler(InstantiateAll(_repository.GetMatchingHandlers(message)));
+            return CreateCompositeHandler(
+                InstantiateAll(_repository.GetMatchingHandlers(message)));
         }
 
         #endregion

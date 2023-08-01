@@ -5,11 +5,20 @@ using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers
 {
-    public class MessageHandlerRepository : MessageHandlerRepositoryBase<HandlesMessageAttribute, IMessageHandlerAttributeService, MessageEventArgs, IMessageHandler>, IMessageHandlerRepository
+    public class MessageHandlerRepository
+        : MessageHandlerRepositoryBase<
+            HandlesMessageAttribute,
+            IMessageHandlerAttributeService,
+            MessageEventArgs,
+            IMessageHandler>,
+            IMessageHandlerRepository
     {
         #region Constructors
 
-        public MessageHandlerRepository(IAssemblyService assemblyService, IMessageHandlerAttributeService attributeService) : base(assemblyService, attributeService) {}
+        public MessageHandlerRepository(
+            IAssemblyService assemblyService,
+            IMessageHandlerAttributeService attributeService)
+            : base(assemblyService, attributeService) {}
 
         #endregion
 

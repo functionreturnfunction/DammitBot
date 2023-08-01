@@ -33,7 +33,8 @@ namespace DammitBot.Tests.MessageHandlers
                     s.WithDefaultConventions();
                 });
                 i.For<IBot>().Use<Bot>().Singleton();
-                i.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
+                i.For<IMessageHandlerAttributeService>()
+                    .Use<CommandAwareMessageHandlerAttributeService>();
                 i.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
             });
 
@@ -124,8 +125,11 @@ namespace DammitBot.Tests.MessageHandlers
 
             _commandHandlerFactory.Verify(
                 x =>
-                    x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
-                        .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")), Times.Never);
+                    x.BuildHandler(It.Is<CommandEventArgs>(
+                            a => a.Command == "blah blah blah"))
+                        .Handle(It.Is<CommandEventArgs>(
+                            a => a.Command == "blah blah blah")),
+                Times.Never);
             
         }
 
@@ -164,7 +168,10 @@ namespace DammitBot.Tests.MessageHandlers
                 args.SetupGet(x => x.User).Returns(nick);
                 args.SetupGet(x => x.Protocol).Returns(protocol ?? "foo");
                 args.SetupGet(x => x.Channel).Returns(channel?? "#bar");
-                _protocolService.Raise(x => x.ChannelMessageReceived += null, null, args.Object);
+                _protocolService.Raise(
+                    x => x.ChannelMessageReceived += null,
+                    null,
+                    args.Object);
             }
 
             public void Dispose()

@@ -11,7 +11,11 @@ namespace DammitBot.Data.Dapper.Repositories
     {
         public const string BASE_QUERY = "select * from Users as this";
 
-        public UserRepository(IDataCommandHelper helper, IDbConnection connection, IDateTimeProvider dateTimeProvider) : base(helper, connection, dateTimeProvider) {}
+        public UserRepository(
+            IDataCommandHelper helper,
+            IDbConnection connection,
+            IDateTimeProvider dateTimeProvider)
+            : base(helper, connection, dateTimeProvider) {}
 
         protected override string BaseQuery => BASE_QUERY;
 

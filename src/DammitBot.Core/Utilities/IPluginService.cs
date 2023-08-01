@@ -2,7 +2,5 @@
 
 namespace DammitBot.Utilities
 {
-    public interface IPluginService : IPluginThingy
-    {
-    }
+    public interface IPluginService : IPluginThingy { }
 }

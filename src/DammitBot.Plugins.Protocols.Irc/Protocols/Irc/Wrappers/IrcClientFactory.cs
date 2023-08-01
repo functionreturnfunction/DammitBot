@@ -11,7 +11,8 @@ namespace DammitBot.Protocols.Irc.Wrappers
 
         public IIrcClient Build(IIrcConfigurationSection config)
         {
-            return new IrcClientWrapper(new IrcClient(config.Server, new IrcUser(config.Nick, config.User)));
+            return new IrcClientWrapper(
+                new IrcClient(config.Server, new IrcUser(config.Nick, config.User)));
         }
 
         #endregion

@@ -9,8 +9,9 @@ namespace DammitBot.Configuration
 
         private readonly IConfigurationSection _config;
 
-        public string GoesBy => _config["goesBy"] ??
-                                throw new ConfigurationErrorsException("Configuration key 'goesBy' is missing");
+        public string GoesBy =>
+            _config["goesBy"] ??
+            throw new ConfigurationErrorsException("Configuration key 'goesBy' is missing");
 
         public BotConfigurationSection(IConfigurationSection config)
         {

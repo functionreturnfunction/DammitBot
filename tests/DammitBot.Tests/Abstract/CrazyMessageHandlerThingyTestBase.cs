@@ -9,8 +9,8 @@ using Xunit;
 
 namespace DammitBot.Abstract
 {
-    public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHandler, TEventArgs> :
-            UnitTestBase<TCrazyThingy>
+    public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHandler, TEventArgs>
+        : UnitTestBase<TCrazyThingy>
         where TMessageHandler : class, IMessageHandler<TEventArgs>
         where TEventArgs : MessageEventArgs, new()
     {

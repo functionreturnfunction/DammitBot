@@ -21,7 +21,9 @@ namespace DammitBot.Abstract
 
         #region Constructors
 
-        public AssemblyServiceThingyBase(IAssemblyService assemblyService, IInstantiationService instantiationService)
+        public AssemblyServiceThingyBase(
+            IAssemblyService assemblyService,
+            IInstantiationService instantiationService)
         {
             _assemblyService = assemblyService;
             _instantiationService = instantiationService;

@@ -26,7 +26,10 @@ namespace DammitBot.Protocols.Irc
 
         #region Constructors
 
-        public Irc(IIrcClientFactory ircClientFactory, IIrcConfigurationManager configurationManager, ILog log)
+        public Irc(
+            IIrcClientFactory ircClientFactory,
+            IIrcConfigurationManager configurationManager,
+            ILog log)
         {
             _ircClientFactory = ircClientFactory;
             _config = configurationManager.IrcConfigurationSection;
@@ -50,7 +53,8 @@ namespace DammitBot.Protocols.Irc
 
         private void Irc_ConnectionComplete(object sender, EventArgs e)
         {
-            _log.Info($"Initial connection complete, joining channels '{string.Join(",", _config.Channels)}'");
+            _log.Info($"Initial connection complete, joining channels " + 
+                      $"'{string.Join(",", _config.Channels)}'");
             foreach (var channel in _config.Channels)
             {
                 // in theory this cannot be null here, because this is an event handler assigned to the
@@ -73,7 +77,8 @@ namespace DammitBot.Protocols.Irc
 
         public virtual void Initialize()
         {
-            _log.Info($"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
+            _log.Info(
+                $"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
             _irc = _ircClientFactory.Build(_config);
             _irc.ConnectionComplete += Irc_ConnectionComplete;
             _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;

@@ -15,7 +15,9 @@ namespace DammitBot.Data.Models
             Assert.Null(model.UpdatedAt);
         }
 
-        public static void TestUpdateWithValidFieldsSetsUpdatedAt<TModel>(this ModelTestBase<TModel> that, Action<TModel> updateModel)
+        public static void TestUpdateWithValidFieldsSetsUpdatedAt<TModel>(
+            this ModelTestBase<TModel> that,
+            Action<TModel> updateModel)
             where TModel : class, IThingWithTimestamps, new()
         {
             var model = that.CreateValidObject();

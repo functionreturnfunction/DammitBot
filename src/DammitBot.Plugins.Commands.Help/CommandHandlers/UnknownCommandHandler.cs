@@ -7,7 +7,8 @@ namespace DammitBot.CommandHandlers
     {
         #region Constants
 
-        public const string MESSAGE = "Sorry, I don't understand you.  Say '{0} help' for a list of help commands.";
+        public const string MESSAGE =
+            "Sorry, I don't understand you.  Say '{0} help' for a list of help commands.";
 
         #endregion
 

@@ -32,7 +32,9 @@ namespace DammitBot.Protocols.Irc.Wrappers
 
         private void InnerClient_ChannelMessageReceived(object sender, PrivateMessageEventArgs e)
         {
-            ChannelMessageReceived?.Invoke(sender, new IrcMessageEventArgs(new PrivateMessageEventArgsWrapper(e)));
+            ChannelMessageReceived?.Invoke(
+                sender,
+                new IrcMessageEventArgs(new PrivateMessageEventArgsWrapper(e)));
         }
 
         private void InnerClient_ConnectionComplete(object sender, EventArgs e)

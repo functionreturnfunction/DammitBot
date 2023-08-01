@@ -5,7 +5,12 @@ using Xunit;
 
 namespace DammitBot.Tests.CommandHandlers
 {
-    public class CommandHandlerFactoryTest : MessageHandlerFactoryTestBase<CommandHandlerFactory, ICommandHandlerRepository, ICommandHandler, CommandEventArgs>
+    public class CommandHandlerFactoryTest
+        : MessageHandlerFactoryTestBase<
+            CommandHandlerFactory,
+            ICommandHandlerRepository,
+            ICommandHandler,
+            CommandEventArgs>
     {
         [Fact]
         public override void TestHandleCallsHandleOnEachInnerHandler()

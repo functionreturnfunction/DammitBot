@@ -2,8 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-// ReSharper disable once CheckNamespace
-namespace DammitBot.Utilities.AssemblyExtensions
+namespace DammitBot.Utilities
 {
     public static class AssemblyExtensions
     {

@@ -10,10 +10,10 @@ namespace DammitBot.Utilities
     {
         #region Constructors
 
-        public ProtocolService(IAssemblyService assemblyService, IInstantiationService instantiationService)
-            : base(assemblyService, instantiationService)
-        {
-        }
+        public ProtocolService(
+            IAssemblyService assemblyService,
+            IInstantiationService instantiationService)
+            : base(assemblyService, instantiationService) { }
 
         #endregion
 

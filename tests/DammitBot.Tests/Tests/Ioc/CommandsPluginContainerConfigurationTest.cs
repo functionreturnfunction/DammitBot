@@ -10,13 +10,15 @@ namespace DammitBot.Tests.Ioc
     {
         public CommandsPluginContainerConfigurationTest()
         {
-            _container.Configure(e => new CommandsPluginContainerConfiguration().Configure(e));
+            _container.Configure(
+                e => new CommandsPluginContainerConfiguration().Configure(e));
         }
 
         [Fact]
         public void TestConfigureSetsUpMessageHandlerAttributeService()
         {
-            Assert.IsType<CommandAwareMessageHandlerAttributeService>(_target.GetInstance<IMessageHandlerAttributeService>());
+            Assert.IsType<CommandAwareMessageHandlerAttributeService>(
+                _target.GetInstance<IMessageHandlerAttributeService>());
         }
     }
 }

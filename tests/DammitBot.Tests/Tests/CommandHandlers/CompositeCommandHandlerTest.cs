@@ -4,7 +4,6 @@ using DammitBot.Events;
 
 namespace DammitBot.Tests.CommandHandlers
 {
-    public class CompositeCommandHandlerTest : CompositeMessageHandlerTestBase<CompositeCommandHandler, ICommandHandler, CommandEventArgs>
-    {
-    }
+    public class CompositeCommandHandlerTest
+        : CompositeMessageHandlerTestBase<CompositeCommandHandler, ICommandHandler, CommandEventArgs> { }
 }
