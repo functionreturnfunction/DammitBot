@@ -63,6 +63,11 @@ namespace DammitBot
             Running = true;
         }
 
+        public void ReceiveMessage(MessageEventArgs e)
+        {
+            Protocols_ChannelMessageReceived(this, e);
+        }
+
         public void SayToAll(string message)
         {
             _protocolService.SayToAll(message);

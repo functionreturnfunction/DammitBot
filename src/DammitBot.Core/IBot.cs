@@ -17,6 +17,8 @@ namespace DammitBot
         void SayToAll(string message);
         void Die();
 
+        void ReceiveMessage(MessageEventArgs args);
+
         void ReplyToMessage(MessageEventArgs args, string response);
 
         #endregion

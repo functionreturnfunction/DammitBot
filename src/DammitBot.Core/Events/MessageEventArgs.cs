@@ -2,7 +2,7 @@
 {
     public class MessageEventArgs
     {
-        protected MessageEventArgs(string message, string channel, string protocol, string user)
+        public MessageEventArgs(string message, string channel, string protocol, string user)
         {
             Message = message;
             Channel = channel;
