@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using DammitBot.Scheduling.Metadata;
+using DammitBot.Metadata;
 using DammitBot.Utilities;
 using DammitBot.Utilities.AssemblyEnumerableExtensions;
 using Quartz;
 using StructureMap.TypeRules;
 
-namespace DammitBot.Scheduling.Library
+namespace DammitBot.Library
 {
     public class JobService : IJobService
     {

@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
-using DammitBot.Abstract;
-using DammitBot.Scheduling.Library;
-using Quartz;
-using Quartz.Impl;
+﻿using DammitBot.Abstract;
+using DammitBot.Library;
 using Quartz.Spi;
 using StructureMap;
 
-namespace DammitBot.Scheduling.Ioc
+namespace DammitBot.Ioc
 {
     public class SchedulingPluginContainerConfiguration : ContainerConfigurationBase
     {

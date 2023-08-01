@@ -1,4 +1,4 @@
-﻿namespace DammitBot.Scheduling.Library
+﻿namespace DammitBot.Library
 {
     public interface ISchedulerService
     {

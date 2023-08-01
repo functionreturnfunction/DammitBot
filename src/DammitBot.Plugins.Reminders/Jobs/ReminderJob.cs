@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DammitBot.Data.Library;
 using DammitBot.Data.Models;
-using DammitBot.Scheduling.Metadata;
+using DammitBot.Metadata;
 using DateTimeStringParser;
 using log4net;
 using Quartz;

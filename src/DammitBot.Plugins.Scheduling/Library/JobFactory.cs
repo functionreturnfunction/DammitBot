@@ -1,9 +1,8 @@
-﻿using System;
-using Quartz;
+﻿using Quartz;
 using Quartz.Spi;
 using StructureMap;
 
-namespace DammitBot.Scheduling.Library
+namespace DammitBot.Library
 {
     public class JobFactory : IJobFactory
     {

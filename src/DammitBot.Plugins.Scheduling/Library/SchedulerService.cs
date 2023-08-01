@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
 
-namespace DammitBot.Scheduling.Library
+namespace DammitBot.Library
 {
     public class SchedulerService : ISchedulerService
     {

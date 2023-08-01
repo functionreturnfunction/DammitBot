@@ -9,7 +9,7 @@ using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
-using DammitBot.Scheduling.Library;
+using DammitBot.Library;
 using DammitBot.TestLibrary;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;

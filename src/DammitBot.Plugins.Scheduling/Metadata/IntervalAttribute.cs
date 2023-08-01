@@ -1,7 +1,7 @@
 ﻿using System;
 using Quartz;
 
-namespace DammitBot.Scheduling.Metadata
+namespace DammitBot.Metadata
 {
     /// <summary>
     /// Used to determine the interval at which a job should be repeated.  Jobs without

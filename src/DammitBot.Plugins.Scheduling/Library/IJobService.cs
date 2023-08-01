@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Quartz;
 
-namespace DammitBot.Scheduling.Library
+namespace DammitBot.Library
 {
     public interface IJobService
     {
