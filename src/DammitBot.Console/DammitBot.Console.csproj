@@ -26,7 +26,6 @@
     <ProjectReference Include="..\DammitBot.Plugins.Data.Migrations\DammitBot.Plugins.Data.Migrations.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj" />
-    <ProjectReference Include="..\DammitBot.Plugins.TeamCity\DammitBot.Plugins.TeamCity.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Reminders.Dapper\DammitBot.Plugins.Reminders.Dapper.csproj" />
   </ItemGroup>
 

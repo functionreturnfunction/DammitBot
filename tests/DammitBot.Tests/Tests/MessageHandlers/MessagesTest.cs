@@ -2,7 +2,6 @@
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
 using DammitBot.Events;
-using DammitBot.Helpers;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
@@ -40,7 +39,6 @@ namespace DammitBot.Tests.MessageHandlers
 
             Inject(out _commandHandlerFactory);
             Inject<ISchedulerService>();
-            Inject<ITeamCityHelper>();
             Inject(out _protocolService);
             Inject(_protocolService);
         }
