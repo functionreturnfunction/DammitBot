@@ -7,6 +7,8 @@ namespace DammitBot.Plugins
     {
         protected readonly MigrationRunner _runner;
 
+        public bool Priority => true;
+
         public AutoMigrationsPlugin(MigrationRunner runner)
         {
             _runner = runner;

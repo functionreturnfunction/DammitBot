@@ -38,9 +38,21 @@ namespace DammitBot.Abstract
                     .GetTypes()
                     .Where(t => !t.IsAbstract && typeof(TThingy).IsAssignableFrom(t)))
             {
-                var plugin = (TThingy) _instantiationService.GetInstance(type);
-                plugin.Initialize();
+                var plugin = (TThingy)_instantiationService.GetInstance(type);
+
+                // initialize "Priority" plugins right away
+                if (plugin.Priority)
+                {
+                    plugin.Initialize();
+                }
+
                 _thingies.Add(plugin);
+            }
+
+            // initialize non-priority plugins afterward
+            foreach (var plugin in _thingies.Where(t => !t.Priority))
+            {
+                plugin.Initialize();
             }
         }
 
