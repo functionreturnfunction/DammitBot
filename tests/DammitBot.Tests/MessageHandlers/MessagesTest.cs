@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
 using DammitBot.CommandHandlers;
-using DammitBot.Configuration;
 using DammitBot.Data.Library;
-using DammitBot.Data.Migrations.Library;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Helpers;
