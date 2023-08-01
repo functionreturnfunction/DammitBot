@@ -41,7 +41,7 @@ namespace DammitBot.Jobs
             using (var uow = _unitOfWorkFactory.Build())
             {
                 var now = _dateTimeProvider.GetCurrentTime();
-                var reminders = GetReminders(now);
+                var reminders = GetReminders(uow, now);
                 _log.Debug($"Found {reminders.Count()} reminders due as of {now}");
                 foreach (var reminder in reminders)
                 {
@@ -59,12 +59,9 @@ namespace DammitBot.Jobs
         //     throw new NotImplementedException();
         // }
 
-        private IQueryable<Reminder> GetReminders(DateTime since)
+        private IQueryable<Reminder> GetReminders(IUnitOfWork uow, DateTime since)
         {
-            using (var uow = _unitOfWorkFactory.Build())
-            {
-                return uow.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
-            }
+            return uow.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
         }
 
         #endregion
