@@ -1,7 +1,7 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.Helpers;
 
-namespace DammitBot
+namespace DammitBot.Plugins
 {
     public class TeamCityPlugin : IPlugin
     {

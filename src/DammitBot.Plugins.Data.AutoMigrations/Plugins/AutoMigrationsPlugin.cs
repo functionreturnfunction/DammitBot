@@ -1,8 +1,7 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.Data.Migrations.Library;
 
-// ReSharper disable once CheckNamespace
-namespace DammitBot
+namespace DammitBot.Plugins
 {
     public class AutoMigrationsPlugin : IPlugin
     {

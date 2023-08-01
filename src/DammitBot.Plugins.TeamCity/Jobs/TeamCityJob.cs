@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Text;
 using DammitBot.Helpers;
-using DammitBot.Scheduling.Metadata;
+using DammitBot.Metadata;
 using Quartz;
 using TeamCitySharper.DomainEntities;
 

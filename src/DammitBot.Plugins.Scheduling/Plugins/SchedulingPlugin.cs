@@ -1,7 +1,7 @@
 ﻿using DammitBot.Abstract;
-using DammitBot.Scheduling.Library;
+using DammitBot.Library;
 
-namespace DammitBot.Scheduling
+namespace DammitBot.Plugins
 {
     public class SchedulingPlugin : IPlugin
     {

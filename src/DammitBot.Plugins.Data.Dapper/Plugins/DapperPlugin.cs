@@ -1,6 +1,6 @@
 using DammitBot.Abstract;
 
-namespace DammitBot
+namespace DammitBot.Plugins
 {
     public class DapperPlugin : IPlugin
     {
