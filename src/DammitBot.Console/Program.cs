@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using DammitBot.Events;
 using DammitBot.Ioc;
 using log4net;
 
@@ -25,7 +25,14 @@ namespace DammitBot.Console
 
                 do
                 {
-                    Thread.Sleep(100);
+                    System.Console.Write("Message for bot: ");
+                    var message = System.Console.ReadLine() ?? string.Empty; 
+                    bot.ReceiveMessage(new MessageEventArgs(
+                        message,
+                        Protocols.Console.Console.PROTOCOL_NAME,
+                        Protocols.Console.Console.PROTOCOL_NAME,
+                        Protocols.Console.Console.PROTOCOL_NAME + " user"));
+                    
                 } while (bot.Running);
             }
             catch (Exception e) when (LogAndRethrow(log, e))
