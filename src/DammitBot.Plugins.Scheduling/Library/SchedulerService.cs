@@ -12,7 +12,7 @@ namespace DammitBot.Scheduling.Library
     {
         #region Private Members
 
-        private IScheduler _scheduler;
+        private IScheduler? _scheduler;
         private readonly IJobFactory _jobFactory;
         private readonly IJobService _jobService;
         private readonly IList<TriggerKey> _triggerKeys;
@@ -40,7 +40,8 @@ namespace DammitBot.Scheduling.Library
             var job = _jobService.Build(jobType, name, group);
             var trigger = _jobService.BuildTrigger(jobType, triggerName, group);
 
-            await _scheduler.ScheduleJob(job, trigger);
+            // this gets called by Start() which sets _scheduler, so in theory this will never be null here
+            await _scheduler!.ScheduleJob(job, trigger);
 
             _triggerKeys.Add(trigger.Key);
         }
@@ -66,10 +67,16 @@ namespace DammitBot.Scheduling.Library
 
         public async void Stop()
         {
+            if (_scheduler == null)
+            {
+                throw new InvalidOperationException(
+                    "Cannot stop service before it has been started");
+            }
+            
             // TODO: figure out why this needs to happen
             if (!_scheduler.IsShutdown)
             {
-                await _scheduler.UnscheduleJobs(new ReadOnlyCollection< TriggerKey>(_triggerKeys));
+                await _scheduler.UnscheduleJobs(new ReadOnlyCollection<TriggerKey>(_triggerKeys));
                 _triggerKeys.Clear();
                 await _scheduler.Shutdown();
             }

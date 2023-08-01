@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration
@@ -21,11 +21,20 @@ namespace DammitBot.Configuration
 
         #region Properties
 
-        public virtual string Host => _config[Keys.HOST];
+        public virtual string Host =>
+            _config[Keys.HOST] ??
+            throw new ConfigurationErrorsException(
+                $"Required configuration key {Keys.HOST} has not been set");
 
-        public virtual string Login => _config[Keys.LOGIN];
+        public virtual string Login =>
+            _config[Keys.LOGIN] ??
+            throw new ConfigurationErrorsException(
+                $"Required configuration key {Keys.LOGIN} has not been set");
 
-        public virtual string Password => _config[Keys.PASSWORD];
+        public virtual string Password =>
+            _config[Keys.PASSWORD] ??
+            throw new ConfigurationErrorsException(
+                $"Required configuration key {Keys.PASSWORD} has not been set");
 
         #endregion
     }

@@ -51,10 +51,12 @@ namespace DammitBot.Jobs
                 _helper.Initialize();
             }
 
-            foreach (var build in _helper.GetLatestBuilds().ToList())
-            {
-                _bot.SayToAll(DescribeBuild(build));
-            }
+            await Task.Run(() => {
+                foreach (var build in _helper.GetLatestBuilds().ToList())
+                {
+                    _bot.SayToAll(DescribeBuild(build));
+                }
+            });
         }
 
         #endregion

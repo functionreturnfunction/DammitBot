@@ -16,7 +16,7 @@ namespace DammitBot.Helpers
         private readonly ITeamCityClient _client;
         private readonly ITeamCityConfigurationSection _config;
         private readonly ILog _log;
-        private Build _lastBuild;
+        private Build? _lastBuild;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace DammitBot.Helpers
 
         #endregion
 
-        protected Build GetLatestBuild()
+        protected Build? GetLatestBuild()
         {
             return _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(maxResults: 1)).SingleOrDefault();
         }
@@ -58,14 +58,14 @@ namespace DammitBot.Helpers
                 throw new InvalidOperationException("Helper not yet initialized.");
             }
 
-            if ((_lastBuild ?? (_lastBuild = GetLatestBuild())) == null)
+            if ((_lastBuild ??= GetLatestBuild()) == null)
             {
                 _log.Debug($"No builds found");
                 return Enumerable.Empty<Build>();
             }
 
             var ret =
-                _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(sinceBuild: BuildLocator.WithId(Convert.ToInt32(_lastBuild.Id))));
+                _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(sinceBuild: BuildLocator.WithId(Convert.ToInt32(_lastBuild!.Id))));
             _log.Debug($"Found {ret.Count} builds since {_lastBuild.Id ?? "never"}");
             _lastBuild = ret.Any() ? ret.Last() : _lastBuild;
             return ret;

@@ -1,12 +1,12 @@
 using System.Data;
-using Microsoft.Data.Sqlite;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DammitBot.TestLibrary
 {
     // Dommel guesses the connection type based on type name,
     // so our wrapper class needs to have the same name.
     public abstract class DbConnectionWrapper<TConnection> : IDbConnection
-        where TConnection : IDbConnection
+        where TConnection : class, IDbConnection
     {
         protected readonly TConnection _connection;
 
@@ -15,8 +15,9 @@ namespace DammitBot.TestLibrary
             _connection = connection;
         }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
+        [AllowNull]
         public string ConnectionString
         {
             get => _connection.ConnectionString;

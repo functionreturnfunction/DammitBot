@@ -165,7 +165,7 @@ namespace DammitBot.MessageHandlers
 
             #region Exposed Methods
 
-            public void TestMessage(string message, string nick, string protocol = null, string channel = null)
+            public void TestMessage(string message, string nick, string? protocol = null, string? channel = null)
             {
                 var args = new Mock<MessageEventArgs>();
                 args.SetupGet(x => x.Message).Returns(message);
