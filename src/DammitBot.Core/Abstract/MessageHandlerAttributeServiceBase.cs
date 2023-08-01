@@ -3,7 +3,8 @@ using DammitBot.Metadata;
 
 namespace DammitBot.Abstract
 {
-    public class MessageHandlerAttributeServiceBase<TAttributeBase> : IMessageHandlerAttributeService<TAttributeBase>
+    public class MessageHandlerAttributeServiceBase<TAttributeBase>
+        : IMessageHandlerAttributeService<TAttributeBase>
         where TAttributeBase : Attribute, IHandlesMessageAttribute
     {
         #region Private Methods

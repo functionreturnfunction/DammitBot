@@ -19,14 +19,37 @@ namespace DammitBot.Library
             get => _command.CommandText;
             set => _command.CommandText = value;
         }
-        public int CommandTimeout { get => _command.CommandTimeout; set => _command.CommandTimeout = value; }
-        public CommandType CommandType { get => _command.CommandType; set => _command.CommandType = value; }
-        public IDbConnection? Connection { get => _command.Connection; set => _command.Connection = value; }
+
+        public int CommandTimeout
+        {
+            get => _command.CommandTimeout;
+            set => _command.CommandTimeout = value;
+        }
+
+        public CommandType CommandType
+        {
+            get => _command.CommandType;
+            set => _command.CommandType = value;
+        }
+
+        public IDbConnection? Connection
+        {
+            get => _command.Connection;
+            set => _command.Connection = value;
+        }
 
         public IDataParameterCollection Parameters => _command.Parameters;
 
-        public IDbTransaction? Transaction { get => _command.Transaction; set => _command.Transaction = value; }
-        public UpdateRowSource UpdatedRowSource { get => _command.UpdatedRowSource; set => _command.UpdatedRowSource = value; }
+        public IDbTransaction? Transaction
+        {
+            get => _command.Transaction;
+            set => _command.Transaction = value;
+        }
+        public UpdateRowSource UpdatedRowSource
+        { 
+            get => _command.UpdatedRowSource;
+            set => _command.UpdatedRowSource = value; 
+        }
 
         protected T TryExecuteThing<T>(string executionType, Func<T> fn)
         {

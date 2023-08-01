@@ -58,7 +58,6 @@ namespace DateTimeStringParser
             TestTryParse(input, _now.GetNext(hour, minute));
         }
         
-
         #endregion
     }
 }

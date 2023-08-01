@@ -3,5 +3,6 @@ using DammitBot.Events;
 
 namespace DammitBot.CommandHandlers
 {
-    public interface ICommandHandlerRepository : IMessageHandlerRepository<ICommandHandler, CommandEventArgs> {}
+    public interface ICommandHandlerRepository
+        : IMessageHandlerRepository<ICommandHandler, CommandEventArgs> {}
 }

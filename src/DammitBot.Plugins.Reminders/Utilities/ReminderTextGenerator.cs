@@ -14,7 +14,11 @@ namespace DammitBot.Utilities
 
         private Reminder DifferentUser(Reminder reminder)
         {
-            reminder.Text = FromStrings(reminder.To.Username, reminder.From.Username, FixNouns(reminder.Text), reminder.RemindAt.Value);
+            reminder.Text = FromStrings(
+                reminder.To.Username,
+                reminder.From.Username,
+                FixNouns(reminder.Text),
+                reminder.RemindAt.Value);
             return reminder;
         }
 
@@ -25,7 +29,10 @@ namespace DammitBot.Utilities
 
         private Reminder SameUser(Reminder reminder)
         {
-            reminder.Text = FromStrings(reminder.To.Username, "you", FixNouns(reminder.Text), reminder.RemindAt.Value);
+            reminder.Text = FromStrings(
+                reminder.To.Username,
+                "you",
+                FixNouns(reminder.Text), reminder.RemindAt.Value);
             return reminder;
         }
 

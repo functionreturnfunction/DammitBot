@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DammitBot.Utilities.AssemblyExtensions;
 
 namespace DammitBot.Utilities
 {
@@ -25,7 +24,9 @@ namespace DammitBot.Utilities
 
         private IEnumerable<Assembly> InnerGetPluginAssemblies()
         {
-            var dlls = Directory.GetFileSystemEntries(MainAssembly.GetDirectory(), "DammitBot.Plugins.*.dll");
+            var dlls = Directory.GetFileSystemEntries(
+                MainAssembly.GetDirectory(),
+                "DammitBot.Plugins.*.dll");
 
             foreach (var dll in dlls)
             {

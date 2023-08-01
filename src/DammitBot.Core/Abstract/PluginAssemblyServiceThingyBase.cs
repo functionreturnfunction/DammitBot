@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Utilities;
-using DammitBot.Utilities.AssemblyEnumerableExtensions;
 using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract
@@ -19,7 +18,9 @@ namespace DammitBot.Abstract
 
         #region Constructors
 
-        public PluginAssemblyServiceThingyBase(IAssemblyService assemblyService, IInstantiationService instantiationService)
+        public PluginAssemblyServiceThingyBase(
+            IAssemblyService assemblyService,
+            IInstantiationService instantiationService)
         {
             _assemblyService = assemblyService;
             _instantiationService = instantiationService;

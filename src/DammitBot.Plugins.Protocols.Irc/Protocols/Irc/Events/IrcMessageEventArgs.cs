@@ -8,7 +8,16 @@ namespace DammitBot.Protocols.Irc.Events
     {
         #region Constructors
 
-        public IrcMessageEventArgs(PrivateMessageEventArgsWrapper args) : base(args.PrivateMessage.Message, ParseChannel(args), Irc.PROTOCOL_NAME, args.PrivateMessage.Nick) {}
+        public IrcMessageEventArgs(PrivateMessageEventArgsWrapper args)
+            : base(
+                args.PrivateMessage.Message,
+                ParseChannel(args),
+                Irc.PROTOCOL_NAME,
+                args.PrivateMessage.Nick) {}
+        
+        #endregion
+        
+        #region Private Methods
 
         private static string ParseChannel(PrivateMessageEventArgsWrapper args)
         {

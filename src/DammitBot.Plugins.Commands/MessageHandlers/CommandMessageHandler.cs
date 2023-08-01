@@ -26,7 +26,9 @@ namespace DammitBot.MessageHandlers
 
         #region Constructors
 
-        public CommandMessageHandler(ICommandHandlerFactory handlerFactory, IUnitOfWorkFactory unitOfWorkFactory)
+        public CommandMessageHandler(
+            ICommandHandlerFactory handlerFactory,
+            IUnitOfWorkFactory unitOfWorkFactory)
         {
             _handlerFactory = handlerFactory;
             _unitOfWorkFactory = unitOfWorkFactory;

@@ -13,7 +13,11 @@ namespace DammitBot.CommandHandlers
     {
         #region Constructors
 
-        public UnknownCommandHandlerAwareCommandHandlerRepository(IAssemblyService assemblyService, MessageHandlerAttributeServiceBase<HandlesCommandAttribute> attributeService, IConfigurationManager configurationManager) : base(assemblyService, attributeService, configurationManager) {}
+        public UnknownCommandHandlerAwareCommandHandlerRepository(
+            IAssemblyService assemblyService,
+            MessageHandlerAttributeServiceBase<HandlesCommandAttribute> attributeService,
+            IConfigurationManager configurationManager)
+            : base(assemblyService, attributeService, configurationManager) {}
 
         #endregion
 

@@ -39,7 +39,8 @@ namespace DammitBot.Library
             var job = _jobService.Build(jobType, name, group);
             var trigger = _jobService.BuildTrigger(jobType, triggerName, group);
 
-            // this gets called by Start() which sets _scheduler, so in theory this will never be null here
+            // this gets called by Start() which sets _scheduler, so in theory this will never be null
+            // here
             await _scheduler!.ScheduleJob(job, trigger);
 
             _triggerKeys.Add(trigger.Key);
@@ -75,7 +76,8 @@ namespace DammitBot.Library
             // TODO: figure out why this needs to happen
             if (!_scheduler.IsShutdown)
             {
-                await _scheduler.UnscheduleJobs(new ReadOnlyCollection<TriggerKey>(_triggerKeys));
+                await _scheduler.UnscheduleJobs(
+                    new ReadOnlyCollection<TriggerKey>(_triggerKeys));
                 _triggerKeys.Clear();
                 await _scheduler.Shutdown();
             }

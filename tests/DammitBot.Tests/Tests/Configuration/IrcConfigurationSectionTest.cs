@@ -12,7 +12,9 @@ namespace DammitBot.Tests.Configuration
             Assert.Equal("nick", _target.IrcConfigurationSection.Nick);
             Assert.Equal("server", _target.IrcConfigurationSection.Server);
             Assert.Equal("user", _target.IrcConfigurationSection.User);
-            Assert.Equal(new[] {"#channelA", "#channelB"}, _target.IrcConfigurationSection.Channels);
+            Assert.Equal(
+                new[] {"#channelA", "#channelB"},
+                _target.IrcConfigurationSection.Channels);
         }
     }
 }

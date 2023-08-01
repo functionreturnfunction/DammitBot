@@ -41,7 +41,9 @@ namespace DammitBot.Library
 
         protected virtual void ExtraSetup() {}
 
-        protected virtual void Inject<TMock>(out Mock<TMock> obj, MockBehavior behavior = MockBehavior.Default)
+        protected virtual void Inject<TMock>(
+            out Mock<TMock> obj,
+            MockBehavior behavior = MockBehavior.Default)
             where TMock : class
         {
             Inject((obj = new Mock<TMock>(behavior)).Object);

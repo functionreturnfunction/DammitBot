@@ -7,7 +7,6 @@ using Xunit;
 
 namespace DammitBot.Tests.Wrappers
 {
-
     public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     {
         #region Private Members

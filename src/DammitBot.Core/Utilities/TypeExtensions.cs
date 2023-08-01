@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-// ReSharper disable once CheckNamespace
-namespace DammitBot.Utilities.TypeExtensions
+namespace DammitBot.Utilities
 {
     public static class TypeExtensions
     {
@@ -14,12 +13,16 @@ namespace DammitBot.Utilities.TypeExtensions
             return that.HasProperty<object>(propertyName, out property);
         }
 
-        public static bool HasProperty<TProperty>(this Type that, string propertyName, out PropertyInfo property)
+        public static bool HasProperty<TProperty>(
+            this Type that,
+            string propertyName,
+            out PropertyInfo property)
         {
             property =
                 that.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                     .SingleOrDefault(
-                        pi => pi.Name == propertyName && typeof(TProperty).IsAssignableFrom(pi.PropertyType));
+                        pi => pi.Name == propertyName &&
+                              typeof(TProperty).IsAssignableFrom(pi.PropertyType));
             return property != null;
         }
 

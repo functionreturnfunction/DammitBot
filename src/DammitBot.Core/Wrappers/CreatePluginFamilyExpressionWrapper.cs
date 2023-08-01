@@ -4,7 +4,8 @@ using StructureMap.Configuration.DSL.Expressions;
 namespace DammitBot.Wrappers
 {
     [ExcludeFromCodeCoverage]
-    public class CreatePluginFamilyExpressionWrapper<TInterface> : ICreatePluginFamilyExpression<TInterface>
+    public class CreatePluginFamilyExpressionWrapper<TInterface>
+        : ICreatePluginFamilyExpression<TInterface>
     {
         #region Private Members
 

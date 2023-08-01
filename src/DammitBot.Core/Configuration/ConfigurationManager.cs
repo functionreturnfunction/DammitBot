@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration
 {
@@ -10,7 +9,8 @@ namespace DammitBot.Configuration
  
         public IConfigurationRoot Configuration => _builder.Build();
 
-        public IBotConfigurationSection BotConfig => new BotConfigurationSection(Configuration.GetSection(BotConfigurationSection.KEY));
+        public IBotConfigurationSection BotConfig =>
+            new BotConfigurationSection(Configuration.GetSection(BotConfigurationSection.KEY));
 
         public virtual string SettingsPath => _settingsPathHelper.SettingsPath;
 

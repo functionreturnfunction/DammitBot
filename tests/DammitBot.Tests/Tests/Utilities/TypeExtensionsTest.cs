@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using DammitBot.Utilities;
 using Xunit;
 using Xunit.Sdk;
 
-// ReSharper disable once CheckNamespace
-namespace DammitBot.Utilities.TypeExtensions
+namespace DammitBot.Tests.Utilities
 {
     public class TypeExtensionsTest
     {

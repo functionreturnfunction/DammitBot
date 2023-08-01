@@ -21,7 +21,9 @@ namespace DammitBot.Library
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            _connection = new SqliteConnection(new Microsoft.Data.Sqlite.SqliteConnection(new SqliteInMemoryConnectionStringService().GetMainAppConnectionString()));
+            _connection = new SqliteConnection(
+                new Microsoft.Data.Sqlite.SqliteConnection(
+                    new SqliteInMemoryConnectionStringService().GetMainAppConnectionString()));
             _connection.Name = "InMemoryDatabaseTest";
 
             _container.Configure(e =>
@@ -34,7 +36,8 @@ namespace DammitBot.Library
 
                 e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
                 e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
-                e.For<IDbConnectionFactory>().Use(_ => new TestDbConnectionFactory(_connection));
+                e.For<IDbConnectionFactory>()
+                    .Use(_ => new TestDbConnectionFactory(_connection));
                 e.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
             });
         }
@@ -58,7 +61,6 @@ namespace DammitBot.Library
 
         public override void Dispose()
         {
-                
             _connection.ActuallyDispose();
         }
     }

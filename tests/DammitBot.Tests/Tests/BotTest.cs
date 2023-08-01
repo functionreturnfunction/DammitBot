@@ -58,11 +58,16 @@ namespace DammitBot.Tests
         {
             var args = new Mock<MessageEventArgs>();
             args.Setup(a => a.Message).Returns("foo");
-            _handlerFactory.Setup(f => f.BuildHandler(args.Object).Handle(args.Object));
+            _handlerFactory.Setup(
+                f => f.BuildHandler(args.Object).Handle(args.Object));
             SafelyRunTarget();
-            _protocolService.Raise(c => c.ChannelMessageReceived += null, null, args.Object);
+            _protocolService.Raise(
+                c => c.ChannelMessageReceived += null,
+                null,
+                args.Object);
 
-            _handlerFactory.Verify(f => f.BuildHandler(args.Object).Handle(args.Object));
+            _handlerFactory.Verify(
+                f => f.BuildHandler(args.Object).Handle(args.Object));
         }
 
         [Fact]
@@ -84,7 +89,11 @@ namespace DammitBot.Tests
 
             _target.ReplyToMessage(args.Object, "baz");
 
-            _protocolService.Verify(x => x.SayToChannel("foo", "bar", "baz"));
+            _protocolService.Verify(
+                x => x.SayToChannel(
+                    "foo",
+                    "bar",
+                    "baz"));
         }
 
         [Fact]

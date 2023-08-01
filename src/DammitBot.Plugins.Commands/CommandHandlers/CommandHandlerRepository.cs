@@ -7,7 +7,13 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers
 {
-    public class CommandHandlerRepository : MessageHandlerRepositoryBase<HandlesCommandAttribute, MessageHandlerAttributeServiceBase<HandlesCommandAttribute>, CommandEventArgs, ICommandHandler>, ICommandHandlerRepository
+    public class CommandHandlerRepository
+        : MessageHandlerRepositoryBase<
+            HandlesCommandAttribute,
+            MessageHandlerAttributeServiceBase<HandlesCommandAttribute>,
+            CommandEventArgs,
+            ICommandHandler>,
+            ICommandHandlerRepository
     {
         #region Private Members
 

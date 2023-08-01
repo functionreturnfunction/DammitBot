@@ -33,7 +33,8 @@ namespace DammitBot.Tests.Library
         public void TestFindLoadsEntity()
         {
             var entity = new Nick();
-            _dataCommandHelper.Setup(x => x.Load<Nick>(666)).Returns(entity);
+            _dataCommandHelper.Setup(x => x.Load<Nick>(666))
+                .Returns(entity);
 
             Assert.Same(entity, _target.Find(666));
         }
@@ -42,12 +43,12 @@ namespace DammitBot.Tests.Library
         public void TestWhereRunsSearch()
         {
             var entity = new Nick {Id = 1};
-            _dataCommandHelper.Setup(x => x.GetQueryable<Nick>()).Returns(new List<Nick> {entity}.AsQueryable());
+            _dataCommandHelper.Setup(x => x.GetQueryable<Nick>())
+                .Returns(new List<Nick> {entity}.AsQueryable());
 
             var result = _target.Where(n => n.Id == 1);
 
             Assert.Same(entity, result.Single());
-
         }
     }
 }

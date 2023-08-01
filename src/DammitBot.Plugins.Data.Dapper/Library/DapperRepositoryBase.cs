@@ -16,7 +16,11 @@ namespace DammitBot.Library
 
         protected abstract IEnumerable<TEntity> DoQuery(string sql);
 
-        public DapperRepositoryBase(IDataCommandHelper helper, IDbConnection connection, IDateTimeProvider dateTimeProvider) : base(helper)
+        public DapperRepositoryBase(
+            IDataCommandHelper helper,
+            IDbConnection connection,
+            IDateTimeProvider dateTimeProvider)
+            : base(helper)
         {
             _connection = connection;
             _dateTimeProvider = dateTimeProvider;

@@ -23,7 +23,11 @@ on f.Id = this.FromId
 left join Users t
 on t.Id = this.ToId";
 
-        public ReminderRepository(IDataCommandHelper helper, IDbConnection connection, IDateTimeProvider dateTimeProvider) : base(helper, connection, dateTimeProvider) {}
+        public ReminderRepository(
+            IDataCommandHelper helper,
+            IDbConnection connection,
+            IDateTimeProvider dateTimeProvider)
+            : base(helper, connection, dateTimeProvider) {}
 
         protected override string BaseQuery => BASE_QUERY;
 
@@ -34,11 +38,14 @@ on t.Id = this.ToId";
             //     nick.User = user;
             //     return msg;
             // });
-            return _connection.Query<Reminder, User, User, Reminder>(sql, (rmnd, from, to) => {
-                rmnd.From = from;
-                rmnd.To = to;
-                return rmnd;
-            });
+            return _connection.Query<Reminder, User, User, Reminder>(
+                sql,
+                (rmnd, from, to) =>
+                {
+                    rmnd.From = from;
+                    rmnd.To = to;
+                    return rmnd;
+                });
         }
 
         protected override void FixReferences(Reminder entity)

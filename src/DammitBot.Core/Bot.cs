@@ -29,7 +29,10 @@ namespace DammitBot
 
         #region Constructors
 
-        public Bot(IMessageHandlerFactory handlerFactory, IProtocolService protocolService, IPluginService pluginService)
+        public Bot(
+            IMessageHandlerFactory handlerFactory,
+            IProtocolService protocolService,
+            IPluginService pluginService)
         {
             _handlerFactory = handlerFactory;
             _protocolService = protocolService;
