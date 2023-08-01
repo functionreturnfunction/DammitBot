@@ -76,7 +76,7 @@ namespace DammitBot.Protocols.Irc
             _log.Info($"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
             _irc = _ircClientFactory.Build(_config);
             _irc.ConnectionComplete += Irc_ConnectionComplete;
-            _irc.ChannelMessageRecieved += Irc_ChannelMessageReceived;
+            _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;
             _irc.ConnectAsync();
         }
 
