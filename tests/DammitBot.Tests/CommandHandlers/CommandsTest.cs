@@ -1,9 +1,9 @@
 ﻿using System;
 using DammitBot.Configuration;
+using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
-using DammitBot.Models;
 using DammitBot.TestLibrary;
 using Moq;
 using Xunit;

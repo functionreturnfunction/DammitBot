@@ -1,7 +1,7 @@
 using DammitBot.Abstract;
 using DammitBot.Data.Dapper.Repositories;
+using DammitBot.Data.Models;
 using DammitBot.Library;
-using DammitBot.Models;
 using StructureMap;
 
 namespace DammitBot.Ioc

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.CommandHandlers;
+using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
-using DammitBot.Models;
 
 namespace DammitBot.MessageHandlers
 {

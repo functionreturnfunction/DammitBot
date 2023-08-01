@@ -1,5 +1,4 @@
 ﻿using DammitBot.Data.Models;
-using DammitBot.Models;
 using DammitBot.TestLibrary;
 using Xunit;
 

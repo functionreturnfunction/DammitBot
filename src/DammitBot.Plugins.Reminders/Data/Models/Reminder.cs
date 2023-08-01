@@ -1,6 +1,5 @@
 ﻿using System;
 using DammitBot.Library;
-using DammitBot.Models;
 
 namespace DammitBot.Data.Models
 {

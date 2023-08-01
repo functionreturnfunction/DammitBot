@@ -1,4 +1,4 @@
-using DammitBot.Models;
+using DammitBot.Data.Models;
 using Dapper.FluentMap.Dommel.Mapping;
 
 namespace DammitBot.Data.Dapper.Mappings

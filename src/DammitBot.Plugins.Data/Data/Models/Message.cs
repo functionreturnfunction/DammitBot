@@ -1,7 +1,7 @@
 ﻿using System;
 using DammitBot.Library;
 
-namespace DammitBot.Models
+namespace DammitBot.Data.Models
 {
     public class Message : IThingWithTimestamps
     {

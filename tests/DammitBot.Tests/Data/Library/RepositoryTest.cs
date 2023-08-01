@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DammitBot.Data.Models;
 using DammitBot.Library;
-using DammitBot.Models;
 using DammitBot.TestLibrary;
 using Moq;
 using Xunit;

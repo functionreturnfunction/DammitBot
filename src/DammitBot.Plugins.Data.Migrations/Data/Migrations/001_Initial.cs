@@ -1,8 +1,8 @@
 using System;
 using System.Text;
 using DammitBot.Data.Migrations.Library;
+using DammitBot.Data.Models;
 using DammitBot.Library;
-using DammitBot.Models;
 
 namespace DammitBot.Data.Migrations
 {

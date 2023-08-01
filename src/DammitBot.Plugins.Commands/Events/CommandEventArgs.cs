@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
+using DammitBot.Data.Models;
 using DammitBot.MessageHandlers;
-using DammitBot.Models;
 
 namespace DammitBot.Events
 {
