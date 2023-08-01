@@ -30,4 +30,10 @@
     <ProjectReference Include="..\DammitBot.Plugins.Reminders.Dapper\DammitBot.Plugins.Reminders.Dapper.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
