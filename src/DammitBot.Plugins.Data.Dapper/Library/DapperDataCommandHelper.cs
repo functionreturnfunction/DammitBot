@@ -1,11 +1,10 @@
 using System.Data;
 using System.Linq;
-using DammitBot.Library;
 using Dommel;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
-    public class DataCommandHelper : IDataCommandHelper
+    public class DapperDataCommandHelper : IDataCommandHelper
     {
         #region Private Members
 
@@ -15,7 +14,7 @@ namespace DammitBot.Data.Dapper.Library
 
         #region Constructors
 
-        public DataCommandHelper(IDbConnection connection)
+        public DapperDataCommandHelper(IDbConnection connection)
         {
             _connection = connection;
         }

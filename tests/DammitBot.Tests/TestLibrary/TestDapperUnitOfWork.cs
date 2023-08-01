@@ -1,12 +1,11 @@
-using DammitBot.Data.Dapper.Library;
 using DammitBot.Library;
 using StructureMap;
 
 namespace DammitBot.TestLibrary
 {
-    public class TestUnitOfWork : UnitOfWork
+    public class TestDapperUnitOfWork : DapperUnitOfWork
     {
-        public TestUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container) : base(connectionFactory, connectionStringService, container) {}
+        public TestDapperUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container) : base(connectionFactory, connectionStringService, container) {}
 
         public override void Dispose()
         {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Data;
-using DammitBot.Data.Dapper.Library;
 using DammitBot.Library;
 using DammitBot.Models;
 using DateTimeStringParser;

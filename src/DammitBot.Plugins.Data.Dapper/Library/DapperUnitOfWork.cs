@@ -1,11 +1,10 @@
 using System;
 using System.Data;
-using DammitBot.Library;
 using StructureMap;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
-    public class UnitOfWork : IUnitOfWork
+    public class DapperUnitOfWork : IUnitOfWork
     {
         #region Exposed Properties
 
@@ -17,7 +16,7 @@ namespace DammitBot.Data.Dapper.Library
 
         #region Constructors
 
-        public UnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container)
+        public DapperUnitOfWork(IDbConnectionFactory connectionFactory, IConnectionStringService connectionStringService, IContainer container)
         {
             Connection = connectionFactory
                 .Build(connectionStringService.GetMainAppConnectionString());

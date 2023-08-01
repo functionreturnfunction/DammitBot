@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
     public interface IDbConnectionFactory
     {

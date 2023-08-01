@@ -1,9 +1,8 @@
 using System.IO;
 using DammitBot.Configuration;
-using DammitBot.Library;
 using Microsoft.Data.Sqlite;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
     public class SqliteConnectionStringService : IConnectionStringService
     {

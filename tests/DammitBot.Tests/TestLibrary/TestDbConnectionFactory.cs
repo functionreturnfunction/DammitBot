@@ -1,5 +1,5 @@
 using System.Data;
-using DammitBot.Data.Dapper.Library;
+using DammitBot.Library;
 using Microsoft.Data.Sqlite;
 
 namespace DammitBot.TestLibrary

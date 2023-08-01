@@ -1,7 +1,7 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
     public class SqliteDbConnectionFactory : IDbConnectionFactory
     {

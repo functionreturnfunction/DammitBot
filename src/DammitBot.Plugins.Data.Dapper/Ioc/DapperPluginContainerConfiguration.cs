@@ -1,5 +1,4 @@
 using DammitBot.Abstract;
-using DammitBot.Data.Dapper.Library;
 using DammitBot.Data.Dapper.Repositories;
 using DammitBot.Library;
 using DammitBot.Models;
@@ -11,8 +10,8 @@ namespace DammitBot.Ioc
     {
         public override void Configure(ConfigurationExpression e)
         {
-            e.For<IUnitOfWork>().Use<UnitOfWork>();
-            e.For<IDataCommandHelper>().Use<DataCommandHelper>();
+            e.For<IUnitOfWork>().Use<DapperUnitOfWork>();
+            e.For<IDataCommandHelper>().Use<DapperDataCommandHelper>();
             e.For<IDbConnectionFactory>().Use<SqliteDbConnectionFactory>();
             e.For<IConnectionStringService>().Use<SqliteConnectionStringService>();
 

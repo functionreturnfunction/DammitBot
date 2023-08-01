@@ -1,6 +1,5 @@
 ﻿using System;
 using DammitBot.Data.Migrations.Library;
-using DammitBot.Data.Dapper.Library;
 using DammitBot.Ioc;
 using DammitBot.Library;
 using DammitBot.Utilities;
@@ -37,7 +36,7 @@ namespace DammitBot.TestLibrary
                 e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
                 e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
                 e.For<IDbConnectionFactory>().Use(_ => new TestDbConnectionFactory(_connection));
-                e.For<IUnitOfWork>().Use<TestUnitOfWork>();
+                e.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
             });
         }
 

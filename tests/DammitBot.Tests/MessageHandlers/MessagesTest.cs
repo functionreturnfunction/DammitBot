@@ -35,7 +35,7 @@ namespace DammitBot.MessageHandlers
                 });
                 i.For<IBot>().Use<Bot>().Singleton();
                 i.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
-                i.For<IUnitOfWork>().Use<TestUnitOfWork>();
+                i.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
             });
 
             Inject(out _commandHandlerFactory);

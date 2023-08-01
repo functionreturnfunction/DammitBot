@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DammitBot.Library;
 using DammitBot.Utilities;
 using DateTimeStringParser;
 
-namespace DammitBot.Data.Dapper.Library
+namespace DammitBot.Library
 {
     public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
         where TEntity : class
