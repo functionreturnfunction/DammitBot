@@ -32,6 +32,11 @@ namespace DammitBot.Protocols.Irc
             _config = configurationManager.IrcConfigurationSection;
             _log = log;
         }
+        
+        /// <summary>
+        /// For testing purposes only!!!
+        /// </summary>
+        public Irc() {}
 
         #endregion
 
