@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DammitBot.Events;
-using DammitBot.TestLibrary;
+using DammitBot.Library;
 using DammitBot.Wrappers;
 
 using Moq;
