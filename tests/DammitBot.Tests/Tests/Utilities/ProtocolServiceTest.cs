@@ -1,7 +1,6 @@
 ﻿using System;
 using DammitBot.Events;
 using DammitBot.Library;
-using DammitBot.Protocols.Irc;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Moq;
@@ -13,7 +12,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 {
     #region Private Members
 
-    private Mock<Irc> _irc;
+    private Mock<Protocols.Console.Console>? _console;
 
     #endregion
 
@@ -22,7 +21,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     protected override void ConfigureContainer()
     {
         base.ConfigureContainer();
-        Inject(out _irc);
+        Inject(out _console);
         Inject<IInstantiationService>(_container.GetInstance<InstantiationService>());
         Inject<IAssemblyService>(_container.GetInstance<AssemblyService>());
     }
@@ -43,7 +42,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
         _target.Initialize();
         _target.ChannelMessageReceived += handler;
-        _irc.Raise(x => x.ChannelMessageReceived += null, null, args);
+        _console!.Raise(x => x.ChannelMessageReceived += null, null, args);
 
         Assert.True(called);
     }
@@ -60,7 +59,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _target.Initialize();
         _target.ChannelMessageReceived += handler;
         _target.ChannelMessageReceived -= handler;
-        _irc.Raise(x => x.ChannelMessageReceived += null, null, args);
+        _console!.Raise(x => x.ChannelMessageReceived += null, null, args);
 
         Assert.False(called);
     }
@@ -71,7 +70,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _target.Initialize();
         _target.Cleanup();
 
-        _irc.Verify(x => x.Cleanup());
+        _console!.Verify(x => x.Cleanup());
     }
 
     [Fact]
@@ -80,18 +79,19 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _target.Initialize();
         _target.SayToAll("foo");
 
-        _irc.Verify(x => x.SayToAll("foo"));
+        _console!.Verify(x => x.SayToAll("foo"));
     }
 
     [Fact]
     public void TestSayToChannelSaysToSpecificChannelOfSpecificProtocol()
     {
-        _irc.SetupGet(x => x.Name).Returns(Irc.PROTOCOL_NAME);
+        _console!.SetupGet(x => x.Name)
+            .Returns(Protocols.Console.Console.PROTOCOL_NAME);
         _target.Initialize();
 
-        _target.SayToChannel(Irc.PROTOCOL_NAME, "foo", "bar");
+        _target.SayToChannel(Protocols.Console.Console.PROTOCOL_NAME, "foo", "bar");
 
-        _irc.Verify(x => x.SayToChannel("foo", "bar"));
+        _console.Verify(x => x.SayToChannel("foo", "bar"));
     }
 
     #endregion
