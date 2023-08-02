@@ -29,7 +29,7 @@ public class IrcConfigurationSection : IIrcConfigurationSection
 
     #region Properties
 
-    public virtual string Server => _config[Keys.SERVER];
+    public virtual string Server => _config.EnsureConfigValue(Keys.SERVER);
 
     public virtual string Nick
     {
@@ -40,9 +40,9 @@ public class IrcConfigurationSection : IIrcConfigurationSection
         }
     }
 
-    public virtual string User => _config[Keys.USER];
+    public virtual string User => _config.EnsureConfigValue(Keys.USER);
 
-    public virtual string[] Channels => _config[Keys.CHANNELS].Split(',');
+    public virtual string[] Channels => _config.EnsureConfigValue(Keys.CHANNELS).Split(',');
 
     #endregion
 }

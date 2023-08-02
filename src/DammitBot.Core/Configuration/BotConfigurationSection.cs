@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration;
 
@@ -9,9 +8,7 @@ public class BotConfigurationSection : IBotConfigurationSection
 
     private readonly IConfigurationSection _config;
 
-    public string GoesBy =>
-        _config["goesBy"] ??
-        throw new ConfigurationErrorsException("Configuration key 'goesBy' is missing");
+    public string GoesBy => _config.EnsureConfigValue("goesBy");
 
     public BotConfigurationSection(IConfigurationSection config)
     {
