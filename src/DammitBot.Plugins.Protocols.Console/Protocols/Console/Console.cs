@@ -1,8 +1,7 @@
-﻿using System;
-using DammitBot.Abstract;
+﻿using DammitBot.Abstract;
 using DammitBot.Events;
 
-namespace DammitBot.Console.Protocols.Console;
+namespace DammitBot.Protocols.Console;
 
 public class Console : IProtocol
 {
