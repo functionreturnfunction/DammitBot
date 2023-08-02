@@ -11,7 +11,9 @@ public class DataConfigurationManager : ConfigurationManager, IDataConfiguration
 
     #region Properties
 
-    public string ConnectionString => Configuration["Dapper:connection"];
+    public string ConnectionString => Configuration
+        .EnsureConfigSection("Dapper")
+        .EnsureConfigValue("connection");
 
     #endregion
 }
