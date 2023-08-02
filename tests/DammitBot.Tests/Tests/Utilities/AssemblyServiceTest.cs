@@ -20,6 +20,7 @@ public class AssemblyServiceTest : UnitTestBase<AssemblyService>
             "DammitBot.Plugins.Data.Dapper",
             "DammitBot.Plugins.Data.Migrations",
             "DammitBot.Plugins.MessageLogging",
+            "DammitBot.Plugins.Protocols.Console",
             "DammitBot.Plugins.Protocols.Irc",
             "DammitBot.Plugins.Reminders",
             "DammitBot.Plugins.Reminders.Dapper",
