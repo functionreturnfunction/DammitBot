@@ -1,7 +1,6 @@
-﻿namespace DammitBot.Metadata
+﻿namespace DammitBot.Metadata;
+
+public class HandlesBotMessageAttribute : HandlesMessageAttribute
 {
-    public class HandlesBotMessageAttribute : HandlesMessageAttribute
-    {
-        public HandlesBotMessageAttribute() : base(null) {}
-    }
+    public HandlesBotMessageAttribute() : base(null) {}
 }

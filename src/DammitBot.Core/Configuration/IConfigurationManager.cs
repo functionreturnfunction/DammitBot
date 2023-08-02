@@ -1,7 +1,6 @@
-﻿namespace DammitBot.Configuration
+﻿namespace DammitBot.Configuration;
+
+public interface IConfigurationManager
 {
-    public interface IConfigurationManager
-    {
-        IBotConfigurationSection BotConfig { get; }
-    }
+    IBotConfigurationSection BotConfig { get; }
 }

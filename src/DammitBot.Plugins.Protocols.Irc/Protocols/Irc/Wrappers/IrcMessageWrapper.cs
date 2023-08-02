@@ -1,30 +1,29 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ChatSharp;
 
-namespace DammitBot.Protocols.Irc.Wrappers
+namespace DammitBot.Protocols.Irc.Wrappers;
+
+[ExcludeFromCodeCoverage]
+public class IrcMessageWrapper : IIrcMessage
 {
-    [ExcludeFromCodeCoverage]
-    public class IrcMessageWrapper : IIrcMessage
+    #region Private Members
+
+    private readonly IrcMessage _innerMessage;
+
+    #endregion
+
+    #region Properties
+
+    public string RawMessage => _innerMessage.RawMessage;
+
+    #endregion
+
+    #region Constructors
+
+    public IrcMessageWrapper(IrcMessage message)
     {
-        #region Private Members
-
-        private readonly IrcMessage _innerMessage;
-
-        #endregion
-
-        #region Properties
-
-        public string RawMessage => _innerMessage.RawMessage;
-
-        #endregion
-
-        #region Constructors
-
-        public IrcMessageWrapper(IrcMessage message)
-        {
-            _innerMessage = message;
-        }
-
-        #endregion
+        _innerMessage = message;
     }
+
+    #endregion
 }

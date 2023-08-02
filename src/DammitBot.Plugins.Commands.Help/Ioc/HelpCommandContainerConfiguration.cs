@@ -2,17 +2,16 @@
 using DammitBot.CommandHandlers;
 using StructureMap;
 
-namespace DammitBot.Ioc
+namespace DammitBot.Ioc;
+
+public class HelpCommandContainerConfiguration : ContainerConfigurationBase
 {
-    public class HelpCommandContainerConfiguration : ContainerConfigurationBase
+    #region Exposed Methods
+
+    public override void Configure(ConfigurationExpression e)
     {
-        #region Exposed Methods
-
-        public override void Configure(ConfigurationExpression e)
-        {
-            e.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
-        }
-
-        #endregion
+        e.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
     }
+
+    #endregion
 }

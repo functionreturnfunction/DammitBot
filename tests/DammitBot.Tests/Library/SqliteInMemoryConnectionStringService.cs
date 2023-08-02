@@ -1,14 +1,13 @@
 using Microsoft.Data.Sqlite;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class SqliteInMemoryConnectionStringService : IConnectionStringService
 {
-    public class SqliteInMemoryConnectionStringService : IConnectionStringService
+    public string GetMainAppConnectionString()
     {
-        public string GetMainAppConnectionString()
-        {
-            return new SqliteConnectionStringBuilder {
-                DataSource = ":memory:",
-            }.ToString();
-        }
+        return new SqliteConnectionStringBuilder {
+            DataSource = ":memory:",
+        }.ToString();
     }
 }

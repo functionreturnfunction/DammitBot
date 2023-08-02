@@ -2,121 +2,120 @@ using System;
 using System.Linq;
 using DammitBot.Library;
 
-namespace DammitBot.Data.Migrations.Library
+namespace DammitBot.Data.Migrations.Library;
+
+public class MigrationRunner
 {
-    public class MigrationRunner
-    {
-        public const string VERSION_INFO_TABLE = "VersionInfo";
-        public const string CREATE_VERSION_INFO = @"
+    public const string VERSION_INFO_TABLE = "VersionInfo";
+    public const string CREATE_VERSION_INFO = @"
 CREATE TABLE
 IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
     Id integer NOT NULL
 );";
 
-        protected readonly IUnitOfWorkFactory _uowFactory;
-        protected readonly IMigrationService _service;
+    protected readonly IUnitOfWorkFactory _uowFactory;
+    protected readonly IMigrationService _service;
 
-        public MigrationRunner(IUnitOfWorkFactory uowFactory, IMigrationService service)
+    public MigrationRunner(IUnitOfWorkFactory uowFactory, IMigrationService service)
+    {
+        _uowFactory = uowFactory;
+        _service = service;
+    }
+
+    protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
+    {
+        return uow.ExecuteScalar(
+            $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
+    }
+
+    protected void RunAll(
+        Action<IUnitOfWork, MigrationBase> doRun,
+        Action<IUnitOfWork, MigrationBase>? secondPass = null,
+        bool reverse = false,
+        int? upToId = null)
+    {
+        var migrations = _service.Thingies.ToList();
+
+        if (!migrations.Any())
         {
-            _uowFactory = uowFactory;
-            _service = service;
+            return;
         }
 
-        protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
+        migrations = migrations.OrderBy(m => m.Id).ToList();
+
+        if (upToId.HasValue)
         {
-            return uow.ExecuteScalar(
-                $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
+            if (!migrations.Any(m => m.Id == upToId.Value))
+            {
+                throw new ArgumentException(
+                    $"Could not find migration with id {upToId}.",
+                    nameof(upToId));
+            }
+
+            migrations = (reverse ?
+                migrations.Where(m => m.Id > upToId.Value) :
+                migrations.Where(m => m.Id <= upToId.Value)).ToList();
         }
 
-        protected void RunAll(
-            Action<IUnitOfWork, MigrationBase> doRun,
-            Action<IUnitOfWork, MigrationBase>? secondPass = null,
-            bool reverse = false,
-            int? upToId = null)
+        if (reverse)
         {
-            var migrations = _service.Thingies.ToList();
+            migrations.Reverse();
+        }
 
-            if (!migrations.Any())
+        using (var uow = _uowFactory.Build())
+        {
+            uow.ExecuteNonQuery(CREATE_VERSION_INFO);
+            migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse)
+                .ToList();
+
+            foreach (var migration in migrations)
             {
-                return;
+                doRun(uow, migration);
+
+                uow.ExecuteNonQuery(reverse
+                    ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};"
+                    : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.Id});");
             }
 
-            migrations = migrations.OrderBy(m => m.Id).ToList();
-
-            if (upToId.HasValue)
+            if (secondPass != null)
             {
-                if (!migrations.Any(m => m.Id == upToId.Value))
-                {
-                    throw new ArgumentException(
-                        $"Could not find migration with id {upToId}.",
-                        nameof(upToId));
-                }
-
-                migrations = (reverse ?
-                    migrations.Where(m => m.Id > upToId.Value) :
-                    migrations.Where(m => m.Id <= upToId.Value)).ToList();
-            }
-
-            if (reverse)
-            {
-                migrations.Reverse();
-            }
-
-            using (var uow = _uowFactory.Build())
-            {
-                uow.ExecuteNonQuery(CREATE_VERSION_INFO);
-                migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse)
-                    .ToList();
-
                 foreach (var migration in migrations)
                 {
-                    doRun(uow, migration);
-
-                    uow.ExecuteNonQuery(reverse
-                        ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};"
-                        : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.Id});");
+                    secondPass(uow, migration);
                 }
-
-                if (secondPass != null)
-                {
-                    foreach (var migration in migrations)
-                    {
-                        secondPass(uow, migration);
-                    }
-                }
-
-                uow.Commit();
             }
+
+            uow.Commit();
         }
+    }
 
-        public void Up(int? id = null, bool seed = true)
+    public void Up(int? id = null, bool seed = true)
+    {
+        if (seed)
         {
-            if (seed)
-            {
-                RunAll(
-                    (u, m) => m.Up(u),
-                    (u, m) => m.Seed(u),
-                    upToId: id);
-            }
-            else
-            {
-                RunAll((u, m) => m.Up(u), upToId: id);
-            }
+            RunAll(
+                (u, m) => m.Up(u),
+                (u, m) => m.Seed(u),
+                upToId: id);
         }
-
-        public void Down(int? id = null)
+        else
         {
-            RunAll((u, m) => m.Down(u), reverse: true, upToId: id);
+            RunAll((u, m) => m.Up(u), upToId: id);
         }
+    }
 
-        public int? GetLatestVersionNumber()
+    public void Down(int? id = null)
+    {
+        RunAll((u, m) => m.Down(u), reverse: true, upToId: id);
+    }
+
+    public int? GetLatestVersionNumber()
+    {
+        using (var uow = _uowFactory.Build())
         {
-            using (var uow = _uowFactory.Build())
-            {
-                uow.ExecuteNonQuery(CREATE_VERSION_INFO);
-                var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
-                return num is DBNull ? (int?)null : Convert.ToInt32(num);
-            }
+            uow.ExecuteNonQuery(CREATE_VERSION_INFO);
+            var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
+            return num is DBNull ? (int?)null : Convert.ToInt32(num);
         }
     }
 }

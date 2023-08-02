@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace DammitBot.Metadata
+namespace DammitBot.Metadata;
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
+    #region Private Members
+
+    protected readonly string _rgx;
+
+    #endregion
+
+    #region Properties
+
+    public Regex Regex => new Regex(_rgx);
+
+    #endregion
+
+    #region Constructors
+
+    public HandlesMessageAttribute(string rgx)
     {
-        #region Private Members
-
-        protected readonly string _rgx;
-
-        #endregion
-
-        #region Properties
-
-        public Regex Regex => new Regex(_rgx);
-
-        #endregion
-
-        #region Constructors
-
-        public HandlesMessageAttribute(string rgx)
-        {
-            _rgx = rgx;
-        }
-
-        #endregion
+        _rgx = rgx;
     }
+
+    #endregion
 }

@@ -1,21 +1,20 @@
 ﻿using System;
 
-namespace DateTimeStringParser
+namespace DateTimeStringParser;
+
+public class DateTimeProvider : IDateTimeProvider
 {
-    public class DateTimeProvider : IDateTimeProvider
+    #region Exposed Methods
+
+    public virtual DateTime GetCurrentTime()
     {
-        #region Exposed Methods
-
-        public virtual DateTime GetCurrentTime()
-        {
-            return DateTime.Now;
-        }
-
-        public virtual DateTime GetNext(int hour, int minute = 0, int second = 0)
-        {
-            return GetCurrentTime().GetNext(hour, minute, second);
-        }
-
-        #endregion
+        return DateTime.Now;
     }
+
+    public virtual DateTime GetNext(int hour, int minute = 0, int second = 0)
+    {
+        return GetCurrentTime().GetNext(hour, minute, second);
+    }
+
+    #endregion
 }

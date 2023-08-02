@@ -2,33 +2,32 @@
 using DammitBot.Library;
 using Xunit;
 
-namespace DammitBot.Tests.Utilities
+namespace DammitBot.Tests.Utilities;
+
+public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
 {
-    public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
+    public const int EXPECTED_VERSION = 2;
+
+    protected override void RunMigrations() { }
+
+    [Fact]
+    public void TestLatestVersionNumberReturnsLatestVersionNumber()
     {
-        public const int EXPECTED_VERSION = 2;
+        Assert.Null(_target.GetLatestVersionNumber());
 
-        protected override void RunMigrations() { }
-
-        [Fact]
-        public void TestLatestVersionNumberReturnsLatestVersionNumber()
+        for (var i = 1; i < EXPECTED_VERSION; ++i)
         {
-            Assert.Null(_target.GetLatestVersionNumber());
+            _target.Up(i);
 
-            for (var i = 1; i < EXPECTED_VERSION; ++i)
-            {
-                _target.Up(i);
-
-                Assert.Equal(i, _target.GetLatestVersionNumber().Value);
-            }
+            Assert.Equal(i, _target.GetLatestVersionNumber().Value);
         }
+    }
 
-        [Fact]
-        public void TestEnsureUpToDateMigratesUpToLatestVersionNumber()
-        {
-            _target.Up();
+    [Fact]
+    public void TestEnsureUpToDateMigratesUpToLatestVersionNumber()
+    {
+        _target.Up();
 
-            Assert.Equal(EXPECTED_VERSION, _target.GetLatestVersionNumber().Value);
-        }
+        Assert.Equal(EXPECTED_VERSION, _target.GetLatestVersionNumber().Value);
     }
 }

@@ -1,7 +1,6 @@
-namespace DammitBot.Configuration
+namespace DammitBot.Configuration;
+
+public interface IBotConfigurationSection
 {
-    public interface IBotConfigurationSection
-    {
-        string GoesBy { get; }
-    }
+    string GoesBy { get; }
 }

@@ -1,13 +1,12 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class SqliteDbConnectionFactory : IDbConnectionFactory
 {
-    public class SqliteDbConnectionFactory : IDbConnectionFactory
+    public virtual IDbConnection Build(string connectionString)
     {
-        public virtual IDbConnection Build(string connectionString)
-        {
-            return new SqliteConnection(connectionString);
-        }
+        return new SqliteConnection(connectionString);
     }
 }

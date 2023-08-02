@@ -1,7 +1,6 @@
-namespace DammitBot.Configuration
+namespace DammitBot.Configuration;
+
+public interface ISettingsPathHelper
 {
-    public interface ISettingsPathHelper
-    {
-        string SettingsPath { get; }
-    }
+    string SettingsPath { get; }
 }

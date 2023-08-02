@@ -2,28 +2,27 @@
 using DammitBot.Events;
 using DammitBot.Protocols.Irc.Wrappers;
 
-namespace DammitBot.Protocols.Irc.Events
+namespace DammitBot.Protocols.Irc.Events;
+
+public class IrcMessageEventArgs : MessageEventArgs
 {
-    public class IrcMessageEventArgs : MessageEventArgs
+    #region Constructors
+
+    public IrcMessageEventArgs(PrivateMessageEventArgsWrapper args)
+        : base(
+            args.PrivateMessage.Message,
+            ParseChannel(args),
+            Irc.PROTOCOL_NAME,
+            args.PrivateMessage.Nick) {}
+        
+    #endregion
+        
+    #region Private Methods
+
+    private static string ParseChannel(PrivateMessageEventArgsWrapper args)
     {
-        #region Constructors
-
-        public IrcMessageEventArgs(PrivateMessageEventArgsWrapper args)
-            : base(
-                args.PrivateMessage.Message,
-                ParseChannel(args),
-                Irc.PROTOCOL_NAME,
-                args.PrivateMessage.Nick) {}
-        
-        #endregion
-        
-        #region Private Methods
-
-        private static string ParseChannel(PrivateMessageEventArgsWrapper args)
-        {
-            return Regex.Match(args.IrcMessage.RawMessage, @"PRIVMSG ([^\s]+) :").Groups[1].Value;
-        }
-
-        #endregion
+        return Regex.Match(args.IrcMessage.RawMessage, @"PRIVMSG ([^\s]+) :").Groups[1].Value;
     }
+
+    #endregion
 }

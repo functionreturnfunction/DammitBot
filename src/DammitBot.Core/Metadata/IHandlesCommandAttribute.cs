@@ -1,4 +1,3 @@
-﻿namespace DammitBot.Metadata
-{
-    public interface IHandlesCommandAttribute : IHandlesMessageAttribute {}
-}
+﻿namespace DammitBot.Metadata;
+
+public interface IHandlesCommandAttribute : IHandlesMessageAttribute {}

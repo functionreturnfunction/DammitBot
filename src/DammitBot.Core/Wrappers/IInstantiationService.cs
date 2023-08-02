@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace DammitBot.Wrappers
+namespace DammitBot.Wrappers;
+
+public interface IInstantiationService : IDisposable
 {
-    public interface IInstantiationService : IDisposable
-    {
-        #region Abstract Methods
+    #region Abstract Methods
 
-        object GetInstance(Type type);
-        T GetInstance<T>();
+    object GetInstance(Type type);
+    T GetInstance<T>();
 
-        #endregion
-    }
+    #endregion
 }

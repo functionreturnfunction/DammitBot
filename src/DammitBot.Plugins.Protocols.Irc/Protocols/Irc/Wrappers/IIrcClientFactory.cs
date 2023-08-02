@@ -1,13 +1,12 @@
 ﻿using DammitBot.Configuration;
 
-namespace DammitBot.Protocols.Irc.Wrappers
+namespace DammitBot.Protocols.Irc.Wrappers;
+
+public interface IIrcClientFactory
 {
-    public interface IIrcClientFactory
-    {
-        #region Abstract Methods
+    #region Abstract Methods
 
-        IIrcClient Build(IIrcConfigurationSection config);
+    IIrcClient Build(IIrcConfigurationSection config);
 
-        #endregion
-    }
+    #endregion
 }

@@ -2,24 +2,23 @@ using System.IO;
 using DammitBot.Configuration;
 using Microsoft.Data.Sqlite;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class SqliteConnectionStringService : IConnectionStringService
 {
-    public class SqliteConnectionStringService : IConnectionStringService
+    protected IDataConfigurationManager _config;
+
+    public SqliteConnectionStringService(IDataConfigurationManager config)
     {
-        protected IDataConfigurationManager _config;
+        _config = config;
+    }
 
-        public SqliteConnectionStringService(IDataConfigurationManager config)
-        {
-            _config = config;
-        }
-
-        public string GetMainAppConnectionString()
-        {
-            return new SqliteConnectionStringBuilder {
-                DataSource = _config.ConnectionString == ":memory:" ?
-                    _config.ConnectionString :
-                    Path.GetFullPath(_config.ConnectionString)
-            }.ToString();
-        }
+    public string GetMainAppConnectionString()
+    {
+        return new SqliteConnectionStringBuilder {
+            DataSource = _config.ConnectionString == ":memory:" ?
+                _config.ConnectionString :
+                Path.GetFullPath(_config.ConnectionString)
+        }.ToString();
     }
 }

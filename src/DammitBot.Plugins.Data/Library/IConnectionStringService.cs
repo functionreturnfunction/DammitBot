@@ -1,7 +1,6 @@
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public interface IConnectionStringService
 {
-    public interface IConnectionStringService
-    {
-        string GetMainAppConnectionString();
-    }
+    string GetMainAppConnectionString();
 }

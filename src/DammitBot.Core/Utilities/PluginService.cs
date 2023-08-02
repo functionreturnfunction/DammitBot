@@ -1,13 +1,12 @@
 using DammitBot.Abstract;
 using DammitBot.Wrappers;
 
-namespace DammitBot.Utilities
+namespace DammitBot.Utilities;
+
+public class PluginService : PluginAssemblyServiceThingyBase<IPlugin>, IPluginService
 {
-    public class PluginService : PluginAssemblyServiceThingyBase<IPlugin>, IPluginService
-    {
-        public PluginService(
-            IAssemblyService assemblyService,
-            IInstantiationService instantiationService)
-            : base(assemblyService, instantiationService) { }
-    }
+    public PluginService(
+        IAssemblyService assemblyService,
+        IInstantiationService instantiationService)
+        : base(assemblyService, instantiationService) { }
 }

@@ -1,26 +1,25 @@
 using System;
 using DammitBot.Events;
 
-namespace DammitBot
+namespace DammitBot;
+
+public interface IBot : IDisposable
 {
-    public interface IBot : IDisposable
-    {
-        #region Abstract Properties
+    #region Abstract Properties
 
-        bool Running { get; }
+    bool Running { get; }
 
-        #endregion
+    #endregion
 
-        #region Abstract Methods
+    #region Abstract Methods
 
-        void Run();
-        void SayToAll(string message);
-        void Die();
+    void Run();
+    void SayToAll(string message);
+    void Die();
 
-        void ReceiveMessage(MessageEventArgs args);
+    void ReceiveMessage(MessageEventArgs args);
 
-        void ReplyToMessage(MessageEventArgs args, string response);
+    void ReplyToMessage(MessageEventArgs args, string response);
 
-        #endregion
-    }
+    #endregion
 }

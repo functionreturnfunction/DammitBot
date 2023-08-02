@@ -1,7 +1,6 @@
-﻿namespace DammitBot.Configuration
+﻿namespace DammitBot.Configuration;
+
+public interface IDataConfigurationManager
 {
-    public interface IDataConfigurationManager
-    {
-        string ConnectionString { get; }
-    }
+    string ConnectionString { get; }
 }

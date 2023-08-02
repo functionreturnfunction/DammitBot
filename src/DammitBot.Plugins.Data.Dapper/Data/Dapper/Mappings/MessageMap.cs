@@ -1,21 +1,20 @@
 using DammitBot.Data.Models;
 using Dapper.FluentMap.Dommel.Mapping;
 
-namespace DammitBot.Data.Dapper.Mappings
+namespace DammitBot.Data.Dapper.Mappings;
+
+public class MessageMap : DommelEntityMap<Message>
 {
-    public class MessageMap : DommelEntityMap<Message>
+    public MessageMap()
     {
-        public MessageMap()
-        {
-            Map(p => p.Id).IsKey();
+        Map(p => p.Id).IsKey();
 
-            Map(x => x.Text);
-            Map(x => x.Protocol);
-            Map(x => x.Channel);
-            Map(x => x.CreatedAt);
-            Map(x => x.UpdatedAt);
+        Map(x => x.Text);
+        Map(x => x.Protocol);
+        Map(x => x.Channel);
+        Map(x => x.CreatedAt);
+        Map(x => x.UpdatedAt);
 
-            Map(x => x.From.Id);
-        }
+        Map(x => x.From.Id);
     }
 }

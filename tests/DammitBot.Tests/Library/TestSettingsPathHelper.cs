@@ -1,11 +1,10 @@
 using System.IO;
 using DammitBot.Configuration;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class TestSettingsPathHelper : ISettingsPathHelper
 {
-    public class TestSettingsPathHelper : ISettingsPathHelper
-    {
-        public string SettingsPath =>
-            Path.GetFullPath(Path.Combine("..", "..", "..", "appsettings.json"));
-    }
+    public string SettingsPath =>
+        Path.GetFullPath(Path.Combine("..", "..", "..", "appsettings.json"));
 }

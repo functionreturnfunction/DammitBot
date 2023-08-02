@@ -2,8 +2,7 @@
 using DammitBot.CommandHandlers;
 using DammitBot.Events;
 
-namespace DammitBot.Tests.CommandHandlers
-{
-    public class CompositeCommandHandlerTest
-        : CompositeMessageHandlerTestBase<CompositeCommandHandler, ICommandHandler, CommandEventArgs> { }
-}
+namespace DammitBot.Tests.CommandHandlers;
+
+public class CompositeCommandHandlerTest
+    : CompositeMessageHandlerTestBase<CompositeCommandHandler, ICommandHandler, CommandEventArgs> { }

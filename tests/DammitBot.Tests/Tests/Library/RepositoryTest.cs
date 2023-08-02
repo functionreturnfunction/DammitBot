@@ -5,50 +5,49 @@ using DammitBot.Library;
 using Moq;
 using Xunit;
 
-namespace DammitBot.Tests.Library
+namespace DammitBot.Tests.Library;
+
+public class RepositoryTest : UnitTestBase<Repository<Nick>>
 {
-    public class RepositoryTest : UnitTestBase<Repository<Nick>>
+    private Mock<IDataCommandHelper> _dataCommandHelper;
+
+    protected override void ConfigureContainer()
     {
-        private Mock<IDataCommandHelper> _dataCommandHelper;
+        base.ConfigureContainer();
+        Inject(out _dataCommandHelper);
+    }
 
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-            Inject(out _dataCommandHelper);
-        }
+    [Fact]
+    public void TestInsertSavesAndReturnsIdentifier()
+    {
+        var entity = new Nick();
 
-        [Fact]
-        public void TestInsertSavesAndReturnsIdentifier()
-        {
-            var entity = new Nick();
-
-            _dataCommandHelper.Setup(x => x.Insert(entity)).Returns(666);
+        _dataCommandHelper.Setup(x => x.Insert(entity)).Returns(666);
             
-            Assert.Equal(666, _target.Insert(entity));
+        Assert.Equal(666, _target.Insert(entity));
 
-            _dataCommandHelper.Verify(x => x.Insert(entity));
-        }
+        _dataCommandHelper.Verify(x => x.Insert(entity));
+    }
 
-        [Fact]
-        public void TestFindLoadsEntity()
-        {
-            var entity = new Nick();
-            _dataCommandHelper.Setup(x => x.Load<Nick>(666))
-                .Returns(entity);
+    [Fact]
+    public void TestFindLoadsEntity()
+    {
+        var entity = new Nick();
+        _dataCommandHelper.Setup(x => x.Load<Nick>(666))
+            .Returns(entity);
 
-            Assert.Same(entity, _target.Find(666));
-        }
+        Assert.Same(entity, _target.Find(666));
+    }
 
-        [Fact]
-        public void TestWhereRunsSearch()
-        {
-            var entity = new Nick {Id = 1};
-            _dataCommandHelper.Setup(x => x.GetQueryable<Nick>())
-                .Returns(new List<Nick> {entity}.AsQueryable());
+    [Fact]
+    public void TestWhereRunsSearch()
+    {
+        var entity = new Nick {Id = 1};
+        _dataCommandHelper.Setup(x => x.GetQueryable<Nick>())
+            .Returns(new List<Nick> {entity}.AsQueryable());
 
-            var result = _target.Where(n => n.Id == 1);
+        var result = _target.Where(n => n.Id == 1);
 
-            Assert.Same(entity, result.Single());
-        }
+        Assert.Same(entity, result.Single());
     }
 }

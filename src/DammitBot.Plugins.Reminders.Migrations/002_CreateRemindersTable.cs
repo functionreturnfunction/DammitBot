@@ -1,20 +1,20 @@
 ﻿using DammitBot.Data.Migrations.Library;
 using DammitBot.Library;
 
-namespace DammitBot.Migrations
+namespace DammitBot.Migrations;
+
+public class CreateRemindersTable : MigrationBase
 {
-    public class CreateRemindersTable : MigrationBase
+    public struct StringLengths
     {
-        public struct StringLengths
-        {
-            public const int TEXT = 512;
-        }
+        public const int TEXT = 512;
+    }
 
-        public override int Id => 2;
+    public override int Id => 2;
 
-        public override void Up(IUnitOfWork uow)
-        {
-            uow.ExecuteNonQuery(@"
+    public override void Up(IUnitOfWork uow)
+    {
+        uow.ExecuteNonQuery(@"
 CREATE TABLE
 IF NOT EXISTS Reminders (
     Id integer PRIMARY KEY,
@@ -28,11 +28,10 @@ IF NOT EXISTS Reminders (
     FOREIGN KEY (FromId) REFERENCES Users (Id),
     FOREIGN KEY (ToId) REFERENCES Users (Id)
 );");
-        }
+    }
 
-        public override void Down(IUnitOfWork uow)
-        {
-            uow.ExecuteNonQuery("DROP TABLE Reminders;");
-        }
+    public override void Down(IUnitOfWork uow)
+    {
+        uow.ExecuteNonQuery("DROP TABLE Reminders;");
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace DammitBot.Configuration
+﻿namespace DammitBot.Configuration;
+
+public interface IIrcConfigurationManager : IConfigurationManager
 {
-    public interface IIrcConfigurationManager : IConfigurationManager
-    {
-        #region Abstract Properties
+    #region Abstract Properties
 
-        IIrcConfigurationSection IrcConfigurationSection { get; }
+    IIrcConfigurationSection IrcConfigurationSection { get; }
 
-        #endregion
-    }
+    #endregion
 }

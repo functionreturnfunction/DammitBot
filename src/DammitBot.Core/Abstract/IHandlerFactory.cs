@@ -1,15 +1,14 @@
 ﻿using DammitBot.Events;
 
-namespace DammitBot.Abstract
+namespace DammitBot.Abstract;
+
+public interface IHandlerFactory<out THandler, in TEventArgs>
+    where THandler : IMessageHandler<TEventArgs>
+    where TEventArgs : MessageEventArgs
 {
-    public interface IHandlerFactory<out THandler, in TEventArgs>
-        where THandler : IMessageHandler<TEventArgs>
-        where TEventArgs : MessageEventArgs
-    {
-        #region Abstract Methods
+    #region Abstract Methods
 
-        THandler BuildHandler(TEventArgs message);
+    THandler BuildHandler(TEventArgs message);
 
-        #endregion
-    }
+    #endregion
 }

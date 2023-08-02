@@ -3,29 +3,28 @@ using DammitBot.Events;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
 
-namespace DammitBot.MessageHandlers
-{
-    public class MessageHandlerRepository
-        : MessageHandlerRepositoryBase<
+namespace DammitBot.MessageHandlers;
+
+public class MessageHandlerRepository
+    : MessageHandlerRepositoryBase<
             HandlesMessageAttribute,
             IMessageHandlerAttributeService,
             MessageEventArgs,
             IMessageHandler>,
-            IMessageHandlerRepository
-    {
-        #region Constructors
+        IMessageHandlerRepository
+{
+    #region Constructors
 
-        public MessageHandlerRepository(
-            IAssemblyService assemblyService,
-            IMessageHandlerAttributeService attributeService)
-            : base(assemblyService, attributeService) {}
+    public MessageHandlerRepository(
+        IAssemblyService assemblyService,
+        IMessageHandlerAttributeService attributeService)
+        : base(assemblyService, attributeService) {}
 
-        #endregion
+    #endregion
 
-        #region Private Methods
+    #region Private Methods
 
-        protected override string GetMessage(MessageEventArgs message) => message.Message;
+    protected override string GetMessage(MessageEventArgs message) => message.Message;
 
-        #endregion
-    }
+    #endregion
 }

@@ -8,32 +8,31 @@ using DammitBot.Utilities;
 using Xunit;
 using Xunit.Sdk;
 
-namespace DammitBot.Tests.Utilities
+namespace DammitBot.Tests.Utilities;
+
+public class TypeExtensionsTest
 {
-    public class TypeExtensionsTest
+    [Fact]
+    public void TestHasPropertyReturnsTrueAndSetsPropertyInfoIfTypeHasProperty()
     {
-        [Fact]
-        public void TestHasPropertyReturnsTrueAndSetsPropertyInfoIfTypeHasProperty()
-        {
-            PropertyInfo prop;
+        PropertyInfo prop;
 
-            Assert.True(typeof(Type).HasProperty("Assembly", out prop));
-            Assert.Equal("Assembly", prop.Name);
+        Assert.True(typeof(Type).HasProperty("Assembly", out prop));
+        Assert.Equal("Assembly", prop.Name);
 
-            Assert.True(typeof(Type).HasProperty<Assembly>("Assembly", out prop));
-            Assert.Equal("Assembly", prop.Name);
-        }
+        Assert.True(typeof(Type).HasProperty<Assembly>("Assembly", out prop));
+        Assert.Equal("Assembly", prop.Name);
+    }
 
-        [Fact]
-        public void TestHasPropertyReturnsFalseIfTypeDoesNotHaveProperty()
-        {
-            PropertyInfo prop;
+    [Fact]
+    public void TestHasPropertyReturnsFalseIfTypeDoesNotHaveProperty()
+    {
+        PropertyInfo prop;
 
-            Assert.False(typeof(Type).HasProperty("APropertyIDoNoHave", out prop));
-            Assert.Null(prop);
+        Assert.False(typeof(Type).HasProperty("APropertyIDoNoHave", out prop));
+        Assert.Null(prop);
 
-            Assert.False(typeof(Type).HasProperty<Assembly>("APropertyIDoNoHave", out prop));
-            Assert.Null(prop);
-        }
+        Assert.False(typeof(Type).HasProperty<Assembly>("APropertyIDoNoHave", out prop));
+        Assert.Null(prop);
     }
 }

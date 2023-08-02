@@ -1,14 +1,13 @@
 ﻿using DammitBot.Events;
 
-namespace DammitBot.Abstract
+namespace DammitBot.Abstract;
+
+public abstract class MessageHandlerBase<TEventArgs> : IMessageHandler<TEventArgs>
+    where TEventArgs : MessageEventArgs
 {
-    public abstract class MessageHandlerBase<TEventArgs> : IMessageHandler<TEventArgs>
-        where TEventArgs : MessageEventArgs
-    {
-        #region Abstract Methods
+    #region Abstract Methods
 
-        public abstract void Handle(TEventArgs e);
+    public abstract void Handle(TEventArgs e);
 
-        #endregion
-    }
+    #endregion
 }

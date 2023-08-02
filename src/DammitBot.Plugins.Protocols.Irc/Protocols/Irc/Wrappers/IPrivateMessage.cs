@@ -1,8 +1,7 @@
-﻿namespace DammitBot.Protocols.Irc.Wrappers
+﻿namespace DammitBot.Protocols.Irc.Wrappers;
+
+public interface IPrivateMessage
 {
-    public interface IPrivateMessage
-    {
-        string Message { get; }
-        string Nick { get; }
-    }
+    string Message { get; }
+    string Nick { get; }
 }

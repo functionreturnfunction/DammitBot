@@ -1,24 +1,23 @@
 using System.Data;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public static class IDBConnectionExtensions
 {
-    public static class IDBConnectionExtensions
+    public static IDbCommand GetCommand(this IDbConnection connection, string sql)
     {
-        public static IDbCommand GetCommand(this IDbConnection connection, string sql)
-        {
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = sql;
-            return cmd;
-        }
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = sql;
+        return cmd;
+    }
 
-        public static int ExecuteNonQuery(this IDbConnection connection, string sql)
-        {
-            return connection.GetCommand(sql).ExecuteNonQuery();
-        }
+    public static int ExecuteNonQuery(this IDbConnection connection, string sql)
+    {
+        return connection.GetCommand(sql).ExecuteNonQuery();
+    }
 
-        public static object ExecuteScalar(this IDbConnection connection, string sql)
-        {
-            return connection.GetCommand(sql).ExecuteScalar();
-        }
+    public static object ExecuteScalar(this IDbConnection connection, string sql)
+    {
+        return connection.GetCommand(sql).ExecuteScalar();
     }
 }

@@ -2,16 +2,15 @@
 using DammitBot.Abstract;
 using DammitBot.Events;
 
-namespace DammitBot.MessageHandlers
+namespace DammitBot.MessageHandlers;
+
+public class CompositeMessageHandler
+    : CompositeMessageHandlerBase<IMessageHandler, MessageEventArgs>, IMessageHandler
 {
-    public class CompositeMessageHandler
-        : CompositeMessageHandlerBase<IMessageHandler, MessageEventArgs>, IMessageHandler
-    {
-        #region Constructors
+    #region Constructors
 
-        public CompositeMessageHandler(IEnumerable<IMessageHandler> innerHandlers)
-            : base(innerHandlers) {}
+    public CompositeMessageHandler(IEnumerable<IMessageHandler> innerHandlers)
+        : base(innerHandlers) {}
 
-        #endregion
-    }
+    #endregion
 }

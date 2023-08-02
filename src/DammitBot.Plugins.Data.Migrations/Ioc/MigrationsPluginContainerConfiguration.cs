@@ -1,10 +1,9 @@
 using DammitBot.Abstract;
 using StructureMap;
 
-namespace DammitBot.Ioc
+namespace DammitBot.Ioc;
+
+public class MigrationsPluginContainerConfiguration : ContainerConfigurationBase
 {
-    public class MigrationsPluginContainerConfiguration : ContainerConfigurationBase
-    {
-        public override void Configure(ConfigurationExpression e) { }
-    }
+    public override void Configure(ConfigurationExpression e) { }
 }

@@ -1,14 +1,13 @@
 using DammitBot.Abstract;
 
-namespace DammitBot.Plugins
-{
-    public class DapperPlugin : IPlugin
-    {
-        public void Initialize()
-        {
-            SQLitePCL.Batteries_V2.Init();
-        }
+namespace DammitBot.Plugins;
 
-        public void Cleanup() {}
+public class DapperPlugin : IPlugin
+{
+    public void Initialize()
+    {
+        SQLitePCL.Batteries_V2.Init();
     }
+
+    public void Cleanup() {}
 }

@@ -1,19 +1,18 @@
 using System.Data;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class TestDbConnectionFactory : SqliteDbConnectionFactory
 {
-    public class TestDbConnectionFactory : SqliteDbConnectionFactory
+    protected IDbConnection _connection;
+
+    public TestDbConnectionFactory(IDbConnection connection)
     {
-        protected IDbConnection _connection;
+        _connection = connection;
+    }
 
-        public TestDbConnectionFactory(IDbConnection connection)
-        {
-            _connection = connection;
-        }
-
-        public override IDbConnection Build(string connectionString)
-        {
-            return _connection;
-        }
+    public override IDbConnection Build(string connectionString)
+    {
+        return _connection;
     }
 }

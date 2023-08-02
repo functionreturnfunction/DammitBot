@@ -2,17 +2,16 @@
 using System.IO;
 using System.Reflection;
 
-namespace DammitBot.Utilities
+namespace DammitBot.Utilities;
+
+public static class AssemblyExtensions
 {
-    public static class AssemblyExtensions
+    #region Exposed Methods
+
+    public static string GetDirectory(this Assembly that)
     {
-        #region Exposed Methods
-
-        public static string GetDirectory(this Assembly that)
-        {
-            return Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(that.CodeBase).Path));
-        }
-
-        #endregion
+        return Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(that.CodeBase).Path));
     }
+
+    #endregion
 }

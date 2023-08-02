@@ -1,8 +1,7 @@
-﻿namespace DammitBot.Library
+﻿namespace DammitBot.Library;
+
+public interface ISchedulerService
 {
-    public interface ISchedulerService
-    {
-        void Start();
-        void Stop();
-    }
+    void Start();
+    void Stop();
 }

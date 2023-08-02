@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace DateTimeStringParser
+namespace DateTimeStringParser;
+
+public interface IDateTimeStringParser
 {
-    public interface IDateTimeStringParser
-    {
-        bool TryParse(string input, out DateTime? result);
-    }
+    bool TryParse(string input, out DateTime? result);
 }

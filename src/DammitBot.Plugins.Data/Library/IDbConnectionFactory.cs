@@ -1,9 +1,8 @@
 using System.Data;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public interface IDbConnectionFactory
 {
-    public interface IDbConnectionFactory
-    {
-        IDbConnection Build(string connectionString);
-    }
+    IDbConnection Build(string connectionString);
 }

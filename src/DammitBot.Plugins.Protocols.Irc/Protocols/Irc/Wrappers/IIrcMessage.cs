@@ -1,7 +1,6 @@
-﻿namespace DammitBot.Protocols.Irc.Wrappers
+﻿namespace DammitBot.Protocols.Irc.Wrappers;
+
+public interface IIrcMessage
 {
-    public interface IIrcMessage
-    {
-        string RawMessage { get; }
-    }
+    string RawMessage { get; }
 }

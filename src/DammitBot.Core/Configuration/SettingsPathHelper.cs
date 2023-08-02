@@ -1,9 +1,8 @@
 using System.IO;
 
-namespace DammitBot.Configuration
+namespace DammitBot.Configuration;
+
+public class SettingsPathHelper : ISettingsPathHelper
 {
-    public class SettingsPathHelper : ISettingsPathHelper
-    {
-        public string SettingsPath => Path.GetFullPath(Path.Combine("appsettings.json"));
-    }
+    public string SettingsPath => Path.GetFullPath(Path.Combine("appsettings.json"));
 }

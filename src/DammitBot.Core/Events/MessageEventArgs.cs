@@ -1,32 +1,31 @@
-﻿namespace DammitBot.Events
+﻿namespace DammitBot.Events;
+
+public class MessageEventArgs
 {
-    public class MessageEventArgs
+    public MessageEventArgs(string message, string channel, string protocol, string user)
     {
-        public MessageEventArgs(string message, string channel, string protocol, string user)
-        {
-            Message = message;
-            Channel = channel;
-            Protocol = protocol;
-            User = user;
-        }
-
-        /// <summary>
-        /// for testing purposes only!!!
-        /// </summary>
-        public MessageEventArgs()
-            : this(
-                $"Test{nameof(Message)}",
-                $"Test{nameof(Channel)}",
-                $"Test{nameof(Protocol)}",
-                $"Test{nameof(User)}") {}
-
-        #region Properties
-
-        public virtual string Message { get; }
-        public virtual string Channel { get; }
-        public virtual string Protocol { get; }
-        public virtual string User { get; }
-
-        #endregion
+        Message = message;
+        Channel = channel;
+        Protocol = protocol;
+        User = user;
     }
+
+    /// <summary>
+    /// for testing purposes only!!!
+    /// </summary>
+    public MessageEventArgs()
+        : this(
+            $"Test{nameof(Message)}",
+            $"Test{nameof(Channel)}",
+            $"Test{nameof(Protocol)}",
+            $"Test{nameof(User)}") {}
+
+    #region Properties
+
+    public virtual string Message { get; }
+    public virtual string Channel { get; }
+    public virtual string Protocol { get; }
+    public virtual string User { get; }
+
+    #endregion
 }

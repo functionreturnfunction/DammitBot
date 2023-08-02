@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace DammitBot.Data.Migrations.Library
+namespace DammitBot.Data.Migrations.Library;
+
+public interface IMigrationService
 {
-    public interface IMigrationService
-    {
-        IEnumerable<MigrationBase> Thingies { get; }
-    }
+    IEnumerable<MigrationBase> Thingies { get; }
 }

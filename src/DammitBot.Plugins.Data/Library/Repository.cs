@@ -1,12 +1,11 @@
-﻿namespace DammitBot.Library
+﻿namespace DammitBot.Library;
+
+public class Repository<TEntity> : RepositoryBase<TEntity>
+    where TEntity : class
 {
-    public class Repository<TEntity> : RepositoryBase<TEntity>
-        where TEntity : class
-    {
-        #region Constructors
+    #region Constructors
 
-        public Repository(IDataCommandHelper helper) : base(helper) { }
+    public Repository(IDataCommandHelper helper) : base(helper) { }
 
-        #endregion
-    }
+    #endregion
 }

@@ -1,12 +1,11 @@
-﻿namespace DammitBot.Protocols.Irc.Wrappers
+﻿namespace DammitBot.Protocols.Irc.Wrappers;
+
+public interface IPrivateMessageEventArgs
 {
-    public interface IPrivateMessageEventArgs
-    {
-        #region Abstract Properties
+    #region Abstract Properties
 
-        IIrcMessage IrcMessage { get; }
-        IPrivateMessage PrivateMessage { get; }
+    IIrcMessage IrcMessage { get; }
+    IPrivateMessage PrivateMessage { get; }
 
-        #endregion
-    }
+    #endregion
 }

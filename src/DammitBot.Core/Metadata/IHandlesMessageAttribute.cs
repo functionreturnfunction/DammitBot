@@ -1,9 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace DammitBot.Metadata
+namespace DammitBot.Metadata;
+
+public interface IHandlesMessageAttribute
 {
-    public interface IHandlesMessageAttribute
-    {
-        Regex Regex { get; }
-    }
+    Regex Regex { get; }
 }

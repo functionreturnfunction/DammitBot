@@ -1,7 +1,6 @@
-﻿namespace DammitBot.Metadata
+﻿namespace DammitBot.Metadata;
+
+public class HandlesCommandAttribute : HandlesMessageAttribute, IHandlesCommandAttribute
 {
-    public class HandlesCommandAttribute : HandlesMessageAttribute, IHandlesCommandAttribute
-    {
-        public HandlesCommandAttribute(string rgx) : base(rgx) {}
-    }
+    public HandlesCommandAttribute(string rgx) : base(rgx) {}
 }

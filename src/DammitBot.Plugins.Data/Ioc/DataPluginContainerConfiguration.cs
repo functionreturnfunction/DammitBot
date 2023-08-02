@@ -2,14 +2,13 @@ using DammitBot.Abstract;
 using DammitBot.Library;
 using StructureMap;
 
-namespace DammitBot.Ioc
+namespace DammitBot.Ioc;
+
+public class DataPluginContainerConfiguration : ContainerConfigurationBase
 {
-    public class DataPluginContainerConfiguration : ContainerConfigurationBase
+    public override void Configure(ConfigurationExpression e)
     {
-        public override void Configure(ConfigurationExpression e)
-        {
-            e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
-            e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
-        }
+        e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
+        e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
     }
 }

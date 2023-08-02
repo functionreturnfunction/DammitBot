@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace DateTimeStringParser
+namespace DateTimeStringParser;
+
+public interface IDateTimeProvider
 {
-    public interface IDateTimeProvider
-    {
-        DateTime GetCurrentTime();
-        DateTime GetNext(int hour, int minute = 0, int second = 0);
-    }
+    DateTime GetCurrentTime();
+    DateTime GetNext(int hour, int minute = 0, int second = 0);
 }

@@ -1,28 +1,27 @@
 ﻿using StructureMap;
 
-namespace DammitBot.Library
+namespace DammitBot.Library;
+
+public class UnitOfWorkFactory : IUnitOfWorkFactory
 {
-    public class UnitOfWorkFactory : IUnitOfWorkFactory
+    #region Private Members
+
+    protected readonly IContainer _container;
+
+    #endregion
+
+    #region Constructors
+
+    public UnitOfWorkFactory(IContainer container)
     {
-        #region Private Members
-
-        protected readonly IContainer _container;
-
-        #endregion
-
-        #region Constructors
-
-        public UnitOfWorkFactory(IContainer container)
-        {
-            _container = container;
-        }
-
-        #endregion
-
-        #region Exposed Methods
-
-        public virtual IUnitOfWork Build() => _container.GetInstance<IUnitOfWork>();
-
-        #endregion
+        _container = container;
     }
+
+    #endregion
+
+    #region Exposed Methods
+
+    public virtual IUnitOfWork Build() => _container.GetInstance<IUnitOfWork>();
+
+    #endregion
 }

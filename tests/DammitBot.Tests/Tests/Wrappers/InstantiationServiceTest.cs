@@ -5,51 +5,50 @@ using Moq;
 using StructureMap;
 using Xunit;
 
-namespace DammitBot.Tests.Wrappers
+namespace DammitBot.Tests.Wrappers;
+
+public class InstantiationServiceTest : UnitTestBase<InstantiationService>
 {
-    public class InstantiationServiceTest : UnitTestBase<InstantiationService>
+    #region Private Members
+
+    private Mock<IContainer> _mockContainer;
+
+    #endregion
+
+    protected override IContainer CreateContainer()
     {
-        #region Private Members
+        _mockContainer = new Mock<IContainer>();
+        return _mockContainer.Object;
+    }
 
-        private Mock<IContainer> _mockContainer;
+    protected override InstantiationService ConstructTarget()
+    {
+        return new InstantiationService(_mockContainer.Object);
+    }
 
-        #endregion
+    [Fact]
+    public void TestDisposeDisposesContainer()
+    {
+        _target.Dispose();
 
-        protected override IContainer CreateContainer()
-        {
-            _mockContainer = new Mock<IContainer>();
-            return _mockContainer.Object;
-        }
+        _mockContainer.Verify(x => x.Dispose());
+    }
 
-        protected override InstantiationService ConstructTarget()
-        {
-            return new InstantiationService(_mockContainer.Object);
-        }
+    [Fact]
+    public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
+    {
+        var now = DateTime.Now;
+        _mockContainer.Setup(x => x.GetInstance<DateTime>()).Returns(now);
 
-        [Fact]
-        public void TestDisposeDisposesContainer()
-        {
-            _target.Dispose();
+        Assert.Equal(now, _target.GetInstance<DateTime>());
+    }
 
-            _mockContainer.Verify(x => x.Dispose());
-        }
+    [Fact]
+    public void TestGetInstanceGetsInstanceFromContainer()
+    {
+        var now = DateTime.Now;
+        _mockContainer.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);
 
-        [Fact]
-        public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
-        {
-            var now = DateTime.Now;
-            _mockContainer.Setup(x => x.GetInstance<DateTime>()).Returns(now);
-
-            Assert.Equal(now, _target.GetInstance<DateTime>());
-        }
-
-        [Fact]
-        public void TestGetInstanceGetsInstanceFromContainer()
-        {
-            var now = DateTime.Now;
-            _mockContainer.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);
-
-            Assert.Equal(now, _target.GetInstance(typeof(DateTime)));
-        }
+        Assert.Equal(now, _target.GetInstance(typeof(DateTime)));
     }
 }
