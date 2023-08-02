@@ -14,12 +14,6 @@
         "channels": "#DammitBot"
     },
 
-    "TeamCity": {
-        "host": "teamcity:8111",
-        "login": "DammitBot",
-        "password": "dammitbot_password"
-    },
-
     "log4net": {
         "appender": {
             "name": "ConsoleAppender",
@@ -31,7 +25,7 @@
         },
 
         "root": {
-            "level": "DEBUG",
+            "level": "INFO",
             "appender-ref": "ConsoleAppender"
         },
 
