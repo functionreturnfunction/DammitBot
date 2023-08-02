@@ -2,7 +2,7 @@
 using DammitBot.Abstract;
 using DammitBot.Configuration;
 using DammitBot.Events;
-using DammitBot.Protocols.Irc.Wrappers;
+using DammitBot.Wrappers;
 using log4net;
 
 namespace DammitBot.Protocols.Irc;

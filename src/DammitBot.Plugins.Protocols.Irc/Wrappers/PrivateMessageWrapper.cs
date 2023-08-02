@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ChatSharp;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 [ExcludeFromCodeCoverage]
 public class PrivateMessageWrapper : IPrivateMessage

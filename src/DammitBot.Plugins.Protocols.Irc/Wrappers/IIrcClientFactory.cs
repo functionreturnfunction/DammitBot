@@ -1,6 +1,6 @@
 ﻿using DammitBot.Configuration;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 public interface IIrcClientFactory
 {

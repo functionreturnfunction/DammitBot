@@ -2,7 +2,7 @@
 using ChatSharp;
 using DammitBot.Configuration;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 [ExcludeFromCodeCoverage]
 public class IrcClientFactory : IIrcClientFactory

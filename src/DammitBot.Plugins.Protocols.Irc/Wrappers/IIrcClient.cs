@@ -1,7 +1,7 @@
 ﻿using System;
 using DammitBot.Events;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 public interface IIrcClient
 {

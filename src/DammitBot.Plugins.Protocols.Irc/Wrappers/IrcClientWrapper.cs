@@ -3,10 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using ChatSharp;
 using ChatSharp.Events;
 using DammitBot.Events;
-using DammitBot.Protocols.Irc.Events;
-using DammitBot.Wrappers;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 [ExcludeFromCodeCoverage]
 public class IrcClientWrapper : IIrcClient

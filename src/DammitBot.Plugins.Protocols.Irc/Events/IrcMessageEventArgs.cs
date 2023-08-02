@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
-using DammitBot.Events;
-using DammitBot.Protocols.Irc.Wrappers;
+using DammitBot.Protocols.Irc;
+using DammitBot.Wrappers;
 
-namespace DammitBot.Protocols.Irc.Events;
+namespace DammitBot.Events;
 
 public class IrcMessageEventArgs : MessageEventArgs
 {

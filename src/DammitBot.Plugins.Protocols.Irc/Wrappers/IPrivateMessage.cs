@@ -1,4 +1,4 @@
-﻿namespace DammitBot.Protocols.Irc.Wrappers;
+﻿namespace DammitBot.Wrappers;
 
 public interface IPrivateMessage
 {

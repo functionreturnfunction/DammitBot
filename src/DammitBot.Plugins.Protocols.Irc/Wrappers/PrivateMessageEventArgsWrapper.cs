@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ChatSharp.Events;
-using DammitBot.Wrappers;
 
-namespace DammitBot.Protocols.Irc.Wrappers;
+namespace DammitBot.Wrappers;
 
 [ExcludeFromCodeCoverage]
 public class PrivateMessageEventArgsWrapper : IPrivateMessageEventArgs
