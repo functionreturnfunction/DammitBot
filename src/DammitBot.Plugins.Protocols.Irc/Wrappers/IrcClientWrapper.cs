@@ -44,9 +44,9 @@ public class IrcClientWrapper : IIrcClient
 
     #region Events/Delegates
 
-    public event EventHandler<MessageEventArgs> ChannelMessageReceived;
+    public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
 
-    public event EventHandler ConnectionComplete;
+    public event EventHandler? ConnectionComplete;
 
     #endregion
 
