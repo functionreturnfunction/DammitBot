@@ -1,8 +1,6 @@
-using DammitBot.Abstract;
-
 namespace DammitBot.Plugins;
 
-public class DapperPlugin : IPlugin
+public class DapperPlugin : IDapperPlugin
 {
     public void Initialize()
     {

@@ -1,9 +1,8 @@
-﻿using DammitBot.Abstract;
-using DammitBot.Events;
+﻿using DammitBot.Events;
 
 namespace DammitBot.Protocols.Console;
 
-public class Console : IProtocol
+public class Console : IConsole
 {
     public const string PROTOCOL_NAME = nameof(Console);
     

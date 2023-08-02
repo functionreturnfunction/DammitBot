@@ -1,6 +1,8 @@
 ﻿using System;
 using DammitBot.Events;
 using DammitBot.Library;
+using DammitBot.Protocols.Console;
+using DammitBot.Protocols.Irc;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Moq;
@@ -12,7 +14,8 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 {
     #region Private Members
 
-    private Mock<Protocols.Console.Console>? _console;
+    private Mock<IConsole>? _console;
+    private Mock<IIrc>? _irc;
 
     #endregion
 
@@ -22,6 +25,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     {
         base.ConfigureContainer();
         Inject(out _console);
+        Inject(out _irc);
         Inject<IInstantiationService>(_container.GetInstance<InstantiationService>());
         Inject<IAssemblyService>(_container.GetInstance<AssemblyService>());
     }

@@ -1,9 +1,8 @@
-﻿using DammitBot.Abstract;
-using DammitBot.Library;
+﻿using DammitBot.Library;
 
 namespace DammitBot.Plugins;
 
-public class SchedulingPlugin : IPlugin
+public class SchedulingPlugin : ISchedulingPlugin
 {
     #region Private Members
 

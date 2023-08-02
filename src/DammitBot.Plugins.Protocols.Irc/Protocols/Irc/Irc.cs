@@ -1,5 +1,4 @@
 ﻿using System;
-using DammitBot.Abstract;
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Wrappers;
@@ -7,7 +6,7 @@ using log4net;
 
 namespace DammitBot.Protocols.Irc;
 
-public class Irc : IProtocol
+public class Irc : IIrc
 {
     #region Constants
 

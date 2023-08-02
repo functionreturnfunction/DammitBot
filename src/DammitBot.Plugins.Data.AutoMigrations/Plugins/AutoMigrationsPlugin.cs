@@ -1,9 +1,8 @@
-﻿using DammitBot.Abstract;
-using DammitBot.Data.Migrations.Library;
+﻿using DammitBot.Data.Migrations.Library;
 
 namespace DammitBot.Plugins;
 
-public class AutoMigrationsPlugin : IPlugin
+public class AutoMigrationsPlugin : IAutoMigrationsPlugin
 {
     protected readonly MigrationRunner _runner;
 

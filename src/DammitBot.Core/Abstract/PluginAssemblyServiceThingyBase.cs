@@ -37,7 +37,7 @@ public abstract class PluginAssemblyServiceThingyBase<TThingy>
             var type in
             _assemblyService.GetPluginAssemblies()
                 .GetTypes()
-                .Where(t => !t.IsAbstract && typeof(TThingy).IsAssignableFrom(t)))
+                .Where(t => t.IsInterface && typeof(TThingy).IsAssignableFrom(t)))
         {
             var plugin = (TThingy)_instantiationService.GetInstance(type);
 
