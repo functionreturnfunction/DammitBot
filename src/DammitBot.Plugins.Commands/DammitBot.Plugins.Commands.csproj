@@ -5,10 +5,6 @@
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="StructureMap" Version="4.7.1" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>default</LangVersion>
