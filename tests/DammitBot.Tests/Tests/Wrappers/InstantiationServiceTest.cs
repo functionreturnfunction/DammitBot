@@ -11,7 +11,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
 {
     #region Private Members
 
-    private Mock<IContainer> _mockContainer;
+    private Mock<IContainer>? _mockContainer;
 
     #endregion
 
@@ -23,7 +23,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
 
     protected override InstantiationService ConstructTarget()
     {
-        return new InstantiationService(_mockContainer.Object);
+        return new InstantiationService(_mockContainer!.Object);
     }
 
     [Fact]
@@ -31,14 +31,14 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     {
         _target.Dispose();
 
-        _mockContainer.Verify(x => x.Dispose());
+        _mockContainer!.Verify(x => x.Dispose());
     }
 
     [Fact]
     public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
     {
         var now = DateTime.Now;
-        _mockContainer.Setup(x => x.GetInstance<DateTime>()).Returns(now);
+        _mockContainer!.Setup(x => x.GetInstance<DateTime>()).Returns(now);
 
         Assert.Equal(now, _target.GetInstance<DateTime>());
     }
@@ -47,7 +47,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     public void TestGetInstanceGetsInstanceFromContainer()
     {
         var now = DateTime.Now;
-        _mockContainer.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);
+        _mockContainer!.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);
 
         Assert.Equal(now, _target.GetInstance(typeof(DateTime)));
     }

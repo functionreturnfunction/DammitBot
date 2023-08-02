@@ -1,19 +1,19 @@
 ﻿using System;
 using DammitBot.Library;
+using DateTimeStringParser;
 using Xunit;
 
-// ReSharper disable once CheckNamespace
-namespace DateTimeStringParser;
+namespace DammitBot.Tests.DateTimeStringParser;
 
-public class DateTimeStringParserTest : UnitTestBase<DateTimeStringParser>
+public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParser.DateTimeStringParser>
 {
     #region Private Methods
 
     private void TestTryParse(string input, DateTime expected)
     {
-        DateTime? result;
-        Assert.True(_target.TryParse(input, out result));
-        Assert.Equal(result.Value, expected);
+        Assert.True(_target.TryParse(input, out var result));
+        Assert.NotNull(result);
+        Assert.Equal(result!.Value, expected);
     }
 
     #endregion
@@ -57,6 +57,6 @@ public class DateTimeStringParserTest : UnitTestBase<DateTimeStringParser>
     {
         TestTryParse(input, _now.GetNext(hour, minute));
     }
-        
+
     #endregion
 }

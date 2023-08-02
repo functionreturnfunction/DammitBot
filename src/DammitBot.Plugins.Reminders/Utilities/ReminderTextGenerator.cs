@@ -18,7 +18,7 @@ public class ReminderTextGenerator : IReminderTextGenerator
             reminder.To.Username,
             reminder.From.Username,
             FixNouns(reminder.Text),
-            reminder.RemindAt.Value);
+            reminder.RemindAt);
         return reminder;
     }
 
@@ -32,7 +32,7 @@ public class ReminderTextGenerator : IReminderTextGenerator
         reminder.Text = FromStrings(
             reminder.To.Username,
             "you",
-            FixNouns(reminder.Text), reminder.RemindAt.Value);
+            FixNouns(reminder.Text), reminder.RemindAt);
         return reminder;
     }
 

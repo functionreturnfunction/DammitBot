@@ -19,7 +19,10 @@ public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
         {
             _target.Up(i);
 
-            Assert.Equal(i, _target.GetLatestVersionNumber().Value);
+            var actual = _target.GetLatestVersionNumber();
+
+            Assert.NotNull(actual);
+            Assert.Equal(i, actual!.Value);
         }
     }
 
@@ -28,6 +31,9 @@ public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
     {
         _target.Up();
 
-        Assert.Equal(EXPECTED_VERSION, _target.GetLatestVersionNumber().Value);
+        var actual = _target.GetLatestVersionNumber();
+
+        Assert.NotNull(actual);
+        Assert.Equal(EXPECTED_VERSION, actual!.Value);
     }
 }

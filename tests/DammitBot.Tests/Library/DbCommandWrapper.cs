@@ -93,7 +93,7 @@ public class DbCommandWrapper : IDbCommand
         return TryExecuteThing("reader", () => _command.ExecuteReader(behavior));
     }
 
-    public object ExecuteScalar()
+    public object? ExecuteScalar()
     {
         return TryExecuteThing("scalar", () => _command.ExecuteScalar());
     }

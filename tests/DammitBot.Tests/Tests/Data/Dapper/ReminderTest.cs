@@ -35,7 +35,6 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
     protected override Action<Reminder>[] GetWaysToInvalidate()
     {
         return new Action<Reminder>[] {
-            r => r.RemindAt = null,
             r => {
                 r.From = null;
                 r.FromId = null;
@@ -50,7 +49,7 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
     protected override void RunPostCreationAssertions(Reminder createdObject)
     {
         Assert.InRange(createdObject.Id, 1, int.MaxValue);
-        Assert.Equal(_now, createdObject.RemindAt.Value);
+        Assert.Equal(_now, createdObject.RemindAt);
         Assert.Null(createdObject.RemindedAt);
     }
 

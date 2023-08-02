@@ -22,7 +22,7 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
 
     #region Private Members
 
-    protected IEnumerable<Type> _handlers;
+    protected IEnumerable<Type>? _handlers;
 
     #endregion
 
@@ -56,7 +56,7 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
         var args = new TEventArgs();
         var instances = new List<Mock<TMessageHandler>>();
 
-        foreach (var handler in _handlers)
+        foreach (var handler in _handlers!)
         {
             var instance = new Mock<TMessageHandler>();
             _container.Inject(handler, instance.Object);

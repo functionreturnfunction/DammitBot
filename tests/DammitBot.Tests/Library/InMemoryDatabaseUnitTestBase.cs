@@ -8,7 +8,7 @@ namespace DammitBot.Library;
 
 public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarget>
 {
-    protected SqliteConnection _connection;
+    protected SqliteConnection? _connection;
     protected bool _migrationsRun;
 
     #region Private Methods
@@ -61,6 +61,6 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
 
     public override void Dispose()
     {
-        _connection.ActuallyDispose();
+        _connection!.ActuallyDispose();
     }
 }
