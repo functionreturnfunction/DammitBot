@@ -26,7 +26,6 @@ namespace DammitBot.Tests.Utilities
                 "DammitBot.Plugins.Reminders.Dapper",
                 "DammitBot.Plugins.Reminders.Migrations",
                 "DammitBot.Plugins.Scheduling",
-                "DammitBot.Plugins.TeamCity"
             };
 
             var results = _target.GetAllAssemblies();
