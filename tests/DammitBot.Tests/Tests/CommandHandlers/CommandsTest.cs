@@ -17,7 +17,6 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
     private Mock<IBot> _bot;
     private Mock<IConfigurationManager> _configurationManager;
-    private Nick[] _nicks;
 
     #endregion
 
@@ -45,7 +44,9 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
         _bot = serviceRegistry.For<IBot>().Mock();
         _configurationManager = serviceRegistry.For<IConfigurationManager>().Mock();
 
-        _configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
+        _configurationManager
+            .Setup(x => x.BotConfig.GoesBy)
+            .Returns("(?:dammit )?bot");
     }
 
     #endregion
@@ -65,7 +66,10 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     {
         var args = _target.TestCommand("remind me to do things in 1 minute");
 
-        _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<MessageEventArgs>(),
+                $"Reminder set for {_now.AddMinutes(1)}"));
     }
 
     [Fact]
@@ -73,11 +77,14 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     {
         var args = _target.TestCommand("remind bar to do things in 1 minute");
 
-        _bot.Verify(x => x.ReplyToMessage(It.IsAny<MessageEventArgs>(), $"Reminder set for {_now.AddMinutes(1)}"));
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<MessageEventArgs>(),
+                $"Reminder set for {_now.AddMinutes(1)}"));
     }
 
     [Fact]
-    public void TestGetMatchingHandlersReturnsOnlyUnkownCommandHandlerForUnkownCommand()
+    public void TestGetMatchingHandlersReturnsOnlyUnknownCommandHandlerForUnknownCommand()
     {
         _target.TestCommand("asdfasdfasdfasdf");
 
