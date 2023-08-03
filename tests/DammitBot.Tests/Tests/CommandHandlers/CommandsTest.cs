@@ -81,7 +81,10 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     {
         _target.TestCommand("asdfasdfasdfasdf");
 
-        _bot.Verify(x => x.SayToAll(string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<MessageEventArgs>(),
+                string.Format(UnknownCommandHandler.MESSAGE, Bot.DEFAULT_GOES_BY)));
     }
 
     #endregion
