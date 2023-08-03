@@ -2,8 +2,8 @@
 using DammitBot.Configuration;
 using DateTimeStringParser;
 using Lamar;
-using log4net;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace DammitBot.Library;
@@ -13,7 +13,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
     #region Private Members
 
     protected readonly IContainer _container;
-    protected Mock<ILog> _log;
+    protected Mock<ILogger<TTarget>> _log;
     protected TTarget _target;
     protected TestDateTimeProvider _dateTimeProvider;
     protected DateTime _now;
@@ -37,7 +37,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
         serviceRegistry.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
         serviceRegistry.For<ISettingsPathHelper>().Use<TestSettingsPathHelper>();
 
-        _log = serviceRegistry.For<ILog>().Mock();
+        _log = serviceRegistry.For<ILogger<TTarget>>().Mock();
         _dateTimeProvider = serviceRegistry
             .For<IDateTimeProvider>()
             .Use<IDateTimeProvider, TestDateTimeProvider>(

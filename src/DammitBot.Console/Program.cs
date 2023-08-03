@@ -1,22 +1,34 @@
 ﻿using System;
 using DammitBot.Ioc;
-using log4net;
+using Lamar.Microsoft.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Console;
 
 class Program
 {
-    private static bool LogAndRethrow(ILog log, Exception e)
+    private static bool LogAndRethrow(ILogger log, Exception e)
     {
-        log.Error("Runtime error occurred.", e);
+        log.LogError("Runtime error occurred.", e);
         return false;
+    }
+
+    public static IHostBuilder CreateHostBuilder()
+    {
+        return Host
+            .CreateDefaultBuilder()
+            .UseLamar(serviceRegistry =>
+                new DammitBotContainerConfiguration().Configure(serviceRegistry));
+
     }
 
     static void Main(string[] args)
     {
-        var container = DammitBotContainerConfiguration.GetContainer();
-        var bot = container.GetInstance<IBot>();
-        var log = container.GetInstance<ILog>();
+        using var host = CreateHostBuilder().Build();
+        using var bot = host.Services.GetRequiredService<IBot>();
+        var log = host.Services.GetRequiredService<ILogger<Program>>();
 
         try
         {
@@ -32,11 +44,6 @@ class Program
         catch (Exception e) when (LogAndRethrow(log, e))
         {
             throw;
-        }
-        finally
-        {
-            bot.Dispose();
-            container.Dispose();
         }
     }
 }

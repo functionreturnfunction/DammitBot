@@ -5,7 +5,7 @@ using DammitBot.Data.Models;
 using DammitBot.Library;
 using DammitBot.Metadata;
 using DateTimeStringParser;
-using log4net;
+using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace DammitBot.Jobs;
@@ -18,13 +18,17 @@ public class ReminderJob : IJob
     private readonly IBot _bot;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
     private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly ILog _log;
+    private readonly ILogger _log;
 
     #endregion
 
     #region Constructors
 
-    public ReminderJob(IBot bot, IUnitOfWorkFactory unitOfWorkFactory, IDateTimeProvider dateTimeProvider, ILog log)
+    public ReminderJob(
+        IBot bot,
+        IUnitOfWorkFactory unitOfWorkFactory,
+        IDateTimeProvider dateTimeProvider,
+        ILogger<ReminderJob> log)
     {
         _bot = bot;
         _unitOfWorkFactory = unitOfWorkFactory;
@@ -42,7 +46,7 @@ public class ReminderJob : IJob
         {
             var now = _dateTimeProvider.GetCurrentTime();
             var reminders = GetReminders(uow, now);
-            _log.Debug($"Found {reminders.Count()} reminders due as of {now}");
+            _log.LogDebug($"Found {reminders.Count()} reminders due as of {now}");
             foreach (var reminder in reminders)
             {
                 _bot.SayToAll(reminder.Text);

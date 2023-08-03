@@ -2,7 +2,7 @@
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Wrappers;
-using log4net;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Protocols.Irc;
 
@@ -17,7 +17,7 @@ public class Irc : IIrc
     #region Private Members
 
     protected readonly IIrcClientFactory _ircClientFactory;
-    protected readonly ILog _log;
+    protected readonly ILogger _log;
     protected readonly IIrcConfigurationSection _config;
     protected IIrcClient? _irc;
 
@@ -28,7 +28,7 @@ public class Irc : IIrc
     public Irc(
         IIrcClientFactory ircClientFactory,
         IIrcConfigurationManager configurationManager,
-        ILog log)
+        ILogger<Irc> log)
     {
         _ircClientFactory = ircClientFactory;
         _config = configurationManager.IrcConfigurationSection;
@@ -41,13 +41,14 @@ public class Irc : IIrc
 
     private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
     {
-        _log.Debug($"Message received: {e.Message}");
+        _log.LogDebug($"Message received: {e.Message}");
         ChannelMessageReceived?.Invoke(sender, e);
     }
 
     private void Irc_ConnectionComplete(object sender, EventArgs e)
     {
-        _log.Info($"Initial connection complete, joining channels " + 
+        _log.LogInformation(
+            "Initial connection complete, joining channels " +
                   $"'{string.Join(",", _config.Channels)}'");
         foreach (var channel in _config.Channels)
         {
@@ -71,7 +72,7 @@ public class Irc : IIrc
 
     public virtual void Initialize()
     {
-        _log.Info(
+        _log.LogInformation(
             $"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
         _irc = _ircClientFactory.Build(_config);
         _irc.ConnectionComplete += Irc_ConnectionComplete;
