@@ -6,7 +6,7 @@ namespace DammitBot.Library;
 
 public class SqliteConnectionStringService : IConnectionStringService
 {
-    protected IDataConfigurationManager _config;
+    protected readonly IDataConfigurationManager _config;
 
     public SqliteConnectionStringService(IDataConfigurationManager config)
     {
