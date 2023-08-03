@@ -1,4 +1,4 @@
-﻿using StructureMap;
+﻿using Lamar;
 
 namespace DammitBot.Abstract;
 
@@ -9,7 +9,7 @@ public abstract class ContainerConfigurationBase
 {
     #region Abstract Methods
 
-    public abstract void Configure(ConfigurationExpression e);
+    public abstract void Configure(ServiceRegistry e);
 
     #endregion
 }

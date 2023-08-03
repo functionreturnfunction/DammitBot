@@ -4,6 +4,7 @@ using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
+using Lamar;
 using Moq;
 using Xunit;
 
@@ -22,16 +23,15 @@ public class BotTest : UnitTestBase<Bot>
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
         _config = new Mock<IBotConfigurationSection>();
-        Mock<IConfigurationManager> manager;
-        Inject(out manager);
+        var manager = serviceRegistry.For<IConfigurationManager>().Mock();
         manager.SetupGet(x => x.BotConfig).Returns(_config.Object);
-        Inject(out _handlerFactory);
-        Inject(out _pluginService);
-        Inject(out _protocolService);
+        _handlerFactory = serviceRegistry.For<IMessageHandlerFactory>().Mock();
+        _pluginService = serviceRegistry.For<IPluginService>().Mock();
+        _protocolService = serviceRegistry.For<IProtocolService>().Mock();
     }
 
     private void SafelyRunTarget()

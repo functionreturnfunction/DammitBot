@@ -5,6 +5,7 @@ using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
+using Lamar;
 using Moq;
 using Xunit;
 
@@ -34,16 +35,16 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
 
-        _container.Configure(i => {
-            i.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
-        });
+        serviceRegistry.For<ICommandHandlerRepository>()
+            .Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
 
-        Inject(out _bot);
-        Inject(out _configurationManager);
+        _bot = serviceRegistry.For<IBot>().Mock();
+        _configurationManager = serviceRegistry.For<IConfigurationManager>().Mock();
+
         _configurationManager.Setup(x => x.BotConfig.GoesBy).Returns("(?:dammit )?bot");
     }
 

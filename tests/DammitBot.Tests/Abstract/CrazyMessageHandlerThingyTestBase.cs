@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Wrappers;
-
+using Lamar;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
@@ -34,11 +35,11 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
         _handlers = new List<Type> {typeof(TMessageHandler)};
-        _container.Inject<IInstantiationService>(new InstantiationService(_container));
+        serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
     }
 
     #endregion
@@ -56,12 +57,15 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
         var args = new TEventArgs();
         var instances = new List<Mock<TMessageHandler>>();
 
-        foreach (var handler in _handlers!)
+        _container.Configure(services =>
         {
-            var instance = new Mock<TMessageHandler>();
-            _container.Inject(handler, instance.Object);
-            instances.Add(instance);
-        }
+            foreach (var handler in _handlers!)
+            {
+                var instance = new Mock<TMessageHandler>();
+                services.Add(new ServiceDescriptor(handler, instance.Object));
+                instances.Add(instance);
+            }
+        });
 
         TestMethod(args);
 

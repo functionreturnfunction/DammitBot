@@ -1,18 +1,19 @@
 using DammitBot.Ioc;
 using DammitBot.Library;
 using DammitBot.Utilities;
+using Lamar;
 using Microsoft.Extensions.Configuration;
-using StructureMap;
 using Xunit;
 
 namespace DammitBot.Tests.Ioc;
 
 public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<IContainer>
 {
-    public DammitBotContainerConfigurationTest()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        _container.Configure(e =>
-            new DammitBotContainerConfiguration().Configure(e));
+        base.ConfigureContainer(serviceRegistry);
+        
+        new DammitBotContainerConfiguration().Configure(serviceRegistry);
     }
 
     private void AssertSingleton<TIType, TType>()

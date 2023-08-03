@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Ioc;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
+using Lamar;
 
 namespace DammitBot.Library;
 
@@ -18,28 +20,26 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
         RunMigrations();
     }
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
         _connection = new SqliteConnection(
             new Microsoft.Data.Sqlite.SqliteConnection(
                 new SqliteInMemoryConnectionStringService().GetMainAppConnectionString()));
         _connection.Name = "InMemoryDatabaseTest";
 
-        _container.Configure(e =>
-        {
-            e.For<IInstantiationService>().Use<InstantiationService>();
-            e.For<IAssemblyService>().Use<AssemblyService>();
+        serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
+        serviceRegistry.For<IAssemblyService>().Use<AssemblyService>();
 
-            new DapperPluginContainerConfiguration().Configure(e);
-            new RemindersDapperPluginContainerConfiguration().Configure(e);
+        new DapperPluginContainerConfiguration().Configure(serviceRegistry);
+        new RemindersDapperPluginContainerConfiguration().Configure(serviceRegistry);
 
-            e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
-            e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
-            e.For<IDbConnectionFactory>()
-                .Use(_ => new TestDbConnectionFactory(_connection));
-            e.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
-        });
+        serviceRegistry.For(typeof(IRepository<>)).Use(typeof(Repository<>));
+        serviceRegistry.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
+        serviceRegistry.For<IDbConnectionFactory>()
+            .Use(_ => new TestDbConnectionFactory(_connection));
+        serviceRegistry.For<IDbConnection>().Use(_connection);
+        serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
     }
 
     protected virtual void RunMigrations()

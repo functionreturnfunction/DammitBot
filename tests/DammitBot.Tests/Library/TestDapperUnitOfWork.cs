@@ -1,4 +1,4 @@
-using StructureMap;
+using Lamar;
 
 namespace DammitBot.Library;
 

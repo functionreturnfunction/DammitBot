@@ -6,6 +6,7 @@ using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
+using Lamar;
 using Moq;
 using Xunit;
 
@@ -22,25 +23,25 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
 
-        _container.Configure(i => {
-            i.Scan(s => {
-                s.AssemblyContainingType<IBot>();
-                s.WithDefaultConventions();
-            });
-            i.For<IBot>().Use<Bot>().Singleton();
-            i.For<IMessageHandlerAttributeService>()
-                .Use<CommandAwareMessageHandlerAttributeService>();
-            i.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
+        serviceRegistry.Scan(s =>
+        {
+            s.AssemblyContainingType<IBot>();
+            s.WithDefaultConventions();
         });
+        
+        serviceRegistry.For<IBot>().Use<Bot>().Singleton();
+        serviceRegistry.For<IMessageHandlerAttributeService>()
+                .Use<CommandAwareMessageHandlerAttributeService>();
+        serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
 
-        Inject(out _commandHandlerFactory);
-        Inject<ISchedulerService>();
-        Inject(out _protocolService);
-        Inject(_protocolService);
+        _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();
+        serviceRegistry.For<ISchedulerService>().Mock();
+        _protocolService = serviceRegistry.For<IProtocolService>().Mock();
+        serviceRegistry.For<Mock<IProtocolService>>().Use(_protocolService);
     }
 
     #endregion

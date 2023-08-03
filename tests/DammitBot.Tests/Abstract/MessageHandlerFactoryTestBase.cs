@@ -1,5 +1,7 @@
 ﻿using System;
 using DammitBot.Events;
+using DammitBot.Library;
+using Lamar;
 using Moq;
 
 namespace DammitBot.Abstract;
@@ -23,11 +25,11 @@ public abstract class MessageHandlerFactoryTestBase<
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
+        base.ConfigureContainer(serviceRegistry);
 
-        Inject(out _repository);
+        _repository = serviceRegistry.For<TMessageHandlerRepository>().Mock();
     }
 
     protected override void TestMethod(TEventArgs args)

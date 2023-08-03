@@ -1,8 +1,8 @@
 ﻿using System;
 using DammitBot.Library;
 using DammitBot.Wrappers;
+using Lamar;
 using Moq;
-using StructureMap;
 using Xunit;
 
 namespace DammitBot.Tests.Wrappers;

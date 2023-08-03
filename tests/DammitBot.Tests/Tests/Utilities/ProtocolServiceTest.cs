@@ -5,6 +5,7 @@ using DammitBot.Protocols.Console;
 using DammitBot.Protocols.Irc;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
+using Lamar;
 using Moq;
 using Xunit;
 
@@ -21,13 +22,14 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
     #region Private Methods
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
-        Inject(out _console);
-        Inject(out _irc);
-        Inject<IInstantiationService>(_container.GetInstance<InstantiationService>());
-        Inject<IAssemblyService>(_container.GetInstance<AssemblyService>());
+        base.ConfigureContainer(serviceRegistry);
+
+        _console = serviceRegistry.For<IConsole>().Mock();
+        _irc = serviceRegistry.For<IIrc>().Mock();
+        serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
+        serviceRegistry.For<IAssemblyService>().Use<AssemblyService>();
     }
 
     #endregion

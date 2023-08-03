@@ -1,17 +1,18 @@
 using DammitBot.Ioc;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
-using StructureMap;
+using Lamar;
 using Xunit;
 
 namespace DammitBot.Tests.Ioc;
 
 public class CommandsPluginContainerConfigurationTest : InMemoryDatabaseUnitTestBase<IContainer>
 {
-    public CommandsPluginContainerConfigurationTest()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        _container.Configure(
-            e => new CommandsPluginContainerConfiguration().Configure(e));
+        base.ConfigureContainer(serviceRegistry);
+
+        new CommandsPluginContainerConfiguration().Configure(serviceRegistry);
     }
 
     [Fact]

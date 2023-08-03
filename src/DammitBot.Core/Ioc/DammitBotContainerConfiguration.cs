@@ -4,11 +4,12 @@ using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
+using Lamar;
 using log4net;
 using log4net.Repository;
 using log4net.Config;
+using log4net.Core;
 using Microsoft.Extensions.Configuration;
-using StructureMap;
 
 namespace DammitBot.Ioc;
 
@@ -16,7 +17,7 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 {
     #region Private Methods
 
-    public override void Configure(ConfigurationExpression e)
+    public override void Configure(ServiceRegistry e)
     {
         e.Scan(s => {
             s.AssembliesFromApplicationBaseDirectory();
@@ -39,18 +40,10 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 
         e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
 
-        e.For<ILog>()
-            .AlwaysUnique()
-            .Use(
-                ctx =>
-                    ctx.ParentType == null
-                        ? LogManager.GetLogger(
-                            ctx.GetInstance<ILoggerRepository>().Name,
-                            "DammitBot Global")
-                        : LogManager.GetLogger(ctx.ParentType));
+        e.For<ILog>().Use(ctx => LogManager.GetLogger("DammitBot Global"));
     }
 
-    private static IAssemblyService InitializePluginConfigurations(ConfigurationExpression e)
+    private static IAssemblyService InitializePluginConfigurations(ServiceRegistry e)
     {
         var assemblyService = new AssemblyService();
 

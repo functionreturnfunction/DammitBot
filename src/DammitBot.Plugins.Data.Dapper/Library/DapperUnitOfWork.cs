@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using StructureMap;
+using Lamar;
 
 namespace DammitBot.Library;
 
@@ -10,7 +10,7 @@ public class DapperUnitOfWork : IUnitOfWork
 
     public IDbConnection Connection { get; }
     public IDbTransaction Transaction { get; }
-    public IContainer Container { get; }
+    public INestedContainer Container { get; }
 
     #endregion
 
@@ -29,9 +29,7 @@ public class DapperUnitOfWork : IUnitOfWork
         }
         Transaction = Connection.BeginTransaction();
         Container = container.GetNestedContainer();
-        Container.Configure(e => {
-            e.For<IDbConnection>().Use(Connection);
-        });
+        Container.Inject(Connection);
     }
 
     #endregion

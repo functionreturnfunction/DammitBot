@@ -2,6 +2,7 @@
 using System.Linq;
 using DammitBot.Data.Models;
 using DammitBot.Library;
+using Lamar;
 using Moq;
 using Xunit;
 
@@ -11,10 +12,10 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
 {
     private Mock<IDataCommandHelper> _dataCommandHelper;
 
-    protected override void ConfigureContainer()
+    protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer();
-        Inject(out _dataCommandHelper);
+        base.ConfigureContainer(serviceRegistry);
+        _dataCommandHelper = serviceRegistry.For<IDataCommandHelper>().Mock();
     }
 
     [Fact]

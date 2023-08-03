@@ -1,5 +1,5 @@
 ﻿using System;
-using StructureMap;
+using Lamar;
 
 namespace DammitBot.Wrappers;
 
@@ -16,7 +16,7 @@ public class InstantiationService : IInstantiationService
     public InstantiationService(IContainer container)
     {
         _container = container;
-        _container.DisposalLock = DisposalLock.Ignore;
+        // _container.DisposalLock = DisposalLock.Ignore;
     }
 
     #endregion
@@ -35,7 +35,7 @@ public class InstantiationService : IInstantiationService
 
     public void Dispose()
     {
-        _container.DisposalLock = DisposalLock.Unlocked;
+        // _container.DisposalLock = DisposalLock.Unlocked;
         _container.Dispose();
     }
 
