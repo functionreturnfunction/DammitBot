@@ -4,10 +4,6 @@
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ChatSharp" Version="1.0.2" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>default</LangVersion>

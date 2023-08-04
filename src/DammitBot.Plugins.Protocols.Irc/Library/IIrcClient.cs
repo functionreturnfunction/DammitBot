@@ -1,13 +1,13 @@
 ﻿using System;
 using DammitBot.Events;
 
-namespace DammitBot.Wrappers;
+namespace DammitBot.Library;
 
 public interface IIrcClient
 {
-    event EventHandler? ConnectionComplete;
+    event EventHandler? ReadyToJoinChannels;
     event EventHandler<MessageEventArgs>? ChannelMessageReceived;
-    void ConnectAsync();
+    void Connect();
     void JoinChannel(string channel);
     void SendMessage(string message, params string[] targets);
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using DammitBot.Configuration;
 using DammitBot.Events;
-using DammitBot.Wrappers;
+using DammitBot.Library;
 using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Protocols.Irc;
@@ -79,10 +79,10 @@ public class Irc : IIrc
             _config.Nick,
             _config.User);
         
-        _irc = _ircClientFactory.Build(_config);
-        _irc.ConnectionComplete += Irc_ConnectionComplete;
+        _irc = _ircClientFactory.Build();
+        _irc.ReadyToJoinChannels += Irc_ConnectionComplete;
         _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;
-        _irc.ConnectAsync();
+        _irc.Connect();
     }
 
     public virtual void Cleanup() {}

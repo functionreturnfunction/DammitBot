@@ -1,4 +1,4 @@
-﻿namespace DammitBot.Wrappers;
+﻿namespace DammitBot.Library;
 
 public interface IIrcMessage
 {
