@@ -41,15 +41,16 @@ public class Irc : IIrc
 
     private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
     {
-        _log.LogDebug($"Message received: {e.Message}");
+        _log.LogDebug("Message received: '{MessageText}'", e.Message);
         ChannelMessageReceived?.Invoke(sender, e);
     }
 
     private void Irc_ConnectionComplete(object sender, EventArgs e)
     {
         _log.LogInformation(
-            "Initial connection complete, joining channels " +
-                  $"'{string.Join(",", _config.Channels)}'");
+            "Initial connection complete, joining channels '{Channels}'",
+            string.Join(",", _config.Channels));
+        
         foreach (var channel in _config.Channels)
         {
             // in theory this cannot be null here, because this is an event handler assigned to the
@@ -73,7 +74,11 @@ public class Irc : IIrc
     public virtual void Initialize()
     {
         _log.LogInformation(
-            $"Initiating client: '{_config.Server}', '{_config.Nick}', '{_config.User}'");
+            "Initiating client: '{Server}', '{Nick}', '{User}'",
+            _config.Server,
+            _config.Nick,
+            _config.User);
+        
         _irc = _ircClientFactory.Build(_config);
         _irc.ConnectionComplete += Irc_ConnectionComplete;
         _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;
