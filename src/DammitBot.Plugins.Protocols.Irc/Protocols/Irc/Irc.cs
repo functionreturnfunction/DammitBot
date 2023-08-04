@@ -39,13 +39,13 @@ public class Irc : IIrc
 
     #region Event Handlers
 
-    private void Irc_ChannelMessageReceived(object sender, MessageEventArgs e)
+    private void Irc_ChannelMessageReceived(object? sender, MessageEventArgs e)
     {
         _log.LogDebug("Message received: '{MessageText}'", e.Message);
         ChannelMessageReceived?.Invoke(sender, e);
     }
 
-    private void Irc_ConnectionComplete(object sender, EventArgs e)
+    private void Irc_ConnectionComplete(object? sender, EventArgs e)
     {
         _log.LogInformation(
             "Initial connection complete, joining channels '{Channels}'",
