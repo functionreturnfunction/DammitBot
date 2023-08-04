@@ -40,7 +40,7 @@ public class CommandMessageHandler : MessageHandlerBase<MessageEventArgs>, IMess
 
     public override void Handle(MessageEventArgs e)
     {
-        CommandEventArgs args = null;
+        CommandEventArgs? args;
         using (var uow = _unitOfWorkFactory.Build())
         {
             var nick = LoadNick(uow, e);
@@ -55,7 +55,7 @@ public class CommandMessageHandler : MessageHandlerBase<MessageEventArgs>, IMess
         _handlerFactory.BuildHandler(args).Handle(args);
     }
 
-    private Nick LoadNick(IUnitOfWork uow, MessageEventArgs e)
+    private Nick? LoadNick(IUnitOfWork uow, MessageEventArgs e)
     {
         return uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
     }
