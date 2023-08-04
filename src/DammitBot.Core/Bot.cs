@@ -43,7 +43,7 @@ public class Bot : IBot
 
     #region Private Methods
 
-    private void Protocols_ChannelMessageReceived(object sender, MessageEventArgs e)
+    private void Protocols_ChannelMessageReceived(object? sender, MessageEventArgs e)
     {
         _handlerFactory.BuildHandler(e).Handle(e);
     }
