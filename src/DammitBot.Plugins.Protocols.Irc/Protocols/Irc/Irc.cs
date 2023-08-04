@@ -16,10 +16,10 @@ public class Irc : IIrc
 
     #region Private Members
 
-    protected readonly IIrcClientFactory _ircClientFactory;
-    protected readonly ILogger _log;
-    protected readonly IIrcConfigurationSection _config;
-    protected IIrcClient? _irc;
+    private readonly IIrcClientFactory _ircClientFactory;
+    private readonly ILogger _log;
+    private readonly IIrcConfigurationSection _config;
+    private IIrcClient? _irc;
 
     #endregion
 
