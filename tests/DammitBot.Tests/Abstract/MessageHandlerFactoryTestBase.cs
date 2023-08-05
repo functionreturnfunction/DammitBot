@@ -48,7 +48,7 @@ public abstract class MessageHandlerFactoryTestBase<
                 $"happened in {nameof(ConfigureContainer)}()...");
         }
 
-        _handlerTypeService.Setup(r => r.GetMatchingHandlers(args))
+        _handlerTypeService.Setup(r => r.GetMatchingHandlerTypes(args))
             .Returns(_handlers);
 
         _target.BuildHandler(args).Handle(args);

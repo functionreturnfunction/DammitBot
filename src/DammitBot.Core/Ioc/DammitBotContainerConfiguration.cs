@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Reflection;
 using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Utilities;
-using DammitBot.Wrappers;
+using DateTimeStringParser;
 using Lamar;
 using Microsoft.Extensions.Configuration;
 
@@ -29,6 +28,8 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
             .Use(assemblyService).Singleton();
 
         e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
+
+        e.For<IDateTimeProvider>().Use<SystemClockDateTimeProvider>();
     }
 
     private static IAssemblyService InitializePluginConfigurations(ServiceRegistry e)

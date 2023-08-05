@@ -6,19 +6,19 @@ namespace DammitBot.Abstract;
 
 /// <summary>
 /// Service which provides inheriting/implementing types of <typeparamref name="TMessageHandler"/> which
-/// can handle messages represented by <typeparamref name="TEventArgs"/>.
+/// can handle messages represented by <typeparamref name="TMessageEventArgs"/>.
 /// </summary>
-public interface IMessageHandlerTypeService<out TMessageHandler, in TEventArgs>
-    where TMessageHandler : IMessageHandler<TEventArgs>
-    where TEventArgs : MessageEventArgs
+public interface IMessageHandlerTypeService<out TMessageHandler, in TMessageEventArgs>
+    where TMessageHandler : IMessageHandler<TMessageEventArgs>
+    where TMessageEventArgs : MessageEventArgs
 {
     #region Abstract Methods
 
     /// <summary>
     /// Returns all available types inheriting/implementing <typeparamref name="TMessageHandler"/> which
-    /// can handle the supplied <typeparamref name="TEventArgs"/> <paramref name="message"/>.
+    /// can handle the supplied <typeparamref name="TMessageEventArgs"/> <paramref name="message"/>.
     /// </summary>
-    IEnumerable<Type> GetMatchingHandlers(TEventArgs message);
+    IEnumerable<Type> GetMatchingHandlerTypes(TMessageEventArgs message);
 
     #endregion
 }

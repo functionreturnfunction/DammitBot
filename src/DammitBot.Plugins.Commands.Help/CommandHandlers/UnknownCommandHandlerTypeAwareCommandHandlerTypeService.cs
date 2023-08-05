@@ -23,9 +23,9 @@ public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHa
 
     #region Exposed Methods
 
-    public override IEnumerable<Type> GetMatchingHandlers(CommandEventArgs message)
+    public override IEnumerable<Type> GetMatchingHandlerTypes(CommandEventArgs message)
     {
-        var handlers = base.GetMatchingHandlers(message).ToArray();
+        var handlers = base.GetMatchingHandlerTypes(message).ToArray();
 
         return handlers.Any() ? handlers : new[] {typeof(UnknownCommandHandler)};
     }

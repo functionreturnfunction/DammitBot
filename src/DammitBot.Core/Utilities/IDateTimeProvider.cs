@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DateTimeStringParser;
+namespace DammitBot.Utilities;
 
 /// <summary>
 /// Provides the current <see cref="DateTime"/>.

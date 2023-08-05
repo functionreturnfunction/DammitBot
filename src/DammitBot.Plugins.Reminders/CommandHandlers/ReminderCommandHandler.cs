@@ -23,6 +23,7 @@ public class ReminderCommandHandler : CommandHandlerBase
     #region Private Members
 
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+    private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IDateTimeStringParser _dateTimeStringParser;
     private readonly IReminderTextGenerator _reminderTextGenerator;
 
@@ -33,10 +34,12 @@ public class ReminderCommandHandler : CommandHandlerBase
     public ReminderCommandHandler(
         IBot bot,
         IUnitOfWorkFactory unitOfWorkFactory,
+        IDateTimeProvider dateTimeProvider,
         IDateTimeStringParser dateTimeStringParser,
         IReminderTextGenerator reminderTextGenerator) : base(bot)
     {
         _unitOfWorkFactory = unitOfWorkFactory;
+        _dateTimeProvider = dateTimeProvider;
         _dateTimeStringParser = dateTimeStringParser;
         _reminderTextGenerator = reminderTextGenerator;
     }
@@ -78,7 +81,7 @@ public class ReminderCommandHandler : CommandHandlerBase
         var reminder = match.Groups[2].Value;
         var timeStr = match.Groups[3].Value;
 
-        if (!_dateTimeStringParser.TryParse(timeStr, out when))
+        if (!_dateTimeStringParser.TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out when))
         {
             _bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
             return;

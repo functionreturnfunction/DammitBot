@@ -7,29 +7,40 @@ using DammitBot.Utilities;
 
 namespace DammitBot.Abstract;
 
+/// <inheritdoc cref="IMessageHandlerTypeService{TMessageHandler,TMessageEventArgs}"/>
+/// <remarks>
+/// This implementation uses a <see cref="IAssemblyService"/> to gather all available assemblies to find
+/// types from, and a <see cref="TAttributeComparer"/> to filter those types based on the text of a given
+/// message. 
+/// </remarks>
 public abstract class MessageHandlerTypeServiceBase<
         TMessageAttribute,
-        TAttributeService,
-        TEventArgs,
+        TAttributeComparer,
+        TMessageEventArgs,
         TMessageHandler>
-    : IMessageHandlerTypeService<TMessageHandler, TEventArgs>
+    : IMessageHandlerTypeService<TMessageHandler, TMessageEventArgs>
     where TMessageAttribute : Attribute, IHandlesMessageAttribute
-    where TAttributeService : IMessageHandlerAttributeComparer<TMessageAttribute>
-    where TEventArgs : MessageEventArgs
-    where TMessageHandler : IMessageHandler<TEventArgs>
+    where TAttributeComparer : IMessageHandlerAttributeComparer<TMessageAttribute>
+    where TMessageEventArgs : MessageEventArgs
+    where TMessageHandler : IMessageHandler<TMessageEventArgs>
 {
     #region Private Members
 
     private readonly IAssemblyService _assemblyService;
-    private readonly TAttributeService _attributeComparer;
+    private readonly TAttributeComparer _attributeComparer;
 
     #endregion
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the
+    /// <see cref="MessageHandlerTypeServiceBase{TMessageAttribute,TAttributeComparer,TMessageEventArgs,TMessageHandler}"/>
+    /// class
+    /// </summary>
     protected MessageHandlerTypeServiceBase(
         IAssemblyService assemblyService,
-        TAttributeService attributeComparer)
+        TAttributeComparer attributeComparer)
     {
         _assemblyService = assemblyService;
         _attributeComparer = attributeComparer;
@@ -39,7 +50,7 @@ public abstract class MessageHandlerTypeServiceBase<
 
     #region Private Methods
 
-    protected IEnumerable<Type> GetTypes()
+    private IEnumerable<Type> GetTypes()
     {
         var assemblies =  _assemblyService
             .GetAllAssemblies();
@@ -55,13 +66,17 @@ public abstract class MessageHandlerTypeServiceBase<
 
     #region Abstract Methods
 
-    protected abstract string? GetMessageText(TEventArgs message);
+    /// <summary>
+    /// Return the text of the supplied <paramref name="message"/>. 
+    /// </summary>
+    protected abstract string? GetMessageText(TMessageEventArgs message);
 
     #endregion
 
     #region Exposed Methods
 
-    public virtual IEnumerable<Type> GetMatchingHandlers(TEventArgs message)
+    /// <inheritdoc cref="IMessageHandlerTypeService{TMessageHandler,TMessageEventArgs}.GetMatchingHandlerTypes"/>
+    public virtual IEnumerable<Type> GetMatchingHandlerTypes(TMessageEventArgs message)
     {
         var messageText = GetMessageText(message);
 

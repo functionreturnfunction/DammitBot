@@ -1,17 +1,23 @@
 ﻿using System;
 using DammitBot.Library;
-using DateTimeStringParser;
 using Xunit;
 
 namespace DammitBot.Tests.DateTimeStringParser;
 
 public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParser.DateTimeStringParser>
 {
+    private readonly DateTime _now;
+
+    public DateTimeStringParserTest()
+    {
+        _now = DateTime.Now;
+    }
+
     #region Private Methods
 
     private void TestTryParse(string input, DateTime expected)
     {
-        Assert.True(_target.TryParse(input, out var result));
+        Assert.True(_target.TryParse(_now, input, out var result));
         Assert.NotNull(result);
         Assert.Equal(result!.Value, expected);
     }
@@ -55,7 +61,9 @@ public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParse
     [InlineData("at 12", 12, 00)]
     public void TestAtXDoesThatThing(string input, int hour, int minute)
     {
-        TestTryParse(input, _now.GetNext(hour, minute));
+        TestTryParse(
+            input,
+            global::DateTimeStringParser.DateTimeExtensions.GetNext(_now, hour, minute));
     }
 
     #endregion

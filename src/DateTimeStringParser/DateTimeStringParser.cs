@@ -10,8 +10,7 @@ public class DateTimeStringParser : IDateTimeStringParser
 {
     #region Private Members
 
-    private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly Dictionary<Regex, Func<Match, DateTime?>> _parseDictionary;
+    private readonly Dictionary<Regex, Func<DateTime, Match, DateTime?>> _parseDictionary;
 
     #endregion
 
@@ -20,10 +19,9 @@ public class DateTimeStringParser : IDateTimeStringParser
     /// <summary>
     /// Constructor for the <see cref="DateTimeStringParser"/> class.
     /// </summary>
-    public DateTimeStringParser(IDateTimeProvider dateTimeProvider)
+    public DateTimeStringParser()
     {
-        _dateTimeProvider = dateTimeProvider;
-        _parseDictionary = new Dictionary<Regex, Func<Match, DateTime?>> {
+        _parseDictionary = new Dictionary<Regex, Func<DateTime, Match, DateTime?>> {
             {new Regex(@"^tomorrow( morning)?$"), ParseTomorrow},
             {new Regex(@"^in (.+) minutes?$"), ParseXMinutes},
             {new Regex(@"^in (.+) hours?"), ParseXHours},
@@ -37,31 +35,34 @@ public class DateTimeStringParser : IDateTimeStringParser
     
     #region Private Methods
 
-    private DateTime? ParseTime(Match arg)
+    private DateTime? ParseTime(DateTime now, Match arg)
     {
         return arg.Groups[2].Success
-            ? FromNow(dt => dt.GetNext(int.Parse(arg.Groups[1].Value), int.Parse(arg.Groups[2].Value)))
-            : FromNow(dt => dt.GetNext(int.Parse(arg.Groups[1].Value)));
+            ? FromNow(
+                now,
+                dt => dt.GetNext(int.Parse(arg.Groups[1].Value),
+                    int.Parse(arg.Groups[2].Value)))
+            : FromNow(now, dt => dt.GetNext(int.Parse(arg.Groups[1].Value)));
     }
 
-    private DateTime? ParseXDays(Match arg)
+    private DateTime? ParseXDays(DateTime now, Match arg)
     {
-        return ParseXX(arg, (dt, i) => dt.AddDays(i));
+        return ParseXX(now, arg, (dt, i) => dt.AddDays(i));
     }
 
-    private DateTime? ParseXHours(Match arg)
+    private DateTime? ParseXHours(DateTime now, Match arg)
     {
-        return ParseXX(arg, (dt, i) => dt.AddHours(i));
+        return ParseXX(now, arg, (dt, i) => dt.AddHours(i));
     }
 
-    private DateTime? ParseXMinutes(Match arg)
+    private DateTime? ParseXMinutes(DateTime now, Match arg)
     {
-        return ParseXX(arg, (dt, i) => dt.AddMinutes(i));
+        return ParseXX(now, arg, (dt, i) => dt.AddMinutes(i));
     }
 
-    private DateTime? ParseXX(Match match, Func<DateTime, int, DateTime> fn)
+    private DateTime? ParseXX(DateTime now, Match match, Func<DateTime, int, DateTime> fn)
     {
-        return FromNow(dt => fn(dt, ParseNumberString(match.Groups[1].Value)));
+        return FromNow(now, dt => fn(dt, ParseNumberString(match.Groups[1].Value)));
     }
 
     private int ParseNumberString(string value)
@@ -69,14 +70,14 @@ public class DateTimeStringParser : IDateTimeStringParser
         return int.Parse(value);
     }
 
-    private DateTime FromNow(Func<DateTime, DateTime> fn)
+    private DateTime FromNow(DateTime now, Func<DateTime, DateTime> fn)
     {
-        return fn(_dateTimeProvider.GetCurrentTime());
+        return fn(now);
     }
 
-    private DateTime? ParseTomorrow(Match match)
+    private DateTime? ParseTomorrow(DateTime now, Match match)
     {
-        return match.Groups[1].Success ? (DateTime?)null : FromNow(dt => dt.AddDays(1));
+        return match.Groups[1].Success ? (DateTime?)null : FromNow(now, dt => dt.AddDays(1));
     }
 
     #endregion
@@ -84,7 +85,7 @@ public class DateTimeStringParser : IDateTimeStringParser
     #region Exposed Methods
 
     /// <inheritdoc cref="IDateTimeStringParser.TryParse"/>
-    public bool TryParse(string input, out DateTime? result)
+    public bool TryParse(DateTime now, string input, out DateTime? result)
     {
         var matching = _parseDictionary.Keys.Where(k => k.IsMatch(input));
 
@@ -96,7 +97,7 @@ public class DateTimeStringParser : IDateTimeStringParser
 
         var rgx = matching.First();
         var match = rgx.Match(input);
-        result = _parseDictionary[rgx](match);
+        result = _parseDictionary[rgx](now, match);
         return true;
     }
 
