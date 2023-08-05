@@ -10,8 +10,8 @@ namespace DammitBot.Abstract;
 /// <inheritdoc cref="IMessageHandlerTypeService{TMessageHandler,TMessageEventArgs}"/>
 /// <remarks>
 /// This implementation uses a <see cref="IAssemblyService"/> to gather all available assemblies to find
-/// types from, and a <see cref="TAttributeComparer"/> to filter those types based on the text of a given
-/// message. 
+/// types from, and a <typeparamref name="TAttributeComparer"/> to filter those types based on the text of
+/// a given message. 
 /// </remarks>
 public abstract class MessageHandlerTypeServiceBase<
         TMessageAttribute,

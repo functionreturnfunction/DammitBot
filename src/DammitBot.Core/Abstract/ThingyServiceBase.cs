@@ -26,7 +26,7 @@ public abstract class ThingyServiceBase<TThingy>
     #region Properties
 
     /// <summary>
-    /// Instances of all available concrete implementations of <see cref="TThingy"/>.
+    /// Instances of all available concrete implementations of <typeparamref name="TThingy"/>.
     /// </summary>
     public IEnumerable<TThingy> Thingies => _thingies ??= GetThingies();
     

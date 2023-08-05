@@ -9,11 +9,11 @@ namespace DammitBot.Configuration;
 public static class IConfigurationSectionExtensions
 {
     /// <summary>
-    /// Get the config value with the specified <see cref="key"/> from the
+    /// Get the config value with the specified <paramref name="key"/> from the
     /// <see cref="IConfigurationSection"/>.
     /// </summary>
     /// <exception cref="ConfigurationErrorsException">
-    /// Thrown when the specified <see cref="key"/> is not found.
+    /// Thrown when the specified <paramref name="key"/> is not found.
     /// </exception>
     public static string EnsureConfigValue(this IConfigurationSection config, string key)
     {
