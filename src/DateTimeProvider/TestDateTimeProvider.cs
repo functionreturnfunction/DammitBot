@@ -1,7 +1,4 @@
-﻿using System;
-using DammitBot.Utilities;
-
-namespace DateTimeStringParser;
+﻿namespace DateTimeProvider;
 
 /// <inheritdoc cref="IDateTimeProvider"/>
 /// <remarks>

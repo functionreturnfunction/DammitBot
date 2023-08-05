@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DammitBot.Utilities;
+﻿namespace DateTimeProvider;
 
 /// <summary>
 /// Provides the current <see cref="DateTime"/>.

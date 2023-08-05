@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Library;
 using DammitBot.Metadata;
-using DammitBot.Utilities;
-using DateTimeStringParser;
+using DateTimeProvider;
 using Microsoft.Extensions.Logging;
 using Quartz;
 

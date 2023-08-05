@@ -1,5 +1,6 @@
 ﻿using System;
 using DammitBot.Library;
+using DateTimeProvider;
 using Xunit;
 
 namespace DammitBot.Tests.DateTimeStringParser;
@@ -61,9 +62,7 @@ public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParse
     [InlineData("at 12", 12, 00)]
     public void TestAtXDoesThatThing(string input, int hour, int minute)
     {
-        TestTryParse(
-            input,
-            global::DateTimeStringParser.DateTimeExtensions.GetNext(_now, hour, minute));
+        TestTryParse(input, _now.GetNext(hour, minute));
     }
 
     #endregion

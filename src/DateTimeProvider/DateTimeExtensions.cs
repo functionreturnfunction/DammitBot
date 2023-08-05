@@ -1,6 +1,4 @@
-using System;
-
-namespace DammitBot.Utilities;
+namespace DateTimeProvider;
 
 /// <summary>
 /// Extensions of the <see cref="DateTime"/> class.

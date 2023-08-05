@@ -1,5 +1,5 @@
 ﻿using System;
-using DateTimeStringParser;
+using DateTimeProvider;
 using Xunit;
 
 namespace DammitBot.Tests.Utilities;

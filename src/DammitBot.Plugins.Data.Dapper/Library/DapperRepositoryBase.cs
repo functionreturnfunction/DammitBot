@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using DammitBot.Utilities;
-using DateTimeStringParser;
+using DateTimeProvider;
 
 namespace DammitBot.Library;
 

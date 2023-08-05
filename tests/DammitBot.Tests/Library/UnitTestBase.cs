@@ -1,7 +1,6 @@
 ﻿using System;
 using DammitBot.Configuration;
-using DammitBot.Utilities;
-using DateTimeStringParser;
+using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

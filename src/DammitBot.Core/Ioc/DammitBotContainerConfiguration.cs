@@ -2,7 +2,7 @@
 using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Utilities;
-using DateTimeStringParser;
+using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.Configuration;
 
