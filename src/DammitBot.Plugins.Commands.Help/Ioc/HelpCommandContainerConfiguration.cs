@@ -10,7 +10,7 @@ public class HelpCommandContainerConfiguration : ContainerConfigurationBase
 
     public override void Configure(ServiceRegistry e)
     {
-        e.For<ICommandHandlerRepository>().Use<UnknownCommandHandlerAwareCommandHandlerRepository>();
+        e.For<ICommandHandlerService>().Use<UnknownCommandHandlerAwareCommandHandlerService>();
     }
 
     #endregion

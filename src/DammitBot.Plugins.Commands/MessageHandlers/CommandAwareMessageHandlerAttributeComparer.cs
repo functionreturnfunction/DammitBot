@@ -5,7 +5,7 @@ using DammitBot.Metadata;
 
 namespace DammitBot.MessageHandlers;
 
-public class CommandAwareMessageHandlerAttributeService : MessageHandlerAttributeService
+public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttributeComparer
 {
     #region Private Members
 
@@ -15,7 +15,7 @@ public class CommandAwareMessageHandlerAttributeService : MessageHandlerAttribut
 
     #region Constructors
 
-    public CommandAwareMessageHandlerAttributeService(IConfigurationManager configurationManager)
+    public CommandAwareMessageHandlerAttributeComparer(IConfigurationManager configurationManager)
     {
         _botConfig = configurationManager.BotConfig;
     }

@@ -7,32 +7,32 @@ using DammitBot.Utilities;
 
 namespace DammitBot.Abstract;
 
-public abstract class MessageHandlerRepositoryBase<
+public abstract class MessageHandlerServiceBase<
         TMessageAttribute,
         TAttributeService,
         TEventArgs,
         TMessageHandler>
-    : IMessageHandlerRepository<TMessageHandler, TEventArgs>
+    : IMessageHandlerService<TMessageHandler, TEventArgs>
     where TMessageAttribute : Attribute, IHandlesMessageAttribute
-    where TAttributeService : IMessageHandlerAttributeService<TMessageAttribute>
+    where TAttributeService : IMessageHandlerAttributeComparer<TMessageAttribute>
     where TEventArgs : MessageEventArgs
     where TMessageHandler : IMessageHandler<TEventArgs>
 {
     #region Private Members
 
     private readonly IAssemblyService _assemblyService;
-    private readonly TAttributeService _attributeService;
+    private readonly TAttributeService _attributeComparer;
 
     #endregion
 
     #region Constructors
 
-    protected MessageHandlerRepositoryBase(
+    protected MessageHandlerServiceBase(
         IAssemblyService assemblyService,
-        TAttributeService attributeService)
+        TAttributeService attributeComparer)
     {
         _assemblyService = assemblyService;
-        _attributeService = attributeService;
+        _attributeComparer = attributeComparer;
     }
 
     #endregion
@@ -72,7 +72,7 @@ public abstract class MessageHandlerRepositoryBase<
         
         foreach (var type in GetTypes())
         {
-            if (_attributeService.MessageMatches(messageText, type))
+            if (_attributeComparer.MessageMatches(messageText, type))
             {
                 yield return type;
             }

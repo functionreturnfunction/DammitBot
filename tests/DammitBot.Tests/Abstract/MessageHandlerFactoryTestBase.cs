@@ -8,18 +8,18 @@ namespace DammitBot.Abstract;
 
 public abstract class MessageHandlerFactoryTestBase<
         TMessageHandlerFactory,
-        TMessageHandlerRepository,
+        TMessageHandlerService,
         TMessageHandler,
         TEventArgs>
     : CrazyMessageHandlerThingyTestBase<TMessageHandlerFactory, TMessageHandler, TEventArgs>
     where TMessageHandlerFactory : IMessageHandlerFactory<TMessageHandler, TEventArgs>
-    where TMessageHandlerRepository : class, IMessageHandlerRepository<TMessageHandler, TEventArgs>
+    where TMessageHandlerService : class, IMessageHandlerService<TMessageHandler, TEventArgs>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
     where TEventArgs : MessageEventArgs
 {
     #region Private Members
 
-    protected Mock<TMessageHandlerRepository>? _repository;
+    protected Mock<TMessageHandlerService>? _handlerService;
 
     #endregion
 
@@ -29,7 +29,7 @@ public abstract class MessageHandlerFactoryTestBase<
     {
         base.ConfigureContainer(serviceRegistry);
 
-        _repository = serviceRegistry.For<TMessageHandlerRepository>().Mock();
+        _handlerService = serviceRegistry.For<TMessageHandlerService>().Mock();
     }
 
     protected override void TestMethod(TEventArgs args)
@@ -41,14 +41,14 @@ public abstract class MessageHandlerFactoryTestBase<
                 $"have happened in {nameof(ConfigureContainer)}()...");
         }
 
-        if (_repository == null)
+        if (_handlerService == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(_repository)} has not yet been initialized, which should have" +
+                $"{nameof(_handlerService)} has not yet been initialized, which should have" +
                 $"happened in {nameof(ConfigureContainer)}()...");
         }
 
-        _repository.Setup(r => r.GetMatchingHandlers(args))
+        _handlerService.Setup(r => r.GetMatchingHandlers(args))
             .Returns(_handlers);
 
         _target.BuildHandler(args).Handle(args);

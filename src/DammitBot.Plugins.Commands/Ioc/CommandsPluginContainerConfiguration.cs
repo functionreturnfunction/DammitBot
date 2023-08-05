@@ -10,7 +10,7 @@ public class CommandsPluginContainerConfiguration : ContainerConfigurationBase
 
     public override void Configure(ServiceRegistry e)
     {
-        e.For<IMessageHandlerAttributeService>().Use<CommandAwareMessageHandlerAttributeService>();
+        e.For<IMessageHandlerAttributeComparer>().Use<CommandAwareMessageHandlerAttributeComparer>();
     }
 
     #endregion

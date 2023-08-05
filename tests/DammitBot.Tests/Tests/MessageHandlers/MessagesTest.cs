@@ -34,8 +34,8 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
         });
         
         serviceRegistry.For<IBot>().Use<Bot>().Singleton();
-        serviceRegistry.For<IMessageHandlerAttributeService>()
-                .Use<CommandAwareMessageHandlerAttributeService>();
+        serviceRegistry.For<IMessageHandlerAttributeComparer>()
+                .Use<CommandAwareMessageHandlerAttributeComparer>();
         serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
 
         _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();

@@ -9,7 +9,7 @@ namespace DammitBot.Tests.CommandHandlers;
 public class CommandHandlerFactoryTest
     : MessageHandlerFactoryTestBase<
         CommandHandlerFactory,
-        ICommandHandlerRepository,
+        ICommandHandlerService,
         ICommandHandler,
         CommandEventArgs>
 {

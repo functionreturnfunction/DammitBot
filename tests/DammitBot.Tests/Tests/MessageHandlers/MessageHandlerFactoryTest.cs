@@ -8,7 +8,7 @@ namespace DammitBot.Tests.MessageHandlers;
 public class MessageHandlerFactoryTest
     : MessageHandlerFactoryTestBase<
         MessageHandlerFactory,
-        IMessageHandlerRepository,
+        IMessageHandlerService,
         IMessageHandler,
         MessageEventArgs>
 {

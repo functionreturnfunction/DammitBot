@@ -7,7 +7,7 @@ namespace DammitBot.MessageHandlers;
 
 public class MessageHandlerFactory
     : MessageHandlerFactoryBase<
-            IMessageHandlerRepository,
+            IMessageHandlerService,
             MessageEventArgs,
             IMessageHandler,
             CompositeMessageHandler>,
@@ -16,9 +16,9 @@ public class MessageHandlerFactory
     #region Constructors
 
     public MessageHandlerFactory(
-        IMessageHandlerRepository repository,
+        IMessageHandlerService handlerService,
         IInstantiationService instantiationService)
-        : base(repository, instantiationService) {}
+        : base(handlerService, instantiationService) {}
 
     #endregion
 

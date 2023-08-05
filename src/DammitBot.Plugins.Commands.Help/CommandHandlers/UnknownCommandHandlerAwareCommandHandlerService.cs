@@ -9,15 +9,15 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
-public class UnknownCommandHandlerAwareCommandHandlerRepository : CommandHandlerRepository
+public class UnknownCommandHandlerAwareCommandHandlerService : CommandHandlerService
 {
     #region Constructors
 
-    public UnknownCommandHandlerAwareCommandHandlerRepository(
+    public UnknownCommandHandlerAwareCommandHandlerService(
         IAssemblyService assemblyService,
-        MessageHandlerAttributeServiceBase<HandlesCommandAttribute> attributeService,
+        MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
         IConfigurationManager configurationManager)
-        : base(assemblyService, attributeService, configurationManager) {}
+        : base(assemblyService, attributeComparer, configurationManager) {}
 
     #endregion
 

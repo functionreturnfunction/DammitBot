@@ -16,9 +16,9 @@ public class CommandsPluginContainerConfigurationTest : InMemoryDatabaseUnitTest
     }
 
     [Fact]
-    public void TestConfigureSetsUpMessageHandlerAttributeService()
+    public void TestConfigureSetsUpMessageHandlerAttributeComparer()
     {
-        Assert.IsType<CommandAwareMessageHandlerAttributeService>(
-            _target.GetInstance<IMessageHandlerAttributeService>());
+        Assert.IsType<CommandAwareMessageHandlerAttributeComparer>(
+            _target.GetInstance<IMessageHandlerAttributeComparer>());
     }
 }
