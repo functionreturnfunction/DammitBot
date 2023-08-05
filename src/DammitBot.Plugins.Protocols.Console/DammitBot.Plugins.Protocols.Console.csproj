@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>DammitBot</RootNamespace>
         <LangVersion>default</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
