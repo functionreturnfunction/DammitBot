@@ -7,16 +7,20 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract;
 
-public abstract class MessageHandlerFactoryBase<TMessageHandlerService, TEventArgs, THandler, TComposite>
+public abstract class MessageHandlerFactoryBase<
+        TMessageHandlerTypeService,
+        TEventArgs,
+        THandler,
+        TComposite>
     : IMessageHandlerFactory<THandler, TEventArgs>
-    where TMessageHandlerService : IMessageHandlerService<THandler, TEventArgs>
+    where TMessageHandlerTypeService : IMessageHandlerTypeService<THandler, TEventArgs>
     where TEventArgs : MessageEventArgs
     where THandler : IMessageHandler<TEventArgs>
     where TComposite : CompositeMessageHandlerBase<THandler, TEventArgs>, THandler
 {
     #region Private Members
 
-    private readonly TMessageHandlerService _handlerService;
+    private readonly TMessageHandlerTypeService _handlerTypeService;
     private readonly IInstantiationService _instantiationService;
 
     #endregion
@@ -24,10 +28,10 @@ public abstract class MessageHandlerFactoryBase<TMessageHandlerService, TEventAr
     #region Constructors
 
     protected MessageHandlerFactoryBase(
-        TMessageHandlerService handlerService,
+        TMessageHandlerTypeService handlerTypeService,
         IInstantiationService instantiationService)
     {
-        _handlerService = handlerService;
+        _handlerTypeService = handlerTypeService;
         _instantiationService = instantiationService;
     }
 
@@ -54,7 +58,7 @@ public abstract class MessageHandlerFactoryBase<TMessageHandlerService, TEventAr
     public THandler BuildHandler(TEventArgs message)
     {
         return CreateCompositeHandler(
-            InstantiateAll(_handlerService.GetMatchingHandlers(message)));
+            InstantiateAll(_handlerTypeService.GetMatchingHandlers(message)));
     }
 
     #endregion

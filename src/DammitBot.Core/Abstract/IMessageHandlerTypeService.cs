@@ -8,7 +8,7 @@ namespace DammitBot.Abstract;
 /// Service which provides inheriting/implementing types of <typeparamref name="TMessageHandler"/> which
 /// can handle messages represented by <typeparamref name="TEventArgs"/>.
 /// </summary>
-public interface IMessageHandlerService<out TMessageHandler, in TEventArgs>
+public interface IMessageHandlerTypeService<out TMessageHandler, in TEventArgs>
     where TMessageHandler : IMessageHandler<TEventArgs>
     where TEventArgs : MessageEventArgs
 {

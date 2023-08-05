@@ -7,13 +7,13 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
-public class CommandHandlerService
-    : MessageHandlerServiceBase<
+public class CommandHandlerTypeService
+    : MessageHandlerTypeServiceBase<
             HandlesCommandAttribute,
             MessageHandlerAttributeComparerBase<HandlesCommandAttribute>,
             CommandEventArgs,
             ICommandHandler>,
-        ICommandHandlerService
+        ICommandHandlerTypeService
 {
     #region Private Members
 
@@ -23,7 +23,7 @@ public class CommandHandlerService
 
     #region Constructors
 
-    public CommandHandlerService(IAssemblyService assemblyService,
+    public CommandHandlerTypeService(IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
         IConfigurationManager configurationManager) : base(assemblyService, attributeComparer)
     {

@@ -8,18 +8,18 @@ namespace DammitBot.Abstract;
 
 public abstract class MessageHandlerFactoryTestBase<
         TMessageHandlerFactory,
-        TMessageHandlerService,
+        TMessageHandlerTypeService,
         TMessageHandler,
         TEventArgs>
     : CrazyMessageHandlerThingyTestBase<TMessageHandlerFactory, TMessageHandler, TEventArgs>
     where TMessageHandlerFactory : IMessageHandlerFactory<TMessageHandler, TEventArgs>
-    where TMessageHandlerService : class, IMessageHandlerService<TMessageHandler, TEventArgs>
+    where TMessageHandlerTypeService : class, IMessageHandlerTypeService<TMessageHandler, TEventArgs>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
     where TEventArgs : MessageEventArgs
 {
     #region Private Members
 
-    protected Mock<TMessageHandlerService>? _handlerService;
+    protected Mock<TMessageHandlerTypeService>? _handlerTypeService;
 
     #endregion
 
@@ -29,7 +29,7 @@ public abstract class MessageHandlerFactoryTestBase<
     {
         base.ConfigureContainer(serviceRegistry);
 
-        _handlerService = serviceRegistry.For<TMessageHandlerService>().Mock();
+        _handlerTypeService = serviceRegistry.For<TMessageHandlerTypeService>().Mock();
     }
 
     protected override void TestMethod(TEventArgs args)
@@ -41,14 +41,14 @@ public abstract class MessageHandlerFactoryTestBase<
                 $"have happened in {nameof(ConfigureContainer)}()...");
         }
 
-        if (_handlerService == null)
+        if (_handlerTypeService == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(_handlerService)} has not yet been initialized, which should have" +
+                $"{nameof(_handlerTypeService)} has not yet been initialized, which should have" +
                 $"happened in {nameof(ConfigureContainer)}()...");
         }
 
-        _handlerService.Setup(r => r.GetMatchingHandlers(args))
+        _handlerTypeService.Setup(r => r.GetMatchingHandlers(args))
             .Returns(_handlers);
 
         _target.BuildHandler(args).Handle(args);

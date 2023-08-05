@@ -7,7 +7,7 @@ namespace DammitBot.CommandHandlers;
 
 public class CommandHandlerFactory
     : MessageHandlerFactoryBase<
-            ICommandHandlerService,
+            ICommandHandlerTypeService,
             CommandEventArgs,
             ICommandHandler,
             CompositeCommandHandler>,
@@ -16,9 +16,9 @@ public class CommandHandlerFactory
     #region Constructors
 
     public CommandHandlerFactory(
-        ICommandHandlerService handlerService,
+        ICommandHandlerTypeService handlerTypeService,
         IInstantiationService instantiationService)
-        : base(handlerService, instantiationService) {}
+        : base(handlerTypeService, instantiationService) {}
 
     #endregion
 

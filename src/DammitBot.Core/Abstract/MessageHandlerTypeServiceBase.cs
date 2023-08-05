@@ -7,12 +7,12 @@ using DammitBot.Utilities;
 
 namespace DammitBot.Abstract;
 
-public abstract class MessageHandlerServiceBase<
+public abstract class MessageHandlerTypeServiceBase<
         TMessageAttribute,
         TAttributeService,
         TEventArgs,
         TMessageHandler>
-    : IMessageHandlerService<TMessageHandler, TEventArgs>
+    : IMessageHandlerTypeService<TMessageHandler, TEventArgs>
     where TMessageAttribute : Attribute, IHandlesMessageAttribute
     where TAttributeService : IMessageHandlerAttributeComparer<TMessageAttribute>
     where TEventArgs : MessageEventArgs
@@ -27,7 +27,7 @@ public abstract class MessageHandlerServiceBase<
 
     #region Constructors
 
-    protected MessageHandlerServiceBase(
+    protected MessageHandlerTypeServiceBase(
         IAssemblyService assemblyService,
         TAttributeService attributeComparer)
     {

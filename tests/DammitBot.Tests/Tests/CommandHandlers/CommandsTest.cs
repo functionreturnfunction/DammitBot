@@ -38,8 +38,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     {
         base.ConfigureContainer(serviceRegistry);
 
-        serviceRegistry.For<ICommandHandlerService>()
-            .Use<UnknownCommandHandlerAwareCommandHandlerService>();
+        serviceRegistry.For<ICommandHandlerTypeService>()
+            .Use<UnknownCommandHandlerTypeAwareCommandHandlerTypeService>();
 
         _bot = serviceRegistry.For<IBot>().Mock();
         _configurationManager = serviceRegistry.For<IConfigurationManager>().Mock();

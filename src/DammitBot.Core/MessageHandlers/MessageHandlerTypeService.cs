@@ -5,17 +5,17 @@ using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers;
 
-public class MessageHandlerService
-    : MessageHandlerServiceBase<
+public class MessageHandlerTypeService
+    : MessageHandlerTypeServiceBase<
             HandlesMessageAttribute,
             IMessageHandlerAttributeComparer,
             MessageEventArgs,
             IMessageHandler>,
-        IMessageHandlerService
+        IMessageHandlerTypeService
 {
     #region Constructors
 
-    public MessageHandlerService(
+    public MessageHandlerTypeService(
         IAssemblyService assemblyService,
         IMessageHandlerAttributeComparer attributeComparer)
         : base(assemblyService, attributeComparer) {}

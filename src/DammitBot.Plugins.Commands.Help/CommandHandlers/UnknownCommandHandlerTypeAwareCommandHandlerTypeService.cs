@@ -9,11 +9,11 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
-public class UnknownCommandHandlerAwareCommandHandlerService : CommandHandlerService
+public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHandlerTypeService
 {
     #region Constructors
 
-    public UnknownCommandHandlerAwareCommandHandlerService(
+    public UnknownCommandHandlerTypeAwareCommandHandlerTypeService(
         IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
         IConfigurationManager configurationManager)
