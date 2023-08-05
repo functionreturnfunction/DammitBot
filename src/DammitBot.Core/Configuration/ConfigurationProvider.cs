@@ -17,7 +17,7 @@ public class ConfigurationProvider : IConfigurationProvider
     /// <see cref="IConfigurationRoot"/> from which specific <see cref="IConfigurationSection"/>s can be
     /// provided.
     /// </summary>
-    protected IConfigurationRoot Configuration => _builder.Build();
+    public IConfigurationRoot Configuration => _builder.Build();
     
     #endregion
     
@@ -34,7 +34,9 @@ public class ConfigurationProvider : IConfigurationProvider
     /// <summary>
     /// Constructor for the <see cref="ConfigurationProvider"/> class.
     /// </summary>
-    protected ConfigurationProvider(IConfigurationBuilder builder, ISettingsPathProvider settingsPathProvider)
+    // needs to be public for Lamar
+    // ReSharper disable once MemberCanBeProtected.Global
+    public ConfigurationProvider(IConfigurationBuilder builder, ISettingsPathProvider settingsPathProvider)
     {
         _builder = builder.AddJsonFile(settingsPathProvider.SettingsPath);
     }

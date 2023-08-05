@@ -22,13 +22,25 @@ public interface IProtocolService : IPluginThingy
     
     #region Abstract Events
 
+    /// <summary>
+    /// Event fired when a message comes in from a particular channel via a particular protocol.
+    /// </summary>
     event EventHandler<MessageEventArgs> ChannelMessageReceived;
     
     #endregion
     
     #region Abstract Methods
     
+    /// <summary>
+    /// Send the provided <paramref name="message"/> via all available/connected protocols to all
+    /// configured/available channels.
+    /// </summary>
     void SayToAll(string message);
+    
+    /// <summary>
+    /// Send the provided <paramref name="message"/> via the specified <paramref name="protocol"/> to the
+    /// specified <paramref name="channel"/>.
+    /// </summary>
     void SayToChannel(string protocol, string channel, string message);
     
     #endregion

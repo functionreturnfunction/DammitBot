@@ -27,14 +27,6 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     }
 
     [Fact]
-    public void TestDisposeDisposesContainer()
-    {
-        _target.Dispose();
-
-        _mockContainer!.Verify(x => x.Dispose());
-    }
-
-    [Fact]
     public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
     {
         var now = DateTime.Now;

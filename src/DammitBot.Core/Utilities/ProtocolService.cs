@@ -6,10 +6,14 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Utilities;
 
+/// <inheritdoc cref="IProtocolService"/>
 public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolService
 {
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="ProtocolService"/> class.
+    /// </summary>
     public ProtocolService(
         IAssemblyService assemblyService,
         IInstantiationService instantiationService)
@@ -19,6 +23,7 @@ public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolServ
 
     #region Events/Delegates
 
+    /// <inheritdoc cref="IProtocolService.ChannelMessageReceived"/>
     public event EventHandler<MessageEventArgs> ChannelMessageReceived
     {
         add
@@ -41,6 +46,7 @@ public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolServ
 
     #region Exposed Methods
 
+    /// <inheritdoc cref="IProtocolService.SayToAll"/>
     public void SayToAll(string message)
     {
         foreach (var protocol in Thingies)
@@ -49,10 +55,11 @@ public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolServ
         }
     }
 
-    #endregion
-
+    /// <inheritdoc cref="IProtocolService.SayToChannel"/>
     public void SayToChannel(string protocol, string channel, string message)
     {
         Thingies.Single(x => x.Name == protocol).SayToChannel(channel, message);
     }
+
+    #endregion
 }

@@ -22,7 +22,6 @@ public interface IProtocol : IPluginThingy
     /// Send the provided <paramref name="message"/> via this protocol to all configured/available
     /// channels.
     /// </summary>
-    /// <param name="message"></param>
     void SayToAll(string message);
     /// <summary>
     /// Send the provided <paramref name="message"/> via this protocol to the specified

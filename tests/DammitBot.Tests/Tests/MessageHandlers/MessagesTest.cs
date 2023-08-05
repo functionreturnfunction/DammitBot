@@ -46,18 +46,8 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
     #endregion
 
-    #region Exposed Methods
-
-    #region Setup/Teardown
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        _target.Dispose();
-    }
-
-    #endregion
-
+    #region Constructors
+    
     public MessagesTest()
     {
         WithUnitOfWork(uow => {
@@ -67,6 +57,10 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
             uow.Commit();
         });
     }
+    
+    #endregion
+
+    #region Tests
 
     [Fact]
     public void TestAnyMessageIsLogged()
@@ -137,7 +131,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
     #region Nested Type: MessageTester
 
-    public class MessageTester : IDisposable
+    public class MessageTester
     {
         #region Private Members
 
@@ -168,11 +162,6 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
                 x => x.ChannelMessageReceived += null,
                 null,
                 args);
-        }
-
-        public void Dispose()
-        {
-            _instantiationService.Dispose();
         }
 
         #endregion

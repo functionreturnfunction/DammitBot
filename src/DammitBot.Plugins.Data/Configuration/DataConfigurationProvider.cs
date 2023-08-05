@@ -2,7 +2,7 @@
 
 namespace DammitBot.Configuration;
 
-public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurationManager
+public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurationProvider
 {
     public DataConfigurationProvider(
         IConfigurationBuilder builder,

@@ -1,6 +1,6 @@
 ﻿namespace DammitBot.Configuration;
 
-public interface IDataConfigurationManager
+public interface IDataConfigurationProvider : IConfigurationProvider
 {
     string ConnectionString { get; }
 }
