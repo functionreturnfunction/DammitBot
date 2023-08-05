@@ -13,12 +13,18 @@ namespace DammitBot.Abstract;
 /// </remarks>
 public interface IPluginThingy
 {
+    #region Abstract Properties
+
     /// <summary>
     /// If set to true, the plugin will be initialized immediately rather than waiting for all other
     /// plugins to be gathered and instantiated first.  This is useful for things like migration
     /// runners which need to create state (set things up) which will be utilized by other plugins.
     /// </summary>
     bool Priority => false;
+    
+    #endregion
+
+    #region Abstract Methods
 
     /// <summary>
     /// Perform any initialization tasks such as creating directories/files or connecting to external
@@ -31,4 +37,6 @@ public interface IPluginThingy
     /// <see cref="IDisposable"/>s.
     /// </summary>
     void Cleanup();
+    
+    #endregion
 }

@@ -22,11 +22,15 @@ public abstract class ThingyServiceBase<TThingy>
     private IEnumerable<TThingy>? _thingies;
 
     #endregion
+    
+    #region Properties
 
     /// <summary>
     /// Instances of all available concrete implementations of <see cref="TThingy"/>.
     /// </summary>
     public IEnumerable<TThingy> Thingies => _thingies ??= GetThingies();
+    
+    #endregion
 
     #region Constructors
 
