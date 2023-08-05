@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace DammitBot.Utilities;
 
+/// <inheritdoc cref="IAssemblyService"/>
 public class AssemblyService : IAssemblyService
 {
     #region Private Members
@@ -16,6 +17,7 @@ public class AssemblyService : IAssemblyService
 
     #region Properties
 
+    /// <inheritdoc cref="IAssemblyService.MainAssembly"/>
     public Assembly MainAssembly => _mainAssembly ??= typeof(IBot).Assembly;
 
     #endregion
@@ -43,6 +45,7 @@ public class AssemblyService : IAssemblyService
 
     #region Exposed Methods
 
+    /// <inheritdoc cref="IAssemblyService.GetAllAssemblies"/>
     public IEnumerable<Assembly> GetAllAssemblies()
     {
         yield return MainAssembly;
@@ -53,6 +56,7 @@ public class AssemblyService : IAssemblyService
         }
     }
 
+    /// <inheritdoc cref="IAssemblyService.GetPluginAssemblies"/>
     public IEnumerable<Assembly> GetPluginAssemblies()
     {
         return _pluginAssemblies ??= InnerGetPluginAssemblies().ToList();
