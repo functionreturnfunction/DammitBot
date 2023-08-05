@@ -2,7 +2,7 @@
 
 namespace DammitBot.Events;
 
-public class MessageEventArgs
+public class MessageEventArgs : EventArgs
 {
     public MessageEventArgs(string message, string channel, string protocol, string user)
     {
