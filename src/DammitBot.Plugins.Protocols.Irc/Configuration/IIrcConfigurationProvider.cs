@@ -1,6 +1,6 @@
 ﻿namespace DammitBot.Configuration;
 
-public interface IIrcConfigurationManager : IConfigurationManager
+public interface IIrcConfigurationProvider : IConfigurationProvider
 {
     #region Abstract Properties
 

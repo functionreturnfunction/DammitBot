@@ -23,9 +23,11 @@ public class IrcClientWrapper : IIrcClient
 
     #region Constructors
 
-    public IrcClientWrapper(IIrcConfigurationManager manager, ILogger<IrcClientWrapper> log)
+    public IrcClientWrapper(
+        IIrcConfigurationProvider configurationProvider,
+        ILogger<IrcClientWrapper> log)
     {
-        _config = manager.IrcConfigurationSection;
+        _config = configurationProvider.IrcConfigurationSection;
         _log = log;
         _innerClient = new StandardIrcClient();
         _innerClient.FloodPreventer = new IrcStandardFloodPreventer(4, 2000);

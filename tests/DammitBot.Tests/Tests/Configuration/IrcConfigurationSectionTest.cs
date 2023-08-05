@@ -4,7 +4,7 @@ using Xunit;
 
 namespace DammitBot.Tests.Configuration;
 
-public class IrcConfigurationSectionTest : UnitTestBase<IrcConfigurationManager>
+public class IrcConfigurationSectionTest : UnitTestBase<IrcConfigurationProvider>
 {
     [Fact]
     public void TestValuesAreSetProperlyByConfigFile()

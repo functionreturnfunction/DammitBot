@@ -27,11 +27,11 @@ public class Irc : IIrc
 
     public Irc(
         IIrcClientFactory ircClientFactory,
-        IIrcConfigurationManager configurationManager,
+        IIrcConfigurationProvider configurationProvider,
         ILogger<Irc> log)
     {
         _ircClientFactory = ircClientFactory;
-        _config = configurationManager.IrcConfigurationSection;
+        _config = configurationProvider.IrcConfigurationSection;
         _log = log;
     }
 

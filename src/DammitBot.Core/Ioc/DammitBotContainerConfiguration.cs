@@ -8,10 +8,38 @@ using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Ioc;
 
+/// <inheritdoc cref="ContainerConfigurationBase"/>
+/// <remarks>
+/// This implementation configures types at the top/core level, used by the bot itself and the
+/// plugin/configuration architecture.
+/// </remarks>
 public class DammitBotContainerConfiguration : ContainerConfigurationBase
 {
     #region Private Methods
 
+    private static IAssemblyService InitializePluginConfigurations(ServiceRegistry e)
+    {
+        var assemblyService = new AssemblyService();
+
+        foreach (
+            var type in
+            assemblyService.GetPluginAssemblies()
+                .GetTypes()
+                .Where(t => !t.IsAbstract &&
+                            t.IsSubclassOf(typeof(ContainerConfigurationBase))))
+        {
+            ((ContainerConfigurationBase)Activator.CreateInstance(type)!).Configure(e);
+        }
+
+        return assemblyService;
+    }
+
+    #endregion
+    
+    #region Exposed Methods
+    
+    /// <inheritdoc cref="ContainerConfigurationBase.Configure"/>
+    /// <inheritdoc cref="DammitBotContainerConfiguration" path="Remarks"/>
     public override void Configure(ServiceRegistry e)
     {
         e.Scan(s => {
@@ -31,23 +59,6 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 
         e.For<IDateTimeProvider>().Use<SystemClockDateTimeProvider>();
     }
-
-    private static IAssemblyService InitializePluginConfigurations(ServiceRegistry e)
-    {
-        var assemblyService = new AssemblyService();
-
-        foreach (
-            var type in
-            assemblyService.GetPluginAssemblies()
-                .GetTypes()
-                .Where(t => !t.IsAbstract &&
-                            t.IsSubclassOf(typeof(ContainerConfigurationBase))))
-        {
-            ((ContainerConfigurationBase)Activator.CreateInstance(type)!).Configure(e);
-        }
-
-        return assemblyService;
-    }
-
+    
     #endregion
 }

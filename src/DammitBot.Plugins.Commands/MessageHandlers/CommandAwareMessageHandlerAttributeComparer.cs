@@ -15,9 +15,9 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
 
     #region Constructors
 
-    public CommandAwareMessageHandlerAttributeComparer(IConfigurationManager configurationManager)
+    public CommandAwareMessageHandlerAttributeComparer(IConfigurationProvider configurationProvider)
     {
-        _botConfig = configurationManager.BotConfig;
+        _botConfig = configurationProvider.BotConfig;
     }
 
     #endregion

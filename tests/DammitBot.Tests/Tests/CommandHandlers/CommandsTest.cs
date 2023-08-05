@@ -16,7 +16,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region Private Members
 
     private Mock<IBot> _bot;
-    private Mock<IConfigurationManager> _configurationManager;
+    private Mock<IConfigurationProvider> _configurationManager;
 
     #endregion
 
@@ -42,7 +42,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
             .Use<UnknownCommandHandlerTypeAwareCommandHandlerTypeService>();
 
         _bot = serviceRegistry.For<IBot>().Mock();
-        _configurationManager = serviceRegistry.For<IConfigurationManager>().Mock();
+        _configurationManager = serviceRegistry.For<IConfigurationProvider>().Mock();
 
         _configurationManager
             .Setup(x => x.BotConfig.GoesBy)

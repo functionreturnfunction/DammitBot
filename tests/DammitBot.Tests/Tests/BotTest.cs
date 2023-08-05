@@ -27,7 +27,7 @@ public class BotTest : UnitTestBase<Bot>
     {
         base.ConfigureContainer(serviceRegistry);
         _config = new Mock<IBotConfigurationSection>();
-        var manager = serviceRegistry.For<IConfigurationManager>().Mock();
+        var manager = serviceRegistry.For<IConfigurationProvider>().Mock();
         manager.SetupGet(x => x.BotConfig).Returns(_config.Object);
         _handlerFactory = serviceRegistry.For<IMessageHandlerFactory>().Mock();
         _pluginService = serviceRegistry.For<IPluginService>().Mock();

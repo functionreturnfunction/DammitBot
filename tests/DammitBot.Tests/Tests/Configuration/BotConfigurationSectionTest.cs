@@ -1,10 +1,10 @@
-﻿using DammitBot.Library;
+﻿using DammitBot.Configuration;
+using DammitBot.Library;
 using Xunit;
-using ConfigurationManager = DammitBot.Configuration.ConfigurationManager;
 
 namespace DammitBot.Tests.Configuration;
 
-public class BotConfigurationSectionTest : UnitTestBase<ConfigurationManager>
+public class BotConfigurationSectionTest : UnitTestBase<ConfigurationProvider>
 {
     [Fact]
     public void TestValuesAreSetProperlyByConfigFile()

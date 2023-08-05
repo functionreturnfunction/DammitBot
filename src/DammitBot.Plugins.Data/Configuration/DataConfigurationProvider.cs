@@ -2,12 +2,12 @@
 
 namespace DammitBot.Configuration;
 
-public class DataConfigurationManager : ConfigurationManager, IDataConfigurationManager
+public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurationManager
 {
-    public DataConfigurationManager(
+    public DataConfigurationProvider(
         IConfigurationBuilder builder,
-        ISettingsPathHelper settingsPathHelper)
-        : base(builder, settingsPathHelper) {}
+        ISettingsPathProvider settingsPathProvider)
+        : base(builder, settingsPathProvider) {}
 
     #region Properties
 

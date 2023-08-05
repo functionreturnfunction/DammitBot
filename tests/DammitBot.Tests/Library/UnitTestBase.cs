@@ -35,7 +35,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
         });
         
         serviceRegistry.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
-        serviceRegistry.For<ISettingsPathHelper>().Use<TestSettingsPathHelper>();
+        serviceRegistry.For<ISettingsPathProvider>().Use<TestSettingsPathProvider>();
 
         _log = serviceRegistry.For<ILogger<TTarget>>().Mock();
         _dateTimeProvider = serviceRegistry

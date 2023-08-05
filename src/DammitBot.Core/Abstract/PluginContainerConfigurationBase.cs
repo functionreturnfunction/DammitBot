@@ -3,7 +3,7 @@
 namespace DammitBot.Abstract;
 
 /// <summary>
-/// Base class for configuring Lamar from within plugins.
+/// Class for configuring Lamar type registrations.
 /// </summary>
 public abstract class ContainerConfigurationBase
 {

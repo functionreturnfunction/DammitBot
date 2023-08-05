@@ -16,8 +16,8 @@ public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHa
     public UnknownCommandHandlerTypeAwareCommandHandlerTypeService(
         IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
-        IConfigurationManager configurationManager)
-        : base(assemblyService, attributeComparer, configurationManager) {}
+        IConfigurationProvider configurationProvider)
+        : base(assemblyService, attributeComparer, configurationProvider) {}
 
     #endregion
 

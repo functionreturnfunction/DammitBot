@@ -25,9 +25,9 @@ public class CommandHandlerTypeService
 
     public CommandHandlerTypeService(IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
-        IConfigurationManager configurationManager) : base(assemblyService, attributeComparer)
+        IConfigurationProvider configurationProvider) : base(assemblyService, attributeComparer)
     {
-        _config = configurationManager.BotConfig;
+        _config = configurationProvider.BotConfig;
     }
 
     #endregion

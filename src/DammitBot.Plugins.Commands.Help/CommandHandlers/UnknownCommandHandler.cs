@@ -20,9 +20,9 @@ public class UnknownCommandHandler : CommandHandlerBase
 
     #region Constructors
 
-    public UnknownCommandHandler(IBot bot, IConfigurationManager configurationManager) : base(bot)
+    public UnknownCommandHandler(IBot bot, IConfigurationProvider configurationProvider) : base(bot)
     {
-        _botConfig = configurationManager.BotConfig;
+        _botConfig = configurationProvider.BotConfig;
     }
 
     #endregion
