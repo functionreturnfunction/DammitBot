@@ -1,7 +1,7 @@
 ﻿namespace DammitBot.Abstract;
 
-/// <summary>
-/// Interface used for plugin initialization (and cleanup).  Implement this in your plugin if you have
-/// tasks which need completing only once before/after everything else.
-/// </summary>
+/// <inheritdoc cref="IPluginThingy" />
+/// <remarks>
+/// This interface is meant to be used specifically for non-specific "plugins", rather than say protocols.
+/// </remarks>
 public interface IPlugin : IPluginThingy { }
