@@ -5,6 +5,10 @@ using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers;
 
+/// <summary>
+/// Service which provides inheriting/implementing types of <see cref="IMessageHandler"/> which
+/// can handle messages represented by <see cref="MessageEventArgs"/>.
+/// </summary>
 public class MessageHandlerTypeService
     : MessageHandlerTypeServiceBase<
             HandlesMessageAttribute,
@@ -15,6 +19,9 @@ public class MessageHandlerTypeService
 {
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="MessageHandlerTypeService"/> class.
+    /// </summary>
     public MessageHandlerTypeService(
         IAssemblyService assemblyService,
         IMessageHandlerAttributeComparer attributeComparer)
@@ -24,6 +31,7 @@ public class MessageHandlerTypeService
 
     #region Private Methods
 
+    /// <inheritdoc cref="MessageHandlerTypeServiceBase{HandlesMessageAttribute,IMessagHandlerAttributeComparer,MessageEventArgs,IMessageHandler}.GetMessageText"/>
     protected override string? GetMessageText(MessageEventArgs message) => message.Message;
 
     #endregion

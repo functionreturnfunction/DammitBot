@@ -7,7 +7,7 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract;
 
-/// <inheritdoc cref="IMessageHandler{TArgs}"/>
+/// <inheritdoc cref="IMessageHandlerFactory{TMessageHandler,TMessageEventArgs}"/>
 /// <remarks>
 /// This implementation uses a <typeparamref name="TMessageHandlerTypeService"/> instance to find all
 /// available/matching <typeparamref name="TMessageHandler"/> types, and a

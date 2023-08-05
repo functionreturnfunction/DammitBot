@@ -5,6 +5,10 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.MessageHandlers;
 
+/// <summary>
+/// Factory for creating instances of <see cref="IMessageHandler"/> which handle messages
+/// represented by instances of <see cref="MessageEventArgs"/>.
+/// </summary>
 public class MessageHandlerFactory
     : MessageHandlerFactoryBase<
             IMessageHandlerTypeService,
@@ -15,6 +19,9 @@ public class MessageHandlerFactory
 {
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="MessageHandlerFactory"/> class.
+    /// </summary>
     public MessageHandlerFactory(
         IMessageHandlerTypeService handlerTypeService,
         IInstantiationService instantiationService)
@@ -24,6 +31,10 @@ public class MessageHandlerFactory
 
     #region Private Methods
 
+    /// <summary>
+    /// Create and return a <see cref="CompositeMessageHandler"/> from all matched
+    /// <paramref name="handlers"/>.
+    /// </summary>
     protected override CompositeMessageHandler CreateCompositeHandler(
         IEnumerable<IMessageHandler> handlers)
     {
