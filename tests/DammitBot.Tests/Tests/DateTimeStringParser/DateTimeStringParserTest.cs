@@ -7,13 +7,6 @@ namespace DammitBot.Tests.DateTimeStringParser;
 
 public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParser.DateTimeStringParser>
 {
-    private readonly DateTime _now;
-
-    public DateTimeStringParserTest()
-    {
-        _now = DateTime.Now;
-    }
-
     #region Private Methods
 
     private void TestTryParse(string input, DateTime expected)
