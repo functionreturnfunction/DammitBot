@@ -24,7 +24,7 @@ public class MessageHandlerRepository
 
     #region Private Methods
 
-    protected override string GetMessage(MessageEventArgs message) => message.Message;
+    protected override string? GetMessageText(MessageEventArgs message) => message.Message;
 
     #endregion
 }

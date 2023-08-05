@@ -55,7 +55,7 @@ public abstract class MessageHandlerRepositoryBase<
 
     #region Abstract Methods
 
-    protected abstract string GetMessage(TEventArgs message);
+    protected abstract string? GetMessageText(TEventArgs message);
 
     #endregion
 
@@ -63,9 +63,16 @@ public abstract class MessageHandlerRepositoryBase<
 
     public virtual IEnumerable<Type> GetMatchingHandlers(TEventArgs message)
     {
+        var messageText = GetMessageText(message);
+
+        if (messageText == null)
+        {
+            yield break;
+        }
+        
         foreach (var type in GetTypes())
         {
-            if (_attributeService.MessageMatches(GetMessage(message), type))
+            if (_attributeService.MessageMatches(messageText, type))
             {
                 yield return type;
             }

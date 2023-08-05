@@ -34,7 +34,7 @@ public class CommandHandlerRepository
 
     #region Private Methods
 
-    protected override string GetMessage(CommandEventArgs message)
+    protected override string GetMessageText(CommandEventArgs message)
     {
         return Regex.Match(message.Message, _config.GoesBy + " (.+)").Groups[1].Value;
     }
