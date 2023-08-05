@@ -13,7 +13,7 @@ namespace DammitBot.Abstract;
 ///
 /// Instances are cached, so they'll persist and be portable along with a given instance of this class.
 /// </summary>
-public abstract class AssemblyServiceThingyBase<TThingy>
+public abstract class ThingyServiceBase<TThingy>
 {
     #region Private Members
 
@@ -33,7 +33,7 @@ public abstract class AssemblyServiceThingyBase<TThingy>
     /// <summary>
     /// Constructor for AssemblyServiceThingyBase.
     /// </summary>
-    protected AssemblyServiceThingyBase(
+    protected ThingyServiceBase(
         IAssemblyService assemblyService,
         IInstantiationService instantiationService)
     {
@@ -45,8 +45,21 @@ public abstract class AssemblyServiceThingyBase<TThingy>
 
     #region Private Methods
 
+    /// <summary>
+    /// Perform any necessary tasks with the instantiated <paramref name="thingies"/> right after they've
+    /// been instantiated. 
+    /// </summary>
+    /// <remarks>This implementation does nothing.</remarks>
     protected virtual void PostInstantiate(IEnumerable<TThingy> thingies) { }
 
+    /// <summary>
+    /// Filter to decide whether or not a given type is useful for the purpose intended (besides its type
+    /// being assignable to <typeparamref name="TThingy"/>.
+    /// </summary>
+    /// <remarks>
+    /// This implementation looks for types which are not abstract, so only concrete classes are
+    /// instantiated (rather than their base type).
+    /// </remarks>
     protected virtual bool IsViable(Type type)
     {
         return !type.IsAbstract;

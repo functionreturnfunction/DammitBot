@@ -6,7 +6,7 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Utilities;
 
-public class ProtocolService : PluginAssemblyServiceThingyBase<IProtocol>, IProtocolService
+public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolService
 {
     #region Constructors
 

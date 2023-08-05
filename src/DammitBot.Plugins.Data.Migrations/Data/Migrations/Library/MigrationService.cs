@@ -4,7 +4,7 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Data.Migrations.Library;
 
-public class MigrationService : AssemblyServiceThingyBase<MigrationBase>, IMigrationService
+public class MigrationService : ThingyServiceBase<MigrationBase>, IMigrationService
 {
     public MigrationService(
         IAssemblyService assemblyService,

@@ -3,7 +3,7 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Utilities;
 
-public class PluginService : PluginAssemblyServiceThingyBase<IPlugin>, IPluginService
+public class PluginService : PluginThingyServiceBase<IPlugin>, IPluginService
 {
     public PluginService(
         IAssemblyService assemblyService,
