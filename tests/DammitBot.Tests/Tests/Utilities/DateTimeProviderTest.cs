@@ -10,7 +10,7 @@ public class DateTimeProviderTest
     public void TestGetCurrentTimeReturnsCurrentTime()
     {
         var before = DateTime.Now;
-        var current = new DateTimeProvider().GetCurrentTime();
+        var current = new SystemClockDateTimeProvider().GetCurrentTime();
         var after = DateTime.Now;
         Assert.InRange(current, before, after);
     }

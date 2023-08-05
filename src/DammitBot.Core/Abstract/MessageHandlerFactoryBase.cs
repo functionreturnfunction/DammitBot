@@ -8,7 +8,7 @@ using DammitBot.Wrappers;
 namespace DammitBot.Abstract;
 
 public abstract class MessageHandlerFactoryBase<TRepository, TEventArgs, THandler, TComposite>
-    : IHandlerFactory<THandler, TEventArgs>
+    : IMessageHandlerFactory<THandler, TEventArgs>
     where TRepository : IMessageHandlerRepository<THandler, TEventArgs>
     where TEventArgs : MessageEventArgs
     where THandler : IMessageHandler<TEventArgs>

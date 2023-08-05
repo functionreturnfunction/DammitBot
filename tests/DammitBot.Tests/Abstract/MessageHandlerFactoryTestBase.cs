@@ -12,7 +12,7 @@ public abstract class MessageHandlerFactoryTestBase<
         TMessageHandler,
         TEventArgs>
     : CrazyMessageHandlerThingyTestBase<TMessageHandlerFactory, TMessageHandler, TEventArgs>
-    where TMessageHandlerFactory : IHandlerFactory<TMessageHandler, TEventArgs>
+    where TMessageHandlerFactory : IMessageHandlerFactory<TMessageHandler, TEventArgs>
     where TMessageHandlerRepository : class, IMessageHandlerRepository<TMessageHandler, TEventArgs>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
     where TEventArgs : MessageEventArgs

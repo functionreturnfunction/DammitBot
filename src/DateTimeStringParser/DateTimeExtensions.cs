@@ -2,6 +2,9 @@ using System;
 
 namespace DateTimeStringParser;
 
+/// <summary>
+/// Extensions of the <see cref="DateTime"/> class.
+/// </summary>
 public static class DateTimeExtensions
 {
     /// <summary>
@@ -12,7 +15,9 @@ public static class DateTimeExtensions
     /// for 8 will return the next day at 8 am.
     /// </summary>
     /// <param name="hour">Hour in 24 hour time.</param>
+#pragma warning disable CS1573
     public static DateTime GetNext(this DateTime date, int hour, int minute = 0, int second = 0)
+#pragma warning restore CS1573
     {
         if ((date.Hour > hour || (date.Hour == hour && date.Minute >= minute)))
         {

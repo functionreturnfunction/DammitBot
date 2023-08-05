@@ -5,17 +5,21 @@ using System.Text.RegularExpressions;
 
 namespace DateTimeStringParser;
 
+/// <inheritdoc cref="IDateTimeStringParser"/>
 public class DateTimeStringParser : IDateTimeStringParser
 {
     #region Private Members
 
-    protected readonly IDateTimeProvider _dateTimeProvider;
-    protected readonly Dictionary<Regex, Func<Match, DateTime?>> _parseDictionary;
+    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly Dictionary<Regex, Func<Match, DateTime?>> _parseDictionary;
 
     #endregion
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="DateTimeStringParser"/> class.
+    /// </summary>
     public DateTimeStringParser(IDateTimeProvider dateTimeProvider)
     {
         _dateTimeProvider = dateTimeProvider;
@@ -28,6 +32,10 @@ public class DateTimeStringParser : IDateTimeStringParser
         };
 
     }
+    
+    #endregion
+    
+    #region Private Methods
 
     private DateTime? ParseTime(Match arg)
     {
@@ -75,6 +83,7 @@ public class DateTimeStringParser : IDateTimeStringParser
 
     #region Exposed Methods
 
+    /// <inheritdoc cref="IDateTimeStringParser"/>
     public bool TryParse(string input, out DateTime? result)
     {
         var matching = _parseDictionary.Keys.Where(k => k.IsMatch(input));
