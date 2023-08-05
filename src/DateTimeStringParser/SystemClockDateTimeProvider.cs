@@ -9,13 +9,13 @@ public class SystemClockDateTimeProvider : IDateTimeProvider
 {
     #region Exposed Methods
 
-    /// <inheritdoc cref="IDateTimeProvider"/>
+    /// <inheritdoc cref="IDateTimeProvider.GetCurrentTime"/>
     public virtual DateTime GetCurrentTime()
     {
         return DateTime.Now;
     }
 
-    /// <inheritdoc cref="IDateTimeProvider"/>
+    /// <inheritdoc cref="IDateTimeProvider.GetNext"/>
     public virtual DateTime GetNext(int hour, int minute = 0, int second = 0)
     {
         return GetCurrentTime().GetNext(hour, minute, second);

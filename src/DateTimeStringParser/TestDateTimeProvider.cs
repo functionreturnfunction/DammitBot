@@ -29,7 +29,7 @@ public class TestDateTimeProvider : SystemClockDateTimeProvider
 
     #region Exposed Methods
 
-    /// <inheritdoc cref="IDateTimeProvider"/>
+    /// <inheritdoc cref="IDateTimeProvider.GetCurrentTime"/>
     /// <remarks>
     /// This implementation will always provide a static <see cref="DateTime"/> value which is set via
     /// this class' constructor.

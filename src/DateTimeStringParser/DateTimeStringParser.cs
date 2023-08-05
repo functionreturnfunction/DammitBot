@@ -83,7 +83,7 @@ public class DateTimeStringParser : IDateTimeStringParser
 
     #region Exposed Methods
 
-    /// <inheritdoc cref="IDateTimeStringParser"/>
+    /// <inheritdoc cref="IDateTimeStringParser.TryParse"/>
     public bool TryParse(string input, out DateTime? result)
     {
         var matching = _parseDictionary.Keys.Where(k => k.IsMatch(input));
