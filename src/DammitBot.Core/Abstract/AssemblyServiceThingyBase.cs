@@ -26,7 +26,7 @@ public abstract class AssemblyServiceThingyBase<TThingy>
     /// <summary>
     /// Instances of all available concrete implementations of <see cref="TThingy"/>.
     /// </summary>
-    public virtual IEnumerable<TThingy> Thingies => _thingies ??= GetThingies();
+    public IEnumerable<TThingy> Thingies => _thingies ??= GetThingies();
 
     #region Constructors
 
@@ -45,6 +45,13 @@ public abstract class AssemblyServiceThingyBase<TThingy>
 
     #region Private Methods
 
+    protected virtual void PostInstantiate(IEnumerable<TThingy> thingies) { }
+
+    protected virtual bool IsViable(Type type)
+    {
+        return !type.IsAbstract;
+    }
+
     private TThingy InstantiateThingy(Type thingyType)
     {
         return (TThingy)_instantiationService.GetInstance(thingyType);
@@ -52,10 +59,15 @@ public abstract class AssemblyServiceThingyBase<TThingy>
 
     private IEnumerable<TThingy> GetThingies()
     {
-        return _assemblyService.GetPluginAssemblies()
+        var thingies = _assemblyService.GetPluginAssemblies()
             .GetTypes()
-            .Where(t => !t.IsAbstract && typeof(TThingy).IsAssignableFrom(t))
-            .Select(InstantiateThingy);
+            .Where(t => IsViable(t) && typeof(TThingy).IsAssignableFrom(t))
+            .Select(InstantiateThingy)
+            .ToList();
+
+        PostInstantiate(thingies);
+
+        return thingies;
     }
 
     #endregion

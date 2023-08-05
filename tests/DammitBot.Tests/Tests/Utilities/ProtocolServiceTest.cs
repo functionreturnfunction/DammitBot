@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Protocols.Console;
@@ -75,18 +76,26 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestCleanupCleansUpAllProtocols()
+    public void TestCleanupCleansUpAllProtocolsWhenTheyAreInitialized()
     {
-        _target.Initialize();
+        // ensure things get initialized
+        var _ = _target.Thingies.ToList();
         _target.Cleanup();
 
         _console!.Verify(x => x.Cleanup());
     }
 
     [Fact]
+    public void TestCleanupDoesNotCleanUpAllProtocolsWhenTheyHaveNotBeenInitialized()
+    {
+        _target.Cleanup();
+
+        _console!.Verify(x => x.Cleanup(), Times.Never);
+    }
+
+    [Fact]
     public void TestSayToAllSaysToAllProtocols()
     {
-        _target.Initialize();
         _target.SayToAll("foo");
 
         _console!.Verify(x => x.SayToAll("foo"));

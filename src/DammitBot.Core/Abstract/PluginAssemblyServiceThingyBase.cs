@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Utilities;
@@ -5,15 +6,13 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract;
 
-public abstract class PluginAssemblyServiceThingyBase<TThingy>
+public abstract class PluginAssemblyServiceThingyBase<TThingy> : AssemblyServiceThingyBase<TThingy>
     where TThingy : IPluginThingy
 {
     #region Private Members
-
-    protected IAssemblyService _assemblyService;
-    protected IInstantiationService _instantiationService;
-    protected IList<TThingy> _thingies;
-
+    
+    private bool _needsCleanup;
+    
     #endregion
 
     #region Constructors
@@ -21,45 +20,49 @@ public abstract class PluginAssemblyServiceThingyBase<TThingy>
     public PluginAssemblyServiceThingyBase(
         IAssemblyService assemblyService,
         IInstantiationService instantiationService)
+        : base(assemblyService, instantiationService) { }
+
+    #endregion
+    
+    #region Private Methods
+
+    protected override bool IsViable(Type type)
     {
-        _assemblyService = assemblyService;
-        _instantiationService = instantiationService;
-        _thingies = new List<TThingy>();
+        return type.IsInterface;
+    }
+
+    protected override void PostInstantiate(IEnumerable<TThingy> thingies)
+    {
+        // initialize "Priority" plugins right away
+        foreach (var plugin in thingies.Where(t => t.Priority))
+        {
+            plugin.Initialize();
+        }
+
+        // initialize non-priority plugins afterward
+        foreach (var plugin in thingies.Where(t => !t.Priority))
+        {
+            plugin.Initialize();
+        }
+
+        _needsCleanup = true;
     }
 
     #endregion
 
     #region Exposed Methods
 
-    public void Initialize()
-    {
-        foreach (
-            var type in
-            _assemblyService.GetPluginAssemblies()
-                .GetTypes()
-                .Where(t => t.IsInterface && typeof(TThingy).IsAssignableFrom(t)))
-        {
-            var plugin = (TThingy)_instantiationService.GetInstance(type);
-
-            // initialize "Priority" plugins right away
-            if (plugin.Priority)
-            {
-                plugin.Initialize();
-            }
-
-            _thingies.Add(plugin);
-        }
-
-        // initialize non-priority plugins afterward
-        foreach (var plugin in _thingies.Where(t => !t.Priority))
-        {
-            plugin.Initialize();
-        }
-    }
+    public void Initialize() { }
 
     public void Cleanup()
     {
-        foreach (var plugin in _thingies)
+        // no sense in cleaning up if nothing's ever been initialized
+        if (!_needsCleanup)
+        {
+            return;
+        }
+        
+        foreach (var plugin in Thingies)
         {
             plugin.Cleanup();
         }

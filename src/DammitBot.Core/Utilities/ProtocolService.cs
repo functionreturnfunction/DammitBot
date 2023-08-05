@@ -23,14 +23,14 @@ public class ProtocolService : PluginAssemblyServiceThingyBase<IProtocol>, IProt
     {
         add
         {
-            foreach (var protocol in _thingies)
+            foreach (var protocol in Thingies)
             {
                 protocol.ChannelMessageReceived += value;
             }
         }
         remove
         {
-            foreach (var protocol in _thingies)
+            foreach (var protocol in Thingies)
             {
                 protocol.ChannelMessageReceived -= value;
             }
@@ -43,7 +43,7 @@ public class ProtocolService : PluginAssemblyServiceThingyBase<IProtocol>, IProt
 
     public void SayToAll(string message)
     {
-        foreach (var protocol in _thingies)
+        foreach (var protocol in Thingies)
         {
             protocol.SayToAll(message);
         }
@@ -53,6 +53,6 @@ public class ProtocolService : PluginAssemblyServiceThingyBase<IProtocol>, IProt
 
     public void SayToChannel(string protocol, string channel, string message)
     {
-        _thingies.Single(x => x.Name == protocol).SayToChannel(channel, message);
+        Thingies.Single(x => x.Name == protocol).SayToChannel(channel, message);
     }
 }
