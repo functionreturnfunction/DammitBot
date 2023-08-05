@@ -9,7 +9,7 @@ using DammitBot.Metadata;
 namespace DammitBot.MessageHandlers;
 
 [HandlesBotMessage]
-public class CommandMessageHandler : MessageHandlerBase<MessageEventArgs>, IMessageHandler
+public class CommandMessageHandler : IMessageHandler
 {
     #region Constants
 
@@ -38,7 +38,7 @@ public class CommandMessageHandler : MessageHandlerBase<MessageEventArgs>, IMess
 
     #region Exposed Methods
 
-    public override void Handle(MessageEventArgs e)
+    public void Handle(MessageEventArgs e)
     {
         CommandEventArgs? args;
         using (var uow = _unitOfWorkFactory.Build())
