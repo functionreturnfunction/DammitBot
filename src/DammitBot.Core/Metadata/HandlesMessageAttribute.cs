@@ -8,19 +8,19 @@ public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
 {
     #region Private Members
 
-    protected readonly string? _rgx;
+    private readonly string _rgx;
 
     #endregion
 
     #region Properties
 
-    public Regex? Regex => _rgx == null ? null : new Regex(_rgx);
+    public Regex Regex => new Regex(_rgx);
 
     #endregion
 
     #region Constructors
 
-    public HandlesMessageAttribute(string? rgx)
+    public HandlesMessageAttribute(string rgx)
     {
         _rgx = rgx;
     }

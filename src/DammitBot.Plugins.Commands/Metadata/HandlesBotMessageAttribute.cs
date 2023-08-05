@@ -2,5 +2,5 @@
 
 public class HandlesBotMessageAttribute : HandlesMessageAttribute
 {
-    public HandlesBotMessageAttribute() : base(null) {}
+    public HandlesBotMessageAttribute() : base(string.Empty) {}
 }

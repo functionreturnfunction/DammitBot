@@ -4,5 +4,5 @@ namespace DammitBot.Metadata;
 
 public interface IHandlesMessageAttribute
 {
-    Regex? Regex { get; }
+    Regex Regex { get; }
 }
