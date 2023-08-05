@@ -117,12 +117,16 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         #region Exposed Methods
 
-        public Mock<MessageEventArgs> TestCommand(string command)
+        public MessageEventArgs TestCommand(string command)
         {
-            var args = new Mock<MessageEventArgs>();
-            args.SetupGet(x => x.Message).Returns("bot " + command);
-            args.SetupGet(x => x.User).Returns("foo");
-            _handler.Handle(args.Object);
+            var args = new MessageEventArgs(
+                "bot " + command,
+                "channel",
+                "protocol",
+                "foo");
+            
+            _handler.Handle(args);
+
             return args;
         }
 

@@ -8,7 +8,7 @@ public abstract class CompositeMessageHandlerTestBase<TCompositeHandler, TMessag
     : CrazyMessageHandlerThingyTestBase<TCompositeHandler, TMessageHandler, TEventArgs>
     where TCompositeHandler : class, IMessageHandler<TEventArgs>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
-    where TEventArgs : MessageEventArgs, new()
+    where TEventArgs : MessageEventArgs
 {
     #region Private Methods
 

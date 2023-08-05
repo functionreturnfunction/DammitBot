@@ -17,6 +17,12 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
     private Mock<IConsole>? _console;
     private Mock<IIrc>? _irc;
+    private readonly MessageEventArgs _args;
+
+    public ProtocolServiceTest()
+    {
+        _args = new MessageEventArgs("message", "channel", "protocol", "user");
+    }
 
     #endregion
 
@@ -40,15 +46,14 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     public void TestAttachingToChannelMessageReceivedAttachesToEachProtocol()
     {
         bool called = false;
-        var args = new MessageEventArgs();
         EventHandler<MessageEventArgs> handler = (s, a) => {
             called = true;
-            Assert.Same(args, a);
+            Assert.Same(_args, a);
         };
 
         _target.Initialize();
         _target.ChannelMessageReceived += handler;
-        _console!.Raise(x => x.ChannelMessageReceived += null, null, args);
+        _console!.Raise(x => x.ChannelMessageReceived += null, null, _args);
 
         Assert.True(called);
     }
@@ -57,7 +62,6 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     public void TestDetachingFromChannelMessageReceivedDetachesFromEachProtocol()
     {
         bool called = false;
-        var args = new MessageEventArgs();
         EventHandler<MessageEventArgs> handler = (s, a) => {
             called = true;
         };
@@ -65,7 +69,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _target.Initialize();
         _target.ChannelMessageReceived += handler;
         _target.ChannelMessageReceived -= handler;
-        _console!.Raise(x => x.ChannelMessageReceived += null, null, args);
+        _console!.Raise(x => x.ChannelMessageReceived += null, null, _args);
 
         Assert.False(called);
     }

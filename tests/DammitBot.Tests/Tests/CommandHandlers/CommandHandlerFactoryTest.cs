@@ -1,5 +1,6 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.CommandHandlers;
+using DammitBot.Data.Models;
 using DammitBot.Events;
 using Xunit;
 
@@ -12,6 +13,11 @@ public class CommandHandlerFactoryTest
         ICommandHandler,
         CommandEventArgs>
 {
+    protected override CommandEventArgs CreateEventArgs()
+    {
+        return new CommandEventArgs(CreateMessageEventArgs(), new Nick());
+    }
+
     [Fact]
     public override void TestHandleCallsHandleOnEachInnerHandler()
     {

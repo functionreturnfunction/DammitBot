@@ -1,4 +1,6 @@
-﻿namespace DammitBot.Events;
+﻿using System;
+
+namespace DammitBot.Events;
 
 public class MessageEventArgs
 {
@@ -9,16 +11,6 @@ public class MessageEventArgs
         Protocol = protocol;
         User = user;
     }
-
-    /// <summary>
-    /// for testing purposes only!!!
-    /// </summary>
-    public MessageEventArgs()
-        : this(
-            $"Test{nameof(Message)}",
-            $"Test{nameof(Channel)}",
-            $"Test{nameof(Protocol)}",
-            $"Test{nameof(User)}") {}
 
     #region Properties
 

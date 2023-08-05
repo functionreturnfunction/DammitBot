@@ -163,15 +163,11 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
         public void TestMessage(string message, string nick, string? protocol = null, string? channel = null)
         {
-            var args = new Mock<MessageEventArgs>();
-            args.SetupGet(x => x.Message).Returns(message);
-            args.SetupGet(x => x.User).Returns(nick);
-            args.SetupGet(x => x.Protocol).Returns(protocol ?? "foo");
-            args.SetupGet(x => x.Channel).Returns(channel?? "#bar");
+            var args = new MessageEventArgs(message, channel  ?? "#bar", protocol ?? "foo", nick);
             _protocolService.Raise(
                 x => x.ChannelMessageReceived += null,
                 null,
-                args.Object);
+                args);
         }
 
         public void Dispose()

@@ -15,7 +15,7 @@ public abstract class MessageHandlerFactoryTestBase<
     where TMessageHandlerFactory : IHandlerFactory<TMessageHandler, TEventArgs>
     where TMessageHandlerRepository : class, IMessageHandlerRepository<TMessageHandler, TEventArgs>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
-    where TEventArgs : MessageEventArgs, new()
+    where TEventArgs : MessageEventArgs
 {
     #region Private Members
 

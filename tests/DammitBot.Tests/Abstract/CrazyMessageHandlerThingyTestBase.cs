@@ -6,14 +6,13 @@ using DammitBot.Wrappers;
 using Lamar;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Xunit;
 
 namespace DammitBot.Abstract;
 
 public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHandler, TEventArgs>
     : UnitTestBase<TCrazyThingy>
     where TMessageHandler : class, IMessageHandler<TEventArgs>
-    where TEventArgs : MessageEventArgs, new()
+    where TEventArgs : MessageEventArgs
 {
     #region Constants
 
@@ -42,11 +41,17 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
     }
 
+    protected virtual MessageEventArgs CreateMessageEventArgs()
+    {
+        return new MessageEventArgs("message", "channel", "protocol", "user");
+    }
+
     #endregion
 
     #region Abstract Methods
 
     protected abstract void TestMethod(TEventArgs args);
+    protected abstract TEventArgs CreateEventArgs();
 
     #endregion
 
@@ -54,7 +59,7 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
 
     public virtual void TestHandleCallsHandleOnEachInnerHandler()
     {
-        var args = new TEventArgs();
+        var args = CreateEventArgs();
         var instances = new List<Mock<TMessageHandler>>();
 
         _container.Configure(services =>

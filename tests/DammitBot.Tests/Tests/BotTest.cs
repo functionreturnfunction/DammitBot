@@ -56,18 +56,21 @@ public class BotTest : UnitTestBase<Bot>
     [Fact]
     public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
     {
-        var args = new Mock<MessageEventArgs>();
-        args.Setup(a => a.Message).Returns("foo");
+        var args = new MessageEventArgs(
+            "foo",
+            string.Empty,
+            string.Empty,
+            string.Empty);
         _handlerFactory.Setup(
-            f => f.BuildHandler(args.Object).Handle(args.Object));
+            f => f.BuildHandler(args).Handle(args));
         SafelyRunTarget();
         _protocolService.Raise(
             c => c.ChannelMessageReceived += null,
             null,
-            args.Object);
+            args);
 
         _handlerFactory.Verify(
-            f => f.BuildHandler(args.Object).Handle(args.Object));
+            f => f.BuildHandler(args).Handle(args));
     }
 
     [Fact]
@@ -82,12 +85,14 @@ public class BotTest : UnitTestBase<Bot>
     [Fact]
     public void TestReplyToMessageRepliesToMessage()
     {
-        var args = new Mock<MessageEventArgs>();
-        args.SetupGet(x => x.Protocol).Returns("foo");
-        args.SetupGet(x => x.Channel).Returns("bar");
+        var args = new MessageEventArgs(
+            string.Empty,
+            "bar",
+            "foo",
+            string.Empty);
         SafelyRunTarget();
 
-        _target.ReplyToMessage(args.Object, "baz");
+        _target.ReplyToMessage(args, "baz");
 
         _protocolService.Verify(
             x => x.SayToChannel(
