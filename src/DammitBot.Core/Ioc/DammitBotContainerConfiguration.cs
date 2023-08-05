@@ -42,7 +42,7 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
                 .Where(t => !t.IsAbstract &&
                             t.IsSubclassOf(typeof(ContainerConfigurationBase))))
         {
-            ((ContainerConfigurationBase)Activator.CreateInstance(type)).Configure(e);
+            ((ContainerConfigurationBase)Activator.CreateInstance(type)!).Configure(e);
         }
 
         return assemblyService;

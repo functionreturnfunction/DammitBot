@@ -10,7 +10,7 @@ public static class AssemblyExtensions
 
     public static string GetDirectory(this Assembly that)
     {
-        return Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(that.CodeBase).Path));
+        return Path.GetDirectoryName(Uri.UnescapeDataString(new UriBuilder(that.Location).Path))!;
     }
 
     #endregion

@@ -11,7 +11,7 @@ public class MessageHandlerAttributeServiceBase<TAttributeBase>
 
     protected static TAttributeBase GetAttribute(Type handlerType)
     {
-        return (TAttributeBase)Attribute.GetCustomAttribute(handlerType, typeof(TAttributeBase));
+        return (TAttributeBase)Attribute.GetCustomAttribute(handlerType, typeof(TAttributeBase))!;
     }
 
     #endregion

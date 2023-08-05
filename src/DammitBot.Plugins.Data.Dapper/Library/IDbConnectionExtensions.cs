@@ -16,7 +16,7 @@ public static class IDBConnectionExtensions
         return connection.GetCommand(sql).ExecuteNonQuery();
     }
 
-    public static object ExecuteScalar(this IDbConnection connection, string sql)
+    public static object? ExecuteScalar(this IDbConnection connection, string sql)
     {
         return connection.GetCommand(sql).ExecuteScalar();
     }

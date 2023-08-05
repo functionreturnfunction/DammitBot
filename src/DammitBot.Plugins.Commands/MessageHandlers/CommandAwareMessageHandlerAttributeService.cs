@@ -39,7 +39,7 @@ public class CommandAwareMessageHandlerAttributeService : MessageHandlerAttribut
 
         return (attribute is HandlesBotMessageAttribute
             ? GetBotMessageRegex()
-            : attribute.Regex).IsMatch(message);
+            : attribute.Regex)!.IsMatch(message);
     }
 
     #endregion

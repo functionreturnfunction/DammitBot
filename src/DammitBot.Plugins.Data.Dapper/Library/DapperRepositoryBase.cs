@@ -38,7 +38,7 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
         entity.TrySetDateTimeProperty(name, _dateTimeProvider.GetCurrentTime());
     }
 
-    public override TEntity Find(int id)
+    public override TEntity? Find(int id)
     {
         return DoQuery(BaseQuery + $" where this.Id = {id}").SingleOrDefault();
     }

@@ -8,7 +8,7 @@ public static class TypeExtensions
 {
     #region Exposed Methods
 
-    public static bool HasProperty(this Type that, string propertyName, out PropertyInfo property)
+    public static bool HasProperty(this Type that, string propertyName, out PropertyInfo? property)
     {
         return that.HasProperty<object>(propertyName, out property);
     }
@@ -16,7 +16,7 @@ public static class TypeExtensions
     public static bool HasProperty<TProperty>(
         this Type that,
         string propertyName,
-        out PropertyInfo property)
+        out PropertyInfo? property)
     {
         property =
             that.GetProperties(BindingFlags.Instance | BindingFlags.Public)

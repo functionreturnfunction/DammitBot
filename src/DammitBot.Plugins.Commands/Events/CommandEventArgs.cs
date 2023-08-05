@@ -17,7 +17,7 @@ public class CommandEventArgs : MessageEventArgs
     #region Constructors
 
     public CommandEventArgs(MessageEventArgs args, Nick from)
-        : base(args?.Message, args?.Channel, args?.Protocol, args?.User)
+        : base(args.Message, args.Channel, args.Protocol, args.User)
     {
         From = from;
         if (!string.IsNullOrWhiteSpace(Message))

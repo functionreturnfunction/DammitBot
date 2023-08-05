@@ -29,7 +29,7 @@ public class JobService : IJobService
 
     private static Action<SimpleScheduleBuilder> DetermineSchedule(MemberInfo jobType)
     {
-        var interval = jobType.GetCustomAttribute<IntervalAttribute>();
+        var interval = jobType.GetCustomAttribute<IntervalAttribute>()!;
 
         return x => interval.SetInterval(x).RepeatForever();
     }
