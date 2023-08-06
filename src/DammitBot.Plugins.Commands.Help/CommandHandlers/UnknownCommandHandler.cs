@@ -31,7 +31,7 @@ public class UnknownCommandHandler : CommandHandlerBase
 
     public override void Handle(CommandEventArgs e)
     {
-        _bot.ReplyToMessage(e, string.Format(MESSAGE, _botConfig.GoesBy));
+        Bot.ReplyToMessage(e, string.Format(MESSAGE, _botConfig.GoesBy));
     }
 
     #endregion

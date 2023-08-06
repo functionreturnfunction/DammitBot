@@ -10,8 +10,14 @@ public class CommandEventArgs : MessageEventArgs
 {
     #region Properties
 
+    /// <summary>
+    /// String containing the command.
+    /// </summary>
     public virtual string Command { get; }
 
+    /// <summary>
+    /// <see cref="Nick"/> representing whoever issued the command.
+    /// </summary>
     public virtual Nick From { get; }
 
     #endregion

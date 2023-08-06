@@ -5,6 +5,7 @@ using DammitBot.Wrappers;
 
 namespace DammitBot.CommandHandlers;
 
+/// <inheritdoc cref="ICommandHandlerFactory"/>
 public class CommandHandlerFactory
     : MessageHandlerFactoryBase<
             ICommandHandlerTypeService,
@@ -15,6 +16,9 @@ public class CommandHandlerFactory
 {
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="CommandHandlerFactory"/> class. 
+    /// </summary>
     public CommandHandlerFactory(
         ICommandHandlerTypeService handlerTypeService,
         IInstantiationService instantiationService)
@@ -24,6 +28,7 @@ public class CommandHandlerFactory
 
     #region Private Methods
 
+    /// <inheritdoc />
     protected override CompositeCommandHandler CreateCompositeHandler(
         IEnumerable<ICommandHandler> handlers)
     {

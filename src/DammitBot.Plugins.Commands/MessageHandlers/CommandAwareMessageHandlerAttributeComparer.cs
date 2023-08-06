@@ -5,6 +5,11 @@ using DammitBot.Metadata;
 
 namespace DammitBot.MessageHandlers;
 
+/// <inheritdoc/>
+/// <remarks>
+/// This implementation looks for messages which are bot commands, meaning they begin with a name which
+/// the the bot is configured to respond to.
+/// </remarks>
 public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttributeComparer
 {
     #region Private Members
@@ -15,6 +20,9 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="CommandAwareMessageHandlerAttributeComparer"/> class.
+    /// </summary>
     public CommandAwareMessageHandlerAttributeComparer(IConfigurationProvider configurationProvider)
     {
         _botConfig = configurationProvider.BotConfig;

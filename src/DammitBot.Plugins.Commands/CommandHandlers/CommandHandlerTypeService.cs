@@ -7,6 +7,7 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
+/// <inheritdoc cref="ICommandHandlerTypeService" />
 public class CommandHandlerTypeService
     : MessageHandlerTypeServiceBase<
             HandlesCommandAttribute,
@@ -23,9 +24,14 @@ public class CommandHandlerTypeService
 
     #region Constructors
 
-    public CommandHandlerTypeService(IAssemblyService assemblyService,
+    /// <summary>
+    /// Constructor for the <see cref="CommandHandlerTypeService"/> class.
+    /// </summary>
+    public CommandHandlerTypeService(
+        IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
-        IConfigurationProvider configurationProvider) : base(assemblyService, attributeComparer)
+        IConfigurationProvider configurationProvider)
+        : base(assemblyService, attributeComparer)
     {
         _config = configurationProvider.BotConfig;
     }
@@ -34,6 +40,11 @@ public class CommandHandlerTypeService
 
     #region Private Methods
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation strips the name that the bot goes by from the beginning of the message, so
+    /// that only the text of the command is left.
+    /// </remarks>
     protected override string GetMessageText(CommandEventArgs message)
     {
         return message.GetCommandText(_config);

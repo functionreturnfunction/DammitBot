@@ -38,8 +38,8 @@ public class DieCommandHandler : CommandHandlerBase
     /// <param name="e"></param>
     public override void Handle(CommandEventArgs e)
     {
-        _bot.SayToAll(MESSAGE);
-        _bot.Die();
+        Bot.SayToAll(MESSAGE);
+        Bot.Die();
     }
 
     #endregion

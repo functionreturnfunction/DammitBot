@@ -84,7 +84,7 @@ public class ReminderCommandHandler : CommandHandlerBase
 
         if (!_dateTimeStringParser.TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out when))
         {
-            _bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
+            Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
             return;
         }
 
@@ -94,14 +94,14 @@ public class ReminderCommandHandler : CommandHandlerBase
 
             if (target == null)
             {
-                _bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
+                Bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
                 return;
             }
 
             CreateReminder(reminder, e.From.User, target, when.Value, uow);
         }
 
-        _bot.ReplyToMessage(e, $"Reminder set for {when}");
+        Bot.ReplyToMessage(e, $"Reminder set for {when}");
     }
 
     private User LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
