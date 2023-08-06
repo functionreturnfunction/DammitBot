@@ -37,7 +37,6 @@ public class DieCommandHandler : CommandHandlerBase
     /// Send a farewell <see cref="MESSAGE"/> via all available/connected protocols over all
     /// available/registered channels, and then shut down the bot.
     /// </summary>
-    /// <param name="e"></param>
     public override void Handle(CommandEventArgs e)
     {
         Bot.SayToAll(MESSAGE);

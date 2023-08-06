@@ -11,14 +11,27 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
+/// <summary>
+/// <see cref="ICommandHandler"/> implementation which provides the "help" command, which gives users
+/// usage information about the available commands.
+/// </summary>
 [HandlesCommand(
     "^help( .+)?$",
     "Get usage information for the available bot commands.")]
 public class HelpCommandHandler : CommandHandlerBase
 {
+    #region Private Members
+    
     private readonly IAssemblyService _assemblyService;
     private readonly IBotConfigurationSection _config;
+    
+    #endregion
+    
+    #region Constructors
 
+    /// <summary>
+    /// Constructor for he <see cref="HelpCommandHandler"/> class.
+    /// </summary>
     public HelpCommandHandler(
         IBot bot,
         IConfigurationProvider configurationProvider,
@@ -28,6 +41,10 @@ public class HelpCommandHandler : CommandHandlerBase
         _config = configurationProvider.BotConfig;
         _assemblyService = assemblyService;
     }
+    
+    #endregion
+    
+    #region Private Methods
 
     private IEnumerable<HandlesCommandAttribute> GetCommandHandlerAttributes()
     {
@@ -60,9 +77,18 @@ public class HelpCommandHandler : CommandHandlerBase
 
         return sb.ToString();
     }
+    
+    #endregion
 
+    #region Exposed Methods
+
+    /// <summary>
+    /// Respond with usage information about the various available commands.
+    /// </summary>
     public override void Handle(CommandEventArgs e)
     {
         Bot.ReplyToMessage(e, BuildHelpMessage());
     }
+
+    #endregion
 }
