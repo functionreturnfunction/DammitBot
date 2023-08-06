@@ -20,10 +20,6 @@ public class CommandEventArgs : MessageEventArgs
         : base(args.Message, args.Channel, args.Protocol, args.User)
     {
         From = from;
-        if (!string.IsNullOrWhiteSpace(Message))
-        {
-            Command = ReadCommand(Message);
-        }
     }
 
     /// <summary>
