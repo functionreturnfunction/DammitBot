@@ -2,6 +2,7 @@
 using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Library;
+using DammitBot.Utilities;
 using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Protocols.Irc;
@@ -41,7 +42,7 @@ public class Irc : IIrc
 
     private void Irc_ChannelMessageReceived(object? sender, MessageEventArgs e)
     {
-        _log.LogDebug("Message received: '{MessageText}'", e.Message);
+        _log.LogReceivedMessage(e);
         ChannelMessageReceived?.Invoke(sender, e);
     }
 
