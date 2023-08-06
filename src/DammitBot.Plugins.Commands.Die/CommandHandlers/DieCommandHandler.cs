@@ -7,7 +7,9 @@ namespace DammitBot.CommandHandlers;
 /// <see cref="ICommandHandler"/> implementation which provides the "die" command, which will cause the
 /// bot to disconnect from any connected protocols, stop any running services, and shut down.
 /// </summary>
-[HandlesCommand("^die$")]
+[HandlesCommand(
+    "^die$",
+    "Disconnect from any connected protocols, stop any running services, and shut down the bot.")]
 public class DieCommandHandler : CommandHandlerBase
 {
     #region Constants

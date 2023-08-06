@@ -69,6 +69,27 @@ public class Irc : IIrc
     public virtual string Name => PROTOCOL_NAME;
 
     #endregion
+    
+    #region Private Methods
+
+    // IrcDotNet doesn't like sending messages with newline chars, so this breaks them up into separate
+    // messages
+    private void SendMessage(string message, params string[] targets)
+    {
+        if (_irc == null)
+        {
+            throw new InvalidOperationException(
+                $"An {nameof(Irc)} instance cannot be used before {nameof(Initialize)} has " +
+                "been called on it");
+        }
+            
+        foreach (var chunk in message.Split(Environment.NewLine))
+        {
+            _irc.SendMessage(chunk, targets);
+        }
+    }
+    
+    #endregion
 
     #region Exposed Methods
 
@@ -90,26 +111,12 @@ public class Irc : IIrc
 
     public virtual void SayToChannel(string channel, string message)
     {
-        if (_irc == null)
-        {
-            throw new InvalidOperationException(
-                $"An {nameof(Irc)} instance cannot be used before {nameof(Initialize)} has " +
-                "been called on it");
-        }
-            
-        _irc.SendMessage(message, channel);
+        SendMessage(message, channel);
     }
 
     public virtual void SayToAll(string message)
     {
-        if (_irc == null)
-        {
-            throw new InvalidOperationException(
-                $"An {nameof(Irc)} instance cannot be used before {nameof(Initialize)} has " +
-                "been called on it");
-        }
-            
-        _irc.SendMessage(message, _config.Channels);
+        SendMessage(message, _config.Channels);
     }
 
     #endregion

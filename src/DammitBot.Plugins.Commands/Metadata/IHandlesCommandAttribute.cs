@@ -8,4 +8,15 @@ namespace DammitBot.Metadata;
 /// <see cref="Regex"/> to compare against received messages and determine which handler(s) would be
 /// appropriate. 
 /// </summary>
-public interface IHandlesCommandAttribute : IHandlesMessageAttribute {}
+public interface IHandlesCommandAttribute : IHandlesMessageAttribute
+{
+    #region Abstract Properties
+    
+    /// <summary>
+    /// Description of the command which is handled by the <see cref="ICommandHandler"/> the attribute is
+    /// applied to.
+    /// </summary>
+    string Description { get; }
+    
+    #endregion
+}

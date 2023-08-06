@@ -11,7 +11,9 @@ using DateTimeStringParser;
 
 namespace DammitBot.CommandHandlers;
 
-[HandlesCommand(@"^remind ([^\s]+).+")]
+[HandlesCommand(
+    @"^remind ([^\s]+).+",
+    "Set reminders; messages which the bot will send to a user or channel at a point in the future.")]
 public class ReminderCommandHandler : CommandHandlerBase
 {
     #region Constants
