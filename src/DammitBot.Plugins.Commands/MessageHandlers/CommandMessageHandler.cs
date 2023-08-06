@@ -1,26 +1,22 @@
 ﻿using System.Linq;
-using DammitBot.Abstract;
 using DammitBot.CommandHandlers;
+using DammitBot.Configuration;
 using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
+using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers;
 
 [HandlesBotMessage]
 public class CommandMessageHandler : IMessageHandler
 {
-    #region Constants
-
-    public const string REGEX = @"^(?:dammit )?bot (.+)";
-
-    #endregion
-
     #region Private Members
 
     private readonly ICommandHandlerFactory _handlerFactory;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+    private readonly IBotConfigurationSection _config;
 
     #endregion
 
@@ -28,10 +24,12 @@ public class CommandMessageHandler : IMessageHandler
 
     public CommandMessageHandler(
         ICommandHandlerFactory handlerFactory,
-        IUnitOfWorkFactory unitOfWorkFactory)
+        IUnitOfWorkFactory unitOfWorkFactory,
+        IConfigurationProvider configurationProvider)
     {
         _handlerFactory = handlerFactory;
         _unitOfWorkFactory = unitOfWorkFactory;
+        _config = configurationProvider.BotConfig;
     }
 
     #endregion
@@ -49,7 +47,7 @@ public class CommandMessageHandler : IMessageHandler
                 return;
             }
 
-            args = new CommandEventArgs(e, nick);
+            args = new CommandEventArgs(e, e.GetCommandText(_config), nick);
         }
 
         _handlerFactory.BuildHandler(args).Handle(args);

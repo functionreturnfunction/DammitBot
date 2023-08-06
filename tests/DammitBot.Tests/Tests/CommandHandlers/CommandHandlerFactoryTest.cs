@@ -15,7 +15,7 @@ public class CommandHandlerFactoryTest
 {
     protected override CommandEventArgs CreateEventArgs()
     {
-        return new CommandEventArgs(CreateMessageEventArgs(), new Nick());
+        return new CommandEventArgs(CreateMessageEventArgs(), "foo", new Nick());
     }
 
     [Fact]

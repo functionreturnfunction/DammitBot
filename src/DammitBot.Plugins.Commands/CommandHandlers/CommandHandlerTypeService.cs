@@ -36,7 +36,7 @@ public class CommandHandlerTypeService
 
     protected override string GetMessageText(CommandEventArgs message)
     {
-        return Regex.Match(message.Message, _config.GoesBy + " (.+)").Groups[1].Value;
+        return message.GetCommandText(_config);
     }
 
     #endregion

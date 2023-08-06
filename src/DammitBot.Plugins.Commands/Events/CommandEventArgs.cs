@@ -1,9 +1,11 @@
-﻿using System.Text.RegularExpressions;
-using DammitBot.Data.Models;
-using DammitBot.MessageHandlers;
+﻿using DammitBot.Data.Models;
 
 namespace DammitBot.Events;
 
+/// <summary>
+/// <see cref="MessageEventArgs"/> implementation providing the text of a command and the
+/// <see cref="Nick"/> representing whoever issued the command.
+/// </summary>
 public class CommandEventArgs : MessageEventArgs
 {
     #region Properties
@@ -16,24 +18,14 @@ public class CommandEventArgs : MessageEventArgs
 
     #region Constructors
 
-    public CommandEventArgs(MessageEventArgs args, Nick from)
+    /// <summary>
+    /// Constructor for the <see cref="CommandEventArgs"/> class.
+    /// </summary>
+    public CommandEventArgs(MessageEventArgs args, string command, Nick from)
         : base(args.Message, args.Channel, args.Protocol, args.User)
     {
+        Command = command;
         From = from;
-    }
-
-    /// <summary>
-    /// for testing purposes only!!!
-    /// </summary>
-    public CommandEventArgs() : this(null, null) {}
-
-    #endregion
-
-    #region Private Methods
-
-    private string ReadCommand(string message)
-    {
-        return Regex.Match(message, CommandMessageHandler.REGEX).Groups[1].ToString();
     }
 
     #endregion
