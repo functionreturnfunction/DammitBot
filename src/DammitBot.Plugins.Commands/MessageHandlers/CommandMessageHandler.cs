@@ -9,6 +9,12 @@ using DammitBot.Utilities;
 
 namespace DammitBot.MessageHandlers;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation checks if messages can be considered commands, and uses a
+/// <see cref="ICommandHandlerFactory"/> to build an <see cref="ICommandHandler"/> to handle them if they
+/// can. 
+/// </remarks>
 [HandlesBotMessage]
 public class CommandMessageHandler : IMessageHandler
 {
@@ -22,6 +28,9 @@ public class CommandMessageHandler : IMessageHandler
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="CommandMessageHandler"/> class.
+    /// </summary>
     public CommandMessageHandler(
         ICommandHandlerFactory handlerFactory,
         IUnitOfWorkFactory unitOfWorkFactory,
@@ -33,9 +42,20 @@ public class CommandMessageHandler : IMessageHandler
     }
 
     #endregion
+    
+    #region Private Methods
+
+    private static Nick? LoadNick(IUnitOfWork uow, MessageEventArgs e)
+    {
+        return uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
+    }
+    
+    #endregion
 
     #region Exposed Methods
 
+    /// <inheritdoc />
+    /// <inheritdoc cref="CommandMessageHandler" path="remarks" />
     public void Handle(MessageEventArgs e)
     {
         CommandEventArgs? args;
@@ -51,11 +71,6 @@ public class CommandMessageHandler : IMessageHandler
         }
 
         _handlerFactory.BuildHandler(args).Handle(args);
-    }
-
-    private Nick? LoadNick(IUnitOfWork uow, MessageEventArgs e)
-    {
-        return uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
     }
 
     #endregion

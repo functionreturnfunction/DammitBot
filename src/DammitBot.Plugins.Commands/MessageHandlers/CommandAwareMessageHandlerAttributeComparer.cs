@@ -32,7 +32,12 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
 
     #region Private Methods
 
-    protected virtual Regex GetBotMessageRegex()
+    /// <summary>
+    /// Returns a <see cref="Regex"/> which can parse a command message which has been sent to the bot.
+    /// The regex should not match a message which does not being with a name the bot has been configured
+    /// to go by/respond to.
+    /// </summary>
+    protected virtual Regex GetBotCommandRegex()
     {
         return new Regex($"^{_botConfig.GoesBy} .+");
     }
@@ -41,12 +46,14 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
 
     #region Exposed Methods
 
+    /// <inheritdoc />
     public override bool MessageMatches(string message, Type handlerType)
     {
         var attribute = GetAttribute(handlerType);
 
+        // TODO: gain a better understanding of how this works and then document it better
         return (attribute is HandlesBotMessageAttribute
-            ? GetBotMessageRegex()
+            ? GetBotCommandRegex()
             : attribute.Regex)!.IsMatch(message);
     }
 

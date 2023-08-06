@@ -16,7 +16,7 @@ public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
     #region Properties
 
     /// <inheritdoc cref="IHandlesMessageAttribute.Regex"/>
-    public Regex Regex => new Regex(_rgx);
+    public Regex Regex => new(_rgx);
 
     #endregion
 
