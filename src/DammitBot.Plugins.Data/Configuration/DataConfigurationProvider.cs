@@ -2,10 +2,7 @@
 
 namespace DammitBot.Configuration;
 
-/// <summary>
-/// Provider of configuration data specific to dealing with persistence, specifically a
-/// <see cref="ConnectionString"/>.
-/// </summary>
+/// <inheritdoc cref="IDataConfigurationProvider"/>
 public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurationProvider
 {
     #region Constructors
@@ -22,9 +19,7 @@ public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurati
     
     #region Properties
 
-    /// <summary>
-    /// Connection string value configured for use within the application.
-    /// </summary>
+    /// <inheritdoc />
     public string ConnectionString => Configuration
         .EnsureConfigSection("Data")
         .EnsureConfigValue("connectionString");

@@ -7,7 +7,7 @@ namespace DammitBot.Data.Models;
 public static class ModelWithTimestampsTestExtensions
 {
     public static void TestSaveWithValidFieldsSetsCreatedAt<TModel>(this ModelTestBase<TModel> that)
-        where TModel : class, IThingWithTimestamps, new()
+        where TModel : class, IEntityWithTimestamps, new()
     {
         var model = that.CreateValidObject();
 
@@ -18,7 +18,7 @@ public static class ModelWithTimestampsTestExtensions
     public static void TestUpdateWithValidFieldsSetsUpdatedAt<TModel>(
         this ModelTestBase<TModel> that,
         Action<TModel> updateModel)
-        where TModel : class, IThingWithTimestamps, new()
+        where TModel : class, IEntityWithTimestamps, new()
     {
         var model = that.CreateValidObject();
 

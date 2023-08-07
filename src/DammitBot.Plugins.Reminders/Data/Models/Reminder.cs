@@ -3,7 +3,7 @@ using DammitBot.Library;
 
 namespace DammitBot.Data.Models;
 
-public class Reminder : IThingWithTimestamps
+public class Reminder : IEntityWithTimestamps
 {
     #region Properties
 
