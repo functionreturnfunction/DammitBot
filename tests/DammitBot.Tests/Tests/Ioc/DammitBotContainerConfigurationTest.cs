@@ -37,13 +37,6 @@ public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<
     }
 
     [Fact]
-    public void TestConfigureSetsUpLoggerRepositoryAsSingleton()
-    {
-        // AssertSingleton<ILoggerRepository, ILoggerRepository>();
-        Assert.True(false, "Tests not yet written.");
-    }
-
-    [Fact]
     public void TestConfigureSetsUpConfigurationBuilder()
     {
         Assert.IsType<ConfigurationBuilder>(_target.GetInstance<IConfigurationBuilder>());
