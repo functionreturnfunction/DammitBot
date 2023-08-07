@@ -3,8 +3,8 @@
         "goesBy": "(?:dammit )?bot"
     },
 
-    "Dapper": {
-        "connection": "..\\..\\db\\dev.db"
+    "Data": {
+        "connectionString": "..\\..\\db\\dev.db"
     },
 
     "Irc": {

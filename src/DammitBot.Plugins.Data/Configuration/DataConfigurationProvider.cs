@@ -12,8 +12,8 @@ public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurati
     #region Properties
 
     public string ConnectionString => Configuration
-        .EnsureConfigSection("Dapper")
-        .EnsureConfigValue("connection");
+        .EnsureConfigSection("Data")
+        .EnsureConfigValue("connectionString");
 
     #endregion
 }
