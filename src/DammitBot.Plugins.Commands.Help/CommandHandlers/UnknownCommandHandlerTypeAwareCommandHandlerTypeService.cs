@@ -9,10 +9,18 @@ using DammitBot.Utilities;
 
 namespace DammitBot.CommandHandlers;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation will provide a special <see cref="UnknownCommandHandler"/> type if no matches are
+/// found for the command message.
+/// </remarks>
 public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHandlerTypeService
 {
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="UnknownCommandHandlerTypeAwareCommandHandlerTypeService"/> class.
+    /// </summary>
     public UnknownCommandHandlerTypeAwareCommandHandlerTypeService(
         IAssemblyService assemblyService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
@@ -23,6 +31,8 @@ public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHa
 
     #region Exposed Methods
 
+    /// <inheritdoc />
+    /// <inheritdoc cref="UnknownCommandHandlerTypeAwareCommandHandlerTypeService" path="remarks"/>
     public override IEnumerable<Type> GetMatchingHandlerTypes(CommandEventArgs message)
     {
         var handlers = base.GetMatchingHandlerTypes(message).ToArray();

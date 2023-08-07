@@ -1,7 +1,7 @@
 ﻿namespace DammitBot.Configuration;
 
 /// <summary>
-/// Provider of configuration details.  All configuration providers will include the base
+/// Provider of configuration data.  All configuration providers will include the base
 /// <see cref="IBotConfigurationSection"/> for the bot itself.
 /// </summary>
 public interface IConfigurationProvider
