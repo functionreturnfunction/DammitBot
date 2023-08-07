@@ -7,7 +7,7 @@ Configurable, modular chatbot written in c#.
 - Plugin system
 - (optional) Message logging
 - (optional) Time-based reminders
-- (optional) Database with an (optional) auto-runner
+- (optional) Database with (optional) migrations and an (optional) auto-runner
 - (optional) Bot commands
 
 # [Plugins](doc/Plugins.md)
@@ -40,7 +40,12 @@ The core bot has no functionality to connect to any chat protocols, rather this 
 
 ### Irc
 
-Irc is one of the protocols for which there is a plugin.  It is currently the only such protocol.
+Irc is one of the protocols for which there is a plugin.
+
+### Console
+
+Console support is implemented as a protocol plugin, messages can be sent to and received from the bot directly
+via the command-line where it's been launched.
 
 # Libraries
 
