@@ -10,12 +10,12 @@ namespace DammitBot.Tests.Library;
 
 public class RepositoryTest : UnitTestBase<Repository<Nick>>
 {
-    private Mock<IDataCommandHelper> _dataCommandHelper;
+    private Mock<IDataCommandService> _dataCommandHelper;
 
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
         base.ConfigureContainer(serviceRegistry);
-        _dataCommandHelper = serviceRegistry.For<IDataCommandHelper>().Mock();
+        _dataCommandHelper = serviceRegistry.For<IDataCommandService>().Mock();
     }
 
     [Fact]

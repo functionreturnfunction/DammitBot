@@ -4,11 +4,11 @@ using Microsoft.Data.Sqlite;
 
 namespace DammitBot.Library;
 
-public class SqliteConnectionStringService : IConnectionStringService
+public class SqliteConnectionStringProvider : IConnectionStringProvider
 {
     protected readonly IDataConfigurationProvider _config;
 
-    public SqliteConnectionStringService(IDataConfigurationProvider config)
+    public SqliteConnectionStringProvider(IDataConfigurationProvider config)
     {
         _config = config;
     }

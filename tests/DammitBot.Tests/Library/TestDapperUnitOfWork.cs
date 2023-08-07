@@ -6,9 +6,9 @@ public class TestDapperUnitOfWork : DapperUnitOfWork
 {
     public TestDapperUnitOfWork(
         IDbConnectionFactory connectionFactory,
-        IConnectionStringService connectionStringService,
+        IConnectionStringProvider connectionStringProvider,
         IContainer container)
-        : base(connectionFactory, connectionStringService, container) {}
+        : base(connectionFactory, connectionStringProvider, container) {}
 
     public override void Dispose()
     {

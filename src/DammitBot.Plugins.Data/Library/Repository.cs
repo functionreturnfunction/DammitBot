@@ -5,7 +5,7 @@ public class Repository<TEntity> : RepositoryBase<TEntity>
 {
     #region Constructors
 
-    public Repository(IDataCommandHelper helper) : base(helper) { }
+    public Repository(IDataCommandService commandService) : base(commandService) { }
 
     #endregion
 }

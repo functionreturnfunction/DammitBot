@@ -11,7 +11,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 {
     #region Private Members
 
-    protected readonly IDataCommandHelper _helper;
+    protected readonly IDataCommandService _commandService;
 
     #endregion
 
@@ -27,9 +27,9 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 
     #region Constructors
 
-    protected RepositoryBase(IDataCommandHelper helper)
+    protected RepositoryBase(IDataCommandService commandService)
     {
-        _helper = helper;
+        _commandService = commandService;
     }
 
     #endregion
@@ -38,7 +38,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 
     protected virtual IQueryable<TEntity> GetQueryable()
     {
-        return _helper.GetQueryable<TEntity>();
+        return _commandService.GetQueryable<TEntity>();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -52,17 +52,17 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 
     public virtual object Insert(TEntity entity)
     {
-        return _helper.Insert(entity);
+        return _commandService.Insert(entity);
     }
 
     public virtual void Update(TEntity entity)
     {
-        _helper.Update(entity);
+        _commandService.Update(entity);
     }
 
     public virtual TEntity Find(int id)
     {
-        return _helper.Load<TEntity>(id);
+        return _commandService.Load<TEntity>(id);
     }
 
     public IEnumerator<TEntity> GetEnumerator()

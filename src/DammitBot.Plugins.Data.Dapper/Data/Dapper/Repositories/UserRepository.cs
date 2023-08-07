@@ -12,10 +12,10 @@ public class UserRepository : DapperRepositoryBase<User>
     public const string BASE_QUERY = "select * from Users as this";
 
     public UserRepository(
-        IDataCommandHelper helper,
+        IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(helper, connection, dateTimeProvider) {}
+        : base(commandService, connection, dateTimeProvider) {}
 
     protected override string BaseQuery => BASE_QUERY;
 

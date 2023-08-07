@@ -24,10 +24,10 @@ left join Users t
 on t.Id = this.ToId";
 
     public ReminderRepository(
-        IDataCommandHelper helper,
+        IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(helper, connection, dateTimeProvider) {}
+        : base(commandService, connection, dateTimeProvider) {}
 
     protected override string BaseQuery => BASE_QUERY;
 

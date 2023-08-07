@@ -25,7 +25,7 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
         base.ConfigureContainer(serviceRegistry);
         _connection = new SqliteConnection(
             new Microsoft.Data.Sqlite.SqliteConnection(
-                new SqliteInMemoryConnectionStringService().GetMainAppConnectionString()));
+                new SqliteInMemoryConnectionStringProvider().GetMainAppConnectionString()));
         _connection.Name = "InMemoryDatabaseTest";
 
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();

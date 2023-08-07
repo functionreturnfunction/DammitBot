@@ -4,7 +4,7 @@ using Dommel;
 
 namespace DammitBot.Library;
 
-public class DapperDataCommandHelper : IDataCommandHelper
+public class DapperDataCommandService : IDataCommandService
 {
     #region Private Members
 
@@ -14,7 +14,7 @@ public class DapperDataCommandHelper : IDataCommandHelper
 
     #region Constructors
 
-    public DapperDataCommandHelper(IDbConnection connection)
+    public DapperDataCommandService(IDbConnection connection)
     {
         _connection = connection;
     }

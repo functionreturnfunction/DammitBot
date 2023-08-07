@@ -19,10 +19,10 @@ on u.Id = n.UserId";
     protected override string BaseQuery => BASE_QUERY;
 
     public MessageRepository(
-        IDataCommandHelper helper,
+        IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(helper, connection, dateTimeProvider) {}
+        : base(commandService, connection, dateTimeProvider) {}
 
     protected override void FixReferences(Message message)
     {

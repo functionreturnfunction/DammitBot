@@ -17,10 +17,10 @@ on u.Id = this.UserId";
     protected override string BaseQuery => BASE_QUERY;
 
     public NickRepository(
-        IDataCommandHelper helper,
+        IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(helper, connection, dateTimeProvider) {}
+        : base(commandService, connection, dateTimeProvider) {}
 
     protected override IEnumerable<Nick> DoQuery(string sql)
     {

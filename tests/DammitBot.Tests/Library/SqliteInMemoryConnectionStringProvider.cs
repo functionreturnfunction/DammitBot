@@ -2,7 +2,7 @@ using Microsoft.Data.Sqlite;
 
 namespace DammitBot.Library;
 
-public class SqliteInMemoryConnectionStringService : IConnectionStringService
+public class SqliteInMemoryConnectionStringProvider : IConnectionStringProvider
 {
     public string GetMainAppConnectionString()
     {

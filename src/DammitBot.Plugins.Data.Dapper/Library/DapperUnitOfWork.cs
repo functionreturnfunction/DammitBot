@@ -18,11 +18,11 @@ public class DapperUnitOfWork : IUnitOfWork
 
     public DapperUnitOfWork(
         IDbConnectionFactory connectionFactory,
-        IConnectionStringService connectionStringService,
+        IConnectionStringProvider connectionStringProvider,
         IContainer container)
     {
         Connection = connectionFactory
-            .Build(connectionStringService.GetMainAppConnectionString());
+            .Build(connectionStringProvider.GetMainAppConnectionString());
         if (Connection.State != ConnectionState.Open)
         {
             Connection.Open();

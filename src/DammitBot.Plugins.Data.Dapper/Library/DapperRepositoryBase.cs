@@ -17,10 +17,10 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
     protected abstract IEnumerable<TEntity> DoQuery(string sql);
 
     public DapperRepositoryBase(
-        IDataCommandHelper helper,
+        IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(helper)
+        : base(commandService)
     {
         _connection = connection;
         _dateTimeProvider = dateTimeProvider;
