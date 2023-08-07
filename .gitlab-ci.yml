@@ -26,5 +26,4 @@ test:
       junit:
         - ./**/*test-result.xml
       coverage_report:
-        coverage_format: cobertura
-        path: cobertura/*/coverage.cobertura.xml
+        cobertura: cobertura/*/coverage.cobertura.xml
