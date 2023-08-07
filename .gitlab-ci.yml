@@ -20,8 +20,9 @@ test:
        -r cobertura'
   artifacts:
     when: always
-    # paths:
-    #   - ./**/*test-result.xml
+    paths:
+      - ./**/*test-result.xml
+      - cobertura/*/coverage.cobertura.xml
     reports:
       junit:
         - ./**/*test-result.xml
