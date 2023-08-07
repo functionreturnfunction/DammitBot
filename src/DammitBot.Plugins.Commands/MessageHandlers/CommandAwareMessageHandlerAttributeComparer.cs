@@ -51,7 +51,6 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
     {
         var attribute = GetAttribute(handlerType);
 
-        // TODO: gain a better understanding of how this works and then document it better
         return (attribute is HandlesBotMessageAttribute
             ? GetBotCommandRegex()
             : attribute.Regex)!.IsMatch(message);
