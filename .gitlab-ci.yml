@@ -13,7 +13,11 @@ build:
 test:
   stage: test
   script:
-    - 'dotnet test --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"'
+    - 'dotnet test
+       --test-adapter-path:.
+       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+       --collect:"XPlat Code Coverage"
+       -r cobertura'
   artifacts:
     when: always
     paths:
@@ -21,3 +25,6 @@ test:
     reports:
       junit:
         - ./**/*test-result.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: cobertura/*/coverage.cobertura.xml
