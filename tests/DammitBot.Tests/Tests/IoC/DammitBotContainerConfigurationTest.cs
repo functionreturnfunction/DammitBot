@@ -1,11 +1,11 @@
-using DammitBot.Ioc;
+using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.Utilities;
 using Lamar;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace DammitBot.Tests.Ioc;
+namespace DammitBot.Tests.IoC;
 
 public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<IContainer>
 {

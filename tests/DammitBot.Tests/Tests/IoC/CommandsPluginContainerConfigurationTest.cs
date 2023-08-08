@@ -1,10 +1,10 @@
-using DammitBot.Ioc;
+using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using Lamar;
 using Xunit;
 
-namespace DammitBot.Tests.Ioc;
+namespace DammitBot.Tests.IoC;
 
 public class CommandsPluginContainerConfigurationTest : InMemoryDatabaseUnitTestBase<IContainer>
 {

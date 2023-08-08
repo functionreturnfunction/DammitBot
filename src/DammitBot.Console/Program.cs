@@ -1,5 +1,5 @@
 ﻿using DammitBot.Abstract;
-using DammitBot.Ioc;
+using DammitBot.IoC;
 using DammitBot.Utilities;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
