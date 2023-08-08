@@ -1,12 +1,11 @@
-﻿using System.Linq;
-
+﻿
 namespace DammitBot.Library;
 
 /// <summary>
 /// Main interface for database access.  Shoud be used in conjunction with an IUnitOfWork.
 /// </summary>
 /// <typeparam name="TEntity">Type of entity the repository deals with.</typeparam>
-public interface IRepository<TEntity> : IQueryable<TEntity>
+public interface IRepository<TEntity>
     where TEntity : class
 {
     /// <summary>

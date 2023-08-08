@@ -24,11 +24,6 @@ public interface IDataCommandService
     /// data storage. 
     /// </summary>
     TEntity Load<TEntity>(int id) where TEntity : class;
-    /// <summary>
-    /// Return a query root object which can perform queries against instances of
-    /// <typeparamref name="TEntity"/> from persistent data storage. 
-    /// </summary>
-    IQueryable<TEntity> GetQueryable<TEntity>() where TEntity : class;
 
     #endregion
 }

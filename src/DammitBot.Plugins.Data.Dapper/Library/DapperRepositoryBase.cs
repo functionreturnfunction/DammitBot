@@ -59,7 +59,7 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
 
     public override TEntity? Find(int id)
     {
-        return DoQuery(BaseQuery + $" where this.Id = {id}").SingleOrDefault();
+        return DoQuery(BaseQuery + " where this.Id = @id", new {id}).SingleOrDefault();
     }
 
     public override object Insert(TEntity entity)

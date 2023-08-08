@@ -39,16 +39,4 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
 
         Assert.Same(entity, _target.Find(666));
     }
-
-    [Fact]
-    public void TestWhereRunsSearch()
-    {
-        var entity = new Nick {Id = 1};
-        _dataCommandHelper.Setup(x => x.GetQueryable<Nick>())
-            .Returns(new List<Nick> {entity}.AsQueryable());
-
-        var result = _target.Where(n => n.Id == 1);
-
-        Assert.Same(entity, result.Single());
-    }
 }

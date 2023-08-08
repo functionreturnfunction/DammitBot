@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
@@ -106,7 +106,7 @@ public class ReminderCommandHandler : CommandHandlerBase
         Bot.ReplyToMessage(e, $"Reminder set for {when}");
     }
 
-    private User LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
+    private User? LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
     {
         if (value == "me")
         {
@@ -115,7 +115,7 @@ public class ReminderCommandHandler : CommandHandlerBase
 
         return value == "me"
             ? commandEventArgs.From.User
-            : uow.Query<User>().SingleOrDefault(u => u.Username == value);
+            : uow.GetRepository<IUserRepository, User>().FindByUsername(value);
     }
 
     #endregion

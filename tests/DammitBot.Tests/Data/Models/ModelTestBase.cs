@@ -30,12 +30,6 @@ public abstract class ModelTestBase<TModel> : InMemoryDatabaseUnitTestBase<TMode
 
     #region Exposed Methods
 
-    [Fact]
-    public virtual void TestThereAreNoneByDefault()
-    {
-        WithUnitOfWork(uow => Assert.Empty(uow.GetRepository<TModel>()));
-    }
-
     public TModel CreateValidObject()
     {
         dynamic valid;

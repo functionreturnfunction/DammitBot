@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace DammitBot.Library;
+﻿namespace DammitBot.Library;
 
 /// <inheritdoc />
 public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
@@ -16,19 +10,6 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 
     #endregion
 
-    #region Properties
-
-    /// <inheritdoc cref="IQueryable{TEntity}.Expression"/>
-    public Expression Expression => GetQueryable().Expression;
-
-    /// <inheritdoc cref="IQueryable{TEntity}.ElementType"/>
-    public Type ElementType => typeof(TEntity);
-
-    /// <inheritdoc cref="IQueryable{TEntity}.Provider"/>
-    public IQueryProvider Provider => GetQueryable().Provider;
-
-    #endregion
-
     #region Constructors
 
     /// <summary>
@@ -37,23 +18,6 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
     protected RepositoryBase(IDataCommandService commandService)
     {
         _commandService = commandService;
-    }
-
-    #endregion
-
-    #region Private Methods
-
-    /// <summary>
-    /// Retrieve an <see cref="IQueryable{TEntity}"/> instance to query against.
-    /// </summary>
-    protected virtual IQueryable<TEntity> GetQueryable()
-    {
-        return _commandService.GetQueryable<TEntity>();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 
     #endregion
@@ -76,12 +40,6 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
     public virtual TEntity Find(int id)
     {
         return _commandService.Load<TEntity>(id);
-    }
-
-    /// <inheritdoc cref="IEnumerable{TEntity}.GetEnumerator"/>
-    public IEnumerator<TEntity> GetEnumerator()
-    {
-        return GetQueryable().GetEnumerator();
     }
 
     #endregion

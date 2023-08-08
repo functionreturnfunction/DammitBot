@@ -12,11 +12,13 @@ public static class ServiceRegistryExtensions
     /// Register <typeparamref name="TRepository"/> as the repository for <typeparamref name="TEntity"/>
     /// instances. 
     /// </summary>
-    public static ConstructorInstance<TRepository, IRepository<TEntity>>
-        RegisterRepository<TEntity, TRepository>(this ServiceRegistry e)
-        where TRepository : class, IRepository<TEntity>
+    public static void RegisterRepository<TEntity, TRepository, TRepositoryInterface>(
+        this ServiceRegistry e)
+        where TRepositoryInterface : class, IRepository<TEntity>
+        where TRepository : class, TRepositoryInterface
         where TEntity : class
     {
-        return e.For<IRepository<TEntity>>().Use<TRepository>();
+        e.For<IRepository<TEntity>>().Use<TRepository>();
+        e.For<TRepositoryInterface>().Use<TRepository>();
     }
 }

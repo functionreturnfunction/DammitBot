@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Data;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Library;
 using Dapper;
 using DateTimeProvider;
 
 namespace DammitBot.Data.Dapper.Repositories;
 
-public class MessageRepository : DapperRepositoryBase<Message>
+public class MessageRepository : DapperRepositoryBase<Message>, IMessageRepository
 {
     public const string BASE_QUERY = @"
 select * from Messages this
@@ -29,12 +30,12 @@ on u.Id = n.UserId";
         message.FromId = message.From == null ? message.FromId : message.From.Id;
     }
 
-    protected override IEnumerable<Message> DoQuery(string sql)
+    protected override IEnumerable<Message> DoQuery(string sql, object? param = null)
     {
         return _connection.Query<Message, Nick, User, Message>(sql, (msg, nick, user) => {
             msg.From = nick;
             nick.User = user;
             return msg;
-        });
+        }, param);
     }
 }
