@@ -2,6 +2,7 @@
 using System.Data;
 using DammitBot.Data.Migrations.Library;
 using DammitBot.Ioc;
+using DammitBot.IoC;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Lamar;
@@ -31,6 +32,7 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
         serviceRegistry.For<IAssemblyService>().Use<AssemblyService>();
 
+        new SQLitePluginContainerConfiguration().Configure(serviceRegistry);
         new DapperPluginContainerConfiguration().Configure(serviceRegistry);
         new RemindersDapperPluginContainerConfiguration().Configure(serviceRegistry);
 
