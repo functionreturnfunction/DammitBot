@@ -11,10 +11,26 @@ public interface IUnitOfWork : IDisposable
 {
     #region Abstract Methods
 
+    /// <summary>
+    /// Commit any changes made via this instance to data persistence.
+    /// </summary>
     void Commit();
-    IRepository<T> GetRepository<T>() where T : class;
+    /// <summary>
+    /// Get a repository responsible for  entities of type <typeparamref name="TEntity"/>.
+    /// </summary>
+    IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+    /// <summary>
+    /// Execute the given <paramref name="sql"/> statement and return the number of changed rows.
+    /// </summary>
     int ExecuteNonQuery(string sql);
+    /// <summary>
+    /// Execute the given <paramref name="sql"/> query and return the value in the first column of the
+    /// first row of the results.
+    /// </summary>
     object ExecuteScalar(string sql);
+    /// <summary>
+    /// Execute the given <paramref name="sql"/> query and build an <see cref="IDataReader"/>.
+    /// </summary>
     IDataReader ExecuteReader(string sql);
 
     #endregion
