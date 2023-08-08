@@ -3,8 +3,14 @@ using Dapper.FluentMap.Dommel.Mapping;
 
 namespace DammitBot.Data.Dapper.Mappings;
 
+/// <summary>
+/// <see cref="DommelEntityMap{TEntity}"/> for the <see cref="Nick"/> entity.
+/// </summary>
 public class NickMap : DommelEntityMap<Nick>
 {
+    /// <summary>
+    /// Constructor for the <see cref="NickMap"/> class.
+    /// </summary>
     public NickMap()
     {
         Map(x => x.Id).IsKey();
