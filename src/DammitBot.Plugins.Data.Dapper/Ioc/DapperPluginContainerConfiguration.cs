@@ -16,9 +16,9 @@ public class DapperPluginContainerConfiguration : ContainerConfigurationBase
         e.For<IDbConnectionFactory>().Use<SqliteDbConnectionFactory>();
         e.For<IConnectionStringProvider>().Use<SqliteConnectionStringProvider>();
 
-        e.For<IRepository<Nick>>().Use<NickRepository>();
-        e.For<IRepository<Message>>().Use<MessageRepository>();
-        e.For<IRepository<User>>().Use<UserRepository>();
+        e.RegisterRepository<Nick, NickRepository>();
+        e.RegisterRepository<Message, MessageRepository>();
+        e.RegisterRepository<User, UserRepository>();
         
         // required for UnitOfWork
         e.Injectable<IDbConnection>();

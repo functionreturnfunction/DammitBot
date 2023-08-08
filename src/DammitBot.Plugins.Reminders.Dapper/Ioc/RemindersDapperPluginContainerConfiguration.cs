@@ -10,6 +10,6 @@ public class RemindersDapperPluginContainerConfiguration : ContainerConfiguratio
 {
     public override void Configure(ServiceRegistry e)
     {
-        e.For<IRepository<Reminder>>().Use<ReminderRepository>();
+        e.RegisterRepository<Reminder, ReminderRepository>();
     }
 }
