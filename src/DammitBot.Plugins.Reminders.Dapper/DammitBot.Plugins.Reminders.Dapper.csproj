@@ -5,10 +5,6 @@
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.143" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>default</LangVersion>
