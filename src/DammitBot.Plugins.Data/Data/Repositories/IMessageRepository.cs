@@ -3,7 +3,5 @@ using DammitBot.Library;
 
 namespace DammitBot.Data.Repositories;
 
-/// <summary>
-/// <see cref="IRepository{TEntity}"/> implementation responsible for <see cref="Message"/> entities.
-/// </summary>
+/// <inheritdoc />
 public interface IMessageRepository : IRepository<Message> { }

@@ -20,7 +20,7 @@ public static class IUnitOfWorkExtensions
     }
 
     /// <inheritdoc cref="IRepository{TEntity}.Find"/>
-    public static TEntity Find<TEntity>(this IUnitOfWork that, int id)
+    public static TEntity? Find<TEntity>(this IUnitOfWork that, int id)
         where TEntity : class
     {
         return that.GetEntityRepository<TEntity>().Find(id);

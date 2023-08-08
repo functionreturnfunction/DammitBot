@@ -4,32 +4,57 @@ using Lamar;
 
 namespace DammitBot.Library;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation creates and injects an <see cref="IDbConnection"/> for sending data to and
+/// retrieving data from the database, with the intention that <see cref="Dapper"/> extensions will be
+/// called on it by repository implementations.
+/// </remarks>
 public class DapperUnitOfWork : IUnitOfWork
 {
+    #region Private Members
+    
+    private readonly IDbConnection _connection;
+    
+    #endregion
+    
     #region Exposed Properties
 
-    public IDbConnection Connection { get; }
-    public IDbTransaction Transaction { get; }
-    public INestedContainer Container { get; }
+    /// <summary>
+    /// Implicit <see cref="IDbTransaction"/> which any data operations performed through this instance
+    /// will be associated with.
+    /// </summary>
+    protected IDbTransaction Transaction { get; }
+    /// <summary>
+    /// <see cref="IContainer"/> instance with an injected <see cref="IDbConnection"/> for performing
+    /// database operations.
+    /// </summary>
+    protected INestedContainer Container { get; }
 
     #endregion
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="DapperUnitOfWork"/> class.
+    /// </summary>
+    /// <param name="connectionFactory"></param>
+    /// <param name="connectionStringProvider"></param>
+    /// <param name="container"></param>
     public DapperUnitOfWork(
         IDbConnectionFactory connectionFactory,
         IConnectionStringProvider connectionStringProvider,
         IContainer container)
     {
-        Connection = connectionFactory
+        _connection = connectionFactory
             .Build(connectionStringProvider.GetMainAppConnectionString());
-        if (Connection.State != ConnectionState.Open)
+        if (_connection.State != ConnectionState.Open)
         {
-            Connection.Open();
+            _connection.Open();
         }
-        Transaction = Connection.BeginTransaction();
+        Transaction = _connection.BeginTransaction();
         Container = container.GetNestedContainer();
-        Container.Inject(Connection);
+        Container.Inject(_connection);
     }
 
     #endregion
@@ -38,7 +63,7 @@ public class DapperUnitOfWork : IUnitOfWork
 
     private T WithCommand<T>(Func<IDbCommand, T> fn)
     {
-        using (var cmd = Connection.CreateCommand())
+        using (var cmd = _connection.CreateCommand())
         {
             cmd.Transaction = Transaction;
             return fn(cmd);
@@ -57,12 +82,14 @@ public class DapperUnitOfWork : IUnitOfWork
 
     #region Exposed Methods
 
+    /// <inheritdoc />
     public IRepository<TEntity> GetEntityRepository<TEntity>()
         where TEntity : class
     {
         return GetRepository<IRepository<TEntity>, TEntity>();
     }
 
+    /// <inheritdoc />
     public TRepository GetRepository<TRepository, TEntity>()
         where TRepository : IRepository<TEntity>
         where TEntity : class
@@ -70,42 +97,34 @@ public class DapperUnitOfWork : IUnitOfWork
         return Container.GetInstance<TRepository>();
     }
 
+    /// <inheritdoc />
     public virtual void Commit()
     {
         Transaction.Commit();
     }
 
+    /// <inheritdoc />
     public virtual void Dispose()
     {
-        Connection.Close();
-        Connection.Dispose();
+        _connection.Close();
+        _connection.Dispose();
         Container.Dispose();
         Transaction.Dispose();
     }
 
+    /// <inheritdoc />
     public int ExecuteNonQuery(string sql)
     {
         return WithTextCommand(sql,
             cmd => cmd.ExecuteNonQuery());
     }
 
-    public object ExecuteScalar(string sql)
+    /// <inheritdoc />
+    public object? ExecuteScalar(string sql)
     {
         return WithTextCommand(sql,
             cmd => cmd.ExecuteScalar());
     }
-
-    public IDataReader ExecuteReader(string sql)
-    {
-        return WithTextCommand(sql,
-            cmd => cmd.ExecuteReader());
-    }
-
-    public IUnitOfWork Start()
-    {
-        throw new InvalidOperationException("Already started!");
-    }
-
 
     #endregion
 }

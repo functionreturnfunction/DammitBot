@@ -3,9 +3,7 @@ using DammitBot.Library;
 
 namespace DammitBot.Data.Repositories;
 
-/// <summary>
-/// <see cref="IRepository{TEntity}"/> implementation responsible for <see cref="User"/> entities.
-/// </summary>
+/// <inheritdoc />
 public interface IUserRepository : IRepository<User>
 {
     /// <summary>

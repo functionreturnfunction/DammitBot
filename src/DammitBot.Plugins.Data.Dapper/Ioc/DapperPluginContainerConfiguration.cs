@@ -8,8 +8,17 @@ using Lamar;
 
 namespace DammitBot.Ioc;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation registers <see cref="Dapper"/>-specific implementations of types from the
+/// DammitBot.Data plugin.
+/// </remarks>
 public class DapperPluginContainerConfiguration : ContainerConfigurationBase
 {
+    #region Exposed Methods
+    
+    /// <inheritdoc />
+    /// <inheritdoc cref="DapperPluginContainerConfiguration" path="remarks" />
     public override void Configure(ServiceRegistry e)
     {
         e.For<IUnitOfWork>().Use<DapperUnitOfWork>();
@@ -19,7 +28,9 @@ public class DapperPluginContainerConfiguration : ContainerConfigurationBase
         e.RegisterRepository<Message, MessageRepository, IMessageRepository>();
         e.RegisterRepository<User, UserRepository, IUserRepository>();
         
-        // required for UnitOfWork
+        // required for UnitOfWork implementation
         e.Injectable<IDbConnection>();
     }
+    
+    #endregion
 }

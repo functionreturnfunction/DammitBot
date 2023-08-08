@@ -6,25 +6,35 @@ using DateTimeProvider;
 
 namespace DammitBot.Library;
 
-/// <summary>
-/// <see cref="RepositoryBase{TEntity}"/> implementation for managing the persistence of
-/// <see cref="TEntity"/> instances using <see cref="Dapper"/>.
-/// </summary>
-/// <typeparam name="TEntity"></typeparam>
+/// <inheritdoc />
+/// <remarks>
+/// This implementation uses <see cref="Dapper"/> to do the actual work of sending data to and receiving
+/// data from the database.
+/// </remarks>
 public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
     where TEntity : class
 {
+    #region Private Members
+    
     /// <summary>
     /// <see cref="IDbConnection"/> by which to query the database.
     /// </summary>
     protected readonly IDbConnection _connection;
     private readonly IDateTimeProvider _dateTimeProvider;
 
+    #endregion
+    
+    #region Properties
+    
     /// <summary>
-    /// Base string query used to look up instances of <see cref="TEntity"/> from the database.  This
-    /// should include any necessary joins for loading child objects.
+    /// Base string query used to look up instances of <typeparamref name="TEntity"/> from the database.
+    /// This should include any necessary joins for loading child objects.
     /// </summary>
     protected abstract string BaseQuery { get; }
+    
+    #endregion
+    
+    #region Constructors
 
     /// <summary>
     /// Constructor for the <see cref="DapperRepositoryBase{TEntity}"/> class.
@@ -38,6 +48,10 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
         _connection = connection;
         _dateTimeProvider = dateTimeProvider;
     }
+    
+    #endregion
+    
+    #region Abstract Methods
 
     /// <summary>
     /// <see cref="Dapper"/> doesn't automatically link child/joined objects, so that should be handled by
@@ -52,16 +66,26 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
     /// </summary>
     protected abstract IEnumerable<TEntity> DoQuery(string sql, object? param = null);
     
+    #endregion
+    
+    #region Private Methods
+    
     private void SetTimestamp(TEntity entity, string name)
     {
         entity.TrySetDateTimeProperty(name, _dateTimeProvider.GetCurrentTime());
     }
+    
+    #endregion
+    
+    #region Exposed Methods
 
+    /// <inheritdoc />
     public override TEntity? Find(int id)
     {
         return DoQuery(BaseQuery + " where this.Id = @id", new {id}).SingleOrDefault();
     }
 
+    /// <inheritdoc />
     public override object Insert(TEntity entity)
     {
         FixReferences(entity);
@@ -69,10 +93,13 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
         return base.Insert(entity);
     }
 
+    /// <inheritdoc />
     public override void Update(TEntity entity)
     {
         FixReferences(entity);
         SetTimestamp(entity, "UpdatedAt");
         base.Update(entity);
     }
+    
+    #endregion
 }

@@ -34,11 +34,7 @@ public interface IUnitOfWork : IDisposable
     /// Execute the given <paramref name="sql"/> query and return the value in the first column of the
     /// first row of the results.
     /// </summary>
-    object ExecuteScalar(string sql);
-    /// <summary>
-    /// Execute the given <paramref name="sql"/> query and build an <see cref="IDataReader"/>.
-    /// </summary>
-    IDataReader ExecuteReader(string sql);
+    object? ExecuteScalar(string sql);
 
     #endregion
 }

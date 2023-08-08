@@ -1,8 +1,8 @@
-﻿
-namespace DammitBot.Library;
+﻿namespace DammitBot.Library;
 
 /// <summary>
-/// Main interface for database access.  Shoud be used in conjunction with an IUnitOfWork.
+/// Repository responsible for managing the persistence and retrieval of <typeparamref name="TEntity"/>
+/// instances.
 /// </summary>
 /// <typeparam name="TEntity">Type of entity the repository deals with.</typeparam>
 public interface IRepository<TEntity>
@@ -19,6 +19,7 @@ public interface IRepository<TEntity>
     void Update(TEntity entity);
     /// <summary>
     /// Find the <typeparamref name="TEntity"/> instance with the primary key value <paramref name="id"/>.
+    /// Returns null if not found.
     /// </summary>
-    TEntity Find(int id);
+    TEntity? Find(int id);
 }

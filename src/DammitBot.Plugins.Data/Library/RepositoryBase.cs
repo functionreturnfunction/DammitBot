@@ -37,7 +37,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
     }
 
     /// <inheritdoc cref="IRepository{TEntity}.Find"/>
-    public virtual TEntity Find(int id)
+    public virtual TEntity? Find(int id)
     {
         return _commandService.Load<TEntity>(id);
     }
