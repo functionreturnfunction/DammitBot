@@ -18,7 +18,14 @@ public interface IUnitOfWork : IDisposable
     /// <summary>
     /// Get a repository responsible for entities of type <typeparamref name="TEntity"/>.
     /// </summary>
-    IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+    IRepository<TEntity> GetEntityRepository<TEntity>() where TEntity : class;
+    /// <summary>
+    /// Get a repository of type <typeparamref name="TRepository"/> which is responsible for entities of
+    /// type <typeparamref name="TEntity"/>.
+    /// </summary>
+    TRepository GetRepository<TRepository, TEntity>()
+        where TRepository : IRepository<TEntity>
+        where TEntity : class;
     /// <summary>
     /// Execute the given <paramref name="sql"/> statement and return the number of changed rows.
     /// </summary>

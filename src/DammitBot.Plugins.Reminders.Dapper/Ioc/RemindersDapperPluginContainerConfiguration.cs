@@ -1,6 +1,7 @@
 using DammitBot.Abstract;
 using DammitBot.Data.Models;
 using DammitBot.Data.Dapper.Repositories;
+using DammitBot.Data.Repositories;
 using DammitBot.Library;
 using Lamar;
 
@@ -10,6 +11,6 @@ public class RemindersDapperPluginContainerConfiguration : ContainerConfiguratio
 {
     public override void Configure(ServiceRegistry e)
     {
-        e.RegisterRepository<Reminder, ReminderRepository>();
+        e.RegisterRepository<Reminder, ReminderRepository, IReminderRepository>();
     }
 }

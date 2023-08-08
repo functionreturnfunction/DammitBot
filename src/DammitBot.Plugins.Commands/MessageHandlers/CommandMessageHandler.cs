@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using DammitBot.CommandHandlers;
+﻿using DammitBot.CommandHandlers;
 using DammitBot.Configuration;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
@@ -47,7 +47,7 @@ public class CommandMessageHandler : IMessageHandler
 
     private static Nick? LoadNick(IUnitOfWork uow, MessageEventArgs e)
     {
-        return uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
+        return uow.GetRepository<INickRepository, Nick>().FindByNickname(e.User);
     }
     
     #endregion

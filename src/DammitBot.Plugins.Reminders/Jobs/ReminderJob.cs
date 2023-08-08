@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Library;
 using DammitBot.Metadata;
 using DateTimeProvider;
@@ -63,9 +65,9 @@ public class ReminderJob : IJob
     //     throw new NotImplementedException();
     // }
 
-    private IQueryable<Reminder> GetReminders(IUnitOfWork uow, DateTime since)
+    private IEnumerable<Reminder> GetReminders(IUnitOfWork uow, DateTime since)
     {
-        return uow.Query<Reminder>().Where(r => !r.RemindedAt.HasValue && r.RemindAt <= since);
+        return uow.GetRepository<IReminderRepository, Reminder>().GetPending(since);
     }
 
     #endregion

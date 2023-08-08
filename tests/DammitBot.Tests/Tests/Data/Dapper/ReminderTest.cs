@@ -68,12 +68,6 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
     }
 
     [Fact]
-    public override void TestThereAreNoneByDefault()
-    {
-        base.TestThereAreNoneByDefault();
-    }
-
-    [Fact]
     public void TestCreateTimestamp()
     {
         this.TestSaveWithValidFieldsSetsCreatedAt();

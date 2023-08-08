@@ -2,6 +2,7 @@ using System.Data;
 using DammitBot.Abstract;
 using DammitBot.Data.Dapper.Repositories;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Library;
 using Lamar;
 
@@ -14,9 +15,9 @@ public class DapperPluginContainerConfiguration : ContainerConfigurationBase
         e.For<IUnitOfWork>().Use<DapperUnitOfWork>();
         e.For<IDataCommandService>().Use<DapperDataCommandService>();
 
-        e.RegisterRepository<Nick, NickRepository>();
-        e.RegisterRepository<Message, MessageRepository>();
-        e.RegisterRepository<User, UserRepository>();
+        e.RegisterRepository<Nick, NickRepository, INickRepository>();
+        e.RegisterRepository<Message, MessageRepository, IMessageRepository>();
+        e.RegisterRepository<User, UserRepository, IUserRepository>();
         
         // required for UnitOfWork
         e.Injectable<IDbConnection>();

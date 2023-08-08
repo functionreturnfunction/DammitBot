@@ -57,10 +57,17 @@ public class DapperUnitOfWork : IUnitOfWork
 
     #region Exposed Methods
 
-    public IRepository<TEntity> GetRepository<TEntity>()
+    public IRepository<TEntity> GetEntityRepository<TEntity>()
         where TEntity : class
     {
-        return Container.GetInstance<IRepository<TEntity>>();
+        return GetRepository<IRepository<TEntity>, TEntity>();
+    }
+
+    public TRepository GetRepository<TRepository, TEntity>()
+        where TRepository : IRepository<TEntity>
+        where TEntity : class
+    {
+        return Container.GetInstance<TRepository>();
     }
 
     public virtual void Commit()

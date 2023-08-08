@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using DammitBot.Data.Models;
+using DammitBot.Data.Repositories;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
@@ -35,25 +35,23 @@ public class LogMessageHandler : IMessageHandler
 
     public void Handle(MessageEventArgs e)
     {
-        using (var uow = _unitOfWorkFactory.Build())
+        using var uow = _unitOfWorkFactory.Build();
+        var nick = uow.GetRepository<INickRepository, Nick>().FindByNickname(e.User);
+
+        if (nick == null)
         {
-            var nick = uow.Query<Nick>().SingleOrDefault(n => n.Nickname == e.User);
-
-            if (nick == null)
-            {
-                nick = new Nick {Nickname = e.User};
-                nick.Id = Convert.ToInt32(uow.Insert(nick));
-            }
-
-            uow.Insert(new Message {
-                From = nick,
-                Text = e.Message,
-                Protocol = e.Protocol,
-                Channel = e.Channel
-            });
-
-            uow.Commit();
+            nick = new Nick {Nickname = e.User};
+            nick.Id = Convert.ToInt32(uow.Insert(nick));
         }
+
+        uow.Insert(new Message {
+            From = nick,
+            Text = e.Message,
+            Protocol = e.Protocol,
+            Channel = e.Channel
+        });
+
+        uow.Commit();
     }
 
     #endregion
