@@ -5,10 +5,18 @@ using DammitBot.Library;
 
 namespace DammitBot.Data.Migrations
 {
+    /// <summary>
+    /// Initial migration to be run by the system.
+    /// </summary>
     public class Initial : MigrationBase
     {
+        /// <inheritdoc />
         public override int VersionNumber => 1;
 
+        /// <inheritdoc />
+        /// <remarks>
+        /// This implementation will create the Users, Nicks, and Messages tables.
+        /// </remarks>
         public override void Up(IUnitOfWork uow)
         {
             uow.ExecuteNonQuery(@"
@@ -44,6 +52,10 @@ IF NOT EXISTS Messages (
 ");
         }
 
+        /// <inheritdoc />
+        /// <remarks>
+        /// This implementation inserts some initial Users and Nicks.
+        /// </remarks>
         public override void Seed(IUnitOfWork uow)
         {
             var jason = new User {
@@ -60,6 +72,10 @@ IF NOT EXISTS Messages (
             });
         }
 
+        /// <inheritdoc />
+        /// <remarks>
+        /// This implementation will drop the Messages, Nicks, and Users tables.
+        /// </remarks>
         public override void Down(IUnitOfWork uow)
         {
             uow.ExecuteNonQuery(@"

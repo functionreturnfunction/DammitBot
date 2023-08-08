@@ -3,35 +3,56 @@ using System.Linq;
 
 namespace DammitBot.Library;
 
+/// <summary>
+/// Runner of database schema migrations.  Provides operations to run individual or all migrations up or
+/// down.
+/// </summary>
 public class MigrationRunner
 {
-    public const string VERSION_INFO_TABLE = "VersionInfo";
-    public const string CREATE_VERSION_INFO = @"
+    #region Constants
+    
+    private const string VERSION_INFO_TABLE = "VersionInfo";
+    private const string CREATE_VERSION_INFO = @"
 CREATE TABLE
 IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
     Id integer NOT NULL
 );";
+    
+    #endregion
+    
+    #region Private Members
 
-    protected readonly IUnitOfWorkFactory _uowFactory;
-    protected readonly IMigrationService _service;
+    private readonly IUnitOfWorkFactory _uowFactory;
+    private readonly IMigrationService _service;
+    
+    #endregion
+    
+    #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="MigrationRunner"/> class.
+    /// </summary>
     public MigrationRunner(IUnitOfWorkFactory uowFactory, IMigrationService service)
     {
         _uowFactory = uowFactory;
         _service = service;
     }
+    
+    #endregion
+    
+    #region Private Methods
 
-    protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
+    private bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
     {
         return uow.ExecuteScalar(
             $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.VersionNumber};") != null;
     }
 
-    protected void RunAll(
+    private void RunAll(
         Action<IUnitOfWork, MigrationBase> doRun,
         Action<IUnitOfWork, MigrationBase>? secondPass = null,
         bool reverse = false,
-        int? upToId = null)
+        int? upToVersionNumber = null)
     {
         var migrations = _service.Thingies.ToList();
 
@@ -42,18 +63,18 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         migrations = migrations.OrderBy(m => m.VersionNumber).ToList();
 
-        if (upToId.HasValue)
+        if (upToVersionNumber.HasValue)
         {
-            if (!migrations.Any(m => m.VersionNumber == upToId.Value))
+            if (migrations.All(m => m.VersionNumber != upToVersionNumber.Value))
             {
                 throw new ArgumentException(
-                    $"Could not find migration with id {upToId}.",
-                    nameof(upToId));
+                    $"Could not find migration with id {upToVersionNumber}.",
+                    nameof(upToVersionNumber));
             }
 
             migrations = (reverse ?
-                migrations.Where(m => m.VersionNumber > upToId.Value) :
-                migrations.Where(m => m.VersionNumber <= upToId.Value)).ToList();
+                migrations.Where(m => m.VersionNumber > upToVersionNumber.Value) :
+                migrations.Where(m => m.VersionNumber <= upToVersionNumber.Value)).ToList();
         }
 
         if (reverse)
@@ -85,27 +106,47 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         uow.Commit();
     }
+    
+    #endregion
+    
+    #region Exposed Methods
 
-    public void Up(int? id = null, bool seed = true)
+    /// <summary>
+    /// Run migration(s) up.  If <paramref name="versionNumber"/> is provided, only the migration with
+    /// that version number will be run up (if it hasn't been already).  If <paramref name="seed"/> is set
+    /// to false, seed data function(s) will be skipped. 
+    /// </summary>
+    public void Up(int? versionNumber = null, bool seed = true)
     {
         if (seed)
         {
             RunAll(
                 (u, m) => m.Up(u),
                 (u, m) => m.Seed(u),
-                upToId: id);
+                upToVersionNumber: versionNumber);
         }
         else
         {
-            RunAll((u, m) => m.Up(u), upToId: id);
+            RunAll((u, m) => m.Up(u), upToVersionNumber: versionNumber);
         }
     }
 
-    public void Down(int? id = null)
+    /// <summary>
+    /// Run migration(s) down.  If <paramref name="versionNumber"/> is provided, only the migration with
+    /// that version number will be run down (if it has previously been applied).
+    /// </summary>
+    public void Down(int? versionNumber = null)
     {
-        RunAll((u, m) => m.Down(u), reverse: true, upToId: id);
+        RunAll(
+            (u, m) => m.Down(u),
+            reverse: true,
+            upToVersionNumber: versionNumber);
     }
 
+    /// <summary>
+    /// Retrieve the highest version number of any known migration which has been run against the
+    /// configured database.   
+    /// </summary>
     public int? GetLatestVersionNumber()
     {
         using var uow = _uowFactory.Build();
@@ -113,4 +154,6 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
         var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
         return num is DBNull ? (int?)null : Convert.ToInt32(num);
     }
+    
+    #endregion
 }
