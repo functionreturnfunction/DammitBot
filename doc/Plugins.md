@@ -8,7 +8,7 @@ Base plugin implementing bot commands.
 
 ### Dependencies
 
-- StructureMap
+- Lamar
 - DammitBot.Plugins.Data.dll
 
 ## DammitBot.Plugins.Commands.Die.dll
@@ -25,7 +25,7 @@ Plugin implmenting the "help" command, giving users a list of available commands
 
 ### Dependencies
 
-- StructureMap
+- Lamar
 - DammitBot.Plugins.Commands.dll
 
 ## DammitBot.Plugins.Data.dll
@@ -34,7 +34,7 @@ Plugin implementing ORM and database agnostic data implementation.  No persisten
 
 ### Dependencies
 
-- StructureMap
+- Lamar
 
 ## DammitBot.Plugins.Data.Migrations.dll
 
@@ -54,7 +54,7 @@ Plugin providing ORM and Database support for NHibernate and MS Sql Server (so f
 - Iesi.Collections
 - Inflector
 - NHibernate
-- StructureMap
+- Lamar
 - DammitBot.Plugins.Data.dll
 - DateTimeStringParser.dll
 
@@ -112,7 +112,7 @@ Base plugin implementing scheduling.
 - Common.Logging
 - Common.Logging.Core
 - Quartz
-- StructureMap
+- Lamar
 
 ## DammitBot.Plugins.TeamCity.dll
 
@@ -124,6 +124,6 @@ Plugin implementing TeamCity build notifications.
 - Common.Logging.Core
 - log4net
 - Quartz
-- StructureMap
+- Lamar
 - TeamCitySharper
 - DammitBot.Plugins.Scheduling.dll
