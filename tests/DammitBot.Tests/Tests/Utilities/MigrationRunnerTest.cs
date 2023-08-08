@@ -1,5 +1,4 @@
-﻿using DammitBot.Data.Migrations.Library;
-using DammitBot.Library;
+﻿using DammitBot.Library;
 using Xunit;
 
 namespace DammitBot.Tests.Utilities;

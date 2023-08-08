@@ -2,7 +2,7 @@ using DammitBot.Abstract;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 
-namespace DammitBot.Data.Migrations.Library;
+namespace DammitBot.Library;
 
 public class MigrationService : ThingyServiceBase<MigrationBase>, IMigrationService
 {

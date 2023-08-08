@@ -1,6 +1,4 @@
-using DammitBot.Library;
-
-namespace DammitBot.Data.Migrations.Library;
+namespace DammitBot.Library;
 
 /// <summary>
 /// Base class for database schema migrations and seeds.

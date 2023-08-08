@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using DammitBot.Library;
 
-namespace DammitBot.Data.Migrations.Library;
+namespace DammitBot.Library;
 
 public class MigrationRunner
 {

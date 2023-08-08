@@ -1,7 +1,6 @@
-﻿using DammitBot.Data.Migrations.Library;
-using DammitBot.Library;
+﻿using DammitBot.Library;
 
-namespace DammitBot.Migrations;
+namespace DammitBot.Data.Migrations;
 
 public class CreateRemindersTable : MigrationBase
 {

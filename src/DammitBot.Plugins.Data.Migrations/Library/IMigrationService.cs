@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DammitBot.Abstract;
 
-namespace DammitBot.Data.Migrations.Library;
+namespace DammitBot.Library;
 
 /// <inheritdoc cref="ThingyServiceBase{TThingy}"/>
 /// <remarks>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using DammitBot.Data.Migrations.Library;
 using DammitBot.Ioc;
 using DammitBot.IoC;
 using DammitBot.Utilities;

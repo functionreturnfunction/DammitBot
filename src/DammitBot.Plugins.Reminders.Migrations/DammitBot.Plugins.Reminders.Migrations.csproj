@@ -9,7 +9,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
-    <RootNamespace>DammitBot.Migrations</RootNamespace>
+    <RootNamespace>DammitBot</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

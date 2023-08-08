@@ -1,4 +1,4 @@
-﻿using DammitBot.Data.Migrations.Library;
+﻿using DammitBot.Library;
 
 namespace DammitBot.Plugins;
 
