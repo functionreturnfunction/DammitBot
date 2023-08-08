@@ -25,7 +25,7 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
     protected bool MigrationAlreadyRun(IUnitOfWork uow, MigrationBase migration)
     {
         return uow.ExecuteScalar(
-            $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};") != null;
+            $"SELECT * FROM {VERSION_INFO_TABLE} WHERE Id = {migration.VersionNumber};") != null;
     }
 
     protected void RunAll(
@@ -41,11 +41,11 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             return;
         }
 
-        migrations = migrations.OrderBy(m => m.Id).ToList();
+        migrations = migrations.OrderBy(m => m.VersionNumber).ToList();
 
         if (upToId.HasValue)
         {
-            if (!migrations.Any(m => m.Id == upToId.Value))
+            if (!migrations.Any(m => m.VersionNumber == upToId.Value))
             {
                 throw new ArgumentException(
                     $"Could not find migration with id {upToId}.",
@@ -53,8 +53,8 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             }
 
             migrations = (reverse ?
-                migrations.Where(m => m.Id > upToId.Value) :
-                migrations.Where(m => m.Id <= upToId.Value)).ToList();
+                migrations.Where(m => m.VersionNumber > upToId.Value) :
+                migrations.Where(m => m.VersionNumber <= upToId.Value)).ToList();
         }
 
         if (reverse)
@@ -73,8 +73,8 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
                 doRun(uow, migration);
 
                 uow.ExecuteNonQuery(reverse
-                    ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.Id};"
-                    : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.Id});");
+                    ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.VersionNumber};"
+                    : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.VersionNumber});");
             }
 
             if (secondPass != null)

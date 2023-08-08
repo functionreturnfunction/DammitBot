@@ -8,7 +8,7 @@ namespace DammitBot.Data.Migrations
 {
     public class Initial : MigrationBase
     {
-        public override int Id => 1;
+        public override int VersionNumber => 1;
 
         public override void Up(IUnitOfWork uow)
         {

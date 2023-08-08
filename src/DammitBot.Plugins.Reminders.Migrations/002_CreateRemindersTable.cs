@@ -10,7 +10,7 @@ public class CreateRemindersTable : MigrationBase
         public const int TEXT = 512;
     }
 
-    public override int Id => 2;
+    public override int VersionNumber => 2;
 
     public override void Up(IUnitOfWork uow)
     {
