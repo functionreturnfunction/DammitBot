@@ -3,7 +3,7 @@ using DammitBot.Library;
 using DammitBot.Wrappers;
 using Lamar;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 public class IrcProtocolContainerConfiguration : ContainerConfigurationBase
 {

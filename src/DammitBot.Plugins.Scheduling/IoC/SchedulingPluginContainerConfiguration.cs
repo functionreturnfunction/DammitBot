@@ -3,7 +3,7 @@ using DammitBot.Library;
 using Lamar;
 using Quartz.Spi;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 public class SchedulingPluginContainerConfiguration : ContainerConfigurationBase
 {

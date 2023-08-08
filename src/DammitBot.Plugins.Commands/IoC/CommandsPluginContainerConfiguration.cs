@@ -2,7 +2,7 @@
 using DammitBot.MessageHandlers;
 using Lamar;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 /// <inheritdoc />
 /// <remarks>

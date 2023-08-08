@@ -1,7 +1,7 @@
 using DammitBot.Abstract;
 using Lamar;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 public class MigrationsPluginContainerConfiguration : ContainerConfigurationBase
 {

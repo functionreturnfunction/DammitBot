@@ -6,7 +6,7 @@ using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.Configuration;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 /// <inheritdoc cref="ContainerConfigurationBase"/>
 /// <remarks>

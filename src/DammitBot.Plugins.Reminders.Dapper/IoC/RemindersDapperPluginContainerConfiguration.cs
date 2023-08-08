@@ -5,7 +5,7 @@ using DammitBot.Data.Repositories;
 using DammitBot.Library;
 using Lamar;
 
-namespace DammitBot.Ioc;
+namespace DammitBot.IoC;
 
 public class RemindersDapperPluginContainerConfiguration : ContainerConfigurationBase
 {
