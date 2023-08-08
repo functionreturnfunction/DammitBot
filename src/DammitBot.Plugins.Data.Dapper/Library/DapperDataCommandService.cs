@@ -41,11 +41,5 @@ public class DapperDataCommandService : IDataCommandService
         return _connection.Get<T>(id);
     }
 
-    public IQueryable<T> GetQueryable<T>()
-        where T : class
-    {
-        return _connection.GetAll<T>().ToList().AsQueryable();
-    }
-
     #endregion
 }
