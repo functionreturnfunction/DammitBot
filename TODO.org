@@ -1,12 +1,2 @@
-* TODO Eliminate ChatSharp build warning
-* TODO Move the dependency for Microsoft.Data.Sqlite.Core
-  It doesn't belong in DammitBot.Plugins.Data.Dapper... really DB should be fully-configurable.
 * TODO Replace DateTimeStringParser with something better (Chronic.NET?)
 * TODO Test Coverage
-** TODO  IOC Stuff
-* DONE Get IDbConnection from a factory
-  Could be related to above (it wasn't)
-* DONE Fix UnitOfWork
-  CLOSED: [2018-02-01 Thu 23:17]
-
-** 
