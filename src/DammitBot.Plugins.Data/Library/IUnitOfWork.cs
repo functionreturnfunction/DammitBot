@@ -16,7 +16,7 @@ public interface IUnitOfWork : IDisposable
     /// </summary>
     void Commit();
     /// <summary>
-    /// Get a repository responsible for  entities of type <typeparamref name="TEntity"/>.
+    /// Get a repository responsible for entities of type <typeparamref name="TEntity"/>.
     /// </summary>
     IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
     /// <summary>
