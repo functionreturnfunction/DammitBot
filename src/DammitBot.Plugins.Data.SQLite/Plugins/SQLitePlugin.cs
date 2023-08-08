@@ -1,6 +1,6 @@
-namespace DammitBot.Plugins;
+﻿namespace DammitBot.Plugins;
 
-public class DapperPlugin : IDapperPlugin
+public class SQLitePlugin : ISQLitePlugin
 {
     public void Initialize()
     {

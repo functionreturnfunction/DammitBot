@@ -13,8 +13,6 @@ public class DapperPluginContainerConfiguration : ContainerConfigurationBase
     {
         e.For<IUnitOfWork>().Use<DapperUnitOfWork>();
         e.For<IDataCommandService>().Use<DapperDataCommandService>();
-        e.For<IDbConnectionFactory>().Use<SqliteDbConnectionFactory>();
-        e.For<IConnectionStringProvider>().Use<SqliteConnectionStringProvider>();
 
         e.RegisterRepository<Nick, NickRepository>();
         e.RegisterRepository<Message, MessageRepository>();

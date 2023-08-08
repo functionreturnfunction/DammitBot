@@ -34,8 +34,10 @@
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.AutoMigrations\DammitBot.Plugins.Data.AutoMigrations.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.Migrations\DammitBot.Plugins.Data.Migrations.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.Dapper\DammitBot.Plugins.Data.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Data.SQLite\DammitBot.Plugins.Data.SQLite.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.MessageLogging\DammitBot.Plugins.MessageLogging.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Console\DammitBot.Plugins.Protocols.Console.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Irc.IrcDotNet\DammitBot.Plugins.Protocols.Irc.IrcDotNet.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj" />

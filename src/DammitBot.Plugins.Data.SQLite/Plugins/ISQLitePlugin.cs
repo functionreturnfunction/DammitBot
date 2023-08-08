@@ -2,4 +2,4 @@
 
 namespace DammitBot.Plugins;
 
-public interface IDapperPlugin : IPlugin {}
+public interface ISQLitePlugin : IPlugin { }

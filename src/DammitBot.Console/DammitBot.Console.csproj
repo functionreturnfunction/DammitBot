@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj" />
+    <ProjectReference Include="..\DammitBot.Plugins.Data.SQLite\DammitBot.Plugins.Data.SQLite.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Console\DammitBot.Plugins.Protocols.Console.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc.IrcDotNet\DammitBot.Plugins.Protocols.Irc.IrcDotNet.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
