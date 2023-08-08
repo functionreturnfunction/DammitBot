@@ -44,20 +44,18 @@ public class ReminderJob : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
-        using (var uow = _unitOfWorkFactory.Build())
+        using var uow = _unitOfWorkFactory.Build();
+        var now = _dateTimeProvider.GetCurrentTime();
+        var reminders = GetReminders(uow, now);
+        _log.LogDebug($"Found {reminders.Count()} reminders due as of {now}");
+        foreach (var reminder in reminders)
         {
-            var now = _dateTimeProvider.GetCurrentTime();
-            var reminders = GetReminders(uow, now);
-            _log.LogDebug($"Found {reminders.Count()} reminders due as of {now}");
-            foreach (var reminder in reminders)
-            {
-                _bot.SayToAll(reminder.Text);
-                reminder.RemindedAt = _dateTimeProvider.GetCurrentTime();
-                uow.Insert(reminder);
-            }
-
-            uow.Commit();
+            _bot.SayToAll(reminder.Text);
+            reminder.RemindedAt = _dateTimeProvider.GetCurrentTime();
+            uow.Insert(reminder);
         }
+
+        uow.Commit();
     }
 
     // Task IJob.Execute(IJobExecutionContext context)

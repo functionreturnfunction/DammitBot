@@ -53,10 +53,8 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
 
     protected virtual void WithUnitOfWork(Action<IUnitOfWork> fn)
     {
-        using (var uow = _container.GetInstance<IUnitOfWorkFactory>().Build())
-        {
-            fn(uow);
-        }
+        using var uow = _container.GetInstance<IUnitOfWorkFactory>().Build();
+        fn(uow);
     }
 
     #endregion

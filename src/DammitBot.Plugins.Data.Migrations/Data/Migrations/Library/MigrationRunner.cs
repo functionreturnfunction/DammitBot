@@ -62,31 +62,29 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
             migrations.Reverse();
         }
 
-        using (var uow = _uowFactory.Build())
-        {
-            uow.ExecuteNonQuery(CREATE_VERSION_INFO);
-            migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse)
-                .ToList();
+        using var uow = _uowFactory.Build();
+        uow.ExecuteNonQuery(CREATE_VERSION_INFO);
+        migrations = migrations.Where(m => MigrationAlreadyRun(uow, m) == reverse)
+            .ToList();
 
+        foreach (var migration in migrations)
+        {
+            doRun(uow, migration);
+
+            uow.ExecuteNonQuery(reverse
+                ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.VersionNumber};"
+                : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.VersionNumber});");
+        }
+
+        if (secondPass != null)
+        {
             foreach (var migration in migrations)
             {
-                doRun(uow, migration);
-
-                uow.ExecuteNonQuery(reverse
-                    ? $"DELETE FROM {VERSION_INFO_TABLE} WHERE Id = {migration.VersionNumber};"
-                    : $"INSERT INTO {VERSION_INFO_TABLE} (Id) VALUES ({migration.VersionNumber});");
+                secondPass(uow, migration);
             }
-
-            if (secondPass != null)
-            {
-                foreach (var migration in migrations)
-                {
-                    secondPass(uow, migration);
-                }
-            }
-
-            uow.Commit();
         }
+
+        uow.Commit();
     }
 
     public void Up(int? id = null, bool seed = true)
@@ -111,11 +109,9 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
     public int? GetLatestVersionNumber()
     {
-        using (var uow = _uowFactory.Build())
-        {
-            uow.ExecuteNonQuery(CREATE_VERSION_INFO);
-            var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
-            return num is DBNull ? (int?)null : Convert.ToInt32(num);
-        }
+        using var uow = _uowFactory.Build();
+        uow.ExecuteNonQuery(CREATE_VERSION_INFO);
+        var num = uow.ExecuteScalar($"SELECT MAX(Id) FROM {VERSION_INFO_TABLE};");
+        return num is DBNull ? (int?)null : Convert.ToInt32(num);
     }
 }

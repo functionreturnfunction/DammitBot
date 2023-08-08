@@ -63,11 +63,9 @@ public class DapperUnitOfWork : IUnitOfWork
 
     private T WithCommand<T>(Func<IDbCommand, T> fn)
     {
-        using (var cmd = _connection.CreateCommand())
-        {
-            cmd.Transaction = Transaction;
-            return fn(cmd);
-        }
+        using var cmd = _connection.CreateCommand();
+        cmd.Transaction = Transaction;
+        return fn(cmd);
     }
 
     private T WithTextCommand<T>(string sql, Func<IDbCommand, T> fn)
