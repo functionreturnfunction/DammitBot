@@ -19,7 +19,7 @@ test:
        --collect:"XPlat Code Coverage"
        --results-directory cobertura'
     - chmod +x ./scripts/print-dotnet-coverage.sh
-    - ./scripts/print-dotnet-coverage.sh $CI_PROJECT_DIR/cobertura   
+    - ./scripts/print-dotnet-coverage.sh cobertura
   artifacts:
     when: always
     paths:
