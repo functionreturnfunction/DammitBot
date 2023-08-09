@@ -32,10 +32,6 @@ public interface IBot : IDisposable
     /// </summary>
     void Die();
     /// <summary>
-    /// Handle a message directly, only really used by the console for now.
-    /// </summary>
-    void ReceiveMessage(MessageEventArgs args);
-    /// <summary>
     /// Respond to the message represented by <paramref name="args"/> at its originating
     /// protocol and channel, with the supplied <paramref name="response"/>.
     /// </summary>

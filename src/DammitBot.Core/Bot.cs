@@ -76,12 +76,6 @@ public class Bot : IBot
         Running = true;
     }
 
-    /// <inheritdoc cref="IBot.ReceiveMessage"/>
-    public void ReceiveMessage(MessageEventArgs e)
-    {
-        Protocols_ChannelMessageReceived(this, e);
-    }
-
     /// <inheritdoc cref="IBot.SayToAll"/>
     public void SayToAll(string message)
     {

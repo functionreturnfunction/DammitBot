@@ -4,7 +4,6 @@ using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.IoC;
 using DammitBot.Library;
-using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Lamar;
@@ -13,13 +12,12 @@ using Xunit;
 
 namespace DammitBot.Tests.MessageHandlers;
 
-public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTester>
+public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTester>
 {
     #region Private Members
 
     private Mock<ICommandHandlerFactory> _commandHandlerFactory;
     private Mock<IProtocolService> _protocolService;
-    private Mock<IMessageHandlerFactory> _messageHandlerFactory;
 
     #endregion
 
@@ -40,7 +38,6 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
         serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
 
-        _messageHandlerFactory = serviceRegistry.For<IMessageHandlerFactory>().Mock();
         _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();
         _protocolService = serviceRegistry.For<IProtocolService>().Mock();
         serviceRegistry.For<ISchedulerService>().Mock();
@@ -50,7 +47,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
     #region Constructors
     
-    public MessagesTest()
+    public CommandsTest()
     {
         WithUnitOfWork(uow => {
             var userId = Convert.ToInt32(uow.Insert<User>(new User {Username = "foo"}));
@@ -65,21 +62,50 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     #region Tests
 
     [Fact]
-    public void TestAnyMessageIsLogged()
+    public void TestCommandRunsCommand()
     {
-        _target.TestMessage("blah blah blah", "foo");
+        _commandHandlerFactory.Setup(
+            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+
+        _target.TestMessage("bot blah blah blah", "foo");
+
+        _commandHandlerFactory.Verify(
+            x =>
+                x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")));
     }
 
     [Fact]
-    public void TestMessageFromNickWithNoUserIsLogged()
+    public void TestCommandDoesNotRunCommandIfNickDoesNotHaveUser()
     {
-        _target.TestMessage("blah blah blah", "bar");
+        _commandHandlerFactory.Setup(
+            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+
+        _target.TestMessage("bot blah blah blah", "bar");
+
+        _commandHandlerFactory.Verify(
+            x =>
+                x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")), Times.Never);
+            
     }
 
     [Fact]
-    public void TestMessageFromUnknownNickIsLogged()
+    public void TestCommandDoesNotRunCommandIfNickNotRecognized()
     {
-        _target.TestMessage("blah blah blah", "not a known nick");
+        _commandHandlerFactory.Setup(
+            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+
+        _target.TestMessage("bot blah blah blah", "who is this guy");
+
+        _commandHandlerFactory.Verify(
+            x =>
+                x.BuildHandler(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah")),
+            Times.Never);
+            
     }
 
     #endregion
@@ -91,7 +117,6 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
         #region Private Members
 
         private readonly Mock<IProtocolService> _protocolService;
-        private readonly Mock<IMessageHandlerFactory> _messageHandlerFactory;
 
         #endregion
 
@@ -99,10 +124,8 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
         public MessageTester(
             IInstantiationService instantiationService,
-            IMessageHandlerFactory messageHandlerFactory,
             IProtocolService protocolService)
         {
-            _messageHandlerFactory = Mock.Get(messageHandlerFactory);
             _protocolService = Mock.Get(protocolService);
             var bot = instantiationService.GetInstance<IBot>();
             bot.Die();
@@ -117,39 +140,12 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
             string? message,
             string nick,
             string protocol = "#bar",
-            string channel = "foo",
-            bool shouldLog = true)
+            string channel = "foo")
         {
-            Mock<IMessageHandler>? handler = null;
-            if (shouldLog)
-            {
-                _messageHandlerFactory.Setup(x => x.BuildHandler(
-                            It.Is<MessageEventArgs>(
-                                args =>
-                                    args.Message == message &&
-                                    args.Channel == channel &&
-                                    args.Protocol == protocol &&
-                                    args.User == nick)))
-                    .Returns((handler = new Mock<IMessageHandler>()).Object);
-                handler.Setup(x => x.Handle(
-                    It.Is<MessageEventArgs>(
-                        args =>
-                            args.Message == message &&
-                            args.Channel == channel &&
-                            args.Protocol == protocol &&
-                            args.User == nick)));
-            }
-            
             _protocolService.Raise(
                 x => x.ChannelMessageReceived += null,
                 null!,
                 new MessageEventArgs(message!, channel, protocol, nick));
-
-            if (shouldLog)
-            {
-                _messageHandlerFactory.VerifyAll();
-                handler!.VerifyAll();
-            }
         }
 
         #endregion

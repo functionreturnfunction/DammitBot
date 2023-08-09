@@ -58,5 +58,12 @@ public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParse
         TestTryParse(input, _now.GetNext(hour, minute));
     }
 
+    [Fact]
+    public void TestUnparsableValueReturnsFalse()
+    {
+        Assert.False(_target.TryParse(_now, "at the end of the universe", out var result));
+        Assert.Null(result);
+    }
+
     #endregion
 }
