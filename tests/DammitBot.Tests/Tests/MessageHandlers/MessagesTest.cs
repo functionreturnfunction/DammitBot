@@ -65,6 +65,12 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     #region Tests
 
     [Fact]
+    public void TestNoMessageIsNotLogged()
+    {
+        _target.TestMessage(null, "foo");
+    }
+
+    [Fact]
     public void TestAnyMessageIsLogged()
     {
         _target.TestMessage("blah blah blah", "foo");

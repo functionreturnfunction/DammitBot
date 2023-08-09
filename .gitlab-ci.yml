@@ -18,6 +18,8 @@ test:
        --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
        --collect:"XPlat Code Coverage"
        --results-directory cobertura'
+    - chmod +x ./scripts/print-dotnet-coverage.sh
+    - ./scripts/print-dotnet-coverage.sh $CI_PROJECT_DIR/cobertura   
   artifacts:
     when: always
     paths:
