@@ -31,3 +31,4 @@ test:
       coverage_report:
         coverage_format: cobertura
         path: cobertura/*/coverage.cobertura.xml
+  coverage: /TOTAL_COVERAGE=(\d+.\d+)/
