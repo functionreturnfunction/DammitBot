@@ -2,7 +2,7 @@ using System.Data;
 
 namespace DammitBot.Library;
 
-public class TestDbConnectionFactory : SqliteDbConnectionFactory
+public class TestDbConnectionFactory : SQLiteDbConnectionFactory
 {
     protected IDbConnection _connection;
 
