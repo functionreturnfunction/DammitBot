@@ -7,10 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Protocols;
 
+/// <inheritdoc />
 public class Irc : IIrc
 {
     #region Constants
 
+    /// <inheritdoc cref="Name" />
     public const string PROTOCOL_NAME = "Irc";
 
     #endregion
@@ -24,8 +26,18 @@ public class Irc : IIrc
 
     #endregion
 
+    #region Properties
+
+    /// <inheritdoc />
+    public virtual string Name => PROTOCOL_NAME;
+    
+    #endregion
+    
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="Irc"/> class.
+    /// </summary>
     public Irc(
         IIrcClientFactory ircClientFactory,
         IIrcConfigurationProvider configurationProvider,
@@ -64,16 +76,17 @@ public class Irc : IIrc
 
     #region Events/Delegates
 
+    /// <inheritdoc />
     public virtual event EventHandler<MessageEventArgs>? ChannelMessageReceived;
-
-    public virtual string Name => PROTOCOL_NAME;
 
     #endregion
     
     #region Private Methods
 
-    // IrcDotNet doesn't like sending messages with newline chars, so this breaks them up into separate
-    // messages
+    /// <summary>
+    /// IrcDotNet doesn't like sending messages with newline chars, so this breaks them up into separate
+    /// messages
+    /// </summary>
     private void SendMessage(string message, params string[] targets)
     {
         if (_irc == null)
@@ -93,6 +106,11 @@ public class Irc : IIrc
 
     #region Exposed Methods
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation wires up some event handling onto the <see cref="IIrcClient"/>, and then uses
+    /// it to connect to the configured server.
+    /// </remarks>
     public virtual void Initialize()
     {
         _log.LogInformation(
@@ -107,13 +125,19 @@ public class Irc : IIrc
         _irc.Connect();
     }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation does nothing.
+    /// </remarks>
     public virtual void Cleanup() {}
 
+    /// <inheritdoc />
     public virtual void SayToChannel(string channel, string message)
     {
         SendMessage(message, channel);
     }
 
+    /// <inheritdoc />
     public virtual void SayToAll(string message)
     {
         SendMessage(message, _config.Channels);
