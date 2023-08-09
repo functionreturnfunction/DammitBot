@@ -1,13 +1,21 @@
-﻿using DammitBot.Protocols;
+﻿using DammitBot.Events;
+using DammitBot.Protocols;
 using IrcDotNet;
 
-namespace DammitBot.Events;
+namespace DammitBot.Wrappers;
 
-public class IrcMessageEventArgs : MessageEventArgs
+/// <summary>
+/// <see cref="MessageEventArgs"/> wrapper/adapter around IrcDotNet's <see cref="IrcRawMessageEventArgs"/>
+/// class.
+/// </summary>
+public class IrcRawMessageEventArgsWrapper : MessageEventArgs
 {
     #region Constructors
 
-    public IrcMessageEventArgs(IrcRawMessageEventArgs args)
+    /// <summary>
+    /// Constructor for the <see cref="IrcRawMessageEventArgsWrapper"/> class.
+    /// </summary>
+    public IrcRawMessageEventArgsWrapper(IrcRawMessageEventArgs args)
         : base(ParseMessage(args), ParseChannel(args), Irc.PROTOCOL_NAME, ParseNick(args)) {}
 
     #endregion

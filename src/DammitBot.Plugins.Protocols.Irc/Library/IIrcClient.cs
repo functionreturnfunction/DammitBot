@@ -19,6 +19,14 @@ public interface IIrcClient
     /// Event fired when a message has been received via a channel. 
     /// </summary>
     event EventHandler<MessageEventArgs>? ChannelMessageReceived;
+    /// <summary>
+    /// Event fired when the client fails to connect to the server.
+    /// </summary>
+    public event EventHandler<IIrcErrorEventArgs>? ConnectionFailed; 
+    /// <summary>
+    /// Event fired when the client receives an error message from the server.
+    /// </summary>
+    public event EventHandler<IIrcErrorEventArgs>? ErrorMessageReceived; 
     
     #endregion
     

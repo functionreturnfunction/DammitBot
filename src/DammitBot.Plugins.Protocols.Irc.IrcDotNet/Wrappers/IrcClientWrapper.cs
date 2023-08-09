@@ -6,10 +6,13 @@ using DammitBot.Events;
 using DammitBot.Library;
 using IrcDotNet;
 using Microsoft.Extensions.Logging;
-using IrcMessageEventArgs = DammitBot.Events.IrcMessageEventArgs;
 
 namespace DammitBot.Wrappers;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation serves as a wrapper/adapter for IrcDotNet's <see cref="StandardIrcClient"/>.
+/// </remarks>
 [ExcludeFromCodeCoverage]
 public class IrcClientWrapper : IIrcClient
 {
@@ -23,6 +26,9 @@ public class IrcClientWrapper : IIrcClient
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="IrcClientWrapper"/> class.
+    /// </summary>
     public IrcClientWrapper(
         IIrcConfigurationProvider configurationProvider,
         ILogger<IrcClientWrapper> log)
@@ -50,7 +56,7 @@ public class IrcClientWrapper : IIrcClient
             return;
         }
         
-        ChannelMessageReceived?.Invoke(sender, new IrcMessageEventArgs(e));
+        ChannelMessageReceived?.Invoke(sender, new IrcRawMessageEventArgsWrapper(e));
     }
 
     private void InnerClient_ConnectionComplete(object? sender, EventArgs e)
@@ -74,17 +80,22 @@ public class IrcClientWrapper : IIrcClient
 
     #region Events/Delegates
 
+    /// <inheritdoc />
     public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
 
+    /// <inheritdoc />
     public event EventHandler? ReadyToJoinChannels;
 
+    /// <inheritdoc />
     public event EventHandler<IIrcErrorEventArgs>? ConnectionFailed; 
+    /// <inheritdoc />
     public event EventHandler<IIrcErrorEventArgs>? ErrorMessageReceived; 
 
     #endregion
 
     #region Exposed Methods
 
+    /// <inheritdoc />
     public void Connect()
     {
         // Wait until connection has succeeded or timed out.
@@ -103,11 +114,13 @@ public class IrcClientWrapper : IIrcClient
         }
     }
 
+    /// <inheritdoc />
     public void JoinChannel(string channel)
     {
         _innerClient.Channels.Join(channel);
     }
 
+    /// <inheritdoc />
     public void SendMessage(string message, params string[] targets)
     {
         _innerClient.LocalUser.SendMessage(targets, message);

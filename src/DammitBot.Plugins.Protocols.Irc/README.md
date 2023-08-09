@@ -1,4 +1,4 @@
-﻿# DammitBot.Plugins.Protocols.Console
+﻿# DammitBot.Plugins.Protocols.Irc
 
 This [DammitBot](../DammitBot.Core/README.md) protocol library plugin provides types and basic support for
 connecting and messaging over the Irc protocol.  This library plugin cannot connect to Irc on its own, and
