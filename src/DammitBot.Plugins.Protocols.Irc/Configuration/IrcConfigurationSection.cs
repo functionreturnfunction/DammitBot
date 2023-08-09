@@ -1,4 +1,4 @@
-﻿using DammitBot.Protocols.Irc;
+﻿using DammitBot.Protocols;
 using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration;

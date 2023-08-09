@@ -1,5 +1,5 @@
 ﻿using System;
-using DammitBot.Protocols.Irc;
+using DammitBot.Protocols;
 using IrcDotNet;
 
 namespace DammitBot.Events;

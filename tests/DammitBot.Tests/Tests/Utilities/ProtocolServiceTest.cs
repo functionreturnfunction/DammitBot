@@ -2,13 +2,13 @@
 using System.Linq;
 using DammitBot.Events;
 using DammitBot.Library;
-using DammitBot.Protocols.Console;
-using DammitBot.Protocols.Irc;
+using DammitBot.Protocols;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Lamar;
 using Moq;
 using Xunit;
+using Console = DammitBot.Protocols.Console;
 
 namespace DammitBot.Tests.Utilities;
 
@@ -105,10 +105,10 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     public void TestSayToChannelSaysToSpecificChannelOfSpecificProtocol()
     {
         _console!.SetupGet(x => x.Name)
-            .Returns(Protocols.Console.Console.PROTOCOL_NAME);
+            .Returns(Console.PROTOCOL_NAME);
         _target.Initialize();
 
-        _target.SayToChannel(Protocols.Console.Console.PROTOCOL_NAME, "foo", "bar");
+        _target.SayToChannel(Console.PROTOCOL_NAME, "foo", "bar");
 
         _console.Verify(x => x.SayToChannel("foo", "bar"));
     }

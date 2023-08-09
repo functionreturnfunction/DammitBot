@@ -5,7 +5,7 @@ using DammitBot.Library;
 using DammitBot.Utilities;
 using Microsoft.Extensions.Logging;
 
-namespace DammitBot.Protocols.Irc;
+namespace DammitBot.Protocols;
 
 public class Irc : IIrc
 {

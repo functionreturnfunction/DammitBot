@@ -1,13 +1,29 @@
 ﻿using DammitBot.Events;
 using Microsoft.Extensions.Logging;
+using Console = DammitBot.Protocols.Console;
 
 namespace DammitBot.Utilities;
 
+/// <inheritdoc cref="IConsoleMainLoop" />
 public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
 {
+    #region Constructors
+    
+    /// <summary>
+    /// Constructor for the <see cref="ConsoleMainLoop"/> class.
+    /// </summary>
     public ConsoleMainLoop(IBot bot, ILogger<ConsoleMainLoop> log) : base(bot, log) { }
+    
+    #endregion
+    
+    #region Events
 
+    /// <inheritdoc />
     public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
+    
+    #endregion
+    
+    #region Private Methods
 
     private static void PromptForUserInput()
     {
@@ -20,16 +36,25 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
             this,
             new MessageEventArgs(
                 System.Console.ReadLine()!,
-                Protocols.Console.Console.PROTOCOL_NAME,
-                Protocols.Console.Console.PROTOCOL_NAME,
-                Protocols.Console.Console.PROTOCOL_NAME + " User"));
+                Console.PROTOCOL_NAME,
+                Console.PROTOCOL_NAME,
+                Console.PROTOCOL_NAME + " User"));
     }
     
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation will present a prompt to the user asking for input to use as a message.
+    /// </remarks>
     protected override void DoPreLoopStuff()
     {
         PromptForUserInput();
     }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation watches for user input, which it will fire off as an event when they press
+    /// enter.
+    /// </remarks>
     protected override void DoLoopStuff()
     {
         if (!System.Console.KeyAvailable)
@@ -45,4 +70,6 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
             PromptForUserInput();
         }
     }
+    
+    #endregion
 }

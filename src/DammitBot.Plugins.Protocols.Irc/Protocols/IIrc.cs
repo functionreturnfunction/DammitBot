@@ -1,5 +1,5 @@
 ﻿using DammitBot.Abstract;
 
-namespace DammitBot.Protocols.Irc;
+namespace DammitBot.Protocols;
 
 public interface IIrc : IProtocol {}
