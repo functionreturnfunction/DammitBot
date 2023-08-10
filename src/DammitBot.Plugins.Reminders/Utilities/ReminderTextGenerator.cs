@@ -3,6 +3,7 @@ using DammitBot.Data.Models;
 
 namespace DammitBot.Utilities;
 
+/// <inheritdoc/>
 public class ReminderTextGenerator : IReminderTextGenerator
 {
     #region Private Methods
@@ -40,6 +41,7 @@ public class ReminderTextGenerator : IReminderTextGenerator
 
     #region Exposed Methods
 
+    /// <inheritdoc/>
     public Reminder Generate(Reminder reminder)
     {
         return reminder.From == reminder.To ? SameUser(reminder) : DifferentUser(reminder);

@@ -95,6 +95,10 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     #region Exposed Methods
 
+    /// <inheritdoc/>
+    /// <remarks>
+    /// This implementation sets <see cref="Reminder"/>s.
+    /// </remarks>
     public override void Handle(CommandEventArgs e)
     {
         DateTime? when;

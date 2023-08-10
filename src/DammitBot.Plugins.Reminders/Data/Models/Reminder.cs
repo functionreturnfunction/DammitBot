@@ -4,7 +4,7 @@ using DammitBot.Library;
 namespace DammitBot.Data.Models;
 
 /// <summary>
-/// Represents a reminder that was recorded by a user to save a message to be sent to a chanel or user at
+/// Represents a reminder that was recorded by a user to save a message to be sent to a channel or user at
 /// a predefined point in the future.
 /// </summary>
 public class Reminder : IEntityWithTimestamps
