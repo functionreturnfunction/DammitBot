@@ -11,14 +11,19 @@ using DateTimeStringParser;
 
 namespace DammitBot.CommandHandlers;
 
+/// <summary>
+/// <see cref="ICommandHandler"/> implementation which allows users to set reminders, which are messages
+/// that the bot will send to a user or channel at a predefined point in the future.
+/// </summary>
 [HandlesCommand(
     @"^remind ([^\s]+).+",
-    "Set reminders; messages which the bot will send to a user or channel at a point in the future.")]
+    "Set reminders; messages which the bot will send to a user or channel at a predefined " +
+    "point in the future.")]
 public class ReminderCommandHandler : CommandHandlerBase
 {
     #region Constants
 
-    public const string REGEX =
+    private const string REGEX =
         @"^remind ([^\s]+) ((?:to|that) .+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
 
     #endregion
@@ -34,6 +39,9 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="ReminderCommandHandler"/> class.
+    /// </summary>
     public ReminderCommandHandler(
         IBot bot,
         IUnitOfWorkFactory unitOfWorkFactory,
@@ -71,41 +79,6 @@ public class ReminderCommandHandler : CommandHandlerBase
         return obj;
     }
 
-    #endregion
-
-    #region Exposed Methods
-
-    public override void Handle(CommandEventArgs e)
-    {
-        DateTime? when;
-        var match = new Regex(REGEX).Match(e.Command);
-        User target;
-        var targetStr = match.Groups[1].Value;
-        var reminder = match.Groups[2].Value;
-        var timeStr = match.Groups[3].Value;
-
-        if (!_dateTimeStringParser.TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out when))
-        {
-            Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
-            return;
-        }
-
-        using (var uow = _unitOfWorkFactory.Build())
-        {
-            target = LoadTarget(e, uow, targetStr);
-
-            if (target == null)
-            {
-                Bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
-                return;
-            }
-
-            CreateReminder(reminder, e.From.User, target, when.Value, uow);
-        }
-
-        Bot.ReplyToMessage(e, $"Reminder set for {when}");
-    }
-
     private User? LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
     {
         if (value == "me")
@@ -116,6 +89,46 @@ public class ReminderCommandHandler : CommandHandlerBase
         return value == "me"
             ? commandEventArgs.From.User
             : uow.GetRepository<IUserRepository, User>().FindByUsername(value);
+    }
+
+    #endregion
+
+    #region Exposed Methods
+
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation will set a reminder, which will cause the bot to send a message to a user or
+    /// channel at a predefined point in the future.
+    /// </remarks>
+    public override void Handle(CommandEventArgs e)
+    {
+        var match = new Regex(REGEX).Match(e.Command);
+        var targetStr = match.Groups[1].Value;
+        var reminder = match.Groups[2].Value;
+        var timeStr = match.Groups[3].Value;
+
+        if (!_dateTimeStringParser.TryParse(
+                _dateTimeProvider.GetCurrentTime(),
+                timeStr,
+                out var when))
+        {
+            Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
+            return;
+        }
+
+        using var uow = _unitOfWorkFactory.Build();
+        var target = LoadTarget(e, uow, targetStr);
+
+        if (target == null)
+        {
+            Bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
+            return;
+        }
+
+        CreateReminder(reminder, e.From.User, target, when.Value, uow);
+        
+
+        Bot.ReplyToMessage(e, $"Reminder set for {when}");
     }
 
     #endregion

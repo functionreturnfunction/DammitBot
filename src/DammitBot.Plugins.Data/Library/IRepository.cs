@@ -9,8 +9,8 @@ public interface IRepository<TEntity>
     where TEntity : class
 {
     /// <summary>
-    /// Insert the given instance <paramref name="entity"/> into data persistence.  Return its primary
-    /// key value.
+    /// Insert the given instance <paramref name="entity"/> into data persistence.  Return its primary key
+    /// value.
     /// </summary>
     object Insert(TEntity entity);
     /// <summary>
