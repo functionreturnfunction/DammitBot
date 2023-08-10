@@ -1,4 +1,5 @@
 using System.Data;
+using System.Threading.Tasks;
 using Dommel;
 
 namespace DammitBot.Library;
@@ -38,10 +39,24 @@ public class DapperDataCommandService : IDataCommandService
     }
 
     /// <inheritdoc />
+    public async Task<object> InsertAsync<TEntity>(TEntity entity)
+        where TEntity : class
+    {
+        return await _connection.InsertAsync(entity);
+    }
+
+    /// <inheritdoc />
     public void Update<TEntity>(TEntity entity)
         where TEntity : class
     {
         _connection.Update(entity);
+    }
+
+    /// <inheritdoc />
+    public async Task UpdateAsync<TEntity>(TEntity entity)
+        where TEntity : class
+    {
+        await _connection.UpdateAsync(entity);
     }
 
     /// <inheritdoc />

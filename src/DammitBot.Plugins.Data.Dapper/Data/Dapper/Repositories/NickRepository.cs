@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Data.Repositories;
 using DammitBot.Library;
@@ -44,13 +45,22 @@ on u.Id = this.UserId";
     
     #region Private Methods
 
+    private Nick MapQueryResult(Nick nick, User user)
+    {
+        nick.User = user;
+        return nick;
+    }
+
     /// <inheritdoc />
     protected override IEnumerable<Nick> DoQuery(string sql, object? param = null)
     {
-        return _connection.Query<Nick, User, Nick>(sql, (nick, user) => {
-            nick.User = user;
-            return nick;
-        }, param);
+        return _connection.Query<Nick, User, Nick>(sql, MapQueryResult, param);
+    }
+
+    /// <inheritdoc />
+    protected override async Task<IEnumerable<Nick>> DoQueryAsync(string sql, object? param = null)
+    {
+        return  await _connection.QueryAsync<Nick, User, Nick>(sql, MapQueryResult, param);
     }
 
     /// <inheritdoc />

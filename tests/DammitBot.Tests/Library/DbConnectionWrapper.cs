@@ -52,7 +52,7 @@ public abstract class DbConnectionWrapper<TConnection> : IDbConnection
 
     public IDbCommand CreateCommand()
     {
-        return new DbCommandWrapper(_connection.CreateCommand());
+        return _connection.CreateCommand();
     }
 
     public void Open()

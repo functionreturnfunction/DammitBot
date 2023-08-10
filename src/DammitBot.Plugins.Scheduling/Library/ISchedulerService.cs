@@ -1,3 +1,4 @@
+﻿using System.Threading.Tasks;
 
 namespace DammitBot.Library;
 
@@ -11,11 +12,11 @@ public interface ISchedulerService
     /// <summary>
     /// Build and schedule all available jobs so they start running at their intervals.
     /// </summary>
-    void Start();
+    Task Start();
     /// <summary>
     /// Unschedule all jobs and shut down.
     /// </summary>
-    void Stop();
-    
+    Task Stop();
+
     #endregion
 }

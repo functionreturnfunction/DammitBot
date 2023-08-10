@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Library;
 
@@ -14,7 +15,7 @@ public interface IReminderRepository : IRepository<Reminder>
     /// Get all reminders which come due at or before <see cref="DateTime"/>
     /// <paramref name="since"/> and haven't been sent yet.
     /// </summary>
-    IEnumerable<Reminder> GetPending(DateTime since);
+    Task<IEnumerable<Reminder>> GetPendingAsync(DateTime since);
     
 
     #endregion

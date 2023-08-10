@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Threading.Tasks;
 
 namespace DammitBot.Library;
 
@@ -14,11 +14,17 @@ public interface IDataCommandService
     /// Insert the provided <paramref name="entity"/> into persistent data storage. 
     /// </summary>
     object Insert<TEntity>(TEntity entity) where TEntity : class;
+    /// <inheritdoc cref="Insert{TEntity}"/>
+    /// <remarks>Asynchronously.</remarks>
+    Task<object> InsertAsync<TEntity>(TEntity entity) where TEntity : class;
     /// <summary>
     /// Update any changed properties on the provided <paramref name="entity"/> onto its representation
     /// in persistent data storage. 
     /// </summary>
     void Update<TEntity>(TEntity entity) where TEntity : class;
+    /// <inheritdoc cref="Update{TEntity}"/>
+    /// <remarks>Asynchronously.</remarks>
+    Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class;
     /// <summary>
     /// Retrieve the <typeparamref name="TEntity"/> represented by <paramref name="id"/> from persistent
     /// data storage. 

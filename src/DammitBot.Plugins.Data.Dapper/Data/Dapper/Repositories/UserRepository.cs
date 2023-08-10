@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Data.Repositories;
 using DammitBot.Library;
@@ -45,6 +46,12 @@ public class UserRepository : DapperRepositoryBase<User>, IUserRepository
     protected override IEnumerable<User> DoQuery(string sql, object? param = null)
     {
         return _connection.Query<User>(sql, param);
+    }
+    
+    /// <inheritdoc />
+    protected override async Task<IEnumerable<User>> DoQueryAsync(string sql, object? param = null)
+    {
+        return await _connection.QueryAsync<User>(sql, param);
     }
 
     /// <inheritdoc />
