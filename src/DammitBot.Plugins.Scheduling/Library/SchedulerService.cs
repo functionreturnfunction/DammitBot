@@ -7,6 +7,7 @@ using Quartz.Spi;
 
 namespace DammitBot.Library;
 
+/// <inheritdoc />
 public class SchedulerService : ISchedulerService
 {
     #region Private Members
@@ -51,6 +52,7 @@ public class SchedulerService : ISchedulerService
     #region Exposed Methods
 
     public async void Start()
+    /// <inheritdoc />
     {
         var factory = new StdSchedulerFactory();
         factory.Initialize();
@@ -66,6 +68,7 @@ public class SchedulerService : ISchedulerService
     }
 
     public async void Stop()
+    /// <inheritdoc />
     {
         if (_scheduler == null)
         {
