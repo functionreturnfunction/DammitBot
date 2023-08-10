@@ -1,4 +1,6 @@
-﻿namespace DammitBot.Library;
+﻿using System.Threading.Tasks;
+
+namespace DammitBot.Library;
 
 /// <summary>
 /// Repository responsible for managing the persistence and retrieval of <typeparamref name="TEntity"/>
@@ -13,10 +15,16 @@ public interface IRepository<TEntity>
     /// key value.
     /// </summary>
     object Insert(TEntity entity);
+    /// <inheritdoc cref="Insert" />
+    /// <remarks>Asynchronously</remarks>
+    Task<object> InsertAsync(TEntity entity);
     /// <summary>
     /// Update the given instance <paramref name="entity"/>'s changed properties in persistence.
     /// </summary>
     void Update(TEntity entity);
+    /// <inheritdoc cref="Update" />
+    /// <remarks>Asynchronously</remarks>
+    Task UpdateAsync(TEntity entity);
     /// <summary>
     /// Find the <typeparamref name="TEntity"/> instance with the primary key value <paramref name="id"/>.
     /// Returns null if not found.

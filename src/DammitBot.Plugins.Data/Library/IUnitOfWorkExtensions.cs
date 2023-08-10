@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace DammitBot.Library;
 
 /// <summary>
@@ -12,11 +14,25 @@ public static class IUnitOfWorkExtensions
         return that.GetEntityRepository<TEntity>().Insert(entity);
     }
 
+    /// <inheritdoc cref="IRepository{TEntity}.InsertAsync"/>
+    public static async Task<object> InsertAsync<TEntity>(this IUnitOfWork that, TEntity entity)
+        where TEntity : class
+    {
+        return await that.GetEntityRepository<TEntity>().InsertAsync(entity);
+    }
+
     /// <inheritdoc cref="IRepository{TEntity}.Update"/>
     public static void Update<TEntity>(this IUnitOfWork that, TEntity entity)
         where TEntity : class
     {
         that.GetEntityRepository<TEntity>().Update(entity);
+    }
+
+    /// <inheritdoc cref="IRepository{TEntity}.UpdateAsync"/>
+    public static async Task UpdateAsync<TEntity>(this IUnitOfWork that, TEntity entity)
+        where TEntity : class
+    {
+        await that.GetEntityRepository<TEntity>().UpdateAsync(entity);
     }
 
     /// <inheritdoc cref="IRepository{TEntity}.Find"/>

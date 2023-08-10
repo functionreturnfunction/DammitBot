@@ -52,7 +52,7 @@ public class ReminderJob : IJob
         {
             _bot.SayToAll(reminder.Text);
             reminder.RemindedAt = _dateTimeProvider.GetCurrentTime();
-            uow.Insert(reminder);
+            await uow.InsertAsync(reminder);
         }
 
         uow.Commit();
