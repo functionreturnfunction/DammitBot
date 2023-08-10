@@ -56,7 +56,7 @@ public class ReminderJob : IJob
     {
         using var uow = _unitOfWorkFactory.Build();
         var now = _dateTimeProvider.GetCurrentTime();
-        var reminders = GetReminders(uow, now);
+        var reminders = await GetReminders(uow, now);
         _log.LogDebug($"Found {reminders.Count()} reminders due as of {now}");
         foreach (var reminder in reminders)
         {
@@ -68,9 +68,9 @@ public class ReminderJob : IJob
         uow.Commit();
     }
 
-    private IEnumerable<Reminder> GetReminders(IUnitOfWork uow, DateTime since)
+    private async Task<IEnumerable<Reminder>> GetReminders(IUnitOfWork uow, DateTime since)
     {
-        return uow.GetRepository<IReminderRepository, Reminder>().GetPending(since);
+        return await uow.GetRepository<IReminderRepository, Reminder>().GetPendingAsync(since);
     }
 
     #endregion

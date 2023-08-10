@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Data.Repositories;
 using DammitBot.Library;
@@ -45,6 +46,13 @@ on u.Id = n.UserId";
     
     #region Private Methods
 
+    private Message MapQueryResult(Message message, Nick nick, User user)
+    {
+        message.From = nick;
+        nick.User = user;
+        return message;
+    }
+
     /// <inheritdoc />
     protected override void FixReferences(Message message)
     {
@@ -54,11 +62,13 @@ on u.Id = n.UserId";
     /// <inheritdoc />
     protected override IEnumerable<Message> DoQuery(string sql, object? param = null)
     {
-        return _connection.Query<Message, Nick, User, Message>(sql, (msg, nick, user) => {
-            msg.From = nick;
-            nick.User = user;
-            return msg;
-        }, param);
+        return _connection.Query<Message, Nick, User, Message>(sql, MapQueryResult, param);
+    }
+
+    /// <inheritdoc />
+    protected override async Task<IEnumerable<Message>> DoQueryAsync(string sql, object? param = null)
+    {
+        return await _connection.QueryAsync<Message, Nick, User, Message>(sql, MapQueryResult, param);
     }
     
     #endregion

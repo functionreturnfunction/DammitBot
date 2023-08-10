@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using DammitBot.Utilities;
 using DateTimeProvider;
 
@@ -65,6 +66,10 @@ public abstract class DapperRepositoryBase<TEntity> : RepositoryBase<TEntity>
     /// joined.
     /// </summary>
     protected abstract IEnumerable<TEntity> DoQuery(string sql, object? param = null);
+
+    /// <inheritdoc cref="DoQuery" />
+    /// <remarks>Asynchronously.</remarks>
+    protected abstract Task<IEnumerable<TEntity>> DoQueryAsync(string sql, object? param = null);
     
     #endregion
     

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using DammitBot.Data.Models;
 using DammitBot.Data.Repositories;
 using DammitBot.Library;
@@ -45,18 +46,24 @@ on t.Id = this.ToId";
     #endregion
 
     #region Private Methods
+
+    private Reminder MapQueryResult(Reminder reminder, User from, User to)
+    {
+        reminder.From = from;
+        reminder.To = to;
+        return reminder;
+    }
     
     /// <inheritdoc />
     protected override IEnumerable<Reminder> DoQuery(string sql, object? param = null)
     {
-        return _connection.Query<Reminder, User, User, Reminder>(
-            sql,
-            (rmnd, from, to) =>
-            {
-                rmnd.From = from;
-                rmnd.To = to;
-                return rmnd;
-            }, param);
+        return _connection.Query<Reminder, User, User, Reminder>(sql, MapQueryResult, param);
+    }
+    
+    /// <inheritdoc />
+    protected override async Task<IEnumerable<Reminder>> DoQueryAsync(string sql, object? param = null)
+    {
+        return await _connection.QueryAsync<Reminder, User, User, Reminder>(sql, MapQueryResult, param);
     }
 
     /// <inheritdoc />
@@ -71,9 +78,9 @@ on t.Id = this.ToId";
     #region Public Methods
 
     /// <inheritdoc />
-    public IEnumerable<Reminder> GetPending(DateTime since)
+    public async Task<IEnumerable<Reminder>> GetPendingAsync(DateTime since)
     {
-        return DoQuery(
+        return await DoQueryAsync(
             BaseQuery +
             " where this.RemindedAt IS NULL and this.RemindAt IS NOT NULL and this.RemindAt <= @since",
             new { since });
