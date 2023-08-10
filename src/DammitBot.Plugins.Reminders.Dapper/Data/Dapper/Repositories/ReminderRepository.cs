@@ -74,7 +74,8 @@ on t.Id = this.ToId";
     public IEnumerable<Reminder> GetPending(DateTime since)
     {
         return DoQuery(
-            BaseQuery + " where this.RemindAt IS NOT NULL and this.RemindAt <= @since",
+            BaseQuery +
+            " where this.RemindedAt IS NULL and this.RemindAt IS NOT NULL and this.RemindAt <= @since",
             new { since });
     }
     
