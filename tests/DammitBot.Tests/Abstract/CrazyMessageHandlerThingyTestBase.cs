@@ -57,7 +57,7 @@ public abstract class CrazyMessageHandlerThingyTestBase<TCrazyThingy, TMessageHa
 
     #region Test Methods
 
-    public virtual void TestHandleCallsHandleOnEachInnerHandler()
+    public virtual void Test_Handle_CallsHandleOnEachInnerHandler()
     {
         var args = CreateEventArgs();
         var instances = new List<Mock<TMessageHandler>>();

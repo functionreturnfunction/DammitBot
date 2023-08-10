@@ -46,7 +46,7 @@ public class BotTest : UnitTestBase<Bot>
     #region Exposed Methods
 
     [Fact]
-    public void TestRunThrowsExceptionIfAlreadyRunning()
+    public void Test_Run_ThrowsException_IfAlreadyRunning()
     {
         SafelyRunTarget();
 
@@ -54,7 +54,7 @@ public class BotTest : UnitTestBase<Bot>
     }
 
     [Fact]
-    public void TestChannelMessageReceivedHandlesMessageWithHandlerFromHandlerFactory()
+    public void Test_ChannelMessageReceived_HandlesMessageWithHandlerFromHandlerFactory()
     {
         var args = new MessageEventArgs(
             "foo",
@@ -74,7 +74,7 @@ public class BotTest : UnitTestBase<Bot>
     }
 
     [Fact]
-    public void TestSayToAllSaysToAll()
+    public void Test_SayToAll_SaysToAll()
     {
         SafelyRunTarget();
         _target.SayToAll("foo");
@@ -83,7 +83,7 @@ public class BotTest : UnitTestBase<Bot>
     }
 
     [Fact]
-    public void TestReplyToMessageRepliesToMessage()
+    public void Test_ReplyToMessage_RepliesToMessage()
     {
         var args = new MessageEventArgs(
             string.Empty,
@@ -102,7 +102,7 @@ public class BotTest : UnitTestBase<Bot>
     }
 
     [Fact]
-    public void TestDisposingBotCleansUpPluginService()
+    public void Test_DisposingBot_CleansUpPluginService()
     {
         SafelyRunTarget();
 

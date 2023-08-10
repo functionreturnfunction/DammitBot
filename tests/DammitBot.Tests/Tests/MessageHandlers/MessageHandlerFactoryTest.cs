@@ -15,8 +15,8 @@ public class MessageHandlerFactoryTest
     protected override MessageEventArgs CreateEventArgs() => CreateMessageEventArgs();
 
     [Fact]
-    public override void TestHandleCallsHandleOnEachInnerHandler()
+    public override void Test_Handle_CallsHandleOnEachInnerHandler()
     {
-        base.TestHandleCallsHandleOnEachInnerHandler();
+        base.Test_Handle_CallsHandleOnEachInnerHandler();
     }
 }

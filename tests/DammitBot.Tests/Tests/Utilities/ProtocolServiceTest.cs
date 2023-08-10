@@ -48,7 +48,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     #region Exposed Methods
 
     [Fact]
-    public void TestAttachingToChannelMessageReceivedAttachesToEachProtocol()
+    public void Test_AttachingToChannelMessageReceived_AttachesToEachProtocol()
     {
         bool called = false;
         EventHandler<MessageEventArgs> handler = (s, a) => {
@@ -64,7 +64,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestDetachingFromChannelMessageReceivedDetachesFromEachProtocol()
+    public void Test_DetachingFromChannelMessageReceived_DetachesFromEachProtocol()
     {
         bool called = false;
         EventHandler<MessageEventArgs> handler = (s, a) => {
@@ -80,7 +80,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestCleanupCleansUpAllProtocolsWhenTheyAreInitialized()
+    public void Test_Cleanup_CleansUpAllProtocols_WhenTheyAreInitialized()
     {
         // ensure things get initialized
         var _ = _target.Thingies.ToList();
@@ -90,7 +90,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestCleanupDoesNotCleanUpAllProtocolsWhenTheyHaveNotBeenInitialized()
+    public void Test_Cleanup_DoesNotCleanUpAllProtocols_WhenTheyHaveNotBeenInitialized()
     {
         _target.Cleanup();
 
@@ -98,7 +98,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestSayToAllSaysToAllProtocols()
+    public void Test_SayToAll_SaysToAllProtocols()
     {
         _target.SayToAll("foo");
 
@@ -106,7 +106,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestSayToChannelSaysToSpecificChannelOfSpecificProtocol()
+    public void Test_SayToChannel_SaysToSpecificChannelOfSpecificProtocol()
     {
         _console!.SetupGet(x => x.Name)
             .Returns(Console.PROTOCOL_NAME);
@@ -118,7 +118,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     }
 
     [Fact]
-    public void TestInitializingInitializesProtocols()
+    public void Test_Initializing_InitializesProtocols()
     {
         _target.Initialize();
         

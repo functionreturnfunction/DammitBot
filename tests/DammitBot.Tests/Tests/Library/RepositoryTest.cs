@@ -19,7 +19,7 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
     }
 
     [Fact]
-    public void TestInsertSavesAndReturnsIdentifier()
+    public void Test_Insert_SavesAndReturnsIdentifier()
     {
         var entity = new Nick();
 
@@ -31,7 +31,7 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
     }
 
     [Fact]
-    public void TestFindLoadsEntity()
+    public void Test_Find_LoadsEntity()
     {
         var entity = new Nick();
         _dataCommandHelper.Setup(x => x.Load<Nick>(666))

@@ -10,7 +10,7 @@ public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
     protected override void RunMigrations() { }
 
     [Fact]
-    public void TestLatestVersionNumberReturnsLatestVersionNumber()
+    public void Test_LatestVersionNumber_ReturnsLatestVersionNumber()
     {
         Assert.Null(_target.GetLatestVersionNumber());
 
@@ -26,7 +26,7 @@ public class MigrationRunnerTest : InMemoryDatabaseUnitTestBase<MigrationRunner>
     }
 
     [Fact]
-    public void TestEnsureUpToDateMigratesUpToLatestVersionNumber()
+    public void Test_EnsureUpToDate_MigratesUpToLatestVersionNumber()
     {
         _target.Up();
 

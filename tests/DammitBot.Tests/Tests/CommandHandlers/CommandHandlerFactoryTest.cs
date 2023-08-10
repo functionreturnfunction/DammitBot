@@ -19,8 +19,8 @@ public class CommandHandlerFactoryTest
     }
 
     [Fact]
-    public override void TestHandleCallsHandleOnEachInnerHandler()
+    public override void Test_Handle_CallsHandleOnEachInnerHandler()
     {
-        base.TestHandleCallsHandleOnEachInnerHandler();
+        base.Test_Handle_CallsHandleOnEachInnerHandler();
     }
 }

@@ -65,25 +65,25 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     #region Tests
 
     [Fact]
-    public void TestNoMessageIsNotLogged()
+    public void Test_NoMessage_IsNotLogged()
     {
-        _target.TestMessage(null, "foo");
+        _target.TestMessage(null, "foo", shouldLog: false);
     }
 
     [Fact]
-    public void TestAnyMessageIsLogged()
+    public void Test_AnyMessage_IsLogged()
     {
         _target.TestMessage("blah blah blah", "foo");
     }
 
     [Fact]
-    public void TestMessageFromNickWithNoUserIsLogged()
+    public void Test_MessageFromNickWithNoUser_IsLogged()
     {
         _target.TestMessage("blah blah blah", "bar");
     }
 
     [Fact]
-    public void TestMessageFromUnknownNickIsLogged()
+    public void Test_MessageFromUnknownNick_IsLogged()
     {
         _target.TestMessage("blah blah blah", "not a known nick");
     }

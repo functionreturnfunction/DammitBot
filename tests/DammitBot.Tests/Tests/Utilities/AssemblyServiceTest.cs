@@ -8,7 +8,7 @@ namespace DammitBot.Tests.Utilities;
 public class AssemblyServiceTest : UnitTestBase<AssemblyService>
 {
     [Fact]
-    public void TestAllAssembliesReturnsCoreDllAndPluginDlls()
+    public void Test_AllAssemblies_ReturnsCoreDllAndPluginDlls()
     {
         var expected = new[] {
             "DammitBot.Core",

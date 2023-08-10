@@ -22,7 +22,7 @@ public class PluginServiceTest : UnitTestBase<PluginService>
     }
 
     [Fact]
-    public void TestInitializingInitializesProtocols()
+    public void Test_Initializing_InitializesPlugins()
     {
         _target.Initialize();
         

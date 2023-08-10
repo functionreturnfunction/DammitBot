@@ -68,21 +68,21 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
     }
 
     [Fact]
-    public void TestCreateTimestamp()
+    public void Test_Create_Timestamp()
     {
         this.TestSaveWithValidFieldsSetsCreatedAt();
     }
 
     [Fact]
-    public void TestUpdateTimestamp()
+    public void Test_Update_Timestamp()
     {
         this.TestUpdateWithValidFieldsSetsUpdatedAt(u => u.Text = "new reminder");
     }
 
     [Fact]
-    public override void TestUpdatingWithMissingRequiredFieldsThrowsException()
+    public override void Test_Updating_WithMissingRequiredFields_ThrowsException()
     {
-        base.TestUpdatingWithMissingRequiredFieldsThrowsException();
+        base.Test_Updating_WithMissingRequiredFields_ThrowsException();
     }
 
     #endregion

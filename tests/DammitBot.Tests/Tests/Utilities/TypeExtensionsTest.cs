@@ -13,7 +13,7 @@ namespace DammitBot.Tests.Utilities;
 public class TypeExtensionsTest
 {
     [Fact]
-    public void TestHasPropertyReturnsTrueAndSetsPropertyInfoIfTypeHasProperty()
+    public void Test_HasProperty_ReturnsTrueAndSetsPropertyInfo_IfTypeHasProperty()
     {
         PropertyInfo prop;
 
@@ -25,7 +25,7 @@ public class TypeExtensionsTest
     }
 
     [Fact]
-    public void TestHasPropertyReturnsFalseIfTypeDoesNotHaveProperty()
+    public void Test_HasProperty_ReturnsFalse_IfTypeDoesNotHaveProperty()
     {
         PropertyInfo prop;
 

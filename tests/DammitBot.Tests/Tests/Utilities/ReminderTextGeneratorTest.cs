@@ -10,7 +10,7 @@ public class ReminderTextGeneratorTest : UnitTestBase<ReminderTextGenerator>
     #region Exposed Methods
 
     [Fact]
-    public void TestGenerateGeneratesTextForSameUser()
+    public void Test_Generate_GeneratesTextForSameUser()
     {
         var user = new User {
             Username = "foo"
@@ -23,7 +23,7 @@ public class ReminderTextGeneratorTest : UnitTestBase<ReminderTextGenerator>
     }
 
     [Fact]
-    public void TestGenerateGeneratesTextForDifferentUser()
+    public void Test_Generate_GeneratesTextForDifferentUser()
     {
         var user = new User {
             Username = "foo"

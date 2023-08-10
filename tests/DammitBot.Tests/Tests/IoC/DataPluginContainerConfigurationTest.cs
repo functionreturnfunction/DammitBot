@@ -14,7 +14,7 @@ public class DataPluginContainerConfigurationTest : InMemoryDatabaseUnitTestBase
     }
 
     [Fact]
-    public void TestConfigureSetsUpUnitOfWorkFactory()
+    public void Test_Configure_SetsUpUnitOfWorkFactory()
     {
         Assert.IsType<UnitOfWorkFactory>(_target.GetInstance<IUnitOfWorkFactory>());
     }

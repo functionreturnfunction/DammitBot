@@ -55,7 +55,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region Exposed Methods
 
     [Fact]
-    public void TestBotDieCausesBotToDie()
+    public void Test_BotDie_CausesBotToDie()
     {
         _target.TestCommand("die");
 
@@ -63,7 +63,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     }
 
     [Fact]
-    public void TestBotRemindMeCausesReminderyThingsToHappen()
+    public void Test_BotRemindMe_CausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
         var args = _target.TestCommand("remind me to do things in 1 minute");
@@ -79,7 +79,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     }
 
     [Fact]
-    public void TestBotRemindOtherUserAlsoCausesReminderyThingsToHappen()
+    public void Test_BotRemindOtherUser_AlsoCausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
         var args = _target.TestCommand("remind bar to do things in 1 minute");
@@ -95,7 +95,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     }
 
     [Fact]
-    public void TestGetMatchingHandlersReturnsOnlyUnknownCommandHandlerForUnknownCommand()
+    public void Test_GetMatchingHandlers_ReturnsOnlyUnknownCommandHandler_ForUnknownCommand()
     {
         _target.TestCommand("asdfasdfasdfasdf");
 
