@@ -76,8 +76,13 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
     #region Exposed Methods
 
     /// <inheritdoc cref="IPluginThingy.Initialize"/>
-    /// <remarks>This implementation does nothing.</remarks>
-    public void Initialize() { }
+    /// <remarks>
+    /// This implementation loops through <see cref="ThingyServiceBase{TThingy}.Thingies"/>.
+    /// </remarks>
+    public void Initialize()
+    {
+        foreach (var _ in Thingies) {}
+    }
     
     /// <inheritdoc cref="IPluginThingy.Cleanup"/>
     /// <remarks>

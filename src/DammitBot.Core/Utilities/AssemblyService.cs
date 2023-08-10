@@ -24,11 +24,19 @@ public class AssemblyService : IAssemblyService
 
     #region Private Methods
 
-    private IEnumerable<Assembly> InnerGetPluginAssemblies()
+    /// <summary>
+    /// Find the paths of plugin dlls. 
+    /// </summary>
+    protected virtual IEnumerable<string> FindPluginDllPaths()
     {
-        var dlls = Directory.GetFileSystemEntries(
+        return Directory.GetFileSystemEntries(
             MainAssembly.GetDirectory(),
             "DammitBot.Plugins.*.dll");
+    }
+
+    private IEnumerable<Assembly> InnerGetPluginAssemblies()
+    {
+        var dlls = FindPluginDllPaths();
 
         foreach (var dll in dlls)
         {

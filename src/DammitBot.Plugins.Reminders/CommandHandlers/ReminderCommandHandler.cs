@@ -71,6 +71,18 @@ public class ReminderCommandHandler : CommandHandlerBase
         return obj;
     }
 
+    private User? LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
+    {
+        if (value == "me")
+        {
+            return commandEventArgs.From.User;
+        }
+
+        return value == "me"
+            ? commandEventArgs.From.User
+            : uow.GetRepository<IUserRepository, User>().FindByUsername(value);
+    }
+
     #endregion
 
     #region Exposed Methods
@@ -90,32 +102,19 @@ public class ReminderCommandHandler : CommandHandlerBase
             return;
         }
 
-        using (var uow = _unitOfWorkFactory.Build())
+        using var uow = _unitOfWorkFactory.Build();
+        target = LoadTarget(e, uow, targetStr);
+
+        if (target == null)
         {
-            target = LoadTarget(e, uow, targetStr);
-
-            if (target == null)
-            {
-                Bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
-                return;
-            }
-
-            CreateReminder(reminder, e.From.User, target, when.Value, uow);
+            Bot.ReplyToMessage(e, $"Cannot find user with username '{targetStr}'");
+            return;
         }
+
+        CreateReminder(reminder, e.From.User, target, when.Value, uow);
+        uow.Commit();
 
         Bot.ReplyToMessage(e, $"Reminder set for {when}");
-    }
-
-    private User? LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
-    {
-        if (value == "me")
-        {
-            return commandEventArgs.From.User;
-        }
-
-        return value == "me"
-            ? commandEventArgs.From.User
-            : uow.GetRepository<IUserRepository, User>().FindByUsername(value);
     }
 
     #endregion
