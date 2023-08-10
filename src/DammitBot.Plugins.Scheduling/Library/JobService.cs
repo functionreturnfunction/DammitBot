@@ -8,6 +8,7 @@ using Quartz;
 
 namespace DammitBot.Library;
 
+/// <inheritdoc />
 public class JobService : IJobService
 {
     #region Private Members
@@ -18,6 +19,9 @@ public class JobService : IJobService
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="JobService"/> class.
+    /// </summary>
     public JobService(IAssemblyService assemblyService)
     {
         _assemblyService = assemblyService;
@@ -38,8 +42,10 @@ public class JobService : IJobService
 
     #region Exposed Methods
 
+    /// <inheritdoc />
     public IEnumerable<Type> GetAllJobs()
     {
+        // TODO: try and pare this down with ThingyServiceBase<T> somehow
         foreach (
             var type in
             _assemblyService.GetAllAssemblies()
@@ -53,6 +59,7 @@ public class JobService : IJobService
         }
     }
 
+    /// <inheritdoc />
     public IJobDetail Build(Type jobType, string name, string group)
     {
         return JobBuilder.Create(jobType)
@@ -60,6 +67,7 @@ public class JobService : IJobService
             .Build();
     }
 
+    /// <inheritdoc />
     public ITrigger BuildTrigger(Type jobType, string name, string group)
     {
         return TriggerBuilder.Create()

@@ -1,16 +1,33 @@
-﻿using DammitBot.Library;
+﻿using DammitBot.Data.Models;
+using DammitBot.Library;
 
 namespace DammitBot.Data.Migrations;
 
+/// <summary>
+/// Migration to create the <see cref="Reminder"/>s table.
+/// </summary>
 public class CreateRemindersTable : MigrationBase
 {
-    public struct StringLengths
+    #region Constants
+    
+    private struct StringLengths
     {
         public const int TEXT = 512;
     }
+    
+    #endregion
+    
+    #region Properties
 
+    /// <inheritdoc />
     public override int VersionNumber => 2;
+    
+    #endregion
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation will create the <see cref="Reminder"/>s table.
+    /// </remarks>
     public override void Up(IUnitOfWork uow)
     {
         uow.ExecuteNonQuery(@"
@@ -29,6 +46,10 @@ IF NOT EXISTS Reminders (
 );");
     }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation will drop the <see cref="Reminder"/>s table.
+    /// </remarks>
     public override void Down(IUnitOfWork uow)
     {
         uow.ExecuteNonQuery("DROP TABLE Reminders;");

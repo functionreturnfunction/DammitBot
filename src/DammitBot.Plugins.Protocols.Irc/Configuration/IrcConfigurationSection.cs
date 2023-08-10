@@ -1,36 +1,49 @@
-﻿using DammitBot.Protocols.Irc;
+﻿using DammitBot.Protocols;
 using Microsoft.Extensions.Configuration;
 
 namespace DammitBot.Configuration;
 
+/// <inheritdoc />
 public class IrcConfigurationSection : IIrcConfigurationSection
 {
     #region Constants
 
+    /// <summary>
+    /// Key value used to look this configuration up.
+    /// </summary>
     public const string KEY = Irc.PROTOCOL_NAME;
-    private IConfigurationSection _config;
 
-    public IrcConfigurationSection(IConfigurationSection config)
-    {
-        _config = config;
-    }
-
-
+    /// <summary>
+    /// Keys of the various properties this configuration supports/requires.
+    /// </summary>
     public struct Keys
     {
         #region Constants
 
-        public const string SERVER = "server", NICK = "nick", USER = "user", CHANNELS = "channels";
+        /// <inheritdoc cref="Keys" />
+        public const string
+            SERVER = "server",
+            NICK = "nick",
+            USER = "user",
+            CHANNELS = "channels";
 
         #endregion
     }
-
+    
+    #endregion
+    
+    #region Private Members
+    
+    private readonly IConfigurationSection _config;
+    
     #endregion
 
     #region Properties
 
+    /// <inheritdoc />
     public virtual string Server => _config.EnsureConfigValue(Keys.SERVER);
 
+    /// <inheritdoc />
     public virtual string Nick
     {
         get
@@ -40,9 +53,23 @@ public class IrcConfigurationSection : IIrcConfigurationSection
         }
     }
 
+    /// <inheritdoc />
     public virtual string User => _config.EnsureConfigValue(Keys.USER);
 
+    /// <inheritdoc />
     public virtual string[] Channels => _config.EnsureConfigValue(Keys.CHANNELS).Split(',');
+
+    #endregion
+    
+    #region Constructors
+
+    /// <summary>
+    /// Constructor for the <see cref="IrcConfigurationSection"/> class.
+    /// </summary>
+    public IrcConfigurationSection(IConfigurationSection config)
+    {
+        _config = config;
+    }
 
     #endregion
 }

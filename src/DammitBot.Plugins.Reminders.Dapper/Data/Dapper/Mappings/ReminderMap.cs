@@ -3,8 +3,14 @@ using Dapper.FluentMap.Dommel.Mapping;
 
 namespace DammitBot.Data.Dapper.Mappings;
 
+/// <summary>
+/// <see cref="DommelEntityMap{TEntity}"/> for the <see cref="Reminder"/> entity.
+/// </summary>
 public class ReminderMap : DommelEntityMap<Reminder>
 {
+    /// <summary>
+    /// Constructor for the <see cref="ReminderMap"/> class.
+    /// </summary>
     public ReminderMap()
     {
         Map(x => x.Id).IsKey();
