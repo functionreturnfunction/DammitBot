@@ -81,8 +81,7 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
     /// </remarks>
     public void Initialize()
     {
-        // TODO: Here is the fix
-        // foreach (var _ in Thingies) {}
+        foreach (var _ in Thingies) {}
     }
     
     /// <inheritdoc cref="IPluginThingy.Cleanup"/>
