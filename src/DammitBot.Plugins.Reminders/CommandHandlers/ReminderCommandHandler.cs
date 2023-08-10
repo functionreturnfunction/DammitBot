@@ -95,29 +95,23 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     #region Exposed Methods
 
-    /// <inheritdoc />
-    /// <remarks>
-    /// This implementation will set a reminder, which will cause the bot to send a message to a user or
-    /// channel at a predefined point in the future.
-    /// </remarks>
     public override void Handle(CommandEventArgs e)
     {
+        DateTime? when;
         var match = new Regex(REGEX).Match(e.Command);
+        User target;
         var targetStr = match.Groups[1].Value;
         var reminder = match.Groups[2].Value;
         var timeStr = match.Groups[3].Value;
 
-        if (!_dateTimeStringParser.TryParse(
-                _dateTimeProvider.GetCurrentTime(),
-                timeStr,
-                out var when))
+        if (!_dateTimeStringParser.TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out when))
         {
             Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
             return;
         }
 
         using var uow = _unitOfWorkFactory.Build();
-        var target = LoadTarget(e, uow, targetStr);
+        target = LoadTarget(e, uow, targetStr);
 
         if (target == null)
         {
@@ -126,7 +120,7 @@ public class ReminderCommandHandler : CommandHandlerBase
         }
 
         CreateReminder(reminder, e.From.User, target, when.Value, uow);
-        
+        uow.Commit();
 
         Bot.ReplyToMessage(e, $"Reminder set for {when}");
     }
