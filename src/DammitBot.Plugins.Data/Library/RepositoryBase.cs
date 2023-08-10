@@ -1,4 +1,6 @@
-﻿namespace DammitBot.Library;
+﻿using System.Threading.Tasks;
+
+namespace DammitBot.Library;
 
 /// <inheritdoc />
 public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
@@ -30,10 +32,22 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
         return _commandService.Insert(entity);
     }
 
+    /// <inheritdoc cref="IRepository{TEntity}.InsertAsync"/>
+    public virtual async Task<object> InsertAsync(TEntity entity)
+    {
+        return await _commandService.InsertAsync(entity);
+    }
+
     /// <inheritdoc cref="IRepository{TEntity}.Update"/>
     public virtual void Update(TEntity entity)
     {
         _commandService.Update(entity);
+    }
+
+    /// <inheritdoc cref="IRepository{TEntity}.UpdateAsync"/>
+    public virtual async Task UpdateAsync(TEntity entity)
+    {
+        await _commandService.UpdateAsync(entity);
     }
 
     /// <inheritdoc cref="IRepository{TEntity}.Find"/>
