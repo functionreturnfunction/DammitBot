@@ -41,8 +41,8 @@ public interface IIrcClient
     /// </summary>
     void JoinChannel(string channel);
     /// <summary>
-    /// Send the specified <paramref name="message"/> to the specified <see cref="targets"/> (likely to be
-    /// channels or other users). 
+    /// Send the specified <paramref name="message"/> to the specified <paramref name="targets"/> (likely
+    /// to be channels or other users). 
     /// </summary>
     void SendMessage(string message, params string[] targets);
     
