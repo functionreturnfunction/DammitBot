@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DammitBot.Abstract;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Protocols.Console;
@@ -18,6 +19,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
     private Mock<IConsole>? _console;
     private Mock<IIrc>? _irc;
+    private TestProtocol _testProtocol;
     private readonly MessageEventArgs _args;
 
     public ProtocolServiceTest()
@@ -33,10 +35,12 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
     {
         base.ConfigureContainer(serviceRegistry);
 
+        serviceRegistry.For<ITestProtocol>().Use(_testProtocol = new TestProtocol());
+
         _console = serviceRegistry.For<IConsole>().Mock();
         _irc = serviceRegistry.For<IIrc>().Mock();
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
-        serviceRegistry.For<IAssemblyService>().Use<AssemblyService>();
+        serviceRegistry.For<IAssemblyService>().Use<TestAssemblyService>();
     }
 
     #endregion
@@ -113,5 +117,38 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _console.Verify(x => x.SayToChannel("foo", "bar"));
     }
 
+    [Fact]
+    public void TestInitializingInitializesProtocols()
+    {
+        _target.Initialize();
+        
+        Assert.True(_testProtocol.IsInitialized);
+    }
+
+    #endregion
+    
+    #region Nested Classes
+
+    public class TestProtocol : ITestProtocol
+    {
+        public bool IsInitialized { get; private set; }
+        
+        public void Initialize()
+        {
+            IsInitialized = true;
+        }
+
+        public void Cleanup() {}
+
+        public string Name { get; }
+        public void SayToAll(string message) {}
+
+        public void SayToChannel(string channel, string message) {}
+
+        public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
+    }
+    
+    public interface ITestProtocol : IProtocol {}
+    
     #endregion
 }
