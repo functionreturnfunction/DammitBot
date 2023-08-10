@@ -21,6 +21,9 @@ public class SchedulerService : ISchedulerService
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="SchedulerService"/> job.
+    /// </summary>
     public SchedulerService(IJobFactory jobFactory, IJobService jobService)
     {
         _jobFactory = jobFactory;
@@ -51,8 +54,8 @@ public class SchedulerService : ISchedulerService
 
     #region Exposed Methods
 
-    public async void Start()
     /// <inheritdoc />
+    public async void Start()
     {
         var factory = new StdSchedulerFactory();
         factory.Initialize();
@@ -67,8 +70,8 @@ public class SchedulerService : ISchedulerService
         }
     }
 
-    public async void Stop()
     /// <inheritdoc />
+    public async void Stop()
     {
         if (_scheduler == null)
         {
