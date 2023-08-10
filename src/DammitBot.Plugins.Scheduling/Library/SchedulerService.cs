@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -31,7 +32,7 @@ public class SchedulerService : ISchedulerService
 
     #region Private Methods
 
-    private async void ScheduleJob(Type jobType)
+    private async Task ScheduleJob(Type jobType)
     {
         var name = jobType.Name;
         var group = name.Replace("Job", "Group");
@@ -50,7 +51,8 @@ public class SchedulerService : ISchedulerService
 
     #region Exposed Methods
 
-    public async void Start()
+    /// <inheritdoc />
+    public async Task Start()
     {
         var factory = new StdSchedulerFactory();
         factory.Initialize();
@@ -61,18 +63,19 @@ public class SchedulerService : ISchedulerService
 
         foreach (var job in _jobService.GetAllJobs())
         {
-            ScheduleJob(job);
+            await ScheduleJob(job);
         }
     }
 
-    public async void Stop()
+    /// <inheritdoc />
+    public async Task Stop()
     {
         if (_scheduler == null)
         {
             throw new InvalidOperationException(
                 "Cannot stop service before it has been started");
         }
-            
+
         // TODO: figure out why this needs to happen
         if (!_scheduler.IsShutdown)
         {
