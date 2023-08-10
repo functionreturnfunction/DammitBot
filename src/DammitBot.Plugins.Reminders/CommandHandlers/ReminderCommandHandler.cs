@@ -11,14 +11,19 @@ using DateTimeStringParser;
 
 namespace DammitBot.CommandHandlers;
 
+/// <summary>
+/// <see cref="ICommandHandler"/> implementation which allows users to set reminders, which are messages
+/// that the bot will send to a user or channel at a predefined point in the future.
+/// </summary>
 [HandlesCommand(
     @"^remind ([^\s]+).+",
-    "Set reminders; messages which the bot will send to a user or channel at a point in the future.")]
+    "Set reminders; messages which the bot will send to a user or channel at a predefined " +
+    "point in the future.")]
 public class ReminderCommandHandler : CommandHandlerBase
 {
     #region Constants
 
-    public const string REGEX =
+    private const string REGEX =
         @"^remind ([^\s]+) ((?:to|that) .+) ((?:at|in) (.+)|tomorrow(?: morning)?)$";
 
     #endregion
@@ -34,6 +39,9 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="ReminderCommandHandler"/> class.
+    /// </summary>
     public ReminderCommandHandler(
         IBot bot,
         IUnitOfWorkFactory unitOfWorkFactory,
@@ -87,6 +95,10 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     #region Exposed Methods
 
+    /// <inheritdoc/>
+    /// <remarks>
+    /// This implementation sets <see cref="Reminder"/>s.
+    /// </remarks>
     public override void Handle(CommandEventArgs e)
     {
         DateTime? when;

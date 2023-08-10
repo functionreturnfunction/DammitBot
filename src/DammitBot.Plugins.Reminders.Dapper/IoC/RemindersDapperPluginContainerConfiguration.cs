@@ -7,10 +7,21 @@ using Lamar;
 
 namespace DammitBot.IoC;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation registers <see cref="Dapper"/>-specific implementations of types from the
+/// DammitBot.Plugins.Reminders plugin.
+/// </remarks>
 public class RemindersDapperPluginContainerConfiguration : ContainerConfigurationBase
 {
+    #region Exposed Methods
+    
+    /// <inheritdoc />
+    /// <inheritdoc cref="RemindersDapperPluginContainerConfiguration" path="remarks" />
     public override void Configure(ServiceRegistry e)
     {
         e.RegisterRepository<Reminder, ReminderRepository, IReminderRepository>();
     }
+    
+    #endregion
 }

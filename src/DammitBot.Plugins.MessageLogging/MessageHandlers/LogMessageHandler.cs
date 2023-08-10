@@ -7,12 +7,16 @@ using DammitBot.Metadata;
 
 namespace DammitBot.MessageHandlers;
 
+/// <inheritdoc />
+/// <remarks>
+/// This implementation logs any observed messages to the configured database.
+/// </remarks>
 [HandlesMessage(REGEX)]
 public class LogMessageHandler : IMessageHandler
 {
     #region Constants
 
-    public const string REGEX = ".*";
+    private const string REGEX = ".*";
 
     #endregion
 
@@ -24,6 +28,10 @@ public class LogMessageHandler : IMessageHandler
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="LogMessageHandler"/> class.
+    /// </summary>
+    /// <param name="unitOfWorkFactory"></param>
     public LogMessageHandler(IUnitOfWorkFactory unitOfWorkFactory)
     {
         _unitOfWorkFactory = unitOfWorkFactory;
@@ -32,7 +40,9 @@ public class LogMessageHandler : IMessageHandler
     #endregion
 
     #region Exposed Methods
-
+    
+    /// <inheritdoc />
+    /// <inheritdoc cref="LogMessageHandler" path="remarks" />
     public void Handle(MessageEventArgs e)
     {
         using var uow = _unitOfWorkFactory.Build();

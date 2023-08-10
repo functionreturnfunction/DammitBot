@@ -8,6 +8,7 @@ using Quartz.Spi;
 
 namespace DammitBot.Library;
 
+/// <inheritdoc />
 public class SchedulerService : ISchedulerService
 {
     #region Private Members
@@ -21,6 +22,9 @@ public class SchedulerService : ISchedulerService
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="SchedulerService"/> job.
+    /// </summary>
     public SchedulerService(IJobFactory jobFactory, IJobService jobService)
     {
         _jobFactory = jobFactory;

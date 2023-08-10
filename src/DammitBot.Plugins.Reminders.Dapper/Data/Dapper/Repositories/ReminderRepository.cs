@@ -9,32 +9,44 @@ using DateTimeProvider;
 
 namespace DammitBot.Data.Dapper.Repositories;
 
+/// <inheritdoc cref="DapperRepositoryBase{TEntity}" />
 public class ReminderRepository : DapperRepositoryBase<Reminder>, IReminderRepository
 {
-//                 public const string BASE_QUERY = @"
-// select * from Messages this
-// left join Nicks n
-// on n.Id = this.FromId
-// left join Users u
-// on u.Id = n.UserId";
-
+    #region Constants
+    
+    /// <inheritdoc cref="BaseQuery" />
     public const string BASE_QUERY = @"
 select * from Reminders this
 left join Users f
 on f.Id = this.FromId
 left join Users t
 on t.Id = this.ToId";
+    
+    #endregion
+    
+    #region Properties
 
+    /// <inheritdoc />
+    protected override string BaseQuery => BASE_QUERY;
+    
+    #endregion
+    
+    #region Constructors
+
+    /// <summary>
+    /// Constructor fot the <see cref="ReminderRepository"/> class.
+    /// </summary>
     public ReminderRepository(
         IDataCommandService commandService,
         IDbConnection connection,
         IDateTimeProvider dateTimeProvider)
-        : base(commandService, connection, dateTimeProvider)
-    {
-    }
+        : base(commandService, connection, dateTimeProvider) { }
+    
+    #endregion
 
-    protected override string BaseQuery => BASE_QUERY;
-
+    #region Private Methods
+    
+    /// <inheritdoc />
     protected override IEnumerable<Reminder> DoQuery(string sql, object? param = null)
     {
         return _connection.Query<Reminder, User, User, Reminder>(
@@ -47,16 +59,24 @@ on t.Id = this.ToId";
             }, param);
     }
 
+    /// <inheritdoc />
     protected override void FixReferences(Reminder entity)
     {
         entity.FromId = entity.From == null ? entity.FromId : entity.From.Id;
         entity.ToId = entity.To == null ? entity.ToId : entity.To.Id;
     }
+    
+    #endregion
+    
+    #region Public Methods
 
+    /// <inheritdoc />
     public IEnumerable<Reminder> GetPending(DateTime since)
     {
         return DoQuery(
             BaseQuery + " where this.RemindAt IS NOT NULL and this.RemindAt <= @since",
             new { since });
     }
+    
+    #endregion
 }

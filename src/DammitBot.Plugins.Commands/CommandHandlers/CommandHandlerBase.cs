@@ -30,7 +30,8 @@ public abstract class CommandHandlerBase : ICommandHandler
 
     #region Abstract Methods
 
-    /// Handle a command event represented by <paramref name="e"/>.
+    
+    /// <inheritdoc />
     public abstract void Handle(CommandEventArgs e);
 
     #endregion

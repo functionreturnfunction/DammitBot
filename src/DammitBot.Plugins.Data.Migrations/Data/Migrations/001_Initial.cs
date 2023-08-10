@@ -10,12 +10,19 @@ namespace DammitBot.Data.Migrations
     /// </summary>
     public class Initial : MigrationBase
     {
+        #region Properties
+        
         /// <inheritdoc />
         public override int VersionNumber => 1;
+        
+        #endregion
+        
+        #region Exposed Methods
 
         /// <inheritdoc />
         /// <remarks>
-        /// This implementation will create the Users, Nicks, and Messages tables.
+        /// This implementation will create the <see cref="User"/>s, <see cref="Nick"/>s, and
+        /// <see cref="Message"/>s tables.
         /// </remarks>
         public override void Up(IUnitOfWork uow)
         {
@@ -74,7 +81,8 @@ IF NOT EXISTS Messages (
 
         /// <inheritdoc />
         /// <remarks>
-        /// This implementation will drop the Messages, Nicks, and Users tables.
+        /// This implementation will drop the <see cref="User"/>s, <see cref="Nick"/>s, and
+        /// <see cref="Message"/>s tables.
         /// </remarks>
         public override void Down(IUnitOfWork uow)
         {
@@ -83,5 +91,7 @@ DROP TABLE Messages;
 DROP TABLE Nicks;
 DROP TABLE Users;");
         }
+        
+        #endregion
     }
 }

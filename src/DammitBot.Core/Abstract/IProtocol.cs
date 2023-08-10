@@ -27,8 +27,6 @@ public interface IProtocol : IPluginThingy
     /// Send the provided <paramref name="message"/> via this protocol to the specified
     /// <paramref name="channel"/>.
     /// </summary>
-    /// <param name="channel"></param>
-    /// <param name="message"></param>
     void SayToChannel(string channel, string message);
 
     #endregion

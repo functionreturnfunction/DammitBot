@@ -12,6 +12,10 @@ using Quartz;
 
 namespace DammitBot.Jobs;
 
+/// <summary>
+/// <see cref="IJob"/> implementation which when run will send any pending reminders and record having
+/// sent them.
+/// </summary>
 [Secondly(15)]
 public class ReminderJob : IJob
 {
@@ -26,6 +30,9 @@ public class ReminderJob : IJob
 
     #region Constructors
 
+    /// <summary>
+    /// Constructor for the <see cref="ReminderJob"/> class.
+    /// </summary>
     public ReminderJob(
         IBot bot,
         IUnitOfWorkFactory unitOfWorkFactory,
@@ -42,6 +49,9 @@ public class ReminderJob : IJob
 
     #region Exposed Methods
 
+    /// <summary>
+    /// Find all pending reminders, send their messages, and mark them 
+    /// </summary>
     public async Task Execute(IJobExecutionContext context)
     {
         using var uow = _unitOfWorkFactory.Build();
@@ -52,16 +62,11 @@ public class ReminderJob : IJob
         {
             _bot.SayToAll(reminder.Text);
             reminder.RemindedAt = _dateTimeProvider.GetCurrentTime();
-            await uow.InsertAsync(reminder);
+            await uow.UpdateAsync(reminder);
         }
 
         uow.Commit();
     }
-
-    // Task IJob.Execute(IJobExecutionContext context)
-    // {
-    //     throw new NotImplementedException();
-    // }
 
     private IEnumerable<Reminder> GetReminders(IUnitOfWork uow, DateTime since)
     {

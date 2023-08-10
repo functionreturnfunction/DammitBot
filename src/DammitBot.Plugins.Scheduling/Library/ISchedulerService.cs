@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-﻿namespace DammitBot.Library;
+namespace DammitBot.Library;
 
+/// <summary>
+/// Service responsible for starting and stopping all schedulable recurring jobs.
+/// </summary>
 public interface ISchedulerService
 {
     #region Abstract Methods
