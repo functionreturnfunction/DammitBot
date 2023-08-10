@@ -112,8 +112,7 @@ public class ReminderCommandHandler : CommandHandlerBase
         }
 
         CreateReminder(reminder, e.From.User, target, when.Value, uow);
-        // TODO: here is the fix:
-//        uow.Commit();
+        uow.Commit();
 
         Bot.ReplyToMessage(e, $"Reminder set for {when}");
     }

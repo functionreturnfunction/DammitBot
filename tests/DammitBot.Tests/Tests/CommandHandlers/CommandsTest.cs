@@ -5,6 +5,7 @@ using DammitBot.Data.Models;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
+using Dapper;
 using Lamar;
 using Moq;
 using Xunit;
@@ -64,23 +65,33 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void TestBotRemindMeCausesReminderyThingsToHappen()
     {
+        var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
         var args = _target.TestCommand("remind me to do things in 1 minute");
 
         _bot.Verify(x =>
             x.ReplyToMessage(
                 It.IsAny<MessageEventArgs>(),
                 $"Reminder set for {_now.AddMinutes(1)}"));
+
+        var afterCount = _connection.QuerySingle<int>("select count(*) from Reminders");
+
+        Assert.True(afterCount == beforeCount + 1);
     }
 
     [Fact]
     public void TestBotRemindOtherUserAlsoCausesReminderyThingsToHappen()
     {
+        var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
         var args = _target.TestCommand("remind bar to do things in 1 minute");
 
         _bot.Verify(x =>
             x.ReplyToMessage(
                 It.IsAny<MessageEventArgs>(),
                 $"Reminder set for {_now.AddMinutes(1)}"));
+
+        var afterCount = _connection.QuerySingle<int>("select count(*) from Reminders");
+
+        Assert.True(afterCount == beforeCount + 1);
     }
 
     [Fact]
