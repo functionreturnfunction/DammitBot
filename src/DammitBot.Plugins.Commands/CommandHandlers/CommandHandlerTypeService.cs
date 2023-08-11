@@ -4,6 +4,7 @@ using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.CommandHandlers;
 
@@ -18,7 +19,7 @@ public class CommandHandlerTypeService
 {
     #region Private Members
 
-    private readonly IBotConfigurationSection _config;
+    private readonly BotConfiguration _config;
 
     #endregion
 
@@ -30,10 +31,10 @@ public class CommandHandlerTypeService
     public CommandHandlerTypeService(
         IAssemblyTypeService assemblyTypeService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
-        IConfigurationProvider configurationProvider)
+        IOptions<BotConfiguration> botConfig)
         : base(assemblyTypeService, attributeComparer)
     {
-        _config = configurationProvider.BotConfig;
+        _config = botConfig.Value;
     }
 
     #endregion

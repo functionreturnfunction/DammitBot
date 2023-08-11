@@ -1,6 +1,8 @@
 using DammitBot.Abstract;
+using DammitBot.Configuration;
 using DammitBot.Library;
 using Lamar;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DammitBot.IoC;
 
@@ -16,5 +18,9 @@ public class DataPluginContainerConfiguration : ContainerConfigurationBase
     {
         e.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
         e.For(typeof(IRepository<>)).Use(typeof(Repository<>));
+
+        e.AddOptions<DataConfiguration>()
+            .BindConfiguration("Data")
+            .ValidateDataAnnotations();
     }
 }

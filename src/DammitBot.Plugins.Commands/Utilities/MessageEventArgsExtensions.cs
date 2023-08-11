@@ -13,7 +13,7 @@ public static class MessageEventArgsExtensions
     /// Get the part of the text of a message which can be considered to be a command, i.e. the message
     /// text with the configured name the bot goes by/responds to removed from the beginning.
     /// </summary>
-    public static string GetCommandText(this MessageEventArgs args, IBotConfigurationSection config)
+    public static string GetCommandText(this MessageEventArgs args, BotConfiguration config)
     {
         return Regex.Match(args.Message, config.GoesBy + " (.+)").Groups[1].Value;
     }

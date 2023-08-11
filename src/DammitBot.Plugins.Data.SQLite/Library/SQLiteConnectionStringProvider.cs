@@ -1,5 +1,6 @@
 using DammitBot.Configuration;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.Library;
 
@@ -11,7 +12,7 @@ public class SQLiteConnectionStringProvider : IConnectionStringProvider
 {
     #region Private Members
     
-    private readonly IDataConfigurationProvider _config;
+    private readonly DataConfiguration _config;
     
     #endregion
     
@@ -20,9 +21,9 @@ public class SQLiteConnectionStringProvider : IConnectionStringProvider
     /// <summary>
     /// Constructor for the <see cref="SQLiteConnectionStringProvider"/> class.
     /// </summary>
-    public SQLiteConnectionStringProvider(IDataConfigurationProvider config)
+    public SQLiteConnectionStringProvider(IOptions<DataConfiguration> config)
     {
-        _config = config;
+        _config = config.Value;
     }
     
     #endregion

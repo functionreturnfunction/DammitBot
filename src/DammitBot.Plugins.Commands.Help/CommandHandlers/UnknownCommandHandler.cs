@@ -1,5 +1,6 @@
 using DammitBot.Configuration;
 using DammitBot.Events;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.CommandHandlers;
 
@@ -22,7 +23,7 @@ public class UnknownCommandHandler : CommandHandlerBase
 
     #region Private Members
 
-    private readonly IBotConfigurationSection _botConfig;
+    private readonly BotConfiguration _botConfig;
 
     #endregion
 
@@ -31,9 +32,9 @@ public class UnknownCommandHandler : CommandHandlerBase
     /// <summary>
     /// Constructor for the <see cref="UnknownCommandHandler"/> class.
     /// </summary>
-    public UnknownCommandHandler(IBot bot, IConfigurationProvider configurationProvider) : base(bot)
+    public UnknownCommandHandler(IBot bot, IOptions<BotConfiguration> botConfig) : base(bot)
     {
-        _botConfig = configurationProvider.BotConfig;
+        _botConfig = botConfig.Value;
     }
 
     #endregion

@@ -8,6 +8,7 @@ using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.CommandHandlers;
 
@@ -23,7 +24,7 @@ public class HelpCommandHandler : CommandHandlerBase
     #region Private Members
     
     private readonly IAssemblyTypeService _assemblyTypeService;
-    private readonly IBotConfigurationSection _config;
+    private readonly BotConfiguration _config;
     
     #endregion
     
@@ -34,11 +35,11 @@ public class HelpCommandHandler : CommandHandlerBase
     /// </summary>
     public HelpCommandHandler(
         IBot bot,
-        IConfigurationProvider configurationProvider,
+        IOptions<BotConfiguration> botConfig,
         IAssemblyTypeService assemblyTypeService)
         : base(bot)
     {
-        _config = configurationProvider.BotConfig;
+        _config = botConfig.Value;
         _assemblyTypeService = assemblyTypeService;
     }
     

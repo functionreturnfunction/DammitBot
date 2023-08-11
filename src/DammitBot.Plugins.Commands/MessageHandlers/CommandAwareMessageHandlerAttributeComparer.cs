@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using DammitBot.Configuration;
 using DammitBot.Metadata;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.MessageHandlers;
 
@@ -14,7 +15,7 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
 {
     #region Private Members
 
-    private readonly IBotConfigurationSection _botConfig;
+    private readonly BotConfiguration _botConfig;
 
     #endregion
 
@@ -23,9 +24,9 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
     /// <summary>
     /// Constructor for the <see cref="CommandAwareMessageHandlerAttributeComparer"/> class.
     /// </summary>
-    public CommandAwareMessageHandlerAttributeComparer(IConfigurationProvider configurationProvider)
+    public CommandAwareMessageHandlerAttributeComparer(IOptions<BotConfiguration> botConfig)
     {
-        _botConfig = configurationProvider.BotConfig;
+        _botConfig = botConfig.Value;
     }
 
     #endregion

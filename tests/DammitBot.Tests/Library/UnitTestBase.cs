@@ -3,6 +3,7 @@ using DammitBot.Configuration;
 using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -33,9 +34,18 @@ public abstract class UnitTestBase<TTarget> : IDisposable
             a.AssembliesFromApplicationBaseDirectory();
             a.WithDefaultConventions();
         });
-        
-        serviceRegistry.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
-        serviceRegistry.For<ISettingsPathProvider>().Use<TestSettingsPathProvider>();
+
+        serviceRegistry
+            .For<IConfiguration>()
+            .Use(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
+
+        serviceRegistry.AddOptions<BotConfiguration>()
+            .BindConfiguration("DammitBot")
+            .ValidateDataAnnotations();
+
+        serviceRegistry.AddOptions<DataConfiguration>()
+            .BindConfiguration("Data")
+            .ValidateDataAnnotations();
 
         _log = serviceRegistry.For<ILogger<TTarget>>().Mock();
         _dateTimeProvider = serviceRegistry

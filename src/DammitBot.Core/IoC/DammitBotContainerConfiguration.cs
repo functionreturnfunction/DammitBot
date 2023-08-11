@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using DammitBot.Abstract;
+using DammitBot.Configuration;
 using DammitBot.Utilities;
 using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DammitBot.IoC;
 
@@ -57,6 +59,10 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
         e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
 
         e.For<IDateTimeProvider>().Use<SystemClockDateTimeProvider>();
+
+        e.AddOptions<BotConfiguration>()
+            .BindConfiguration("DammitBot")
+            .ValidateDataAnnotations();
     }
     
     #endregion

@@ -6,6 +6,7 @@ using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.MessageHandlers;
 
@@ -22,7 +23,7 @@ public class CommandMessageHandler : IMessageHandler
 
     private readonly ICommandHandlerFactory _handlerFactory;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-    private readonly IBotConfigurationSection _config;
+    private readonly BotConfiguration _config;
 
     #endregion
 
@@ -34,11 +35,11 @@ public class CommandMessageHandler : IMessageHandler
     public CommandMessageHandler(
         ICommandHandlerFactory handlerFactory,
         IUnitOfWorkFactory unitOfWorkFactory,
-        IConfigurationProvider configurationProvider)
+        IOptions<BotConfiguration> botConfig)
     {
         _handlerFactory = handlerFactory;
         _unitOfWorkFactory = unitOfWorkFactory;
-        _config = configurationProvider.BotConfig;
+        _config = botConfig.Value;
     }
 
     #endregion

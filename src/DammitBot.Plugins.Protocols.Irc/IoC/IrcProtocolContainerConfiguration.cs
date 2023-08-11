@@ -1,24 +1,25 @@
 ﻿using DammitBot.Abstract;
-using DammitBot.Library;
-using DammitBot.Wrappers;
+using DammitBot.Configuration;
 using Lamar;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DammitBot.IoC;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 /// <remarks>
-/// This implementation registers types used to provide support for the Irc protocol using the 3rd party
-/// library IrcDotNet.
+/// This implementation configures types necessary for handling the Irc protocol.
 /// </remarks>
 public class IrcProtocolContainerConfiguration : ContainerConfigurationBase
 {
     #region Exposed Methods
     
-    /// <inheritdoc />
+    /// <inheritdoc/>
     /// <inheritdoc cref="IrcProtocolContainerConfiguration" path="remarks" />
     public override void Configure(ServiceRegistry e)
     {
-        e.For<IIrcClient>().Use<IrcClientWrapper>();
+        e.AddOptions<IrcConfiguration>()
+            .BindConfiguration("Irc")
+            .ValidateDataAnnotations();
     }
     
     #endregion
