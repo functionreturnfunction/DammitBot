@@ -6,6 +6,7 @@ using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.CommandHandlers;
 
@@ -24,8 +25,8 @@ public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHa
     public UnknownCommandHandlerTypeAwareCommandHandlerTypeService(
         IAssemblyTypeService assemblyTypeService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
-        IConfigurationProvider configurationProvider)
-        : base(assemblyTypeService, attributeComparer, configurationProvider) {}
+        IOptions<BotConfiguration> botConfig)
+        : base(assemblyTypeService, attributeComparer, botConfig) {}
 
     #endregion
 

@@ -6,6 +6,7 @@ using DammitBot.Events;
 using DammitBot.Library;
 using IrcDotNet;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.Wrappers;
 
@@ -18,7 +19,7 @@ public class IrcClientWrapper : IIrcClient
 {
     #region Private Members
 
-    private readonly IIrcConfigurationSection _config;
+    private readonly IrcConfiguration _config;
     private readonly ILogger<IrcClientWrapper> _log;
     private readonly StandardIrcClient _innerClient;
 
@@ -30,10 +31,10 @@ public class IrcClientWrapper : IIrcClient
     /// Constructor for the <see cref="IrcClientWrapper"/> class.
     /// </summary>
     public IrcClientWrapper(
-        IIrcConfigurationProvider configurationProvider,
+        IOptions<IrcConfiguration> config,
         ILogger<IrcClientWrapper> log)
     {
-        _config = configurationProvider.IrcConfigurationSection;
+        _config = config.Value;
         _log = log;
         _innerClient = new StandardIrcClient();
         _innerClient.FloodPreventer = new IrcStandardFloodPreventer(4, 2000);

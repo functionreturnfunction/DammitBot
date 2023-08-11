@@ -4,6 +4,7 @@ using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.Utilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.Protocols;
 
@@ -21,7 +22,7 @@ public class Irc : IIrc
 
     private readonly IIrcClientFactory _ircClientFactory;
     private readonly ILogger _log;
-    private readonly IIrcConfigurationSection _config;
+    private readonly IrcConfiguration _config;
     private IIrcClient? _irc;
 
     #endregion
@@ -40,11 +41,11 @@ public class Irc : IIrc
     /// </summary>
     public Irc(
         IIrcClientFactory ircClientFactory,
-        IIrcConfigurationProvider configurationProvider,
+        IOptions<IrcConfiguration> config,
         ILogger<Irc> log)
     {
         _ircClientFactory = ircClientFactory;
-        _config = configurationProvider.IrcConfigurationSection;
+        _config = config.Value;
         _log = log;
     }
 

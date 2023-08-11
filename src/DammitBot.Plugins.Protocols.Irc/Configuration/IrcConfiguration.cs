@@ -1,25 +1,31 @@
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace DammitBot.Configuration;
 
 /// <summary>
 /// Configuration section containing values for connecting to an Irc <see cref="Server"/> and its
 /// <see cref="Channels"/>. 
 /// </summary>
-public interface IIrcConfigurationSection
+public class IrcConfiguration
 {
     /// <summary>
     /// Hostname of the server to connect to.
     /// </summary>
-    string Server { get; }
+    [Required]
+    public string? Server { get; set; }
     /// <summary>
     /// Nickname to use when connecting.
     /// </summary>
-    string Nick { get; }
+    [Required]
+    public string? Nick { get; set; }
     /// <summary>
     /// User name to use when connecting.
     /// </summary>
-    string User { get; }
+    [Required]
+    public string? User { get; set; }
     /// <summary>
     /// Channels to join after successfully connecting.
     /// </summary>
-    string[] Channels { get; }
+    [Required]
+    public string[]? Channels { get; set; }
 }

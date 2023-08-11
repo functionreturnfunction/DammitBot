@@ -14,7 +14,6 @@ public class BotTest : UnitTestBase<Bot>
 {
     #region Private Members
 
-    private Mock<IBotConfigurationSection> _config;
     private Mock<IMessageHandlerFactory> _handlerFactory;
     private Mock<IPluginService> _pluginService;
     private Mock<IProtocolService> _protocolService;
@@ -26,9 +25,6 @@ public class BotTest : UnitTestBase<Bot>
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
         base.ConfigureContainer(serviceRegistry);
-        _config = new Mock<IBotConfigurationSection>();
-        var manager = serviceRegistry.For<IConfigurationProvider>().Mock();
-        manager.SetupGet(x => x.BotConfig).Returns(_config.Object);
         _handlerFactory = serviceRegistry.For<IMessageHandlerFactory>().Mock();
         _pluginService = serviceRegistry.For<IPluginService>().Mock();
         _protocolService = serviceRegistry.For<IProtocolService>().Mock();
