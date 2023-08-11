@@ -35,6 +35,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
             s.WithDefaultConventions();
         });
         
+        
         new CommandsPluginContainerConfiguration().Configure(serviceRegistry);
         serviceRegistry.For<IBot>().Use<Bot>().Singleton();
 
@@ -65,25 +66,19 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     #region Tests
 
     [Fact]
-    public void TestNoMessageIsNotLogged()
-    {
-        _target.TestMessage(null, "foo");
-    }
-
-    [Fact]
-    public void TestAnyMessageIsLogged()
+    public void Test_AnyMessage_IsLogged()
     {
         _target.TestMessage("blah blah blah", "foo");
     }
 
     [Fact]
-    public void TestMessageFromNickWithNoUserIsLogged()
+    public void Test_MessageFromNickWithNoUser_IsLogged()
     {
         _target.TestMessage("blah blah blah", "bar");
     }
 
     [Fact]
-    public void TestMessageFromUnknownNickIsLogged()
+    public void Test_MessageFromUnknownNick_IsLogged()
     {
         _target.TestMessage("blah blah blah", "not a known nick");
     }

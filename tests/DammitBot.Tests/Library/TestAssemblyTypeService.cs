@@ -4,11 +4,11 @@ using DammitBot.Utilities;
 
 namespace DammitBot.Library;
 
-public class TestAssemblyService : AssemblyService
+public class TestAssemblyTypeService : AssemblyTypeService
 {
     private readonly bool _includeActualPlugins;
 
-    public TestAssemblyService(bool includeActualPlugins = true)
+    public TestAssemblyTypeService(bool includeActualPlugins = true)
     {
         _includeActualPlugins = includeActualPlugins;
     }

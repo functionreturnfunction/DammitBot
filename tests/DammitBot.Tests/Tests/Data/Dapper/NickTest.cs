@@ -48,7 +48,7 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     }
 
     [Fact]
-    public void TestCreateTimestamp()
+    public void Test_Create_Timestamp()
     {
         // var whatevs = uow.ExecuteReader("SELECT * FROM Nicks;");
         // var sb = new StringBuilder();
@@ -69,13 +69,13 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     }
 
     [Fact]
-    public void TestUpdateTimestamp()
+    public void Test_Update_Timestamp()
     {
         this.TestUpdateWithValidFieldsSetsUpdatedAt(n => n.Nickname = "new nickname");
     }
 
     [Fact]
-    public void TestUpdatingWithUserWorks()
+    public void Test_Updating_WithUser_Works()
     {
         var userId = -1;
         _target = CreateValidObject();

@@ -27,7 +27,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     }
 
     [Fact]
-    public void TestGenericGetInstanceGenericallyGetsInstanceFromContainer()
+    public void Test_GenericGetInstance_GenericallyGetsInstanceFromContainer()
     {
         var now = DateTime.Now;
         _mockContainer!.Setup(x => x.GetInstance<DateTime>()).Returns(now);
@@ -36,7 +36,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
     }
 
     [Fact]
-    public void TestGetInstanceGetsInstanceFromContainer()
+    public void Test_GetInstance_GetsInstanceFromContainer()
     {
         var now = DateTime.Now;
         _mockContainer!.Setup(x => x.GetInstance(typeof(DateTime))).Returns(now);

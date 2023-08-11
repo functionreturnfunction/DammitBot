@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
 namespace DammitBot.Utilities;
 
-/// <inheritdoc cref="IAssemblyService"/>
-public class AssemblyService : IAssemblyService
+/// <inheritdoc cref="IAssemblyTypeService"/>
+public class AssemblyTypeService : IAssemblyTypeService
 {
     #region Private Members
 
@@ -17,8 +18,7 @@ public class AssemblyService : IAssemblyService
 
     #region Properties
 
-    /// <inheritdoc cref="IAssemblyService.MainAssembly"/>
-    public Assembly MainAssembly => _mainAssembly ??= typeof(IBot).Assembly;
+    private Assembly MainAssembly => _mainAssembly ??= typeof(IBot).Assembly;
 
     #endregion
 
@@ -53,21 +53,17 @@ public class AssemblyService : IAssemblyService
 
     #region Exposed Methods
 
-    /// <inheritdoc cref="IAssemblyService.GetAllAssemblies"/>
-    public IEnumerable<Assembly> GetAllAssemblies()
+    /// <inheritdoc cref="IAssemblyTypeService.GetTypesFromAllAssemblies"/>
+    public IEnumerable<Type> GetTypesFromAllAssemblies()
     {
-        yield return MainAssembly;
-
-        foreach (var assembly in GetPluginAssemblies())
-        {
-            yield return assembly;
-        }
+        return MainAssembly.GetTypes().Concat(GetTypesFromPluginAssemblies());
     }
 
-    /// <inheritdoc cref="IAssemblyService.GetPluginAssemblies"/>
-    public IEnumerable<Assembly> GetPluginAssemblies()
+    /// <inheritdoc cref="IAssemblyTypeService.GetTypesFromPluginAssemblies"/>
+    public IEnumerable<Type> GetTypesFromPluginAssemblies()
     {
-        return _pluginAssemblies ??= InnerGetPluginAssemblies().ToList();
+        return (_pluginAssemblies ??= InnerGetPluginAssemblies().ToList())
+            .SelectMany(assembly => assembly.GetTypes());
     }
 
     #endregion

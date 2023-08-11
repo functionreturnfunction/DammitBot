@@ -7,7 +7,7 @@ namespace DammitBot.Tests.Configuration;
 public class IrcConfigurationSectionTest : UnitTestBase<IrcConfigurationProvider>
 {
     [Fact]
-    public void TestValuesAreSetProperlyByConfigFile()
+    public void Test_ValuesAreSetProperly_ByConfigFile()
     {
         Assert.Equal("nick", _target.IrcConfigurationSection.Nick);
         Assert.Equal("server", _target.IrcConfigurationSection.Server);

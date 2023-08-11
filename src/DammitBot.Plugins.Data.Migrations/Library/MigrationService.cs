@@ -13,9 +13,9 @@ public class MigrationService : ThingyServiceBase<MigrationBase>, IMigrationServ
     /// Constructor for the <see cref="MigrationService"/> class.
     /// </summary>
     public MigrationService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IInstantiationService instantiationService)
-        : base(assemblyService, instantiationService) {}
+        : base(assemblyTypeService, instantiationService) {}
     
     #endregion
 }

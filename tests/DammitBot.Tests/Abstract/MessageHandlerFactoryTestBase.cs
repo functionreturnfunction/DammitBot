@@ -1,6 +1,7 @@
 ﻿using System;
 using DammitBot.Events;
 using DammitBot.Library;
+using DammitBot.Utilities;
 using Lamar;
 using Moq;
 
@@ -8,18 +9,18 @@ namespace DammitBot.Abstract;
 
 public abstract class MessageHandlerFactoryTestBase<
         TMessageHandlerFactory,
-        TMessageHandlerTypeService,
         TMessageHandler,
+        TIMessageHandler,
         TEventArgs>
     : CrazyMessageHandlerThingyTestBase<TMessageHandlerFactory, TMessageHandler, TEventArgs>
-    where TMessageHandlerFactory : IMessageHandlerFactory<TMessageHandler, TEventArgs>
-    where TMessageHandlerTypeService : class, IMessageHandlerTypeService<TMessageHandler, TEventArgs>
-    where TMessageHandler : class, IMessageHandler<TEventArgs>
+    where TMessageHandlerFactory : IMessageHandlerFactory<TIMessageHandler, TEventArgs>
+    where TMessageHandler : class, IMessageHandler<TEventArgs>, TIMessageHandler
+    where TIMessageHandler : IMessageHandler<TEventArgs>
     where TEventArgs : MessageEventArgs
 {
     #region Private Members
 
-    protected Mock<TMessageHandlerTypeService>? _handlerTypeService;
+    protected Mock<IAssemblyTypeService>? _assemblyTypeService;
 
     #endregion
 
@@ -29,7 +30,7 @@ public abstract class MessageHandlerFactoryTestBase<
     {
         base.ConfigureContainer(serviceRegistry);
 
-        _handlerTypeService = serviceRegistry.For<TMessageHandlerTypeService>().Mock();
+        _assemblyTypeService = serviceRegistry.For<IAssemblyTypeService>().Mock();
     }
 
     protected override void TestMethod(TEventArgs args)
@@ -41,14 +42,18 @@ public abstract class MessageHandlerFactoryTestBase<
                 $"have happened in {nameof(ConfigureContainer)}()...");
         }
 
-        if (_handlerTypeService == null)
+        if (_assemblyTypeService == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(_handlerTypeService)} has not yet been initialized, which should have" +
+                $"{nameof(_assemblyTypeService)} has not yet been initialized, which should have" +
                 $"happened in {nameof(ConfigureContainer)}()...");
         }
 
-        _handlerTypeService.Setup(r => r.GetMatchingHandlerTypes(args))
+        _assemblyTypeService
+            .Setup(r => r.GetTypesFromPluginAssemblies())
+            .Returns(_handlers);
+        _assemblyTypeService
+            .Setup(r => r.GetTypesFromAllAssemblies())
             .Returns(_handlers);
 
         _target.BuildHandler(args).Handle(args);

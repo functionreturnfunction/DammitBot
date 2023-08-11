@@ -81,8 +81,9 @@ public abstract class MessageHandlerFactoryBase<
     /// <inheritdoc cref="IMessageHandlerFactory{TMessageHandlerFactory,TMessageEventArgs}.BuildHandler"/>
     public TMessageHandler BuildHandler(TMessageEventArgs message)
     {
-        return CreateCompositeHandler(
-            InstantiateAll(_handlerTypeService.GetMatchingHandlerTypes(message)));
+        var handlerTypes = _handlerTypeService.GetMatchingHandlerTypes(message);
+        
+        return CreateCompositeHandler(InstantiateAll(handlerTypes));
     }
 
     #endregion

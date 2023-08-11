@@ -15,9 +15,9 @@ public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolServ
     /// Constructor for the <see cref="ProtocolService"/> class.
     /// </summary>
     public ProtocolService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IInstantiationService instantiationService)
-        : base(assemblyService, instantiationService) { }
+        : base(assemblyTypeService, instantiationService) { }
 
     #endregion
 

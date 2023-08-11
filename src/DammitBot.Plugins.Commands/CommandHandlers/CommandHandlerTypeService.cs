@@ -28,10 +28,10 @@ public class CommandHandlerTypeService
     /// Constructor for the <see cref="CommandHandlerTypeService"/> class.
     /// </summary>
     public CommandHandlerTypeService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
         IConfigurationProvider configurationProvider)
-        : base(assemblyService, attributeComparer)
+        : base(assemblyTypeService, attributeComparer)
     {
         _config = configurationProvider.BotConfig;
     }

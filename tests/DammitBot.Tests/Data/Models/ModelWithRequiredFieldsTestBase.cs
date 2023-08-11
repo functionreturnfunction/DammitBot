@@ -32,7 +32,7 @@ public abstract class ModelWithRequiredFieldsTestBase<TModel> : ModelTestBase<TM
     }
 
     [Fact]
-    public virtual void TestUpdatingWithMissingRequiredFieldsThrowsException()
+    public virtual void Test_Updating_WithMissingRequiredFields_ThrowsException()
     {
         foreach (var fn in GetWaysToInvalidate())
         {

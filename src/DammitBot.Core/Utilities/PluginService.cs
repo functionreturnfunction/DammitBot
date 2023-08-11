@@ -12,9 +12,9 @@ public class PluginService : PluginThingyServiceBase<IPlugin>, IPluginService
     /// Constructor for the <see cref="PluginService"/> class.
     /// </summary>
     public PluginService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IInstantiationService instantiationService)
-        : base(assemblyService, instantiationService) { }
+        : base(assemblyTypeService, instantiationService) { }
     
     #endregion
 }

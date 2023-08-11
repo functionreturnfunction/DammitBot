@@ -13,7 +13,7 @@ public class JobService : IJobService
 {
     #region Private Members
 
-    private readonly IAssemblyService _assemblyService;
+    private readonly IAssemblyTypeService _assemblyTypeService;
 
     #endregion
 
@@ -22,9 +22,9 @@ public class JobService : IJobService
     /// <summary>
     /// Constructor for the <see cref="JobService"/> class.
     /// </summary>
-    public JobService(IAssemblyService assemblyService)
+    public JobService(IAssemblyTypeService assemblyTypeService)
     {
-        _assemblyService = assemblyService;
+        _assemblyTypeService = assemblyTypeService;
     }
 
     #endregion
@@ -48,8 +48,7 @@ public class JobService : IJobService
         // TODO: try and pare this down with ThingyServiceBase<T> somehow
         foreach (
             var type in
-            _assemblyService.GetAllAssemblies()
-                .GetTypes()
+            _assemblyTypeService.GetTypesFromAllAssemblies()
                 .Where(
                     t =>
                         !t.IsAbstract && typeof(IJob).IsAssignableFrom(t) && t.Name.EndsWith("Job") &&

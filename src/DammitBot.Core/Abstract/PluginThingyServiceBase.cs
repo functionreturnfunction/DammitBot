@@ -27,12 +27,12 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
     /// <summary>
     /// Constructor for the <see cref="PluginThingyServiceBase{TThingy}"/> class.
     /// </summary>
-    /// <param name="assemblyService"></param>
+    /// <param name="assemblyTypeService"></param>
     /// <param name="instantiationService"></param>
     public PluginThingyServiceBase(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IInstantiationService instantiationService)
-        : base(assemblyService, instantiationService) { }
+        : base(assemblyTypeService, instantiationService) { }
 
     #endregion
     

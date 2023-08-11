@@ -9,7 +9,7 @@ namespace DammitBot.Abstract;
 
 /// <inheritdoc cref="IMessageHandlerTypeService{TMessageHandler,TMessageEventArgs}"/>
 /// <remarks>
-/// This implementation uses a <see cref="IAssemblyService"/> to gather all available assemblies to find
+/// This implementation uses a <see cref="IAssemblyTypeService"/> to gather all available assemblies to find
 /// types from, and a <typeparamref name="TAttributeComparer"/> to filter those types based on the text of
 /// a given message. 
 /// </remarks>
@@ -26,7 +26,7 @@ public abstract class MessageHandlerTypeServiceBase<
 {
     #region Private Members
 
-    private readonly IAssemblyService _assemblyService;
+    private readonly IAssemblyTypeService _assemblyTypeService;
     private readonly TAttributeComparer _attributeComparer;
 
     #endregion
@@ -39,10 +39,10 @@ public abstract class MessageHandlerTypeServiceBase<
     /// class
     /// </summary>
     protected MessageHandlerTypeServiceBase(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         TAttributeComparer attributeComparer)
     {
-        _assemblyService = assemblyService;
+        _assemblyTypeService = assemblyTypeService;
         _attributeComparer = attributeComparer;
     }
 
@@ -52,9 +52,8 @@ public abstract class MessageHandlerTypeServiceBase<
 
     private IEnumerable<Type> GetTypes()
     {
-        var assemblies =  _assemblyService
-            .GetAllAssemblies();
-        var types = assemblies.GetTypes();
+        var types =  _assemblyTypeService
+            .GetTypesFromAllAssemblies();
         return types
             .Where(
                 t =>

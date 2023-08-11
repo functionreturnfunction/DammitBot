@@ -24,7 +24,7 @@ public interface IJobService
     /// </summary>
     IJobDetail Build(Type jobType, string name, string group);
     /// <summary>
-    /// Build an <see cref="ITrigger"/> for the specified <see cref="jobType"/> based on its
+    /// Build an <see cref="ITrigger"/> for the specified <paramref name="jobType"/> based on its
     /// <see cref="IntervalAttribute"/> (or lack thereof) with the specified
     /// <paramref name="triggerName"/> within the specified <paramref name="group"/>. 
     /// </summary>

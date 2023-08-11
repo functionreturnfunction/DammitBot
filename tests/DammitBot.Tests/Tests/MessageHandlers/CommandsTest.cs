@@ -62,7 +62,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     #region Tests
 
     [Fact]
-    public void TestCommandRunsCommand()
+    public void Test_Command_RunsCommand()
     {
         _commandHandlerFactory.Setup(
             x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
@@ -76,7 +76,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     }
 
     [Fact]
-    public void TestCommandDoesNotRunCommandIfNickDoesNotHaveUser()
+    public void Test_Command_DoesNotRunCommand_IfNickDoesNotHaveUser()
     {
         _commandHandlerFactory.Setup(
             x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
@@ -91,7 +91,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     }
 
     [Fact]
-    public void TestCommandDoesNotRunCommandIfNickNotRecognized()
+    public void Test_Command_DoesNotRunCommand_IfNickNotRecognized()
     {
         _commandHandlerFactory.Setup(
             x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));

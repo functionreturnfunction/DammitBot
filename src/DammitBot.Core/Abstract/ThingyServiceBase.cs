@@ -7,7 +7,7 @@ using DammitBot.Wrappers;
 namespace DammitBot.Abstract;
 
 /// <summary>
-/// Uses an <see cref="AssemblyService"/> to loop through all concrete types in all available assemblies
+/// Uses an <see cref="AssemblyTypeService"/> to loop through all concrete types in all available assemblies
 /// which inherit from or implement <typeparamref name="TThingy"/>, and instantiates them using an
 /// <see cref="IInstantiationService"/>.
 ///
@@ -17,7 +17,7 @@ public abstract class ThingyServiceBase<TThingy>
 {
     #region Private Members
 
-    private readonly IAssemblyService _assemblyService;
+    private readonly IAssemblyTypeService _assemblyTypeService;
     private readonly IInstantiationService _instantiationService;
     private IEnumerable<TThingy>? _thingies;
 
@@ -38,10 +38,10 @@ public abstract class ThingyServiceBase<TThingy>
     /// Constructor for AssemblyServiceThingyBase.
     /// </summary>
     protected ThingyServiceBase(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IInstantiationService instantiationService)
     {
-        _assemblyService = assemblyService;
+        _assemblyTypeService = assemblyTypeService;
         _instantiationService = instantiationService;
     }
 
@@ -76,8 +76,7 @@ public abstract class ThingyServiceBase<TThingy>
 
     private IEnumerable<TThingy> GetThingies()
     {
-        var thingies = _assemblyService.GetPluginAssemblies()
-            .GetTypes()
+        var thingies = _assemblyTypeService.GetTypesFromPluginAssemblies()
             .Where(t => IsViable(t) && typeof(TThingy).IsAssignableFrom(t))
             .Select(InstantiateThingy)
             .ToList();

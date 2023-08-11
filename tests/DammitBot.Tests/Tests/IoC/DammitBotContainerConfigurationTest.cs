@@ -25,19 +25,19 @@ public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<
     }
 
     [Fact]
-    public void TestConfigureSetsUpBotAsSingleton()
+    public void Test_Configure_SetsUpBotAsSingleton()
     {
         AssertSingleton<IBot, Bot>();
     }
 
     [Fact]
-    public void TestConfigureSetsUpAssemblyServiceAsSingleton()
+    public void Test_Configure_SetsUpAssemblyServiceAsSingleton()
     {
-        AssertSingleton<IAssemblyService, AssemblyService>();
+        AssertSingleton<IAssemblyTypeService, AssemblyTypeService>();
     }
 
     [Fact]
-    public void TestConfigureSetsUpConfigurationBuilder()
+    public void Test_Configure_SetsUpConfigurationBuilder()
     {
         Assert.IsType<ConfigurationBuilder>(_target.GetInstance<IConfigurationBuilder>());
     }

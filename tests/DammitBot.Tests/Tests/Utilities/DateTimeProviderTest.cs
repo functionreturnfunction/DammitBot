@@ -7,7 +7,7 @@ namespace DammitBot.Tests.Utilities;
 public class DateTimeProviderTest
 {
     [Fact]
-    public void TestGetCurrentTimeReturnsCurrentTime()
+    public void Test_GetCurrentTime_ReturnsCurrentTime()
     {
         var before = DateTime.Now;
         var current = new SystemClockDateTimeProvider().GetCurrentTime();

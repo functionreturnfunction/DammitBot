@@ -22,7 +22,7 @@ public class HelpCommandHandler : CommandHandlerBase
 {
     #region Private Members
     
-    private readonly IAssemblyService _assemblyService;
+    private readonly IAssemblyTypeService _assemblyTypeService;
     private readonly IBotConfigurationSection _config;
     
     #endregion
@@ -35,11 +35,11 @@ public class HelpCommandHandler : CommandHandlerBase
     public HelpCommandHandler(
         IBot bot,
         IConfigurationProvider configurationProvider,
-        IAssemblyService assemblyService)
+        IAssemblyTypeService assemblyTypeService)
         : base(bot)
     {
         _config = configurationProvider.BotConfig;
-        _assemblyService = assemblyService;
+        _assemblyTypeService = assemblyTypeService;
     }
     
     #endregion
@@ -48,9 +48,8 @@ public class HelpCommandHandler : CommandHandlerBase
 
     private IEnumerable<HandlesCommandAttribute> GetCommandHandlerAttributes()
     {
-        var assemblies =  _assemblyService
-            .GetAllAssemblies();
-        var types = assemblies.GetTypes();
+        var types =  _assemblyTypeService
+            .GetTypesFromAllAssemblies();
         return types
             .Where(
                 t =>
