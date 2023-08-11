@@ -5,7 +5,7 @@ using Xunit;
 
 namespace DammitBot.Tests.Utilities;
 
-public class AssemblyServiceTest : UnitTestBase<AssemblyService>
+public class AssemblyServiceTest : UnitTestBase<AssemblyTypeService>
 {
     [Fact]
     public void Test_AllAssemblies_ReturnsCoreDllAndPluginDlls()
@@ -30,13 +30,14 @@ public class AssemblyServiceTest : UnitTestBase<AssemblyService>
             "DammitBot.Plugins.Scheduling",
         };
 
-        var results = _target.GetAllAssemblies();
+        var types = _target.GetTypesFromAllAssemblies();
+        var assemblies = types.Select(x => x.Assembly).Distinct();
 
-        foreach (var assembly in results)
+        foreach (var assembly in assemblies)
         {
             Assert.Contains(assembly.GetName().Name, expected);
         }
 
-        Assert.Equal(expected.Length, results.Count());
+        Assert.Equal(expected.Length, assemblies.Count());
     }
 }

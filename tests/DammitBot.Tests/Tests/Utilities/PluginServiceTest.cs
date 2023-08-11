@@ -18,7 +18,7 @@ public class PluginServiceTest : UnitTestBase<PluginService>
 
         serviceRegistry.For<ITestPlugin>().Use(_testPlugin = new TestPlugin());
 
-        serviceRegistry.For<IAssemblyService>().Use(new TestAssemblyService(false));
+        serviceRegistry.For<IAssemblyTypeService>().Use(new TestAssemblyTypeService(false));
     }
 
     [Fact]

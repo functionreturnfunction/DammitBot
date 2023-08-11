@@ -31,7 +31,7 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
         _connection.Name = "InMemoryDatabaseTest";
 
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
-        serviceRegistry.For<IAssemblyService>().Use<AssemblyService>();
+        serviceRegistry.For<IAssemblyTypeService>().Use<AssemblyTypeService>();
 
         new SQLitePluginContainerConfiguration().Configure(serviceRegistry);
         new DapperPluginContainerConfiguration().Configure(serviceRegistry);

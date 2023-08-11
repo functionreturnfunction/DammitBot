@@ -33,7 +33,7 @@ public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<
     [Fact]
     public void Test_Configure_SetsUpAssemblyServiceAsSingleton()
     {
-        AssertSingleton<IAssemblyService, AssemblyService>();
+        AssertSingleton<IAssemblyTypeService, AssemblyTypeService>();
     }
 
     [Fact]

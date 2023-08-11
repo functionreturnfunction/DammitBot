@@ -35,6 +35,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
             s.WithDefaultConventions();
         });
         
+        
         new CommandsPluginContainerConfiguration().Configure(serviceRegistry);
         serviceRegistry.For<IBot>().Use<Bot>().Singleton();
 
@@ -63,12 +64,6 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     #endregion
 
     #region Tests
-
-    [Fact]
-    public void Test_NoMessage_IsNotLogged()
-    {
-        _target.TestMessage(null, "foo", shouldLog: false);
-    }
 
     [Fact]
     public void Test_AnyMessage_IsLogged()

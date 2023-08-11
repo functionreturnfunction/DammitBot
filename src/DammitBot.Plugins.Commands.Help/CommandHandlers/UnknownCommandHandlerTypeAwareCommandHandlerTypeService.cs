@@ -22,10 +22,10 @@ public class UnknownCommandHandlerTypeAwareCommandHandlerTypeService : CommandHa
     /// Constructor for the <see cref="UnknownCommandHandlerTypeAwareCommandHandlerTypeService"/> class.
     /// </summary>
     public UnknownCommandHandlerTypeAwareCommandHandlerTypeService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         MessageHandlerAttributeComparerBase<HandlesCommandAttribute> attributeComparer,
         IConfigurationProvider configurationProvider)
-        : base(assemblyService, attributeComparer, configurationProvider) {}
+        : base(assemblyTypeService, attributeComparer, configurationProvider) {}
 
     #endregion
 

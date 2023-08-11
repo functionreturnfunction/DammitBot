@@ -40,7 +40,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
         _console = serviceRegistry.For<IConsole>().Mock();
         _irc = serviceRegistry.For<IIrc>().Mock();
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
-        serviceRegistry.For<IAssemblyService>().Use<TestAssemblyService>();
+        serviceRegistry.For<IAssemblyTypeService>().Use<TestAssemblyTypeService>();
     }
 
     #endregion

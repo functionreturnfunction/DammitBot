@@ -17,14 +17,13 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 {
     #region Private Methods
 
-    private static IAssemblyService InitializePluginConfigurations(ServiceRegistry e)
+    private static IAssemblyTypeService InitializePluginConfigurations(ServiceRegistry e)
     {
-        var assemblyService = new AssemblyService();
+        var assemblyService = new AssemblyTypeService();
 
         foreach (
             var type in
-            assemblyService.GetPluginAssemblies()
-                .GetTypes()
+            assemblyService.GetTypesFromPluginAssemblies()
                 .Where(t => !t.IsAbstract &&
                             t.IsSubclassOf(typeof(ContainerConfigurationBase))))
         {
@@ -52,7 +51,7 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 
         var assemblyService = InitializePluginConfigurations(e);
 
-        e.For<IAssemblyService>()
+        e.For<IAssemblyTypeService>()
             .Use(assemblyService).Singleton();
 
         e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();

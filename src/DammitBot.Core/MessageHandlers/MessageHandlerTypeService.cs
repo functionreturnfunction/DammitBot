@@ -23,9 +23,9 @@ public class MessageHandlerTypeService
     /// Constructor for the <see cref="MessageHandlerTypeService"/> class.
     /// </summary>
     public MessageHandlerTypeService(
-        IAssemblyService assemblyService,
+        IAssemblyTypeService assemblyTypeService,
         IMessageHandlerAttributeComparer attributeComparer)
-        : base(assemblyService, attributeComparer) {}
+        : base(assemblyTypeService, attributeComparer) {}
 
     #endregion
 
