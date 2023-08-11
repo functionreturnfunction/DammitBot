@@ -10,10 +10,7 @@ public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurati
     /// <summary>
     /// Constructor for the <see cref="DataConfigurationProvider"/> class.
     /// </summary>
-    public DataConfigurationProvider(
-        IConfigurationBuilder builder,
-        ISettingsPathProvider settingsPathProvider)
-        : base(builder, settingsPathProvider) {}
+    public DataConfigurationProvider(IConfiguration configuration) : base(configuration) {}
 
     #endregion
     
@@ -21,7 +18,7 @@ public class DataConfigurationProvider : ConfigurationProvider, IDataConfigurati
 
     /// <inheritdoc />
     public string ConnectionString => Configuration
-        .EnsureConfigSection("Data")
+        .GetRequiredSection("Data")
         .EnsureConfigValue("connectionString");
 
     #endregion

@@ -5,19 +5,13 @@ namespace DammitBot.Configuration;
 /// <inheritdoc cref="IConfigurationProvider"/>
 public class ConfigurationProvider : IConfigurationProvider
 {
-    #region Private Members
-    
-    private readonly IConfigurationBuilder _builder;
-    
-    #endregion
-    
     #region Private Properties
  
     /// <summary>
-    /// <see cref="IConfigurationRoot"/> from which specific <see cref="IConfigurationSection"/>s can be
+    /// <see cref="IConfiguration"/> from which specific <see cref="IConfigurationSection"/>s can be
     /// provided.
     /// </summary>
-    public IConfigurationRoot Configuration => _builder.Build();
+    protected IConfiguration Configuration { get; }
     
     #endregion
     
@@ -36,9 +30,9 @@ public class ConfigurationProvider : IConfigurationProvider
     /// </summary>
     // needs to be public for Lamar
     // ReSharper disable once MemberCanBeProtected.Global
-    public ConfigurationProvider(IConfigurationBuilder builder, ISettingsPathProvider settingsPathProvider)
+    public ConfigurationProvider(IConfiguration configuration)
     {
-        _builder = builder.AddJsonFile(settingsPathProvider.SettingsPath);
+        Configuration = configuration;
     }
     
     #endregion

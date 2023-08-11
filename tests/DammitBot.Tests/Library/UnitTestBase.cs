@@ -33,9 +33,10 @@ public abstract class UnitTestBase<TTarget> : IDisposable
             a.AssembliesFromApplicationBaseDirectory();
             a.WithDefaultConventions();
         });
-        
-        serviceRegistry.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
-        serviceRegistry.For<ISettingsPathProvider>().Use<TestSettingsPathProvider>();
+
+        serviceRegistry
+            .For<IConfiguration>()
+            .Use(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
 
         _log = serviceRegistry.For<ILogger<TTarget>>().Mock();
         _dateTimeProvider = serviceRegistry

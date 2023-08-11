@@ -19,10 +19,7 @@ public class IrcConfigurationProvider : ConfigurationProvider, IIrcConfiguration
     /// <summary>
     /// Constructor for the <see cref="IrcConfigurationProvider"/> class.
     /// </summary>
-    public IrcConfigurationProvider(
-        IConfigurationBuilder builder,
-        ISettingsPathProvider settingsPathProvider)
-        : base(builder, settingsPathProvider) {}
+    public IrcConfigurationProvider(IConfiguration configuration) : base(configuration) {}
     
     #endregion
 }
