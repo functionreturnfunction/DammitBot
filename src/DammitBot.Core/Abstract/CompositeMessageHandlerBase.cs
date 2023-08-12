@@ -3,10 +3,10 @@ using DammitBot.Events;
 
 namespace DammitBot.Abstract;
 
-/// <inheritdoc cref="IMessageHandler{TArgs}"/>
+/// <inheritdoc cref="IMessageHandler{TEventArgs}"/>
 /// <remarks>
-/// This implementation calls <see cref="IMessageHandler{TArgs}.Handle(TArgs)"/> on multiple instances of
-/// <typeparamref name="TMessageHandler"/> in a single pass.
+/// This implementation calls <see cref="IMessageHandler{TEventArgs}.Handle(TEventArgs)"/> on multiple
+/// instances of <typeparamref name="TMessageHandler"/> in a single pass.
 /// </remarks>
 public abstract class CompositeMessageHandlerBase<TMessageHandler, TEventArgs>
     where TMessageHandler : IMessageHandler<TEventArgs>
@@ -32,7 +32,7 @@ public abstract class CompositeMessageHandlerBase<TMessageHandler, TEventArgs>
 
     #region Exposed Methods
 
-    /// <inheritdoc cref="IMessageHandler{TArgs}.Handle"/>
+    /// <inheritdoc cref="IMessageHandler{TEventArgs}.Handle"/>
     /// <inheritdoc cref="CompositeMessageHandlerBase{TMessageHandler,TEventArgs}" path="remarks"/>
     public void Handle(TEventArgs e)
     {

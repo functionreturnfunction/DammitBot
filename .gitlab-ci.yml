@@ -3,6 +3,7 @@ image : mcr.microsoft.com/dotnet/sdk:7.0
 stages:
   - build
   - test
+  - deploy
 
 build:
   stage: build
@@ -32,3 +33,14 @@ test:
         coverage_format: cobertura
         path: cobertura/*/coverage.cobertura.xml
   coverage: /TOTAL_COVERAGE=(\d+.\d+)/
+
+pages:
+  stage: deploy
+  script:
+    - dotnet tool update -g docfx
+    - docfx doc/docfx.json
+  artifacts:
+    paths:
+      - doc
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
