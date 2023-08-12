@@ -37,6 +37,6 @@ docs:
   stage: build
   script:
     - dotnet tool update -g docfx
-    - docfx src/docfx.json
+    - docfx doc/docfx.json
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
