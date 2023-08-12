@@ -9,7 +9,7 @@ using DateTimeProvider;
 
 namespace DammitBot.Data.Dapper.Repositories;
 
-/// <inheritdoc cref="DapperRepositoryBase{TEntity}"/>
+/// <inheritdoc cref="DapperRepositoryBase{Message}"/>
 public class MessageRepository : DapperRepositoryBase<Message>, IMessageRepository
 {
     #region Constants

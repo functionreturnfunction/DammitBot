@@ -10,7 +10,7 @@ using DateTimeProvider;
 
 namespace DammitBot.Data.Dapper.Repositories;
 
-/// <inheritdoc cref="DapperRepositoryBase{TEntity}"/>
+/// <inheritdoc cref="DapperRepositoryBase{User}"/>
 public class UserRepository : DapperRepositoryBase<User>, IUserRepository
 {
     #region Constants

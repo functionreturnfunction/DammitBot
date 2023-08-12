@@ -4,7 +4,7 @@ using Dapper.FluentMap.Dommel.Mapping;
 namespace DammitBot.Data.Dapper.Mappings;
 
 /// <summary>
-/// <see cref="DommelEntityMap{TEntity}"/> for the <see cref="Nick"/> entity.
+/// <see cref="DommelEntityMap{Nick}"/> for the <see cref="Nick"/> entity.
 /// </summary>
 public class NickMap : DommelEntityMap<Nick>
 {
