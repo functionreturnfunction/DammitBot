@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "files": ["**/bin/Debug/**/DammitBot*.dll"],
-          "exclude": ["tests/**"],
-          "src": "../"
+          // "files": ["**/bin/Debug/**/DammitBot*.dll"],
+          "files": ["**/*.csproj"],
+          "src": "../src/"
         }
       ],
       "dest": "api",
