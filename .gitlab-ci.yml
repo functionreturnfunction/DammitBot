@@ -32,3 +32,11 @@ test:
         coverage_format: cobertura
         path: cobertura/*/coverage.cobertura.xml
   coverage: /TOTAL_COVERAGE=(\d+.\d+)/
+
+  docs:
+    stage: build
+    script:
+      - dotnet tool update -g docfx
+      - docfx src/docfx.json
+    rules:
+      - if: $CI_COMMIT_BRANCH == 'master'
