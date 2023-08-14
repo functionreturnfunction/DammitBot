@@ -5,20 +5,11 @@ using Xunit;
 namespace DammitBot.Data.Models;
 
 public abstract class ModelTestBase<TModel> : InMemoryDatabaseUnitTestBase<TModel>
-    where TModel : class, new()
+    where TModel : class, IEntity
 {
     #region Properties
 
     public DateTime Now => _now;
-
-    #endregion
-
-    #region Private Methods
-
-    protected override TModel ConstructTarget()
-    {
-        return new TModel();
-    }
 
     #endregion
 
@@ -32,11 +23,10 @@ public abstract class ModelTestBase<TModel> : InMemoryDatabaseUnitTestBase<TMode
 
     public TModel CreateValidObject()
     {
-        dynamic valid;
-        valid = ConstructTarget();
+        var valid = ConstructTarget();
 
         WithUnitOfWork(uow => {
-            valid.Id = Convert.ToInt32(uow.Insert<TModel>((TModel)valid));
+            valid.Id = Convert.ToInt32(uow.Insert(valid));
             uow.Commit();
         });
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Library;
 using Lamar;
 using Moq;
@@ -21,7 +22,7 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
     [Fact]
     public void Test_Insert_SavesAndReturnsIdentifier()
     {
-        var entity = new Nick();
+        var entity = new NickFaker().Generate();
 
         _dataCommandHelper.Setup(x => x.Insert(entity)).Returns(666);
             
@@ -33,7 +34,7 @@ public class RepositoryTest : UnitTestBase<Repository<Nick>>
     [Fact]
     public void Test_Find_LoadsEntity()
     {
-        var entity = new Nick();
+        var entity = new NickFaker().Generate();
         _dataCommandHelper.Setup(x => x.Load<Nick>(666))
             .Returns(entity);
 

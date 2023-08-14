@@ -1,6 +1,7 @@
 ﻿using System;
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
 using DammitBot.IoC;
 using DammitBot.Library;
@@ -18,6 +19,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
 
     private Mock<ICommandHandlerFactory> _commandHandlerFactory;
     private Mock<IProtocolService> _protocolService;
+    private Nick _nickWithUser, _nickWithoutUser;
 
     #endregion
 
@@ -50,9 +52,16 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     public CommandsTest()
     {
         WithUnitOfWork(uow => {
-            var userId = Convert.ToInt32(uow.Insert<User>(new User {Username = "foo"}));
-            uow.Insert<Nick>(new Nick {Nickname = "foo", UserId = userId});
-            uow.Insert<Nick>(new Nick {Nickname = "bar"});
+            var userId = Convert.ToInt32(uow.Insert(new UserFaker().Generate()));
+
+            var nickFaker = new NickFaker();
+            _nickWithUser = nickFaker.Generate();
+            _nickWithUser.UserId = userId;
+            uow.Insert(_nickWithUser);
+
+            _nickWithoutUser = nickFaker.Generate();
+            _nickWithoutUser.Id = Convert.ToInt32(uow.Insert(_nickWithoutUser));
+
             uow.Commit();
         });
     }
@@ -67,7 +76,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
         _commandHandlerFactory.Setup(
             x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
 
-        _target.TestMessage("bot blah blah blah", "foo");
+        _target.TestMessage("bot blah blah blah", _nickWithUser.Nickname);
 
         _commandHandlerFactory.Verify(
             x =>

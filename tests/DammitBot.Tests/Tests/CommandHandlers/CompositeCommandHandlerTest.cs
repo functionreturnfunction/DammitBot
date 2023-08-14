@@ -1,6 +1,6 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.CommandHandlers;
-using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
 
 namespace DammitBot.Tests.CommandHandlers;
@@ -10,6 +10,9 @@ public class CompositeCommandHandlerTest
 {
     protected override CommandEventArgs CreateEventArgs()
     {
-        return new CommandEventArgs(CreateMessageEventArgs(), "foo", new Nick());
+        return new CommandEventArgs(
+            CreateMessageEventArgs(),
+            "foo",
+            new NickFaker().Generate());
     }
 }

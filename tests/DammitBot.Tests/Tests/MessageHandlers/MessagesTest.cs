@@ -54,9 +54,9 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
     public MessagesTest()
     {
         WithUnitOfWork(uow => {
-            var userId = Convert.ToInt32(uow.Insert<User>(new User {Username = "foo"}));
-            uow.Insert<Nick>(new Nick {Nickname = "foo", UserId = userId});
-            uow.Insert<Nick>(new Nick {Nickname = "bar"});
+            var userId = Convert.ToInt32(uow.Insert(new User {Username = "foo"}));
+            uow.Insert(new Nick {Nickname = "foo", UserId = userId});
+            uow.Insert(new Nick {Nickname = "bar"});
             uow.Commit();
         });
     }

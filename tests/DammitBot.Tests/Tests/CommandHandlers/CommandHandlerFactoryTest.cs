@@ -1,6 +1,6 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.CommandHandlers;
-using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
 using DammitBot.Metadata;
 using Xunit;
@@ -21,7 +21,10 @@ public class CommandHandlerFactoryTest
 
     protected override CommandEventArgs CreateEventArgs()
     {
-        return new CommandEventArgs(CreateMessageEventArgs(), "foo", new Nick());
+        return new CommandEventArgs(
+            CreateMessageEventArgs(),
+            "foo",
+            new NickFaker().Generate());
     }
 
     [Fact]

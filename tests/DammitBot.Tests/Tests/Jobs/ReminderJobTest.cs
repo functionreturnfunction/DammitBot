@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Jobs;
 using DammitBot.Library;
 using Lamar;
@@ -34,7 +35,7 @@ public class ReminderJobTest : InMemoryDatabaseUnitTestBase<ReminderJob>
         
         WithUnitOfWork(uow =>
         {
-            var user = new User { Username = "foo" };
+            var user = new UserFaker().Generate();
 
             user.Id = Convert.ToInt32(uow.Insert(user));
 
