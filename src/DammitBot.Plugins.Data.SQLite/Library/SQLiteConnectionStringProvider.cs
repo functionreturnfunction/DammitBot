@@ -34,9 +34,9 @@ public class SQLiteConnectionStringProvider : IConnectionStringProvider
     public string GetMainAppConnectionString()
     {
         return new SqliteConnectionStringBuilder {
-            DataSource = _config.ConnectionString == ":memory:" ?
-                _config.ConnectionString :
-                Path.GetFullPath(_config.ConnectionString)
+            DataSource = _config.ConnectionString == ":memory:"
+                ? _config.ConnectionString
+                : Path.GetFullPath(_config.ConnectionString)
         }.ToString();
     }
     

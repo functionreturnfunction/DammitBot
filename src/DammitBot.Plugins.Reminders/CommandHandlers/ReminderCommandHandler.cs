@@ -81,11 +81,6 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     private User? LoadTarget(CommandEventArgs commandEventArgs, IUnitOfWork uow, string value)
     {
-        if (value == "me")
-        {
-            return commandEventArgs.From.User;
-        }
-
         return value == "me"
             ? commandEventArgs.From.User
             : uow.GetRepository<IUserRepository, User>().FindByUsername(value);
@@ -101,21 +96,20 @@ public class ReminderCommandHandler : CommandHandlerBase
     /// </remarks>
     public override void Handle(CommandEventArgs e)
     {
-        DateTime? when;
         var match = new Regex(REGEX).Match(e.Command);
-        User target;
         var targetStr = match.Groups[1].Value;
         var reminder = match.Groups[2].Value;
         var timeStr = match.Groups[3].Value;
 
-        if (!_dateTimeStringParser.TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out when))
+        if (!_dateTimeStringParser
+                .TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out var when))
         {
             Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
             return;
         }
 
         using var uow = _unitOfWorkFactory.Build();
-        target = LoadTarget(e, uow, targetStr);
+        var target = LoadTarget(e, uow, targetStr);
 
         if (target == null)
         {
@@ -123,7 +117,7 @@ public class ReminderCommandHandler : CommandHandlerBase
             return;
         }
 
-        CreateReminder(reminder, e.From.User, target, when.Value, uow);
+        CreateReminder(reminder, e.From.User!, target, when!.Value, uow);
         uow.Commit();
 
         Bot.ReplyToMessage(e, $"Reminder set for {when}");

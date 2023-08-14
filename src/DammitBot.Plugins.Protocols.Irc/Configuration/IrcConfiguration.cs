@@ -12,20 +12,20 @@ public class IrcConfiguration
     /// Hostname of the server to connect to.
     /// </summary>
     [Required]
-    public string? Server { get; set; }
+    public required string Server { get; set; }
     /// <summary>
     /// Nickname to use when connecting.
     /// </summary>
     [Required]
-    public string? Nick { get; set; }
+    public required string Nick { get; set; }
     /// <summary>
     /// User name to use when connecting.
     /// </summary>
     [Required]
-    public string? User { get; set; }
+    public required string User { get; set; }
     /// <summary>
     /// Channels to join after successfully connecting.
     /// </summary>
     [Required]
-    public string[]? Channels { get; set; }
+    public required string[] Channels { get; set; }
 }

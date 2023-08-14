@@ -16,11 +16,11 @@ public class Reminder : IEntityWithTimestamps
     /// <summary>
     /// Text of the message to send.
     /// </summary>
-    public virtual string Text { get; set; }
+    public virtual required string Text { get; set; }
     /// <summary>
     /// Point in time at which the reminder should be sent.
     /// </summary>
-    public virtual DateTime RemindAt { get; set; }
+    public virtual required DateTime RemindAt { get; set; }
     /// <summary>
     /// Actual point in time at which the reminder was sent, if it was.
     /// </summary>
@@ -32,7 +32,7 @@ public class Reminder : IEntityWithTimestamps
     /// <summary>
     /// <see cref="User"/> who set the reminder.
     /// </summary>
-    public virtual User From { get; set; }
+    public virtual required User From { get; set; }
     /// <summary>
     /// Id of the <see cref="User"/> who set the reminder.
     /// </summary>
@@ -40,7 +40,7 @@ public class Reminder : IEntityWithTimestamps
     /// <summary>
     /// <see cref="User"/> who is the intended recipient of the reminder.
     /// </summary>
-    public virtual User To { get; set; }
+    public virtual required User To { get; set; }
     /// <summary>
     /// Id of the <see cref="User"/> who is the intended recipient of the reminder.
     /// </summary>

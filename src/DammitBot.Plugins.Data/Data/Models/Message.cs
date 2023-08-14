@@ -16,20 +16,20 @@ public class Message : IEntityWithTimestamps
     /// <summary>
     /// Text of the message.
     /// </summary>
-    public virtual string Text { get; set; }
+    public virtual required string Text { get; set; }
     /// <summary>
     /// Protocol via which the message was sent.
     /// </summary>
-    public virtual string Protocol { get; set; }
+    public virtual required string Protocol { get; set; }
     /// <summary>
     /// Channel over which the message was sent. 
     /// </summary>
     // TODO: figure out what this value is for private/direct messages and document it
-    public virtual string Channel { get; set; }
+    public virtual required string Channel { get; set; }
     /// <summary>
     /// <see cref="Nick"/> representing the protocol user who sent the message.
     /// </summary>
-    public virtual Nick From { get; set; }
+    public virtual required Nick From { get; set; }
     /// <summary>
     /// Foreign key value linking to the <see cref="Nick"/> representing the protocol user who sent the
     /// message.
