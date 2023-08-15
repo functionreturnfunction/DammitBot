@@ -1,4 +1,5 @@
 ﻿using DammitBot.Events;
+using DammitBot.Library;
 using Microsoft.Extensions.Logging;
 using Console = DammitBot.Protocols.Console;
 
@@ -7,12 +8,21 @@ namespace DammitBot.Utilities;
 /// <inheritdoc cref="IConsoleMainLoop" />
 public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
 {
+    #region Private Members
+
+    private readonly IConsoleIO _console;
+    
+    #endregion
+    
     #region Constructors
     
     /// <summary>
     /// Constructor for the <see cref="ConsoleMainLoop"/> class.
     /// </summary>
-    public ConsoleMainLoop(IBot bot, ILogger<ConsoleMainLoop> log) : base(bot, log) { }
+    public ConsoleMainLoop(IBot bot, ILogger<ConsoleMainLoop> log, IConsoleIO console) : base(bot, log)
+    {
+        _console = console;
+    }
     
     #endregion
     
@@ -20,14 +30,14 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
 
     /// <inheritdoc />
     public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
-    
+
     #endregion
     
     #region Private Methods
 
-    private static void PromptForUserInput()
+    private void PromptForUserInput()
     {
-        System.Console.Write("Message to bot: ");
+        _console.Write("Message to bot: ");
     }
 
     private void AcceptUserInput()
@@ -35,7 +45,7 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
         ChannelMessageReceived?.Invoke(
             this,
             new MessageEventArgs(
-                System.Console.ReadLine()!,
+                _console.ReadLine()!,
                 Console.PROTOCOL_NAME,
                 Console.PROTOCOL_NAME,
                 Console.PROTOCOL_NAME + " User"));
@@ -57,7 +67,7 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
     /// </remarks>
     protected override void DoLoopStuff()
     {
-        if (!System.Console.KeyAvailable)
+        if (!_console.KeyAvailable)
         {
             return;
         }
@@ -69,6 +79,16 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
         {
             PromptForUserInput();
         }
+    }
+    
+    #endregion
+    
+    #region Exposed Methods
+
+    /// <inheritdoc />
+    public void WriteLine(string value)
+    {
+        _console.WriteLine(value);
     }
     
     #endregion

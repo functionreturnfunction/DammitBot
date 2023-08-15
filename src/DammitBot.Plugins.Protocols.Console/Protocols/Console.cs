@@ -85,14 +85,14 @@ public class Console : IConsole
     /// </remarks>
     public virtual void SayToAll(string message)
     {
-        System.Console.WriteLine($"###TO ALL: {message}");
+        _mainLoop.WriteLine($"###TO ALL: {message}");
     }
 
     /// <inheritdoc />
     /// <inheritdoc cref="SayToAll" path="remarks" />
     public virtual void SayToChannel(string channel, string message)
     {
-        System.Console.WriteLine($"###TO '{channel}': {message}");
+        _mainLoop.WriteLine($"###TO '{channel}': {message}");
     }
     
     #endregion

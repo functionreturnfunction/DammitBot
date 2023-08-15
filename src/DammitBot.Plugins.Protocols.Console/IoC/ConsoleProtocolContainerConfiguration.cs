@@ -1,5 +1,7 @@
 ﻿using DammitBot.Abstract;
+using DammitBot.Library;
 using DammitBot.Utilities;
+using DammitBot.Wrappers;
 using Lamar;
 
 namespace DammitBot.IoC;
@@ -16,6 +18,7 @@ public class ConsoleProtocolContainerConfiguration : ContainerConfigurationBase
     /// <inheritdoc cref="ConsoleProtocolContainerConfiguration" path="remarks" />
     public override void Configure(ServiceRegistry e)
     {
+        e.For<IConsoleIO>().Use<ConsoleIOWrapper>().Singleton();
         e.For<IConsoleMainLoop>().Use<ConsoleMainLoop>().Singleton();
         e.For<IMainLoop>().Use(ctx => ctx.GetInstance<IConsoleMainLoop>());
     }

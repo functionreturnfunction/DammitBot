@@ -1,5 +1,6 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.Events;
+using DammitBot.Library;
 
 namespace DammitBot.Utilities;
 
@@ -17,5 +18,12 @@ public interface IConsoleMainLoop : IMainLoop
     /// </summary>
     event EventHandler<MessageEventArgs>? ChannelMessageReceived;
     
+    #endregion
+    
+    #region Abstract Methods
+
+    /// <inheritdoc cref="IConsoleIO.WriteLine" />
+    void WriteLine(string value);
+
     #endregion
 }
