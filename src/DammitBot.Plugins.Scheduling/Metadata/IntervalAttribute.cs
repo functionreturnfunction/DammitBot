@@ -1,4 +1,5 @@
 ﻿using System;
+using DammitBot.Library;
 using Quartz;
 
 namespace DammitBot.Metadata;
@@ -43,7 +44,7 @@ public abstract class IntervalAttribute : Attribute
     /// <summary>
     /// Set the interval for the schedule based on the values in this attribute.
     /// </summary>
-    public abstract SimpleScheduleBuilder SetInterval(SimpleScheduleBuilder builder);
+    public abstract ISimpleScheduleBuilder SetInterval(ISimpleScheduleBuilder builder);
 
     #endregion
 }

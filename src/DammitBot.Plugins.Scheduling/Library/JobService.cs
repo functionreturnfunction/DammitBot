@@ -31,7 +31,7 @@ public class JobService : IJobService
 
     #region Private Methods
 
-    private static Action<SimpleScheduleBuilder> DetermineSchedule(MemberInfo jobType)
+    private static Action<ISimpleScheduleBuilder> DetermineSchedule(MemberInfo jobType)
     {
         var interval = jobType.GetCustomAttribute<IntervalAttribute>()!;
 

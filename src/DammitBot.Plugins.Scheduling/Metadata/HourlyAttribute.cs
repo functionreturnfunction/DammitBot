@@ -1,4 +1,4 @@
-﻿using Quartz;
+﻿using DammitBot.Library;
 
 namespace DammitBot.Metadata;
 
@@ -26,7 +26,7 @@ public class HourlyAttribute : IntervalAttribute
     #region Exposed Methods
 
     /// <inheritdoc />
-    public override SimpleScheduleBuilder SetInterval(SimpleScheduleBuilder builder)
+    public override ISimpleScheduleBuilder SetInterval(ISimpleScheduleBuilder builder)
     {
         return builder.WithIntervalInHours(Interval);
     }
