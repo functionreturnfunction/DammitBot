@@ -20,13 +20,13 @@ public class IrcTest : UnitTestBase<Irc>
     {
         base.ConfigureContainer(serviceRegistry);
 
+        new IrcProtocolContainerConfiguration().Configure(serviceRegistry);
+
         _clientFactory = serviceRegistry.For<IIrcClientFactory>().Mock();
 
         _client = _clientFactory!
             .Setup(x => x.Build())
             .Mock();
-        
-        new IrcProtocolContainerConfiguration().Configure(serviceRegistry);
     }
 
     [Fact]
