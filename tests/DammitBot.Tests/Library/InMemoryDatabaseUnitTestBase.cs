@@ -4,6 +4,7 @@ using DammitBot.IoC;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Lamar;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Library;
 
@@ -43,6 +44,8 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
             .Use(_ => new TestDbConnectionFactory(_connection));
         serviceRegistry.For<IDbConnection>().Use(_connection);
         serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
+
+        serviceRegistry.For<ILogger<MigrationRunner>>().Mock();
     }
 
     protected virtual void RunMigrations()
