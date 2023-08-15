@@ -16,7 +16,7 @@ public class User : IEntityWithTimestamps
     /// <summary>
     /// Username of the bot system user.
     /// </summary>
-    public virtual string Username { get; set; }
+    public virtual required string Username { get; set; }
 
     /// <inheritdoc/>
     public virtual DateTime CreatedAt { get; set; }

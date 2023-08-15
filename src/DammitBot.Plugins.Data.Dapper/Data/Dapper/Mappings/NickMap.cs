@@ -19,6 +19,6 @@ public class NickMap : DommelEntityMap<Nick>
         Map(x => x.CreatedAt);
         Map(x => x.UpdatedAt);
 
-        Map(x => x.User.Id);
+        Map(x => x.UserId);
     }
 }

@@ -12,5 +12,5 @@ public class DataConfiguration
     /// Connection string value configured for use within the application.
     /// </summary>
     [Required]
-    public string? ConnectionString { get; set; }
+    public required string ConnectionString { get; set; }
 }

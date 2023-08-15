@@ -1,7 +1,7 @@
 ﻿using System;
 using DammitBot.CommandHandlers;
-using DammitBot.Configuration;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
@@ -17,16 +17,27 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region Private Members
 
     private Mock<IBot> _bot;
+    private User _user, _otherUser;
+    private Nick _nickWithUser;
 
     #endregion
 
     public CommandsTest()
     {
-        WithUnitOfWork(uow => {
-            var foo = new User {Username = "foo"};
-            foo.Id = Convert.ToInt32(uow.Insert<User>(foo));
-            uow.Insert<User>(new User {Username = "bar"});
-            uow.Insert<Nick>(new Nick {Nickname = "foo", User = foo});
+        var userFaker = new UserFaker();
+        var nickFaker = new NickFaker();
+        
+        WithUnitOfWork(uow =>
+        {
+            _user = userFaker.Generate();
+            _user.Id = Convert.ToInt32(uow.Insert(_user));
+
+            _otherUser = userFaker.Generate();
+            _otherUser.Id = Convert.ToInt32(uow.Insert(_otherUser));
+
+            _nickWithUser = nickFaker.Generate();
+            _nickWithUser.User = _user;
+            _nickWithUser.Id = Convert.ToInt32(uow.Insert(_nickWithUser));
 
             uow.Commit();
         });
@@ -51,7 +62,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_BotDie_CausesBotToDie()
     {
-        _target.TestCommand("die");
+        _target.TestCommand("die", _nickWithUser.Nickname);
 
         _bot.Verify(x => x.Die());
     }
@@ -60,7 +71,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     public void Test_BotRemindMe_CausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
-        var args = _target.TestCommand("remind me to do things in 1 minute");
+        var args = _target.TestCommand("remind me to do things in 1 minute", _nickWithUser.Nickname);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -76,7 +87,9 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     public void Test_BotRemindOtherUser_AlsoCausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
-        var args = _target.TestCommand("remind bar to do things in 1 minute");
+        var args = _target.TestCommand(
+            $"remind {_otherUser.Username} to do things in 1 minute",
+            _nickWithUser.Nickname);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -91,7 +104,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_GetMatchingHandlers_ReturnsOnlyUnknownCommandHandler_ForUnknownCommand()
     {
-        _target.TestCommand("asdfasdfasdfasdf");
+        _target.TestCommand("asdfasdfasdfasdf", _nickWithUser.Nickname);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -122,13 +135,13 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         #region Exposed Methods
 
-        public MessageEventArgs TestCommand(string command)
+        public MessageEventArgs TestCommand(string command, string user = "foo")
         {
             var args = new MessageEventArgs(
                 "bot " + command,
                 "channel",
                 "protocol",
-                "foo");
+                user);
             
             _handler.Handle(args);
 

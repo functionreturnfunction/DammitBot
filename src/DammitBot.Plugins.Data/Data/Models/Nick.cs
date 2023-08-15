@@ -17,11 +17,11 @@ public class Nick : IEntityWithTimestamps
     /// <summary>
     /// Nickname of the protocol user.
     /// </summary>
-    public virtual string Nickname { get; set; }
+    public virtual required string Nickname { get; set; }
     /// <summary>
     /// Linked bot system user, if applicable.
     /// </summary>
-    public virtual User User { get; set; }
+    public virtual User? User { get; set; }
     /// <summary>
     /// Foreign key value linking to the bot system user, if applicable.
     /// </summary>

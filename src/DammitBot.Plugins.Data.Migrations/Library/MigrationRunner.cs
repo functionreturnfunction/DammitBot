@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Library;
 
@@ -24,7 +25,8 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
     private readonly IUnitOfWorkFactory _uowFactory;
     private readonly IMigrationService _service;
-    
+    private readonly ILogger<MigrationRunner> _logger;
+
     #endregion
     
     #region Constructors
@@ -32,10 +34,14 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
     /// <summary>
     /// Constructor for the <see cref="MigrationRunner"/> class.
     /// </summary>
-    public MigrationRunner(IUnitOfWorkFactory uowFactory, IMigrationService service)
+    public MigrationRunner(
+        IUnitOfWorkFactory uowFactory,
+        IMigrationService service,
+        ILogger<MigrationRunner> logger)
     {
         _uowFactory = uowFactory;
         _service = service;
+        _logger = logger;
     }
     
     #endregion
@@ -89,6 +95,10 @@ IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
 
         foreach (var migration in migrations)
         {
+            _logger.LogInformation(
+                "Running migration {VersionNumber} {Direction}",
+                migration.VersionNumber,
+                reverse ? "Down" : "Up");
             doRun(uow, migration);
 
             uow.ExecuteNonQuery(reverse

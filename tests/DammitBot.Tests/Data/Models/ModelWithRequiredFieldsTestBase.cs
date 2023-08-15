@@ -6,7 +6,7 @@ using Xunit;
 namespace DammitBot.Data.Models;
 
 public abstract class ModelWithRequiredFieldsTestBase<TModel> : ModelTestBase<TModel>
-    where TModel : class, new()
+    where TModel : class, IEntity
 {
     #region Abstract Methods
 
