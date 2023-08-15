@@ -102,6 +102,25 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     }
 
     [Fact]
+    public void Test_BotRemind_DoesNotRemind_WhenTimeStringCannotBeParsed()
+    {
+        var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
+        var timeString = "in 7 parsecs";
+        var args = _target.TestCommand(
+            $"remind me to do things {timeString}",
+            _nickWithUser.Nickname);
+
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<MessageEventArgs>(),
+                $"Cannot parse time string '{timeString}'"));
+
+        var afterCount = _connection.QuerySingle<int>("select count(*) from Reminders");
+
+        Assert.True(afterCount == beforeCount);
+    }
+
+    [Fact]
     public void Test_GetMatchingHandlers_ReturnsOnlyUnknownCommandHandler_ForUnknownCommand()
     {
         _target.TestCommand("asdfasdfasdfasdf", _nickWithUser.Nickname);
