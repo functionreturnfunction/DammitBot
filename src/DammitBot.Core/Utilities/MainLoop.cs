@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DammitBot.Abstract;
 using Microsoft.Extensions.Logging;
 
@@ -32,11 +33,13 @@ public class MainLoop : IMainLoop
     /// <summary>
     /// Action(s) to perform once before the main loop runs.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     protected virtual void DoPreLoopStuff() {}
 
     /// <summary>
     /// Action(s) to perform repeatedly inside the main application loop.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     protected virtual void DoLoopStuff() {}
 
     /// <inheritdoc cref="IMainLoop.Run"/>
