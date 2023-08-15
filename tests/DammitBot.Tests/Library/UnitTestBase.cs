@@ -14,7 +14,6 @@ public abstract class UnitTestBase<TTarget> : IDisposable
     #region Private Members
 
     protected readonly IContainer _container;
-    protected Mock<ILogger<TTarget>> _log;
     protected TTarget _target;
     protected TestDateTimeProvider _dateTimeProvider;
     protected DateTime _now;
@@ -47,7 +46,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
             .BindConfiguration("Data")
             .ValidateDataAnnotations();
 
-        _log = serviceRegistry.For<ILogger<TTarget>>().Mock();
+        serviceRegistry.For<ILogger<TTarget>>().Mock();
         _dateTimeProvider = serviceRegistry
             .For<IDateTimeProvider>()
             .Use<IDateTimeProvider, TestDateTimeProvider>(
