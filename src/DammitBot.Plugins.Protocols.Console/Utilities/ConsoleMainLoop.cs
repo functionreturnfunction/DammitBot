@@ -8,6 +8,15 @@ namespace DammitBot.Utilities;
 /// <inheritdoc cref="IConsoleMainLoop" />
 public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
 {
+    #region Constants
+
+    /// <summary>
+    /// Prompt message presented to user for input.
+    /// </summary>
+    public const string USER_PROMPT = "Message to bot: ";
+    
+    #endregion
+    
     #region Private Members
 
     private readonly IConsoleIO _console;
@@ -37,7 +46,7 @@ public class ConsoleMainLoop : MainLoop, IConsoleMainLoop
 
     private void PromptForUserInput()
     {
-        _console.Write("Message to bot: ");
+        _console.Write(USER_PROMPT);
     }
 
     private void AcceptUserInput()
