@@ -18,7 +18,6 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     #region Private Members
 
     private Mock<ICommandHandlerFactory> _commandHandlerFactory;
-    private Mock<IProtocolService> _protocolService;
     private Nick _nickWithUser, _nickWithoutUser;
 
     #endregion
@@ -41,7 +40,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
         serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
 
         _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();
-        _protocolService = serviceRegistry.For<IProtocolService>().Mock();
+        serviceRegistry.For<IProtocolService>().Mock();
         serviceRegistry.For<ISchedulerService>().Mock();
     }
 
