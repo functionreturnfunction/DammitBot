@@ -59,7 +59,7 @@ public class Irc : IIrc
         ChannelMessageReceived?.Invoke(sender, e);
     }
 
-    private void Irc_ConnectionComplete(object? sender, EventArgs e)
+    private void Irc_ReadyToJoinChannels(object? sender, EventArgs e)
     {
         _log.LogInformation(
             "Initial connection complete, joining channels '{Channels}'",
@@ -121,16 +121,25 @@ public class Irc : IIrc
             _config.User);
         
         _irc = _ircClientFactory.Build();
-        _irc.ReadyToJoinChannels += Irc_ConnectionComplete;
+        _irc.ReadyToJoinChannels += Irc_ReadyToJoinChannels;
         _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;
         _irc.Connect();
     }
 
     /// <inheritdoc />
     /// <remarks>
-    /// This implementation does nothing.
+    /// This implementation disposes of the wrapped <see cref="_irc"/> implementation.
     /// </remarks>
-    public virtual void Cleanup() {}
+    public virtual void Cleanup()
+    {
+        if (_irc == null)
+        {
+            throw new InvalidOperationException(
+                "Cannot cleanup a protocol which hasn't been initialized");
+        }
+        
+        _irc.Dispose();
+    }
 
     /// <inheritdoc />
     public virtual void SayToChannel(string channel, string message)

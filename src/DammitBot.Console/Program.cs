@@ -18,7 +18,6 @@ class Program
                 serviceRegistry.For<IMainLoop>().Use<MainLoop>();
                 new DammitBotContainerConfiguration().Configure(serviceRegistry);
             });
-
     }
 
     static void Main(string[] args)

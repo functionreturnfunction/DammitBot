@@ -127,5 +127,14 @@ public class IrcClientWrapper : IIrcClient
         _innerClient.LocalUser.SendMessage(targets, message);
     }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation disposes of the wrapped <see cref="_innerClient"/>.
+    /// </remarks>
+    public void Dispose()
+    {
+        _innerClient.Dispose();
+    }
+
     #endregion
 }

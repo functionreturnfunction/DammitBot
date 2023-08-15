@@ -1,4 +1,5 @@
-﻿using DammitBot.Library;
+﻿using System.Diagnostics.CodeAnalysis;
+using DammitBot.Library;
 
 namespace DammitBot.Plugins;
 
@@ -42,6 +43,7 @@ public class AutoMigrationsPlugin : IAutoMigrationsPlugin
 
     /// <inheritdoc />
     /// <remarks>This implementation does nothing.</remarks>
+    [ExcludeFromCodeCoverage]
     public void Cleanup() {}
     
     #endregion
