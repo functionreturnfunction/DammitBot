@@ -77,6 +77,10 @@ IF NOT EXISTS Messages (
                 Nickname = "gentooflux1",
                 User = jason
             });
+            uow.Insert<Nick>(new Nick {
+                Nickname = "Console User",
+                User = jason
+            });
         }
 
         /// <inheritdoc />
