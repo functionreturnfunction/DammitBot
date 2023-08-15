@@ -7,7 +7,7 @@ namespace DammitBot.Library;
 /// Client which does the work of authenticating/connecting to an Irc server, joining channels, and
 /// sending/receiving messages.
 /// </summary>
-public interface IIrcClient
+public interface IIrcClient : IDisposable
 {
     #region Events
 
