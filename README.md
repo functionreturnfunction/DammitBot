@@ -1,3 +1,5 @@
+![status](https://mangler/gitlab/jason/dammit_bot/badges/master/pipeline.svg?ignore_skipped=true)|![coverage](https://mangler/gitlab/jason/dammit_bot/badges/master/coverage.svg)
+
 # DammitBot
 
 Configurable, modular chatbot written in c#.
