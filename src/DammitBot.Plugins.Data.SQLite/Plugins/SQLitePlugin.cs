@@ -1,4 +1,6 @@
-﻿namespace DammitBot.Plugins;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DammitBot.Plugins;
 
 /// <inheritdoc />
 public class SQLitePlugin : ISQLitePlugin
@@ -16,5 +18,6 @@ public class SQLitePlugin : ISQLitePlugin
     /// <remarks>
     /// This implementation does nothing.
     /// </remarks>
+    [ExcludeFromCodeCoverage]
     public void Cleanup() {}
 }

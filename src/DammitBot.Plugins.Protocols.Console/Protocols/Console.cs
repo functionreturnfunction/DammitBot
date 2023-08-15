@@ -1,4 +1,5 @@
-﻿using DammitBot.Events;
+﻿using System.Diagnostics.CodeAnalysis;
+using DammitBot.Events;
 using DammitBot.Utilities;
 using Microsoft.Extensions.Logging;
 
@@ -75,6 +76,7 @@ public class Console : IConsole
     /// <remarks>
     /// This implementation does nothing.
     /// </remarks>
+    [ExcludeFromCodeCoverage]
     public virtual void Cleanup() {}
     
     /// <inheritdoc />
