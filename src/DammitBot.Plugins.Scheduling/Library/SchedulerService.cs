@@ -14,6 +14,7 @@ public class SchedulerService : ISchedulerService
     #region Private Members
 
     private IScheduler? _scheduler;
+    private readonly IStdSchedulerFactory _schedulerFactory;
     private readonly IJobFactory _jobFactory;
     private readonly IJobService _jobService;
     private readonly IList<TriggerKey> _triggerKeys;
@@ -25,8 +26,12 @@ public class SchedulerService : ISchedulerService
     /// <summary>
     /// Constructor for the <see cref="SchedulerService"/> job.
     /// </summary>
-    public SchedulerService(IJobFactory jobFactory, IJobService jobService)
+    public SchedulerService(
+        IStdSchedulerFactory schedulerFactory,
+        IJobFactory jobFactory,
+        IJobService jobService)
     {
+        _schedulerFactory = schedulerFactory;
         _jobFactory = jobFactory;
         _jobService = jobService;
         _triggerKeys = new List<TriggerKey>();
@@ -58,9 +63,8 @@ public class SchedulerService : ISchedulerService
     /// <inheritdoc />
     public async Task Start()
     {
-        var factory = new StdSchedulerFactory();
-        factory.Initialize();
-        _scheduler = await factory.GetScheduler();
+        _schedulerFactory.Initialize();
+        _scheduler = await _schedulerFactory.GetScheduler();
         _scheduler.JobFactory = _jobFactory;
 
         await _scheduler.Start();

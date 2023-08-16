@@ -1,6 +1,8 @@
 ﻿using DammitBot.Abstract;
 using DammitBot.Library;
+using DammitBot.Wrappers;
 using Lamar;
+using Quartz.Impl;
 using Quartz.Spi;
 
 namespace DammitBot.IoC;
@@ -20,6 +22,7 @@ public class SchedulingPluginContainerConfiguration : ContainerConfigurationBase
     {
         e.For<IJobFactory>().Use<JobFactory>();
         e.For<ISchedulerService>().Use<SchedulerService>().Singleton();
+        e.For<IStdSchedulerFactory>().Use<StdSchedulerFactoryWrapper>();
     }
 
     #endregion
