@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Moq;
 using Moq.Language.Flow;
 
@@ -11,6 +12,15 @@ public static class ISetupExtensions
     {
         var mock = new Mock<TResult>();
         that.Returns(mock.Object);
+        return mock;
+    }
+
+    public static Mock<TResult> MockAsync<T, TResult>(this ISetup<T, Task<TResult>> that)
+        where T : class
+        where TResult : class
+    {
+        var mock = new Mock<TResult>();
+        that.Returns(Task.FromResult(mock.Object));
         return mock;
     }
 }
