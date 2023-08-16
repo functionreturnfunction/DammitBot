@@ -12,7 +12,11 @@ public class MigrationRunner
 {
     #region Constants
     
-    private const string VERSION_INFO_TABLE = "VersionInfo";
+    /// <summary>
+    /// Name of the table used to store the current migration state information (which migrations have
+    /// been applied and when, etc).
+    /// </summary>
+    public const string VERSION_INFO_TABLE = "VersionInfo";
     private const string CREATE_VERSION_INFO = @"
 CREATE TABLE
 IF NOT EXISTS " + VERSION_INFO_TABLE + @" (
