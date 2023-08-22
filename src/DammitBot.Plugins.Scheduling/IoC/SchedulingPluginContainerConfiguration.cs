@@ -2,7 +2,6 @@
 using DammitBot.Library;
 using DammitBot.Wrappers;
 using Lamar;
-using Quartz.Impl;
 using Quartz.Spi;
 
 namespace DammitBot.IoC;

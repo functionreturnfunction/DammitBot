@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
 using DammitBot.Data.Models.Fakers;
@@ -22,6 +23,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
     #endregion
 
+    #region Setup/Teardown
+    
     public CommandsTest()
     {
         var userFaker = new UserFaker();
@@ -43,6 +46,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
         });
     }
 
+    #endregion
+    
     #region Private Methods
 
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
@@ -57,7 +62,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
     #endregion
 
-    #region Exposed Methods
+    #region bot die
 
     [Fact]
     public void Test_BotDie_CausesBotToDie()
@@ -66,6 +71,32 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         _bot.Verify(x => x.Die());
     }
+    
+    #endregion
+    
+    #region bot help
+
+    [Fact]
+    public void Test_BotHelp_ListsCommandsAndDescriptions()
+    {
+        _target.TestCommand("help", _nickWithUser.Nickname);
+
+        var expected = new[] {
+            "This bot responds to the following commands:",
+            "	 (?:dammit )?bot die - Disconnect from any connected protocols, stop any running services, and shut down the bot.",
+            "	 (?:dammit )?bot help( .+)? - Get usage information for the available bot commands.",
+            "	 (?:dammit )?bot remind ([\\s]+).+ - Set reminders; messages which the bot will send to a user or channel at a predefined point in the future."
+        };
+
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<CommandEventArgs>(),
+                string.Join(Environment.NewLine, expected) + Environment.NewLine));
+    }
+    
+    #endregion
+    
+    #region bot remind
 
     [Fact]
     public void Test_BotRemindMe_CausesReminderyThingsToHappen()
@@ -119,6 +150,10 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         Assert.True(afterCount == beforeCount);
     }
+    
+    #endregion
+    
+    #region bot asdfasdfasdfasdf (unknown command)
 
     [Fact]
     public void Test_GetMatchingHandlers_ReturnsOnlyUnknownCommandHandler_ForUnknownCommand()
