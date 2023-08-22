@@ -56,6 +56,7 @@ public class HelpCommandHandler : CommandHandlerBase
                 t =>
                     !t.IsAbstract && typeof(CommandHandlerBase).IsAssignableFrom(t) &&
                     t.HasAttribute<HandlesCommandAttribute>())
+            .OrderBy(x => x.Name)
             .Select(t => t.GetCustomAttribute<HandlesCommandAttribute>()!);
     }
 
