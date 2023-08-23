@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DammitBot.Data.Models;
+﻿using DammitBot.Data.Models;
 using DammitBot.Data.Models.Fakers;
 using DammitBot.Library;
 using Lamar;

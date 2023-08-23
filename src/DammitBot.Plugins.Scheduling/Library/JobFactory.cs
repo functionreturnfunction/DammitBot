@@ -1,5 +1,4 @@
 ﻿using DammitBot.Wrappers;
-using Lamar;
 using Quartz;
 using Quartz.Spi;
 

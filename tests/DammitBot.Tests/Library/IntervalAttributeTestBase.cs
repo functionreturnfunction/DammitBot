@@ -2,7 +2,6 @@ using System;
 using System.Linq.Expressions;
 using DammitBot.Metadata;
 using Moq;
-using Quartz;
 using Xunit;
 
 namespace DammitBot.Library;

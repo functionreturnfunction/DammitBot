@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.Metadata;

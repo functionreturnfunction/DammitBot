@@ -1,5 +1,4 @@
 ﻿using System;
-using DammitBot.Configuration;
 using DammitBot.Events;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;

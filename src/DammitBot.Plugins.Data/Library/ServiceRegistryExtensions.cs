@@ -1,5 +1,4 @@
 ﻿using Lamar;
-using Lamar.IoC.Instances;
 
 namespace DammitBot.Library;
 
