@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Events;
-using DammitBot.MessageHandlers;
 using DammitBot.Wrappers;
 
 namespace DammitBot.Abstract;

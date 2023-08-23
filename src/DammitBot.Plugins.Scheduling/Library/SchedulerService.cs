@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Quartz;
-using Quartz.Impl;
 using Quartz.Spi;
 
 namespace DammitBot.Library;

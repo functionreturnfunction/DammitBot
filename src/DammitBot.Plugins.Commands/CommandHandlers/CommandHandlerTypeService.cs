@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using DammitBot.Abstract;
 using DammitBot.Configuration;
 using DammitBot.Events;

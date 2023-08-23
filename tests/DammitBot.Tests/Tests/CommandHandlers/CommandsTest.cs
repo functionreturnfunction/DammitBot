@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
 using DammitBot.Data.Models.Fakers;

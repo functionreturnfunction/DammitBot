@@ -1,6 +1,5 @@
 ﻿using System;
 using DammitBot.Library;
-using Quartz;
 
 namespace DammitBot.Metadata;
 

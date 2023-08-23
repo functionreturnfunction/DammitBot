@@ -5,7 +5,6 @@ using DammitBot.Configuration;
 using DammitBot.Utilities;
 using DateTimeProvider;
 using Lamar;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DammitBot.IoC;
@@ -48,15 +47,12 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
             s.WithDefaultConventions();
         });
 
-        e.For<IBot>()
-            .Use<Bot>().Singleton();
+        e.For<IBot>().Use<Bot>().Singleton();
 
         var assemblyService = InitializePluginConfigurations(e);
 
         e.For<IAssemblyTypeService>()
             .Use(assemblyService).Singleton();
-
-        e.For<IConfigurationBuilder>().Use<ConfigurationBuilder>();
 
         e.For<IDateTimeProvider>().Use<SystemClockDateTimeProvider>();
 
