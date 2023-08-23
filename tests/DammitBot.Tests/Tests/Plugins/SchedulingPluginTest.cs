@@ -1,8 +1,10 @@
 using System;
+using System.Threading.Tasks;
 using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.Metadata;
 using DammitBot.Plugins;
+using DammitBot.Utilities;
 using Lamar;
 using Moq;
 using Moq.Sequences;
@@ -19,7 +21,7 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
     private Mock<IStdSchedulerFactory>? _schedulerFactory;
     private Mock<IScheduler>? _scheduler;
     private Mock<IJobFactory>? _jobFactory;
-    private Mock<IJobService>? _jobService;
+    private Mock<IAssemblyTypeService>? _assemblyTypeService;
     
     #endregion
     
@@ -36,7 +38,7 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
             .Setup(x => x.GetScheduler(default))
             .MockAsync();
         _jobFactory = serviceRegistry.For<IJobFactory>().Mock();
-        _jobService = serviceRegistry.For<IJobService>().Mock();
+        _assemblyTypeService = serviceRegistry.For<IAssemblyTypeService>().Mock();
     }
     
     #endregion
@@ -52,8 +54,10 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
         _scheduler!
             .SetupSet(x => x.JobFactory = _jobFactory!.Object).InSequence();
         _scheduler!.Setup(x => x.Start(default)).InSequence();
-        _jobService!
-            .Setup(x => x.GetAllJobs()).InSequence().Returns(Type.EmptyTypes);
+        _assemblyTypeService!
+            .Setup(x => x.GetTypesFromAllAssemblies())
+            .InSequence()
+            .Returns(Type.EmptyTypes);
         
         _target.Initialize();
         
@@ -61,8 +65,8 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
         _schedulerFactory.VerifyNoOtherCalls();
         _scheduler.VerifyAll();
         _scheduler.VerifyNoOtherCalls();
-        _jobService.VerifyAll();
-        _jobService.VerifyNoOtherCalls();
+        _assemblyTypeService.VerifyAll();
+        _assemblyTypeService.VerifyNoOtherCalls();
     }
 
     [Fact]
@@ -70,48 +74,27 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
     {
         using var sequence = Sequence.Create();
 
-        _jobService!.Setup(x => x.GetAllJobs()).InSequence().Returns(new[] {
-            typeof(TestHourlyJob),
-            typeof(TestDailyJob)
-        });
-        var hourlyJob = _jobService.Setup(x => x.Build(
-            typeof(TestHourlyJob),
-            nameof(TestHourlyJob),
-            "TestHourlyGroup"))
+        _assemblyTypeService!
+            .Setup(x => x.GetTypesFromAllAssemblies())
             .InSequence()
-            .Mock();
-        var hourlyTrigger = _jobService.Setup(x => x.BuildTrigger(
+            .Returns(new[] {
                 typeof(TestHourlyJob),
-                "TestHourlyTrigger",
-                "TestHourlyGroup"))
-            .InSequence()
-            .Mock();
+                typeof(TestDailyJob)
+            });
+
         _scheduler!.Setup(x => x.ScheduleJob(
-            hourlyJob.Object,
-            hourlyTrigger.Object,
-            default))
+                It.Is<IJobDetail>(j => j.JobType == typeof(TestHourlyJob)),
+                It.Is<ITrigger>(t => t.Key.Name == "TestHourlyTrigger"),
+                default))
             .InSequence();
-        var dailyJob = _jobService.Setup(x => x.Build(
-                typeof(TestDailyJob),
-                nameof(TestDailyJob),
-                "TestDailyGroup"))
-            .InSequence()
-            .Mock();
-        var dailyTrigger = _jobService.Setup(x => x.BuildTrigger(
-                typeof(TestDailyJob),
-                "TestDailyTrigger",
-                "TestDailyGroup"))
-            .InSequence()
-            .Mock();
         _scheduler!.Setup(x => x.ScheduleJob(
-            dailyJob.Object,
-            dailyTrigger.Object,
-            default))
+                It.Is<IJobDetail>(j => j.JobType == typeof(TestDailyJob)),
+                It.Is<ITrigger>(t => t.Key.Name == "TestDailyTrigger"),
+                default))
             .InSequence();
         
         _target.Initialize();
         
-        _jobService.VerifyAll();
         _scheduler.VerifyAll();
     }
     
@@ -120,9 +103,22 @@ public class SchedulingPluginTest : UnitTestBase<SchedulingPlugin>
     #region Nested Classes
     
     [Daily]
-    public class TestDailyJob {}
+    public class TestDailyJob : IJob
+    {
+        public Task Execute(IJobExecutionContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
     
-    public class TestHourlyJob {}
+    [Hourly]
+    public class TestHourlyJob : IJob
+    {
+        public Task Execute(IJobExecutionContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
     
     #endregion
 }
