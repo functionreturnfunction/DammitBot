@@ -60,7 +60,7 @@ public class DapperDataCommandService : IDataCommandService
     }
 
     /// <inheritdoc />
-    public TEntity Load<TEntity>(int id)
+    public TEntity? Load<TEntity>(int id)
         where TEntity : class
     {
         return _connection.Get<TEntity>(id);
