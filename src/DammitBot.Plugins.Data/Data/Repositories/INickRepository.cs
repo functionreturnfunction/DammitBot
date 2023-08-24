@@ -7,7 +7,8 @@ namespace DammitBot.Data.Repositories;
 public interface INickRepository : IRepository<Nick>
 {
     /// <summary>
-    /// Find the <see cref="Nick"/> with the given <paramref name="nickname"/>. Returns null if not found.
+    /// Find the <see cref="Nick"/> with the given <paramref name="nickname"/> and
+    /// <paramref name="protocol"/>. Returns null if not found.
     /// </summary>
-    public Nick? FindByNickname(string nickname);
+    public Nick? FindByNicknameAndProtocol(string nickname, string protocol);
 }

@@ -32,7 +32,8 @@ IF NOT EXISTS Users (
   Id integer PRIMARY KEY,
   Username text NOT NULL,
   CreatedAt text NOT NULL,
-  UpdatedAt text
+  UpdatedAt text,
+  UNIQUE (Username)
 );
 
 CREATE TABLE
@@ -43,7 +44,8 @@ IF NOT EXISTS Nicks (
   UserId int,
   CreatedAt text NOT NULL,
   UpdatedAt text,
-  FOREIGN KEY (UserId) REFERENCES Users (Id)
+  FOREIGN KEY (UserId) REFERENCES Users (Id),
+  UNIQUE (Protocol, Nickname)
 );
 
 CREATE TABLE
@@ -73,11 +75,6 @@ IF NOT EXISTS Messages (
             uow.Insert<Nick>(new Nick {
                 Protocol = "Irc",
                 Nickname = "gentooflux",
-                User = jason
-            });
-            uow.Insert<Nick>(new Nick {
-                Protocol = "Irc",
-                Nickname = "gentooflux1",
                 User = jason
             });
             uow.Insert<Nick>(new Nick {

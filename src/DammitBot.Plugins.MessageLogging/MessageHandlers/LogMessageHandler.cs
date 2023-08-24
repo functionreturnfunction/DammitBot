@@ -46,7 +46,9 @@ public class LogMessageHandler : IMessageHandler
     public void Handle(MessageEventArgs e)
     {
         using var uow = _unitOfWorkFactory.Build();
-        var nick = uow.GetRepository<INickRepository, Nick>().FindByNickname(e.User);
+        var nick = uow
+            .GetRepository<INickRepository, Nick>()
+            .FindByNicknameAndProtocol(e.User, e.Protocol);
 
         if (nick == null)
         {

@@ -18,7 +18,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     #region Private Members
 
     private Mock<ICommandHandlerFactory> _commandHandlerFactory;
-    private Nick _nickWithUser, _nickWithoutUser;
+    private Nick _nickWithUser, _nickWithoutUser, _nickFromOtherProtocol;
 
     #endregion
 
@@ -56,10 +56,16 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
             var nickFaker = new NickFaker();
             _nickWithUser = nickFaker.Generate();
             _nickWithUser.UserId = userId;
+            _nickWithUser.Protocol = "Irc";
             uow.Insert(_nickWithUser);
 
             _nickWithoutUser = nickFaker.Generate();
             _nickWithoutUser.Id = Convert.ToInt32(uow.Insert(_nickWithoutUser));
+
+            _nickFromOtherProtocol = nickFaker.Generate();
+            _nickFromOtherProtocol.Nickname = _nickWithUser.Nickname;
+            _nickFromOtherProtocol.Protocol = "Slack";
+            _nickFromOtherProtocol.Id = Convert.ToInt32(uow.Insert(_nickFromOtherProtocol));
 
             uow.Commit();
         });
@@ -73,28 +79,36 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     public void Test_Command_RunsCommand()
     {
         _commandHandlerFactory.Setup(
-            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            x => x
+                .BuildHandler(It.IsAny<CommandEventArgs>())
+                .Handle(It.IsAny<CommandEventArgs>()));
 
-        _target.TestMessage("bot blah blah blah", _nickWithUser.Nickname);
+        _target.TestMessage("bot blah blah blah", _nickWithUser);
 
         _commandHandlerFactory.Verify(
             x =>
-                x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
-                    .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")));
+                x.BuildHandler(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah")));
     }
 
     [Fact]
     public void Test_Command_DoesNotRunCommand_IfNickDoesNotHaveUser()
     {
         _commandHandlerFactory.Setup(
-            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            x => x
+                .BuildHandler(It.IsAny<CommandEventArgs>())
+                .Handle(It.IsAny<CommandEventArgs>()));
 
-        _target.TestMessage("bot blah blah blah", "bar");
+        _target.TestMessage("bot blah blah blah", _nickWithoutUser);
 
         _commandHandlerFactory.Verify(
             x =>
-                x.BuildHandler(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah"))
-                    .Handle(It.Is<CommandEventArgs>(a => a.Command == "blah blah blah")), Times.Never);
+                x.BuildHandler(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah")), Times.Never);
             
     }
 
@@ -102,9 +116,31 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
     public void Test_Command_DoesNotRunCommand_IfNickNotRecognized()
     {
         _commandHandlerFactory.Setup(
-            x => x.BuildHandler(It.IsAny<CommandEventArgs>()).Handle(It.IsAny<CommandEventArgs>()));
+            x => x
+                .BuildHandler(It.IsAny<CommandEventArgs>())
+                .Handle(It.IsAny<CommandEventArgs>()));
 
-        _target.TestMessage("bot blah blah blah", "who is this guy");
+        _target.TestMessage("bot blah blah blah", new NickFaker().Generate());
+
+        _commandHandlerFactory.Verify(
+            x =>
+                x.BuildHandler(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah"))
+                    .Handle(It.Is<CommandEventArgs>(
+                        a => a.Command == "blah blah blah")),
+            Times.Never);
+            
+    }
+
+    [Fact]
+    public void Test_Command_DoesNotRunCommand_IfNickIsKnownButForDifferentProtocol()
+    {
+        _commandHandlerFactory.Setup(
+            x => x
+                .BuildHandler(It.IsAny<CommandEventArgs>())
+                .Handle(It.IsAny<CommandEventArgs>()));
+
+        _target.TestMessage("bot blah blah blah", _nickFromOtherProtocol);
 
         _commandHandlerFactory.Verify(
             x =>
@@ -146,14 +182,13 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
 
         public void TestMessage(
             string? message,
-            string nick,
-            string protocol = "#bar",
+            Nick nick,
             string channel = "foo")
         {
             _protocolService.Raise(
                 x => x.ChannelMessageReceived += null,
                 null!,
-                new MessageEventArgs(message!, channel, protocol, nick));
+                new MessageEventArgs(message!, channel, nick.Protocol, nick.Nickname));
         }
 
         #endregion
