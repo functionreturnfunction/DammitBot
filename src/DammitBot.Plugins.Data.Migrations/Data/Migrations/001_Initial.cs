@@ -64,23 +64,18 @@ IF NOT EXISTS Messages (
 
         /// <inheritdoc />
         /// <remarks>
-        /// This implementation inserts some initial Users and Nicks.
+        /// This implementation inserts an initial <see cref="User"/> and <see cref="Nick"/>.
         /// </remarks>
         public override void Seed(IUnitOfWork uow)
         {
-            var jason = new User {
-                Username = "jason"
+            var admin = new User {
+                Username = "admin"
             };
-            jason.Id = Convert.ToInt32(uow.Insert<User>(jason));
-            uow.Insert<Nick>(new Nick {
-                Protocol = "Irc",
-                Nickname = "gentooflux",
-                User = jason
-            });
+            admin.Id = Convert.ToInt32(uow.Insert<User>(admin));
             uow.Insert<Nick>(new Nick {
                 Protocol = "Console",
                 Nickname = "Console User",
-                User = jason
+                User = admin
             });
         }
 
