@@ -72,7 +72,15 @@ public abstract class UnitTestBase<TTarget> : IDisposable
         _target = ConstructTarget();
     }
 
-    public virtual void Dispose() {}
+    public virtual void Dispose()
+    {
+        if (_target is IDisposable d)
+        {
+            d.Dispose();
+        }
+        
+        _container.Dispose();
+    }
 
     #endregion
 }
