@@ -50,7 +50,7 @@ public class LogMessageHandler : IMessageHandler
 
         if (nick == null)
         {
-            nick = new Nick {Nickname = e.User};
+            nick = new Nick {Protocol = e.Protocol, Nickname = e.User};
             nick.Id = Convert.ToInt32(uow.Insert(nick));
         }
 

@@ -18,7 +18,8 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     protected override Action<Nick>[] GetWaysToInvalidate()
     {
         return new Action<Nick>[] {
-            n => n.Nickname = null
+            n => n.Nickname = null,
+            n => n.Protocol = null
         };
     }
 

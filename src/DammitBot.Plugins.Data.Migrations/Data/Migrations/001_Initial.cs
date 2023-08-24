@@ -38,6 +38,7 @@ IF NOT EXISTS Users (
 CREATE TABLE
 IF NOT EXISTS Nicks (
   Id integer PRIMARY KEY,
+  Protocol text NOT NULL,
   Nickname text NOT NULL,
   UserId int,
   CreatedAt text NOT NULL,
@@ -70,14 +71,17 @@ IF NOT EXISTS Messages (
             };
             jason.Id = Convert.ToInt32(uow.Insert<User>(jason));
             uow.Insert<Nick>(new Nick {
+                Protocol = "Irc",
                 Nickname = "gentooflux",
                 User = jason
             });
             uow.Insert<Nick>(new Nick {
+                Protocol = "Irc",
                 Nickname = "gentooflux1",
                 User = jason
             });
             uow.Insert<Nick>(new Nick {
+                Protocol = "Console",
                 Nickname = "Console User",
                 User = jason
             });
