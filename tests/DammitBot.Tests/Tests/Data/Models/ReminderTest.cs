@@ -1,5 +1,6 @@
 ﻿using System;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Library;
 using Xunit;
 
@@ -7,19 +8,6 @@ namespace DammitBot.Tests.Data.Models;
 
 public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
 {
-    #region Constants
-
-    public struct Defaults
-    {
-        #region Constants
-
-        public const string TEXT = "reminder";
-
-        #endregion
-    }
-
-    #endregion
-
     #region Private Methods
 
     protected override Reminder ConstructTarget()
@@ -59,12 +47,11 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
 
     public static Reminder ConstructValidObject(User from, User to, DateTime remindAt)
     {
-        return new Reminder {
-            Text = Defaults.TEXT,
-            From = from,
-            To = to,
-            RemindAt = remindAt
-        };
+        var reminder = new ReminderFaker().Generate();
+        reminder.From = from;
+        reminder.To = to;
+        reminder.RemindAt = remindAt;
+        return reminder;
     }
 
     [Fact]

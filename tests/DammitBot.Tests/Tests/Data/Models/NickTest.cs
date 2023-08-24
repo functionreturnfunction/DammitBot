@@ -1,5 +1,6 @@
 ﻿using System;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Library;
 using Xunit;
 
@@ -7,15 +8,6 @@ namespace DammitBot.Tests.Data.Models;
 
 public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
 {
-    #region Constants
-
-    public struct Defaults
-    {
-        public const string NICKNAME = "nick";
-    }
-
-    #endregion
-
     #region Private Methods
 
     protected override Nick ConstructTarget()
@@ -26,14 +18,14 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     protected override Action<Nick>[] GetWaysToInvalidate()
     {
         return new Action<Nick>[] {
-            n => n.Nickname = null
+            n => n.Nickname = null,
+            n => n.Protocol = null
         };
     }
 
     protected override void RunPostCreationAssertions(Nick createdObject)
     {
         Assert.InRange(createdObject.Id, 1, int.MaxValue);
-        Assert.Equal(Defaults.NICKNAME, createdObject.Nickname);
     }
 
     #endregion
@@ -42,29 +34,12 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
 
     public static Nick ConstructValidObject()
     {
-        return new Nick {
-            Nickname = Defaults.NICKNAME
-        };
+        return new NickFaker().Generate();
     }
 
     [Fact]
     public void Test_Create_Timestamp()
     {
-        // var whatevs = uow.ExecuteReader("SELECT * FROM Nicks;");
-        // var sb = new StringBuilder();
-
-        // while (whatevs.Read())
-        // {
-        //     sb.AppendLine("{");
-        //     for (var i = 0; i < whatevs.FieldCount; ++i)
-        //     {
-        //         sb.AppendLine($"'{whatevs.GetName(i)}': {whatevs.GetValue(i)}");
-        //     }
-        //     sb.AppendLine("},");
-        // }
-
-        // var json = sb.ToString();
-
         this.TestSaveWithValidFieldsSetsCreatedAt();
     }
 

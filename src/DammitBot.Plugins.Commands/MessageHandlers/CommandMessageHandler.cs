@@ -48,7 +48,9 @@ public class CommandMessageHandler : IMessageHandler
 
     private static Nick? LoadNick(IUnitOfWork uow, MessageEventArgs e)
     {
-        return uow.GetRepository<INickRepository, Nick>().FindByNickname(e.User);
+        return uow
+            .GetRepository<INickRepository, Nick>()
+            .FindByNicknameAndProtocol(e.User, e.Protocol);
     }
     
     #endregion

@@ -66,7 +66,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_BotDie_CausesBotToDie()
     {
-        _target.TestCommand("die", _nickWithUser.Nickname);
+        _target.TestCommand("die", _nickWithUser);
 
         _bot.Verify(x => x.Die());
     }
@@ -78,7 +78,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_BotHelp_ListsCommandsAndDescriptions()
     {
-        _target.TestCommand("help", _nickWithUser.Nickname);
+        _target.TestCommand("help", _nickWithUser);
 
         var expected = new[] {
             "This bot responds to the following commands:",
@@ -101,7 +101,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     public void Test_BotRemindMe_CausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
-        var args = _target.TestCommand("remind me to do things in 1 minute", _nickWithUser.Nickname);
+        var args = _target.TestCommand("remind me to do things in 1 minute", _nickWithUser);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -119,7 +119,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
         var args = _target.TestCommand(
             $"remind {_otherUser.Username} to do things in 1 minute",
-            _nickWithUser.Nickname);
+            _nickWithUser);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -138,7 +138,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
         var timeString = "in 7 parsecs";
         var args = _target.TestCommand(
             $"remind me to do things {timeString}",
-            _nickWithUser.Nickname);
+            _nickWithUser);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -157,7 +157,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_GetMatchingHandlers_ReturnsOnlyUnknownCommandHandler_ForUnknownCommand()
     {
-        _target.TestCommand("asdfasdfasdfasdf", _nickWithUser.Nickname);
+        _target.TestCommand("asdfasdfasdfasdf", _nickWithUser);
 
         _bot.Verify(x =>
             x.ReplyToMessage(
@@ -188,13 +188,13 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         #region Exposed Methods
 
-        public MessageEventArgs TestCommand(string command, string user = "foo")
+        public MessageEventArgs TestCommand(string command, Nick nick)
         {
             var args = new MessageEventArgs(
                 "bot " + command,
                 "channel",
-                "protocol",
-                user);
+                nick.Protocol,
+                nick.Nickname);
             
             _handler.Handle(args);
 

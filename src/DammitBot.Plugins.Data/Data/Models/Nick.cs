@@ -15,6 +15,10 @@ public class Nick : IEntityWithTimestamps
     /// <inheritdoc/>
     public virtual int Id { get; set; }
     /// <summary>
+    /// Protocol with which the user is associated.
+    /// </summary>
+    public virtual required string Protocol { get; set; }
+    /// <summary>
     /// Nickname of the protocol user.
     /// </summary>
     public virtual required string Nickname { get; set; }

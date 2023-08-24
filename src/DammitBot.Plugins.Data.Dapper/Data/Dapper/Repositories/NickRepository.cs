@@ -74,9 +74,11 @@ on u.Id = this.UserId";
     #region Exposed Methods
 
     /// <inheritdoc />
-    public Nick? FindByNickname(string nickname)
+    public Nick? FindByNicknameAndProtocol(string nickname, string protocol)
     {
-        return DoQuery(BaseQuery + " where this.Nickname = @nickname", new { nickname })
+        return DoQuery(
+                BaseQuery + " where this.Nickname = @nickname and this.Protocol = @protocol",
+                new { nickname, protocol })
             .SingleOrDefault();
     }
     

@@ -37,7 +37,7 @@ public abstract class DapperRepositoryTestBase<TEntity, TRepository>
     
     #region Private Methods
 
-    private TEntity InsertValidEntity()
+    protected TEntity InsertValidEntity()
     {
         var entity = CreateValidEntity();
 
