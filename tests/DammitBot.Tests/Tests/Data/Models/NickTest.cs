@@ -1,5 +1,6 @@
 ﻿using System;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using DammitBot.Library;
 using Xunit;
 
@@ -7,15 +8,6 @@ namespace DammitBot.Tests.Data.Models;
 
 public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
 {
-    #region Constants
-
-    public struct Defaults
-    {
-        public const string NICKNAME = "nick";
-    }
-
-    #endregion
-
     #region Private Methods
 
     protected override Nick ConstructTarget()
@@ -33,7 +25,6 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     protected override void RunPostCreationAssertions(Nick createdObject)
     {
         Assert.InRange(createdObject.Id, 1, int.MaxValue);
-        Assert.Equal(Defaults.NICKNAME, createdObject.Nickname);
     }
 
     #endregion
@@ -42,9 +33,7 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
 
     public static Nick ConstructValidObject()
     {
-        return new Nick {
-            Nickname = Defaults.NICKNAME
-        };
+        return new NickFaker().Generate();
     }
 
     [Fact]

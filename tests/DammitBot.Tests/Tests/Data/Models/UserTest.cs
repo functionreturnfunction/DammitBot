@@ -1,30 +1,17 @@
 ﻿using System;
 using DammitBot.Data.Models;
+using DammitBot.Data.Models.Fakers;
 using Xunit;
 
 namespace DammitBot.Tests.Data.Models;
 
 public class UserTest : ModelWithRequiredFieldsTestBase<User>
 {
-    #region Constants
-
-    public struct Defaults
-    {
-        #region Constants
-
-        public const string USERNAME = "user";
-
-        #endregion
-    }
-
-    #endregion
-
     #region Private Methods
 
     protected override void RunPostCreationAssertions(User createdObject)
     {
         Assert.InRange(createdObject.Id, 1, int.MaxValue);
-        Assert.Equal(Defaults.USERNAME, createdObject.Username);
     }
 
     protected override User ConstructTarget()
@@ -45,10 +32,7 @@ public class UserTest : ModelWithRequiredFieldsTestBase<User>
 
     public static User ConstructValidObject()
     {
-        return new User
-        {
-            Username = Defaults.USERNAME
-        };
+        return new UserFaker().Generate();
     }
 
     [Fact]
