@@ -13,11 +13,5 @@ public class SystemClockDateTimeProvider : IDateTimeProvider
         return DateTime.Now;
     }
 
-    /// <inheritdoc cref="IDateTimeProvider.GetNext"/>
-    public virtual DateTime GetNext(int hour, int minute = 0, int second = 0)
-    {
-        return GetCurrentTime().GetNext(hour, minute, second);
-    }
-
     #endregion
 }

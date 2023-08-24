@@ -2,7 +2,7 @@
 using DammitBot.Data.Models;
 using Xunit;
 
-namespace DammitBot.Tests.Data.Dapper;
+namespace DammitBot.Tests.Data.Models;
 
 public class UserTest : ModelWithRequiredFieldsTestBase<User>
 {

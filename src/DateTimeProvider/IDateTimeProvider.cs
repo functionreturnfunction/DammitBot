@@ -9,7 +9,4 @@ public interface IDateTimeProvider
     /// Get the current <see cref="DateTime"/>.
     /// </summary>
     DateTime GetCurrentTime();
-    
-    /// <inheritdoc cref="DateTimeExtensions.GetNext"/>
-    DateTime GetNext(int hour, int minute = 0, int second = 0);
 }

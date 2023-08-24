@@ -27,9 +27,9 @@ public interface IDataCommandService
     Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class;
     /// <summary>
     /// Retrieve the <typeparamref name="TEntity"/> represented by <paramref name="id"/> from persistent
-    /// data storage. 
+    /// data storage. Return null if entity was not found.
     /// </summary>
-    TEntity Load<TEntity>(int id) where TEntity : class;
+    TEntity? Load<TEntity>(int id) where TEntity : class;
 
     #endregion
 }
