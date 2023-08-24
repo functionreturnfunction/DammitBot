@@ -39,21 +39,6 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
     [Fact]
     public void Test_Create_Timestamp()
     {
-        // var whatevs = uow.ExecuteReader("SELECT * FROM Nicks;");
-        // var sb = new StringBuilder();
-
-        // while (whatevs.Read())
-        // {
-        //     sb.AppendLine("{");
-        //     for (var i = 0; i < whatevs.FieldCount; ++i)
-        //     {
-        //         sb.AppendLine($"'{whatevs.GetName(i)}': {whatevs.GetValue(i)}");
-        //     }
-        //     sb.AppendLine("},");
-        // }
-
-        // var json = sb.ToString();
-
         this.TestSaveWithValidFieldsSetsCreatedAt();
     }
 
