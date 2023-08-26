@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Docfx.App" Version="2.70.0" />
-    <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Data.SQLite\DammitBot.Plugins.Data.SQLite.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Protocols.Console\DammitBot.Plugins.Protocols.Console.csproj" />

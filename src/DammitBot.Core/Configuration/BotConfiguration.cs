@@ -13,5 +13,11 @@ public class BotConfiguration
     /// contain valid regex syntax.
     /// </summary>
     [Required]
-    public string? GoesBy { get; set; }
+    public required string? GoesBy { get; set; }
+    /// <summary>
+    /// Optional array of strings which will be used as globs to ignore plugin assemblies.  Be careful
+    /// with this value, as it's very possible to end up ignoring plugin assemblies which are required by
+    /// other plugin assemblies which haven't been ignored.
+    /// </summary>
+    public string[]? IgnoreAssemblies { get; set; }
 }

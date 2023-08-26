@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using DammitBot.Configuration;
+using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.Utilities;
 
@@ -13,6 +16,7 @@ public class AssemblyTypeService : IAssemblyTypeService
 
     private Assembly? _mainAssembly;
     private IEnumerable<Assembly>? _pluginAssemblies;
+    private readonly Matcher? _ignoreDllMatcher;
 
     #endregion
 
@@ -22,6 +26,23 @@ public class AssemblyTypeService : IAssemblyTypeService
 
     #endregion
 
+    #region Constructors
+
+    /// <summary>
+    /// Constructor for the <see cref="AssemblyTypeService"/> class.
+    /// </summary>
+    public AssemblyTypeService(IOptions<BotConfiguration> botConfiguration)
+    {
+        var config = botConfiguration.Value;
+        if (config.IgnoreAssemblies != null)
+        {
+            _ignoreDllMatcher = new();
+            _ignoreDllMatcher.AddIncludePatterns(config.IgnoreAssemblies);
+        }
+    }
+    
+    #endregion
+    
     #region Private Methods
 
     /// <summary>
@@ -34,11 +55,16 @@ public class AssemblyTypeService : IAssemblyTypeService
             "DammitBot.Plugins.*.dll");
     }
 
+    private bool ShouldIgnore(string dllPath)
+    {
+        return _ignoreDllMatcher?.Match(dllPath).HasMatches ?? false;
+    }
+
     private IEnumerable<Assembly> InnerGetPluginAssemblies()
     {
         var dlls = FindPluginDllPaths();
 
-        foreach (var dll in dlls)
+        foreach (var dll in dlls.Where(d => !ShouldIgnore(d)))
         {
             yield return LoadAssembly(dll);
         }
