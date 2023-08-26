@@ -2,18 +2,31 @@ using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.Utilities;
 using Lamar;
+using Lamar.Microsoft.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace DammitBot.Tests.IoC;
 
-public class DammitBotContainerConfigurationTest : InMemoryDatabaseUnitTestBase<IContainer>
+public class DammitBotContainerConfigurationTest : UnitTestBase<IContainer>
 {
+    protected override IContainer CreateContainer()
+    {
+        var host = Host
+            .CreateDefaultBuilder()
+            .UseLamar(ConfigureContainer)
+            .Build();
+
+        return host.Services.GetRequiredService<IContainer>();
+    }
+
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
-        base.ConfigureContainer(serviceRegistry);
-        
         new DammitBotContainerConfiguration().Configure(serviceRegistry);
+
+        base.ConfigureContainer(serviceRegistry);
     }
 
     private void AssertSingleton<TIType, TType>()

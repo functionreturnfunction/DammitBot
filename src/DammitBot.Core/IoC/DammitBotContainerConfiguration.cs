@@ -6,6 +6,7 @@ using DammitBot.Utilities;
 using DateTimeProvider;
 using Lamar;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.IoC;
 
@@ -18,20 +19,22 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 {
     #region Private Methods
 
-    private static IAssemblyTypeService InitializePluginConfigurations(ServiceRegistry e)
+    private static IAssemblyTypeService InitializePluginConfigurations(
+        ServiceRegistry e,
+        BotConfiguration botConfiguration)
     {
-        var assemblyService = new AssemblyTypeService();
-
+        var assemblyTypeService = new AssemblyTypeService(botConfiguration);
+        
         foreach (
             var type in
-            assemblyService.GetTypesFromPluginAssemblies()
+            assemblyTypeService.GetTypesFromPluginAssemblies()
                 .Where(t => !t.IsAbstract &&
                             t.IsSubclassOf(typeof(ContainerConfigurationBase))))
         {
             ((ContainerConfigurationBase)Activator.CreateInstance(type)!).Configure(e);
         }
 
-        return assemblyService;
+        return assemblyTypeService;
     }
 
     #endregion
@@ -48,17 +51,19 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
         });
 
         e.For<IBot>().Use<Bot>().Singleton();
+        
+        e.AddOptions<BotConfiguration>()
+            .BindConfiguration("DammitBot")
+            .ValidateDataAnnotations();
 
-        var assemblyService = InitializePluginConfigurations(e);
+        var assemblyService = InitializePluginConfigurations(
+            e,
+            e.BuildServiceProvider().GetRequiredService<IOptions<BotConfiguration>>().Value);
 
         e.For<IAssemblyTypeService>()
             .Use(assemblyService).Singleton();
 
         e.For<IDateTimeProvider>().Use<SystemClockDateTimeProvider>();
-
-        e.AddOptions<BotConfiguration>()
-            .BindConfiguration("DammitBot")
-            .ValidateDataAnnotations();
     }
     
     #endregion
