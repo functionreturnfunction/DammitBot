@@ -21,7 +21,7 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 
     private static IAssemblyTypeService InitializePluginConfigurations(
         ServiceRegistry e,
-        BotConfiguration botConfiguration)
+        IOptions<BotConfiguration> botConfiguration)
     {
         var assemblyTypeService = new AssemblyTypeService(botConfiguration);
         
@@ -58,7 +58,7 @@ public class DammitBotContainerConfiguration : ContainerConfigurationBase
 
         var assemblyService = InitializePluginConfigurations(
             e,
-            e.BuildServiceProvider().GetRequiredService<IOptions<BotConfiguration>>().Value);
+            e.BuildServiceProvider().GetRequiredService<IOptions<BotConfiguration>>());
 
         e.For<IAssemblyTypeService>()
             .Use(assemblyService).Singleton();

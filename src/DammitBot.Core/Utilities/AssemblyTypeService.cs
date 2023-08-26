@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using DammitBot.Configuration;
 using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.Extensions.Options;
 
 namespace DammitBot.Utilities;
 
@@ -30,12 +31,13 @@ public class AssemblyTypeService : IAssemblyTypeService
     /// <summary>
     /// Constructor for the <see cref="AssemblyTypeService"/> class.
     /// </summary>
-    public AssemblyTypeService(BotConfiguration botConfiguration)
+    public AssemblyTypeService(IOptions<BotConfiguration> botConfiguration)
     {
-        if (botConfiguration.IgnoreAssemblies != null)
+        var config = botConfiguration.Value;
+        if (config.IgnoreAssemblies != null)
         {
             _ignoreDllMatcher = new();
-            _ignoreDllMatcher.AddIncludePatterns(botConfiguration.IgnoreAssemblies);
+            _ignoreDllMatcher.AddIncludePatterns(config.IgnoreAssemblies);
         }
     }
     

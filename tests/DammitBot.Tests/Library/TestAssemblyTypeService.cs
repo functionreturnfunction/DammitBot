@@ -10,7 +10,7 @@ public class TestAssemblyTypeService : AssemblyTypeService
     private readonly bool _includeActualPlugins;
 
     public TestAssemblyTypeService(bool includeActualPlugins = true)
-        : base(new BotConfiguration {GoesBy = string.Empty})
+        : base(new MockOptions<BotConfiguration>().Object)
     {
         _includeActualPlugins = includeActualPlugins;
     }
