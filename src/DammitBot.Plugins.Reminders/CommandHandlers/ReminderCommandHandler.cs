@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Chronic.Core;
 using DammitBot.Data.Models;
 using DammitBot.Data.Repositories;
 using DammitBot.Events;
@@ -7,7 +8,6 @@ using DammitBot.Library;
 using DammitBot.Metadata;
 using DammitBot.Utilities;
 using DateTimeProvider;
-using DateTimeStringParser;
 
 namespace DammitBot.CommandHandlers;
 
@@ -32,8 +32,8 @@ public class ReminderCommandHandler : CommandHandlerBase
 
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
     private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly IDateTimeStringParser _dateTimeStringParser;
     private readonly IReminderTextGenerator _reminderTextGenerator;
+    private readonly Parser _dateTimeStringParser;
 
     #endregion
 
@@ -46,7 +46,7 @@ public class ReminderCommandHandler : CommandHandlerBase
         IBot bot,
         IUnitOfWorkFactory unitOfWorkFactory,
         IDateTimeProvider dateTimeProvider,
-        IDateTimeStringParser dateTimeStringParser,
+        Parser dateTimeStringParser,
         IReminderTextGenerator reminderTextGenerator) : base(bot)
     {
         _unitOfWorkFactory = unitOfWorkFactory;
@@ -100,9 +100,10 @@ public class ReminderCommandHandler : CommandHandlerBase
         var targetStr = match.Groups[1].Value;
         var reminder = match.Groups[2].Value;
         var timeStr = match.Groups[3].Value;
+        var when = _dateTimeStringParser
+            .Parse(timeStr, new Options { Clock = () => _dateTimeProvider.GetCurrentTime() }); 
 
-        if (!_dateTimeStringParser
-                .TryParse(_dateTimeProvider.GetCurrentTime(), timeStr, out var when))
+        if (when == null || !when.Start.HasValue)
         {
             Bot.ReplyToMessage(e, $"Cannot parse time string '{timeStr}'");
             return;
@@ -117,10 +118,10 @@ public class ReminderCommandHandler : CommandHandlerBase
             return;
         }
 
-        CreateReminder(reminder, e.From.User!, target, when!.Value, uow);
+        CreateReminder(reminder, e.From.User!, target, when.Start!.Value, uow);
         uow.Commit();
 
-        Bot.ReplyToMessage(e, $"Reminder set for {when}");
+        Bot.ReplyToMessage(e, $"Reminder set for {when.Start.Value}");
     }
 
     #endregion

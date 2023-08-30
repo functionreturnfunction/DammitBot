@@ -5,8 +5,12 @@
     <ProjectReference Include="..\DammitBot.Plugins.Data.Dapper\DammitBot.Plugins.Data.Dapper.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Commands\DammitBot.Plugins.Commands.csproj" />
-    <ProjectReference Include="..\DateTimeStringParser\DateTimeStringParser.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Chronic.Core" Version="0.4.0" />
+  </ItemGroup>
+
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>

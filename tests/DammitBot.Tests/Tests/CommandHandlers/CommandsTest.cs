@@ -43,6 +43,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
             uow.Commit();
         });
+        
+        _dateTimeProvider.SetCurrentTime(_now = _now.Date);
     }
 
     #endregion
@@ -100,13 +102,15 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     [Fact]
     public void Test_BotRemindMe_CausesReminderyThingsToHappen()
     {
+        var expectedResponse = $"Reminder set for {_now.AddMinutes(1)}";
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
-        var args = _target.TestCommand("remind me to do things in 1 minute", _nickWithUser);
 
+        var args = _target.TestCommand("remind me to do things in 1 minute", _nickWithUser);
+        
         _bot.Verify(x =>
             x.ReplyToMessage(
                 It.IsAny<MessageEventArgs>(),
-                $"Reminder set for {_now.AddMinutes(1)}"));
+                expectedResponse));
 
         var afterCount = _connection.QuerySingle<int>("select count(*) from Reminders");
 
@@ -117,13 +121,14 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     public void Test_BotRemindOtherUser_AlsoCausesReminderyThingsToHappen()
     {
         var beforeCount = _connection.QuerySingle<int>("select count(*) from Reminders");
+
         var args = _target.TestCommand(
             $"remind {_otherUser.Username} to do things in 1 minute",
             _nickWithUser);
-
+        
         _bot.Verify(x =>
             x.ReplyToMessage(
-                It.IsAny<MessageEventArgs>(),
+                It.IsAny<CommandEventArgs>(),
                 $"Reminder set for {_now.AddMinutes(1)}"));
 
         var afterCount = _connection.QuerySingle<int>("select count(*) from Reminders");

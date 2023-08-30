@@ -9,7 +9,7 @@ public class TestDateTimeProvider : SystemClockDateTimeProvider
 {
     #region Private Members
 
-    private readonly DateTime _now;
+    private DateTime _now;
 
     #endregion
 
@@ -35,6 +35,15 @@ public class TestDateTimeProvider : SystemClockDateTimeProvider
     public override DateTime GetCurrentTime()
     {
         return _now;
+    }
+
+    /// <summary>
+    /// Set the value that this implementation's <see cref="GetCurrentTime"/> method will return to the
+    /// provided value <paramref name="now"/>.
+    /// </summary>
+    public void SetCurrentTime(DateTime now)
+    {
+        _now = now;
     }
 
     #endregion
