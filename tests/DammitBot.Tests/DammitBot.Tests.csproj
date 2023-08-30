@@ -47,7 +47,6 @@
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />
-    <ProjectReference Include="..\..\src\DateTimeStringParser\DateTimeStringParser.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Dapper\DammitBot.Plugins.Reminders.Dapper.csproj" />
   </ItemGroup>
 

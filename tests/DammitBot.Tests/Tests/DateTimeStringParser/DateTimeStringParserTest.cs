@@ -5,15 +5,15 @@ using Xunit;
 
 namespace DammitBot.Tests.DateTimeStringParser;
 
-public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParser.DateTimeStringParser>
+public class DateTimeStringParserTest : UnitTestBase<DammitBot.Utilities.DateTimeStringParser>
 {
     #region Private Methods
-
+    
     private void TestTryParse(string input, DateTime expected)
     {
-        Assert.True(_target.TryParse(_now, input, out var result));
+        var result = _target.Parse(input);
         Assert.NotNull(result);
-        Assert.Equal(result!.Value, expected);
+        Assert.Equal(expected, result);
     }
 
     #endregion
@@ -47,22 +47,21 @@ public class DateTimeStringParserTest : UnitTestBase<global::DateTimeStringParse
     [Fact]
     public void Test_Tomorrow_ReturnsTomorrow()
     {
-        TestTryParse("tomorrow", _now.AddDays(1));
+        TestTryParse("tomorrow", _now.AddHours(24));
     }
 
     [Theory]
-    [InlineData("at 10:30", 10, 30)]
-    [InlineData("at 12", 12, 00)]
+    [InlineData("at 10:30 am", 10, 30)]
+    [InlineData("at 12 noon", 12, 00)]
     public void Test_AtX_DoesThatThing(string input, int hour, int minute)
     {
         TestTryParse(input, _now.GetNext(hour, minute));
     }
 
     [Fact]
-    public void Test_UnparsableValue_ReturnsFalse()
+    public void Test_UnparsableValue_ReturnsNull()
     {
-        Assert.False(_target.TryParse(_now, "at the end of the universe", out var result));
-        Assert.Null(result);
+        Assert.Null(_target.Parse("at the end of the universe"));
     }
 
     #endregion

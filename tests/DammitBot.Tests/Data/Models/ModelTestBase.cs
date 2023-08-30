@@ -23,7 +23,7 @@ public abstract class ModelTestBase<TModel> : InMemoryDatabaseUnitTestBase<TMode
 
     public TModel CreateValidObject()
     {
-        var valid = ConstructTarget();
+        var valid = CreateTarget();
 
         WithUnitOfWork(uow => {
             valid.Id = Convert.ToInt32(uow.Insert(valid));

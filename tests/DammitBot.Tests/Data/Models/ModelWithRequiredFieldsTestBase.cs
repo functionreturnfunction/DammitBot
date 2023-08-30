@@ -21,7 +21,7 @@ public abstract class ModelWithRequiredFieldsTestBase<TModel> : ModelTestBase<TM
     {
         foreach (var fn in GetWaysToInvalidate())
         {
-            _target = ConstructTarget();
+            _target = CreateTarget();
 
             fn(_target);
 

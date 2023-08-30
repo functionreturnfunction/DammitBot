@@ -12,7 +12,7 @@ public abstract class CompositeMessageHandlerTestBase<TCompositeHandler, TMessag
 {
     #region Private Methods
 
-    protected override TCompositeHandler ConstructTarget()
+    protected override TCompositeHandler CreateTarget()
     {
         if (_handlers == null)
         {

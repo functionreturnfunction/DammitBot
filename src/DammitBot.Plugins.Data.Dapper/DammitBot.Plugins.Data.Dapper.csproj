@@ -3,7 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DammitBot.Core\DammitBot.Core.csproj" />
     <ProjectReference Include="..\DammitBot.Plugins.Data\DammitBot.Plugins.Data.csproj" />
-    <ProjectReference Include="..\DateTimeStringParser\DateTimeStringParser.csproj" />
   </ItemGroup>
 
   <ItemGroup>
