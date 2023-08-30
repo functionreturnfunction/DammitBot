@@ -42,7 +42,7 @@ public class Console : IConsole
     
     #endregion
     
-    #region Events
+    #region Events/Delegates
 
     /// <inheritdoc />
     public virtual event EventHandler<MessageEventArgs>? ChannelMessageReceived;

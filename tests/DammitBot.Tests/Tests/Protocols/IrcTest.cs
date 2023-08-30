@@ -48,7 +48,7 @@ public class IrcTest : UnitTestBase<Irc>
         };
         _target.Initialize();
         
-        _client!.Raise(x => x.ChannelMessageReceived += null, message);
+        _client!.Raise(x => x.MessageReceived += null, message);
         
         Assert.True(bubbled);
     }
