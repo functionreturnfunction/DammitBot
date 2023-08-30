@@ -21,7 +21,7 @@ public class InstantiationServiceTest : UnitTestBase<InstantiationService>
         return _mockContainer.Object;
     }
 
-    protected override InstantiationService ConstructTarget()
+    protected override InstantiationService CreateTarget()
     {
         return new InstantiationService(_mockContainer!.Object);
     }

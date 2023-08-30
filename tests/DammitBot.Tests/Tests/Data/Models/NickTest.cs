@@ -10,7 +10,7 @@ public class NickTest : ModelWithRequiredFieldsTestBase<Nick>
 {
     #region Private Methods
 
-    protected override Nick ConstructTarget()
+    protected override Nick CreateTarget()
     {
         return ConstructValidObject();
     }

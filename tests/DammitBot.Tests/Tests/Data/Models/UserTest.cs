@@ -14,7 +14,7 @@ public class UserTest : ModelWithRequiredFieldsTestBase<User>
         Assert.InRange(createdObject.Id, 1, int.MaxValue);
     }
 
-    protected override User ConstructTarget()
+    protected override User CreateTarget()
     {
         return ConstructValidObject();
     }

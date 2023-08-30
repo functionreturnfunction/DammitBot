@@ -24,7 +24,7 @@ public class MessageTest : ModelWithRequiredFieldsTestBase<Message>
 
     #region Private Methods
 
-    protected override Message ConstructTarget()
+    protected override Message CreateTarget()
     {
         var nick = NickTest.ConstructValidObject();
         WithUnitOfWork(uow => {

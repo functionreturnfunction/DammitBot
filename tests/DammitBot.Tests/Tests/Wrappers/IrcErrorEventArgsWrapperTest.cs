@@ -10,7 +10,7 @@ public class IrcErrorEventArgsWrapperTest : UnitTestBase<IrcErrorEventArgsWrappe
 {
     private Exception? _wrappedException;
     
-    protected override IrcErrorEventArgsWrapper ConstructTarget()
+    protected override IrcErrorEventArgsWrapper CreateTarget()
     {
         return new IrcErrorEventArgsWrapper(new IrcErrorEventArgs(_wrappedException = new Exception()));
     }

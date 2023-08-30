@@ -13,7 +13,7 @@ public class IrcRawMessageEventArgsWrapperTest : UnitTestBase<IrcRawMessageEvent
     private const string MESSAGE = "blah blah blah";
     private const string NICK = "somebody";
 
-    protected override IrcRawMessageEventArgsWrapper ConstructTarget()
+    protected override IrcRawMessageEventArgsWrapper CreateTarget()
     {
         var source = new Mock<IIrcMessageSource>();
         source.Setup(x => x.Name).Returns(NICK);

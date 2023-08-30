@@ -54,7 +54,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
 
     protected virtual void ExtraSetup() {}
 
-    protected virtual TTarget ConstructTarget()
+    protected virtual TTarget CreateTarget()
     {
         return _container.GetInstance<TTarget>();
     }
@@ -69,7 +69,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
 
         ExtraSetup();
 
-        _target = ConstructTarget();
+        _target = CreateTarget();
     }
 
     public virtual void Dispose()

@@ -10,7 +10,7 @@ public class ReminderTest : ModelWithRequiredFieldsTestBase<Reminder>
 {
     #region Private Methods
 
-    protected override Reminder ConstructTarget()
+    protected override Reminder CreateTarget()
     {
         var user = UserTest.ConstructValidObject();
         WithUnitOfWork(uow => {
