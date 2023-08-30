@@ -5,7 +5,7 @@ using Lamar.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DammitBot.Console;
+namespace DammitBot;
 
 class Program
 {
