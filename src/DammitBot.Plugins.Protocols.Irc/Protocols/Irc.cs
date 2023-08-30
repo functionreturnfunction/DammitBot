@@ -21,7 +21,7 @@ public class Irc : IIrc
     #region Private Members
 
     private readonly IIrcClientFactory _ircClientFactory;
-    private readonly ILogger _log;
+    private readonly ILogger<Irc> _log;
     private readonly IrcConfiguration _config;
     private IIrcClient? _irc;
 
