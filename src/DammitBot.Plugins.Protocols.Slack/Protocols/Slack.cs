@@ -90,16 +90,17 @@ public class Slack : ISlack
         
         _slack.Dispose();
     }
+    
     /// <inheritdoc />
     public void SayToAll(string message)
     {
-        throw new NotImplementedException();
+        _slack!.SendMessage(message);
     }
 
     /// <inheritdoc />
     public void SayToChannel(string channel, string message)
     {
-        throw new NotImplementedException();
+        _slack!.SendMessage(message, channel);
     }
     
     #endregion

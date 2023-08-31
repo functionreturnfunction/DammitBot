@@ -2,6 +2,7 @@ using DammitBot.Events;
 using DammitBot.Library;
 using SlackNet;
 using SlackNet.Events;
+using SlackNet.WebApi;
 
 namespace DammitBot.Wrappers;
 
@@ -52,7 +53,16 @@ public class SlackClientWrapper : ISlackClient, IEventHandler<MessageEvent>
     /// <inheritdoc />
     public void SendMessage(string message, params string[] targets)
     {
-        throw new NotImplementedException();
+        if (!targets.Any())
+        {
+            targets = _apiClient.Users.Conversations().Result.Channels
+                .Select(c => c.Name).ToArray();
+        }
+        
+        foreach (var target in targets)
+        {
+            _apiClient.Chat.PostMessage(new Message { Text = message, Channel = target });
+        }
     }
 
     /// <summary>
@@ -67,7 +77,7 @@ public class SlackClientWrapper : ISlackClient, IEventHandler<MessageEvent>
 
     /// <inheritdoc />
     /// <remarks>
-    /// This implementation disconnects and disposes of the <see cref="ISlackSocketModeClient"/> instance.
+    /// This implementation disposes of the wrapped <see cref="ISlackSocketModeClient"/> instance.
     /// </remarks>
     public void Dispose()
     {
