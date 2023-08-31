@@ -19,6 +19,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
     private Mock<IConsole>? _console;
     private Mock<IIrc>? _irc;
+    private Mock<ISlack>? _slack;
     private TestProtocol _testProtocol;
     private readonly MessageEventArgs _args;
 
@@ -39,6 +40,7 @@ public class ProtocolServiceTest : UnitTestBase<ProtocolService>
 
         _console = serviceRegistry.For<IConsole>().Mock();
         _irc = serviceRegistry.For<IIrc>().Mock();
+        _slack = serviceRegistry.For<ISlack>().Mock();
         serviceRegistry.For<IInstantiationService>().Use<InstantiationService>();
         serviceRegistry.For<IAssemblyTypeService>().Use<TestAssemblyTypeService>();
     }

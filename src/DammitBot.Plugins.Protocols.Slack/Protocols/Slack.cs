@@ -94,12 +94,26 @@ public class Slack : ISlack
     /// <inheritdoc />
     public void SayToAll(string message)
     {
+        if (_slack == null)
+        {
+            throw new InvalidOperationException(
+                $"A {nameof(Slack)} instance cannot be used before {nameof(Initialize)} has " +
+                "been called on it");
+        }
+            
         _slack!.SendMessage(message);
     }
 
     /// <inheritdoc />
     public void SayToChannel(string channel, string message)
     {
+        if (_slack == null)
+        {
+            throw new InvalidOperationException(
+                $"A {nameof(Slack)} instance cannot be used before {nameof(Initialize)} has " +
+                "been called on it");
+        }
+            
         _slack!.SendMessage(message, channel);
     }
     

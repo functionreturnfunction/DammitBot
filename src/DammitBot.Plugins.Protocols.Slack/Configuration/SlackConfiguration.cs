@@ -12,11 +12,11 @@ public class SlackConfiguration
     /// the "Basic Information" tab, down past "App Credentials".
     /// </summary>
     [Required]
-    public string AppLevelToken { get; set; }
+    public string AppLevelToken { get; init; }
     /// <summary>
     /// Api Tokens also seem to be called "Bot Tokens", and can be found in the api.slack.com page for
     /// your app under the "Install App" tab, called "Bot User OAuth Token".
     /// </summary>
     [Required]
-    public string ApiToken { get; set; }
+    public string ApiToken { get; init; }
 }
