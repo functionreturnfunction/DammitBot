@@ -71,11 +71,6 @@ public class SlackClientWrapper : ISlackClient, IEventHandler<MessageEvent>
     /// </remarks>
     public void Dispose()
     {
-        if (_socketClient.Connected)
-        {
-            _socketClient.Disconnect();
-        }
-
         _socketClient.Dispose();
     }
     
