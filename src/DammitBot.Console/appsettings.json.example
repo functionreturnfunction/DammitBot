@@ -4,13 +4,24 @@
     },
 
     "Data": {
-        "connectionString": "..\\..\\db\\dev.db"
+        "connectionString": "..\\..\\..\\..\\..\\db\\dev.db"
     },
 
     "Irc": {
-        "server": "irc-server",
-        "nick": "DammitBot",
-        "user": "DammitBot",
-        "channels": "#DammitBot"
+        "server": "",
+        "nick": "",
+        "user": "",
+        "channels": [""]
+    }
+
+    "Slack": {
+        "appLevelToken": "",
+        "apiToken": ""
+    },
+
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information"
+        }
     }
 }
