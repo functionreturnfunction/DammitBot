@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using DammitBot.Events;
 using DammitBot.Library;
 using SlackNet;
@@ -7,6 +8,7 @@ using SlackNet.WebApi;
 namespace DammitBot.Wrappers;
 
 /// <inheritdoc cref="ISlackClient"/>
+[ExcludeFromCodeCoverage]
 public class SlackClientWrapper : ISlackClient, IEventHandler<MessageEvent>
 {
     #region Private Members
@@ -21,7 +23,6 @@ public class SlackClientWrapper : ISlackClient, IEventHandler<MessageEvent>
     /// <summary>
     /// Constructor for the <see cref="SlackClientWrapper"/> class.
     /// </summary>
-    /// <param name="builder"></param>
     public SlackClientWrapper(SlackServiceBuilder builder)
     {
         builder.RegisterEventHandler(ctx => this);

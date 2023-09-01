@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using SlackNet;
 using ILogger = SlackNet.ILogger;
@@ -9,6 +10,7 @@ namespace DammitBot.Wrappers;
 /// <see cref="ILogger{SlackServiceBuilder}"/> instance to facilitate logging for the internals of
 /// SlackNet's services.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class SlackNetLoggerWrapper : ILogger
 {
     #region Private Members
@@ -22,6 +24,9 @@ public class SlackNetLoggerWrapper : ILogger
     /// <summary>
     /// Constructor for the <see cref="SlackNetLoggerWrapper"/> class.
     /// </summary>
+    // this logger is actually being passed to a SlackServiceBuilder for logging throughout any clients it
+    // builds
+    // ReSharper disable once ContextualLoggerProblem
     public SlackNetLoggerWrapper(ILogger<SlackServiceBuilder> log)
     {
         _log = log;

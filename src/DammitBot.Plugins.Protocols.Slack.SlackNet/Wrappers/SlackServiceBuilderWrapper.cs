@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using DammitBot.Configuration;
 using DammitBot.Library;
 using Microsoft.Extensions.Options;
@@ -9,6 +10,7 @@ namespace DammitBot.Wrappers;
 /// <see cref="ISlackClientFactory"/> implementation which wraps a <see cref="SlackServiceBuilder"/>
 /// instance for the purposes of instantiating SlackNet services wrapped as a <see cref="ISlackClient"/>.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class SlackServiceBuilderWrapper : ISlackClientFactory
 {
     #region Private Members
