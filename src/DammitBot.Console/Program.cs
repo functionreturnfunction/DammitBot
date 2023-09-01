@@ -5,26 +5,14 @@ using Lamar.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DammitBot;
-
-class Program
-{
-    public static IHostBuilder CreateHostBuilder()
+using var host = Host
+    .CreateDefaultBuilder()
+    .UseLamar(serviceRegistry =>
     {
-        return Host
-            .CreateDefaultBuilder()
-            .UseLamar(serviceRegistry =>
-            {
-                serviceRegistry.For<IMainLoop>().Use<MainLoop>();
-                new DammitBotContainerConfiguration().Configure(serviceRegistry);
-            });
-    }
-
-    static void Main(string[] args)
-    {
-        using var host = CreateHostBuilder().Build();
-        using var loop = host.Services.GetRequiredService<IMainLoop>();
+        serviceRegistry.For<IMainLoop>().Use<MainLoop>();
+        new DammitBotContainerConfiguration().Configure(serviceRegistry);
+    })
+    .Build();
+using var loop = host.Services.GetRequiredService<IMainLoop>();
         
-        loop.Run();
-    }
-}
+loop.Run();
