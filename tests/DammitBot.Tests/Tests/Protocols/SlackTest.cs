@@ -24,7 +24,7 @@ public class SlackTest : ProtocolTestBase<Slack, ISlackClient, ISlackClientFacto
 
         _target.Cleanup();
         
-        _client!.Verify(x => x.Dispose());
+        _client.Verify(x => x.Dispose());
     }
 
     [Fact]
