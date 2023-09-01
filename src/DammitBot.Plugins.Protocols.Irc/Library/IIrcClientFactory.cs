@@ -1,16 +1,6 @@
-﻿namespace DammitBot.Library;
+﻿using DammitBot.Abstract;
 
-/// <summary>
-/// Factory responsible for building <see cref="IIrcClient"/> instances.
-/// </summary>
-public interface IIrcClientFactory
-{
-    #region Abstract Methods
+namespace DammitBot.Library;
 
-    /// <summary>
-    /// Build and return an <see cref="IIrcClient"/> instance.
-    /// </summary>
-    IIrcClient Build();
-
-    #endregion
-}
+/// <inheritdoc />
+public interface IIrcClientFactory : IProtocolClientFactory<IIrcClient> { }

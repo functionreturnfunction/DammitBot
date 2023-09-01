@@ -28,6 +28,8 @@ public class AssemblyServiceTest : UnitTestBase<AssemblyTypeService>
             "DammitBot.Plugins.Reminders.Dapper",
             "DammitBot.Plugins.Reminders.Migrations",
             "DammitBot.Plugins.Scheduling",
+            "DammitBot.Plugins.Protocols.Slack",
+            "DammitBot.Plugins.Protocols.Slack.SlackNet",
         };
 
         var types = _target.GetTypesFromAllAssemblies();

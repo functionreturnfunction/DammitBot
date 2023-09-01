@@ -57,7 +57,7 @@ public class IrcClientWrapper : IIrcClient
             return;
         }
         
-        ChannelMessageReceived?.Invoke(sender, new IrcRawMessageEventArgsWrapper(e));
+        MessageReceived?.Invoke(sender, new IrcRawMessageEventArgsWrapper(e));
     }
 
     private void InnerClient_ConnectionComplete(object? sender, EventArgs e)
@@ -82,7 +82,7 @@ public class IrcClientWrapper : IIrcClient
     #region Events/Delegates
 
     /// <inheritdoc />
-    public event EventHandler<MessageEventArgs>? ChannelMessageReceived;
+    public event EventHandler<MessageEventArgs>? MessageReceived;
 
     /// <inheritdoc />
     public event EventHandler? ReadyToJoinChannels;

@@ -44,6 +44,8 @@
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Console\DammitBot.Plugins.Protocols.Console.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Irc.IrcDotNet\DammitBot.Plugins.Protocols.Irc.IrcDotNet.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Irc\DammitBot.Plugins.Protocols.Irc.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Slack.SlackNet\DammitBot.Plugins.Protocols.Slack.SlackNet.csproj" />
+    <ProjectReference Include="..\..\src\DammitBot.Plugins.Protocols.Slack\DammitBot.Plugins.Protocols.Slack.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders.Migrations\DammitBot.Plugins.Reminders.Migrations.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Reminders\DammitBot.Plugins.Reminders.csproj" />
     <ProjectReference Include="..\..\src\DammitBot.Plugins.Scheduling\DammitBot.Plugins.Scheduling.csproj" />

@@ -14,14 +14,14 @@ public class Irc : IIrc
     #region Constants
 
     /// <inheritdoc cref="Name" />
-    public const string PROTOCOL_NAME = "Irc";
+    public const string PROTOCOL_NAME = nameof(Irc);
 
     #endregion
 
     #region Private Members
 
     private readonly IIrcClientFactory _ircClientFactory;
-    private readonly ILogger _log;
+    private readonly ILogger<Irc> _log;
     private readonly IrcConfiguration _config;
     private IIrcClient? _irc;
 
@@ -53,7 +53,7 @@ public class Irc : IIrc
 
     #region Event Handlers
 
-    private void Irc_ChannelMessageReceived(object? sender, MessageEventArgs e)
+    private void IrcMessageReceived(object? sender, MessageEventArgs e)
     {
         _log.LogReceivedMessage(e);
         ChannelMessageReceived?.Invoke(sender, e);
@@ -122,13 +122,13 @@ public class Irc : IIrc
         
         _irc = _ircClientFactory.Build();
         _irc.ReadyToJoinChannels += Irc_ReadyToJoinChannels;
-        _irc.ChannelMessageReceived += Irc_ChannelMessageReceived;
+        _irc.MessageReceived += IrcMessageReceived;
         _irc.Connect();
     }
 
     /// <inheritdoc />
     /// <remarks>
-    /// This implementation disposes of the wrapped <see cref="_irc"/> implementation.
+    /// This implementation disposes of the wrapped <see cref="IIrcClient"/> implementation.
     /// </remarks>
     public virtual void Cleanup()
     {

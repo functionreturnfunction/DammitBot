@@ -24,7 +24,7 @@ public class ReminderJob : IJob
     private readonly IBot _bot;
     private readonly IUnitOfWorkFactory _unitOfWorkFactory;
     private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly ILogger _log;
+    private readonly ILogger<ReminderJob> _log;
 
     #endregion
 
