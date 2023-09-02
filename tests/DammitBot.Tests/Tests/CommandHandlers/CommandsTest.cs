@@ -17,8 +17,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region Private Members
 
     private Mock<IBot> _bot;
-    private User _user, _otherUser;
-    private Nick _nickWithUser;
+    private User _user, _otherUser, _adminUser;
+    private Nick _nickWithUser, _nickWithAdminUser;
 
     #endregion
 
@@ -37,10 +37,18 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
             _otherUser = userFaker.Generate();
             _otherUser.Id = Convert.ToInt32(uow.Insert(_otherUser));
 
+            _adminUser = userFaker.Generate();
+            _adminUser.IsAdmin = true;
+            _adminUser.Id = Convert.ToInt32(uow.Insert(_adminUser));
+
             _nickWithUser = nickFaker.Generate();
             _nickWithUser.User = _user;
             _nickWithUser.Id = Convert.ToInt32(uow.Insert(_nickWithUser));
 
+            _nickWithAdminUser = nickFaker.Generate();
+            _nickWithAdminUser.User = _adminUser;
+            _nickWithAdminUser.Id = Convert.ToInt32(uow.Insert(_nickWithAdminUser));
+            
             uow.Commit();
         });
         
@@ -66,11 +74,19 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region bot die
 
     [Fact]
-    public void Test_BotDie_CausesBotToDie()
+    public void Test_BotDie_CausesBotToDie_WhenUserIsAdmin()
+    {
+        _target.TestCommand("die", _nickWithAdminUser);
+
+        _bot.Verify(x => x.Die());
+    }
+
+    [Fact]
+    public void Test_BotDie_DoesNotCauseBotToDie_WhenUserIsNotAdmin()
     {
         _target.TestCommand("die", _nickWithUser);
 
-        _bot.Verify(x => x.Die());
+        _bot.Verify(x => x.Die(), Times.Never);
     }
     
     #endregion

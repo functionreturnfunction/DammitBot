@@ -17,6 +17,11 @@ public class User : IEntityWithTimestamps
     /// Username of the bot system user.
     /// </summary>
     public virtual required string Username { get; set; }
+    /// <summary>
+    /// Boolean value indicating whether or not the user is an admin which can do special things that
+    /// non-admins can't.
+    /// </summary>
+    public bool IsAdmin { get; set; }
 
     /// <inheritdoc/>
     public virtual DateTime CreatedAt { get; set; }
