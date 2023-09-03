@@ -3,6 +3,7 @@ using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
 using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
+using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using Dapper;
@@ -62,9 +63,9 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
         base.ConfigureContainer(serviceRegistry);
-
-        serviceRegistry.For<ICommandHandlerTypeService>()
-            .Use<UnknownCommandHandlerTypeAwareCommandHandlerTypeService>();
+        
+        new CommandsPluginContainerConfiguration().Configure(serviceRegistry);
+        new HelpCommandContainerConfiguration().Configure(serviceRegistry);
 
         _bot = serviceRegistry.For<IBot>().Mock();
     }

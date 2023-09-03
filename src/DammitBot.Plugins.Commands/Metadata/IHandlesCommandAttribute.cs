@@ -18,11 +18,5 @@ public interface IHandlesCommandAttribute : IHandlesMessageAttribute
     /// </summary>
     string Description { get; }
     
-    /// <summary>
-    /// Boolean value indicating whether or not the command being handled should only be accessible to
-    /// users who are admins. 
-    /// </summary>
-    bool AdminOnly { get; }
-    
     #endregion
 }

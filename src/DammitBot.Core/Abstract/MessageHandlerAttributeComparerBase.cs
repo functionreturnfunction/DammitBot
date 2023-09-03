@@ -1,4 +1,5 @@
 using System;
+using DammitBot.Events;
 using DammitBot.Metadata;
 
 namespace DammitBot.Abstract;
@@ -24,11 +25,21 @@ public class MessageHandlerAttributeComparerBase<TAttributeBase>
     #region Exposed Methods
 
     /// <inheritdoc cref="IMessageHandlerAttributeComparer{TAttributeBase}.MessageMatches" />
-    public virtual bool MessageMatches(string message, Type handlerType)
+    public virtual bool MessageMatches(MessageEventArgs message, Type handlerType)
     {
+        if (message.Message == null)
+        {
+            return false;
+        }
+        
         var attribute = GetAttribute(handlerType);
 
-        return attribute.Regex.IsMatch(message);
+        if (attribute.AdminOnly && !message.UserIsAdmin)
+        {
+            return false;
+        }
+
+        return attribute.Regex.IsMatch(message.Message);
     }
 
     #endregion

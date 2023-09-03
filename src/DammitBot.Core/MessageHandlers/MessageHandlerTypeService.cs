@@ -28,11 +28,4 @@ public class MessageHandlerTypeService
         : base(assemblyTypeService, attributeComparer) {}
 
     #endregion
-
-    #region Private Methods
-
-    /// <inheritdoc cref="MessageHandlerTypeServiceBase{HandlesMessageAttribute,IMessagHandlerAttributeComparer,MessageEventArgs,IMessageHandler}.GetMessageText"/>
-    protected override string? GetMessageText(MessageEventArgs message) => message.Message;
-
-    #endregion
 }

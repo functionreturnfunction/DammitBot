@@ -8,9 +8,6 @@ public class HandlesCommandAttribute : HandlesMessageAttribute, IHandlesCommandA
     /// <inheritdoc />
     public string Description { get; }
     
-    /// <inheritdoc />
-    public bool AdminOnly { get; }
-    
     #endregion
     
     #region Constructors
@@ -18,10 +15,10 @@ public class HandlesCommandAttribute : HandlesMessageAttribute, IHandlesCommandA
     /// <summary>
     /// Constructor for the <see cref="HandlesCommandAttribute"/> class.
     /// </summary>
-    public HandlesCommandAttribute(string rgx, string description, bool adminOnly = false) : base(rgx)
+    public HandlesCommandAttribute(string rgx, string description, bool adminOnly = false)
+        : base(rgx, adminOnly)
     {
         Description = description;
-        AdminOnly = adminOnly;
     }
     
     #endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using DammitBot.Configuration;
+using DammitBot.Events;
 using DammitBot.Metadata;
 using Microsoft.Extensions.Options;
 
@@ -48,13 +49,23 @@ public class CommandAwareMessageHandlerAttributeComparer : MessageHandlerAttribu
     #region Exposed Methods
 
     /// <inheritdoc />
-    public override bool MessageMatches(string message, Type handlerType)
+    public override bool MessageMatches(MessageEventArgs message, Type handlerType)
     {
+        if (message.Message == null)
+        {
+            return false;
+        }
+        
         var attribute = GetAttribute(handlerType);
+
+        if (attribute.AdminOnly && !message.UserIsAdmin)
+        {
+            return false;
+        }
 
         return (attribute is HandlesBotMessageAttribute
             ? GetBotCommandRegex()
-            : attribute.Regex)!.IsMatch(message);
+            : attribute.Regex).IsMatch(message.Message);
     }
 
     #endregion
