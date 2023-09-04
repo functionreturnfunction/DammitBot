@@ -15,4 +15,10 @@ public interface IHandlesMessageAttribute
     /// <see cref="IMessageHandler{MessageEventArgs}"/> implementations.
     /// </summary>
     Regex Regex { get; }
+    
+    /// <summary>
+    /// Boolean value indicating whether or not a message should only be acted upon if the user who sent
+    /// it is an admin.
+    /// </summary>
+    bool AdminOnly { get; }
 }

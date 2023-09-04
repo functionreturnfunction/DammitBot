@@ -37,18 +37,4 @@ public class CommandHandlerTypeService
     }
 
     #endregion
-
-    #region Private Methods
-
-    /// <inheritdoc />
-    /// <remarks>
-    /// This implementation strips the name that the bot goes by from the beginning of the message, so
-    /// that only the text of the command is left.
-    /// </remarks>
-    protected override string GetMessageText(CommandEventArgs message)
-    {
-        return message.GetCommandText(_config);
-    }
-
-    #endregion
 }

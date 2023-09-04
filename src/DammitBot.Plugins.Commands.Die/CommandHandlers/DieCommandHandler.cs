@@ -9,7 +9,8 @@ namespace DammitBot.CommandHandlers;
 /// </summary>
 [HandlesCommand(
     "^die$",
-    "Disconnect from any connected protocols, stop any running services, and shut down the bot.")]
+    "Disconnect from any connected protocols, stop any running services, and shut down the bot.",
+    true)]
 public class DieCommandHandler : CommandHandlerBase
 {
     #region Constants

@@ -32,6 +32,7 @@ IF NOT EXISTS Users (
   Id integer PRIMARY KEY,
   Username text NOT NULL,
   CreatedAt text NOT NULL,
+  IsAdmin bit NOT NULL DEFAULT 0,
   UpdatedAt text,
   UNIQUE (Username)
 );
@@ -69,7 +70,8 @@ IF NOT EXISTS Messages (
         public override void Seed(IUnitOfWork uow)
         {
             var admin = new User {
-                Username = "admin"
+                Username = "admin",
+                IsAdmin = true
             };
             admin.Id = Convert.ToInt32(uow.Insert<User>(admin));
             uow.Insert<Nick>(new Nick {

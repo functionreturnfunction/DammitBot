@@ -15,6 +15,6 @@ public static class MessageEventArgsExtensions
     /// </summary>
     public static string GetCommandText(this MessageEventArgs args, BotConfiguration config)
     {
-        return Regex.Match(args.Message, config.GoesBy + " (.+)").Groups[1].Value;
+        return Regex.Match(args.RawMessage, config.GoesBy + " (.+)").Groups[1].Value;
     }
 }

@@ -1,22 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace DammitBot.Metadata;
 
 /// <inheritdoc cref="IHandlesMessageAttribute"/>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+[DebuggerDisplay("Handles message '{Regex}'{AdminOnly ? \" Admin Only\" : null}")]
 public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
 {
-    #region Private Members
-
-    private readonly string _rgx;
-
-    #endregion
-
     #region Properties
 
     /// <inheritdoc cref="IHandlesMessageAttribute.Regex"/>
-    public Regex Regex => new(_rgx);
+    public Regex Regex { get; }
+    
+    /// <inheritdoc cref="IHandlesMessageAttribute.AdminOnly"/>
+    public bool AdminOnly { get; }
 
     #endregion
 
@@ -25,10 +24,10 @@ public class HandlesMessageAttribute : Attribute, IHandlesMessageAttribute
     /// <summary>
     /// Constructor for the <see cref="HandlesMessageAttribute"/> class.
     /// </summary>
-    /// <param name="rgx"></param>
-    public HandlesMessageAttribute(string rgx)
+    public HandlesMessageAttribute(string rgx, bool adminOnly = false)
     {
-        _rgx = rgx;
+        Regex = new Regex(rgx);
+        AdminOnly = adminOnly;
     }
 
     #endregion

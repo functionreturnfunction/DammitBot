@@ -3,6 +3,7 @@ using DammitBot.CommandHandlers;
 using DammitBot.Data.Models;
 using DammitBot.Data.Models.Fakers;
 using DammitBot.Events;
+using DammitBot.IoC;
 using DammitBot.Library;
 using DammitBot.MessageHandlers;
 using Dapper;
@@ -17,8 +18,8 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region Private Members
 
     private Mock<IBot> _bot;
-    private User _user, _otherUser;
-    private Nick _nickWithUser;
+    private User _user, _otherUser, _adminUser;
+    private Nick _nickWithUser, _nickWithAdminUser;
 
     #endregion
 
@@ -37,10 +38,18 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
             _otherUser = userFaker.Generate();
             _otherUser.Id = Convert.ToInt32(uow.Insert(_otherUser));
 
+            _adminUser = userFaker.Generate();
+            _adminUser.IsAdmin = true;
+            _adminUser.Id = Convert.ToInt32(uow.Insert(_adminUser));
+
             _nickWithUser = nickFaker.Generate();
             _nickWithUser.User = _user;
             _nickWithUser.Id = Convert.ToInt32(uow.Insert(_nickWithUser));
 
+            _nickWithAdminUser = nickFaker.Generate();
+            _nickWithAdminUser.User = _adminUser;
+            _nickWithAdminUser.Id = Convert.ToInt32(uow.Insert(_nickWithAdminUser));
+            
             uow.Commit();
         });
         
@@ -54,9 +63,9 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     protected override void ConfigureContainer(ServiceRegistry serviceRegistry)
     {
         base.ConfigureContainer(serviceRegistry);
-
-        serviceRegistry.For<ICommandHandlerTypeService>()
-            .Use<UnknownCommandHandlerTypeAwareCommandHandlerTypeService>();
+        
+        new CommandsPluginContainerConfiguration().Configure(serviceRegistry);
+        new HelpCommandContainerConfiguration().Configure(serviceRegistry);
 
         _bot = serviceRegistry.For<IBot>().Mock();
     }
@@ -66,11 +75,19 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
     #region bot die
 
     [Fact]
-    public void Test_BotDie_CausesBotToDie()
+    public void Test_BotDie_CausesBotToDie_WhenUserIsAdmin()
+    {
+        _target.TestCommand("die", _nickWithAdminUser);
+
+        _bot.Verify(x => x.Die());
+    }
+
+    [Fact]
+    public void Test_BotDie_DoesNotCauseBotToDie_WhenUserIsNotAdmin()
     {
         _target.TestCommand("die", _nickWithUser);
 
-        _bot.Verify(x => x.Die());
+        _bot.Verify(x => x.Die(), Times.Never);
     }
     
     #endregion
@@ -84,7 +101,24 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         var expected = new[] {
             "This bot responds to the following commands:",
-            "	 (?:dammit )?bot die - Disconnect from any connected protocols, stop any running services, and shut down the bot.",
+            "	 (?:dammit )?bot help( .+)? - Get usage information for the available bot commands.",
+            "	 (?:dammit )?bot remind ([\\s]+).+ - Set reminders; messages which the bot will send to a user or channel at a predefined point in the future."
+        };
+
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<CommandEventArgs>(),
+                string.Join(Environment.NewLine, expected) + Environment.NewLine));
+    }
+
+    [Fact]
+    public void Test_BotHelp_ListsAdminCommandsAndDescriptions_WhenUserIsAdmin()
+    {
+        _target.TestCommand("help", _nickWithAdminUser);
+
+        var expected = new[] {
+            "This bot responds to the following commands:",
+            "	 (?:dammit )?bot die - Disconnect from any connected protocols, stop any running services, and shut down the bot. (admin only)",
             "	 (?:dammit )?bot help( .+)? - Get usage information for the available bot commands.",
             "	 (?:dammit )?bot remind ([\\s]+).+ - Set reminders; messages which the bot will send to a user or channel at a predefined point in the future."
         };

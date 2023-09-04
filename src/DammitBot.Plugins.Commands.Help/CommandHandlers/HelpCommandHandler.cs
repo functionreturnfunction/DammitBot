@@ -47,17 +47,22 @@ public class HelpCommandHandler : CommandHandlerBase
     
     #region Private Methods
 
-    private IEnumerable<HandlesCommandAttribute> GetCommandHandlerAttributes()
+    private IEnumerable<HandlesCommandAttribute> GetCommandHandlerAttributes(
+        CommandEventArgs commandEventArgs)
     {
         var types =  _assemblyTypeService
             .GetTypesFromAllAssemblies();
-        return types
+        var attributes = types
             .Where(
                 t =>
                     !t.IsAbstract && typeof(CommandHandlerBase).IsAssignableFrom(t) &&
                     t.HasAttribute<HandlesCommandAttribute>())
             .OrderBy(x => x.Name)
             .Select(t => t.GetCustomAttribute<HandlesCommandAttribute>()!);
+
+        return commandEventArgs.UserIsAdmin
+            ? attributes
+            : attributes.Where(a => !a.AdminOnly);
     }
 
     private string StripBeginningAndEndMarkers(string regex)
@@ -65,15 +70,15 @@ public class HelpCommandHandler : CommandHandlerBase
         return new Regex("([^\\\\])?(?:\\^|\\$)").Replace(regex, "$1");
     }
 
-    private string BuildHelpMessage()
+    private string BuildHelpMessage(CommandEventArgs commandEventArgs)
     {
         var sb = new StringBuilder("This bot responds to the following commands:" + Environment.NewLine);
 
-        foreach (var attribute in GetCommandHandlerAttributes())
+        foreach (var attribute in GetCommandHandlerAttributes(commandEventArgs))
         {
             sb.AppendLine(
                 $"\t {_config.GoesBy} {StripBeginningAndEndMarkers(attribute.Regex.ToString())} " + 
-                $"- {attribute.Description}");
+                $"- {attribute.Description}{(attribute.AdminOnly ? " (admin only)" : null)}");
         }
 
         return sb.ToString();
@@ -88,7 +93,7 @@ public class HelpCommandHandler : CommandHandlerBase
     /// </summary>
     public override void Handle(CommandEventArgs e)
     {
-        Bot.ReplyToMessage(e, BuildHelpMessage());
+        Bot.ReplyToMessage(e, BuildHelpMessage(e));
     }
 
     #endregion

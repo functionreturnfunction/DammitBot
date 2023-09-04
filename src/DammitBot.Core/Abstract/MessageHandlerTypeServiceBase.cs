@@ -63,30 +63,19 @@ public abstract class MessageHandlerTypeServiceBase<
 
     #endregion
 
-    #region Abstract Methods
-
-    /// <summary>
-    /// Return the text of the supplied <paramref name="message"/>. 
-    /// </summary>
-    protected abstract string? GetMessageText(TMessageEventArgs message);
-
-    #endregion
-
     #region Exposed Methods
 
     /// <inheritdoc cref="IMessageHandlerTypeService{TMessageHandler,TMessageEventArgs}.GetMatchingHandlerTypes"/>
     public virtual IEnumerable<Type> GetMatchingHandlerTypes(TMessageEventArgs message)
     {
-        var messageText = GetMessageText(message);
-
-        if (messageText == null)
+        if (message.Message == null)
         {
             yield break;
         }
         
         foreach (var type in GetTypes())
         {
-            if (_attributeComparer.MessageMatches(messageText, type))
+            if (_attributeComparer.MessageMatches(message, type))
             {
                 yield return type;
             }

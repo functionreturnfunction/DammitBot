@@ -11,21 +11,37 @@ public class MessageEventArgs : EventArgs
     #region Properties
 
     /// <summary>
-    /// The message being observed and/or handled.
+    /// The raw text of message being observed and/or handled.
     /// </summary>
-    public virtual string Message { get; }
+    public string RawMessage { get; }
     /// <summary>
     /// Specific channel from which the message originated.
     /// </summary>
-    public virtual string Channel { get; }
+    public string Channel { get; }
     /// <summary>
     /// Specific protocol from which the message originated.
     /// </summary>
-    public virtual string Protocol { get; }
+    public string Protocol { get; }
     /// <summary>
     /// Entity who sent the message.
     /// </summary>
-    public virtual string User { get; }
+    public string User { get; }
+
+    /// <summary>
+    /// Boolean value indicating whether or not the user who sent the message is an admin.
+    /// </summary>
+    /// <remarks>
+    /// This implementation will always return false, because basic messages have no way of telling if
+    /// they were sent by an admin user.
+    /// </remarks>
+    public virtual bool UserIsAdmin => false;
+    /// <summary>
+    /// The text of the message being handled, after being filtered for a specific purpose.
+    /// </summary>
+    /// <remarks>
+    /// This implementation returns the <see cref="RawMessage"/>.
+    /// </remarks>
+    public virtual string? Message => RawMessage;
 
     #endregion
     
@@ -34,9 +50,9 @@ public class MessageEventArgs : EventArgs
     /// <summary>
     /// Constructor for the <see cref="MessageEventArgs"/> class.
     /// </summary>
-    public MessageEventArgs(string message, string channel, string protocol, string user)
+    public MessageEventArgs(string rawMessage, string channel, string protocol, string user)
     {
-        Message = message;
+        RawMessage = rawMessage;
         Channel = channel;
         Protocol = protocol;
         User = user;

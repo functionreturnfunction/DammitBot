@@ -1,4 +1,5 @@
 using System;
+using DammitBot.Events;
 using DammitBot.Metadata;
 
 namespace DammitBot.Abstract;
@@ -16,7 +17,7 @@ public interface IMessageHandlerAttributeComparer<TAttributeBase>
     /// Returns a boolean indicating whether or not the supplied <paramref name="handlerType"/> has a
     /// <typeparamref name="TAttributeBase"/> which matches the supplied <paramref name="message"/>.
     /// </summary>
-    bool MessageMatches(string message, Type handlerType);
+    bool MessageMatches(MessageEventArgs message, Type handlerType);
     
     #endregion
 }

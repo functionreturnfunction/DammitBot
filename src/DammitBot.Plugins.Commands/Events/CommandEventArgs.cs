@@ -20,6 +20,18 @@ public class CommandEventArgs : MessageEventArgs
     /// </summary>
     public virtual Nick From { get; }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation checks the <see cref="Nick"/> <see cref="From"/> property to see if it has a
+    /// <see cref="User"/>, and if that <see cref="User"/> is an admin (<see cref="User.IsAdmin"/>).
+    /// </remarks>
+    public override bool UserIsAdmin => From.User?.IsAdmin ?? false;
+    /// <inheritdoc />
+    /// <remarks>
+    /// This implementation returns the filtered <see cref="Command"/>.
+    /// </remarks>
+    public override string? Message => Command;
+
     #endregion
 
     #region Constructors
@@ -28,7 +40,7 @@ public class CommandEventArgs : MessageEventArgs
     /// Constructor for the <see cref="CommandEventArgs"/> class.
     /// </summary>
     public CommandEventArgs(MessageEventArgs args, string command, Nick from)
-        : base(args.Message, args.Channel, args.Protocol, args.User)
+        : base(args.RawMessage, args.Channel, args.Protocol, args.User)
     {
         Command = command;
         From = from;
