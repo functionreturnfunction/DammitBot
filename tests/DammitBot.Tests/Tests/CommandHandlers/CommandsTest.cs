@@ -101,6 +101,23 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
         var expected = new[] {
             "This bot responds to the following commands:",
+            "	 (?:dammit )?bot help( .+)? - Get usage information for the available bot commands.",
+            "	 (?:dammit )?bot remind ([\\s]+).+ - Set reminders; messages which the bot will send to a user or channel at a predefined point in the future."
+        };
+
+        _bot.Verify(x =>
+            x.ReplyToMessage(
+                It.IsAny<CommandEventArgs>(),
+                string.Join(Environment.NewLine, expected) + Environment.NewLine));
+    }
+
+    [Fact]
+    public void Test_BotHelp_ListsAdminCommandsAndDescriptions_WhenUserIsAdmin()
+    {
+        _target.TestCommand("help", _nickWithAdminUser);
+
+        var expected = new[] {
+            "This bot responds to the following commands:",
             "	 (?:dammit )?bot die - Disconnect from any connected protocols, stop any running services, and shut down the bot. (admin only)",
             "	 (?:dammit )?bot help( .+)? - Get usage information for the available bot commands.",
             "	 (?:dammit )?bot remind ([\\s]+).+ - Set reminders; messages which the bot will send to a user or channel at a predefined point in the future."
