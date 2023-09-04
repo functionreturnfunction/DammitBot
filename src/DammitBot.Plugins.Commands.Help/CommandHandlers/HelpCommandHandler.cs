@@ -73,7 +73,7 @@ public class HelpCommandHandler : CommandHandlerBase
         {
             sb.AppendLine(
                 $"\t {_config.GoesBy} {StripBeginningAndEndMarkers(attribute.Regex.ToString())} " + 
-                $"- {attribute.Description}");
+                $"- {attribute.Description}{(attribute.AdminOnly ? " (admin only)" : null)}");
         }
 
         return sb.ToString();
