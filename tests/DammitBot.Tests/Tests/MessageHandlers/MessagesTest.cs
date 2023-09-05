@@ -8,6 +8,7 @@ using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
 using Lamar;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -45,6 +46,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
         _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();
         _protocolService = serviceRegistry.For<IProtocolService>().Mock();
         serviceRegistry.For<ISchedulerService>().Mock();
+        serviceRegistry.For(typeof(ILogger<>)).Use(typeof(MockLogger<>));
     }
 
     #endregion

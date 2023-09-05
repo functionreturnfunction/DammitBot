@@ -21,7 +21,7 @@ public class ConsoleMainLoopTest : UnitTestBase<IConsoleMainLoop>
 
         new ConsoleProtocolContainerConfiguration().Configure(serviceRegistry);
 
-        serviceRegistry.For<ILogger<ConsoleMainLoop>>().Mock();
+        serviceRegistry.For(typeof(ILogger<>)).Use(typeof(MockLogger<>));
 
         _bot = serviceRegistry.For<IBot>().Mock();
         _console = serviceRegistry.For<IConsoleIO>().Mock();

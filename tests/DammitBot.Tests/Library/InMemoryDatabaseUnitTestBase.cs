@@ -45,7 +45,7 @@ public abstract class InMemoryDatabaseUnitTestBase<TTarget> : UnitTestBase<TTarg
         serviceRegistry.For<IDbConnection>().Use(_connection);
         serviceRegistry.For<IUnitOfWork>().Use<TestDapperUnitOfWork>();
 
-        serviceRegistry.For<ILogger<MigrationRunner>>().Mock();
+        serviceRegistry.For(typeof(ILogger<>)).Use(typeof(MockLogger<>));
     }
 
     protected virtual void RunMigrations()

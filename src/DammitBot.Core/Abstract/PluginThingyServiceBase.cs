@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DammitBot.Utilities;
 using DammitBot.Wrappers;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Abstract;
 
@@ -19,6 +20,7 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
     #region Private Members
     
     private bool _needsCleanup;
+    private readonly ILogger<PluginThingyServiceBase<TThingy>> _log;
     
     #endregion
 
@@ -27,12 +29,14 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
     /// <summary>
     /// Constructor for the <see cref="PluginThingyServiceBase{TThingy}"/> class.
     /// </summary>
-    /// <param name="assemblyTypeService"></param>
-    /// <param name="instantiationService"></param>
     public PluginThingyServiceBase(
         IAssemblyTypeService assemblyTypeService,
-        IInstantiationService instantiationService)
-        : base(assemblyTypeService, instantiationService) { }
+        IInstantiationService instantiationService,
+        ILogger<PluginThingyServiceBase<TThingy>> log)
+        : base(assemblyTypeService, instantiationService)
+    {
+        _log = log;
+    }
 
     #endregion
     
@@ -59,12 +63,16 @@ public abstract class PluginThingyServiceBase<TThingy> : ThingyServiceBase<TThin
         // initialize "Priority" plugins right away
         foreach (var plugin in thingies.Where(t => t.Priority))
         {
+            _log.LogDebug("Priority-initializing {Plugin}", plugin.GetType().Name);
+            
             plugin.Initialize();
         }
 
         // initialize non-priority plugins afterward
         foreach (var plugin in thingies.Where(t => !t.Priority))
         {
+            _log.LogDebug("Initializing {Plugin}", plugin.GetType().Name);
+            
             plugin.Initialize();
         }
 
