@@ -13,7 +13,7 @@ using Xunit;
 
 namespace DammitBot.Tests.CommandHandlers;
 
-public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTester>
+public class CommandsIntegrationTest : InMemoryDatabaseUnitTestBase<CommandsIntegrationTest.CommandTester>
 {
     #region Private Members
 
@@ -25,7 +25,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.CommandTes
 
     #region Setup/Teardown
     
-    public CommandsTest()
+    public CommandsIntegrationTest()
     {
         var userFaker = new UserFaker();
         var nickFaker = new NickFaker();

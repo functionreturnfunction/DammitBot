@@ -14,7 +14,7 @@ using Xunit;
 
 namespace DammitBot.Tests.MessageHandlers;
 
-public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTester>
+public class MessagesIntegrationTest : InMemoryDatabaseUnitTestBase<MessagesIntegrationTest.MessageTester>
 {
     #region Private Members
 
@@ -53,7 +53,7 @@ public class MessagesTest : InMemoryDatabaseUnitTestBase<MessagesTest.MessageTes
 
     #region Constructors
     
-    public MessagesTest()
+    public MessagesIntegrationTest()
     {
         WithUnitOfWork(uow => {
             var userId = Convert.ToInt32(uow.Insert(new User {Username = "foo"}));
