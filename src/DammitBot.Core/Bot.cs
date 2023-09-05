@@ -2,6 +2,7 @@
 using DammitBot.Events;
 using DammitBot.MessageHandlers;
 using DammitBot.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot;
 
@@ -23,6 +24,7 @@ public class Bot : IBot
     private readonly IMessageHandlerFactory _handlerFactory;
     private readonly IPluginService _pluginService;
     private readonly IProtocolService _protocolService;
+    private readonly ILogger<Bot> _log;
 
     #endregion
 
@@ -41,11 +43,13 @@ public class Bot : IBot
     public Bot(
         IMessageHandlerFactory handlerFactory,
         IProtocolService protocolService,
-        IPluginService pluginService)
+        IPluginService pluginService,
+        ILogger<Bot> log)
     {
         _handlerFactory = handlerFactory;
         _protocolService = protocolService;
         _pluginService = pluginService;
+        _log = log;
     }
 
     #endregion
@@ -54,6 +58,17 @@ public class Bot : IBot
 
     private void Protocols_ChannelMessageReceived(object? sender, MessageEventArgs e)
     {
+        if (_log.IsEnabled(LogLevel.Trace))
+        {
+            _log.LogTrace(
+                "Message received from protocol {Protocol} over channel {Channel} from user " +
+                "{User}: '{Message}'",
+                e.Protocol,
+                e.Channel,
+                e.User,
+                e.RawMessage);
+        }
+
         _handlerFactory.BuildHandler(e).Handle(e);
     }
 
@@ -69,6 +84,8 @@ public class Bot : IBot
             throw new InvalidOperationException("Bot is already running.");
         }
 
+        _log.LogInformation("Bot is starting up");
+        
         _pluginService.Initialize();
         _protocolService.Initialize();
         _protocolService.ChannelMessageReceived += Protocols_ChannelMessageReceived;
@@ -79,18 +96,38 @@ public class Bot : IBot
     /// <inheritdoc cref="IBot.SayToAll"/>
     public void SayToAll(string message)
     {
+        if (_log.IsEnabled(LogLevel.Trace))
+        {
+            _log.LogTrace(
+                "Broadcasting over all protocols to all channels, message {Message}",
+                message);
+        }
+
         _protocolService.SayToAll(message);
     }
 
     /// <inheritdoc cref="IBot.Die"/>
     public void Die()
     {
+        _log.LogInformation("Bot is shutting down");
+
         Running = false;
     }
 
     /// <inheritdoc cref="IBot.ReplyToMessage"/>
     public void ReplyToMessage(MessageEventArgs args, string response)
     {
+        if (_log.IsEnabled(LogLevel.Trace))
+        {
+            _log.LogTrace(
+                "Responding to message {Original} from protocol {Protocol} over channel " +
+                "{Channel} with '{Response}'",
+                args.RawMessage,
+                args.Protocol,
+                args.Channel,
+                response);
+        }
+        
         _protocolService.SayToChannel(args.Protocol, args.Channel, response);
     }
 
