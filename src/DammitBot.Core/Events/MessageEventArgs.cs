@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DammitBot.Events;
 
@@ -6,6 +7,11 @@ namespace DammitBot.Events;
 /// <see cref="EventArgs"/> implementation representing a basic message observed and/or handled by the
 /// bot.  Inheritors can interpret the various properties to suit their specific needs.
 /// </summary>
+[DebuggerDisplay(
+    "Protocol: {Protocol}, " +
+    "Channel: {Channel}, " +
+    "User: {User}{UserIsAdmin ? \" (admin)\" : \"\"}, " +
+    "Message: '{RawMessage}'")]
 public class MessageEventArgs : EventArgs
 {
     #region Properties
