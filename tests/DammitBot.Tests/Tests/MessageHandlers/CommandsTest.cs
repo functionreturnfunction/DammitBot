@@ -43,7 +43,7 @@ public class CommandsTest : InMemoryDatabaseUnitTestBase<CommandsTest.MessageTes
         _commandHandlerFactory = serviceRegistry.For<ICommandHandlerFactory>().Mock();
         serviceRegistry.For<IProtocolService>().Mock();
         serviceRegistry.For<ISchedulerService>().Mock();
-        serviceRegistry.For<ILogger<Bot>>().Mock();
+        serviceRegistry.For(typeof(ILogger<>)).Use(typeof(MockLogger<>));
     }
 
     #endregion

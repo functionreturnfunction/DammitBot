@@ -3,6 +3,7 @@ using System.Linq;
 using DammitBot.Abstract;
 using DammitBot.Events;
 using DammitBot.Wrappers;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Utilities;
 
@@ -16,8 +17,9 @@ public class ProtocolService : PluginThingyServiceBase<IProtocol>, IProtocolServ
     /// </summary>
     public ProtocolService(
         IAssemblyTypeService assemblyTypeService,
-        IInstantiationService instantiationService)
-        : base(assemblyTypeService, instantiationService) { }
+        IInstantiationService instantiationService,
+        ILogger<ProtocolService> log)
+        : base(assemblyTypeService, instantiationService, log) { }
 
     #endregion
 
