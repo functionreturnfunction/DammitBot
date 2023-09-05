@@ -1,5 +1,6 @@
 using DammitBot.Abstract;
 using DammitBot.Wrappers;
+using Microsoft.Extensions.Logging;
 
 namespace DammitBot.Utilities;
 
@@ -13,8 +14,9 @@ public class PluginService : PluginThingyServiceBase<IPlugin>, IPluginService
     /// </summary>
     public PluginService(
         IAssemblyTypeService assemblyTypeService,
-        IInstantiationService instantiationService)
-        : base(assemblyTypeService, instantiationService) { }
+        IInstantiationService instantiationService,
+        ILogger<PluginService> log)
+        : base(assemblyTypeService, instantiationService, log) { }
     
     #endregion
 }

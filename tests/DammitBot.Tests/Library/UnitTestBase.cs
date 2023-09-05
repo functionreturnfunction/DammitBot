@@ -33,7 +33,7 @@ public abstract class UnitTestBase<TTarget> : IDisposable
             .Use<IDateTimeProvider, TestDateTimeProvider>(
                 new TestDateTimeProvider(_now = DateTime.Now));
 
-        serviceRegistry.For<ILogger<TTarget>>().Mock();
+        serviceRegistry.For(typeof(ILogger<>)).Use(typeof(MockLogger<>));
     }
 
     protected virtual void ExtraSetup() {}
